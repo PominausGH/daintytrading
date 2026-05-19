@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="google-site-verification" content="V4tv1Ds0qfskA15qPKqndEsVqsO7xyT10CYzFDBV0BQ" />
+  <title>AutoArchive — Personal Email Archive &amp; Search | Dainty Trading</title>
+  <meta name="description" content="AutoArchive is a personal email archive and search tool that respects your data. Static frontend, lean Node contact handler, Brevo for newsletter capture. No surveillance, no SaaS lock-in." />
+  <link rel="canonical" href="https://daintytrading.com/projects/autoarchive.html" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="AutoArchive" />
+  <meta property="og:description" content="A personal email archive and search tool that respects your data." />
+  <meta property="og:url" content="https://daintytrading.com/projects/autoarchive.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Dainty Trading — AI Automation Studio" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="apple-mobile-web-app-title" content="Dainty Trading" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"AutoArchive","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","description":"Personal email archive and search with newsletter capture.","url":"https://autoarchivemail.com","publisher":{"@type":"Organization","name":"Dainty Trading"}}
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a><a href="/services.html">Services</a><a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> / <a href="/#projects">Projects</a> / AutoArchive</div>
+        <h1>AutoArchive</h1>
+        <p class="lede">A small, sharp tool for archiving and searching your own email. No SaaS lock-in, no surveillance, no syncing your inbox to a third-party AI to be monetised. Just a clean archive you control.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Category</strong>&nbsp; Email · Automation</span>
+          <span class="chip"><strong>Stack</strong>&nbsp; Nginx · Node · SQLite</span>
+          <span class="chip"><strong>Email</strong>&nbsp; Brevo</span>
+          <span class="chip"><strong>Status</strong>&nbsp; Live</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <h2>The problem</h2>
+          <p>Most email tools assume you want them in your inbox forever. The privacy-conscious half of the market wants the opposite: archive everything older than ninety days, search it locally, and never give a third party the keys to read it. We built for that audience.</p>
+
+          <h2>What we built</h2>
+          <p>AutoArchive ships as a static front-end behind Nginx, a small Node contact handler, and a SQLite-backed archive on disk. Newsletter capture runs through Brevo without exposing your subscriber list to a vendor that might pivot. The whole thing fits on a small VPS and runs on hardware you can describe in a sentence.</p>
+
+          <h2>The automation angle</h2>
+          <p>The interesting work is the email-in pipeline. Inbound mail goes through a deterministic rules layer (header fingerprints, list-IDs, content patterns) and only the fall-throughs hit anything fancy. The result is a system you can audit by reading 200 lines of code, which is the right answer for a privacy product.</p>
+
+          <h2>How it&rsquo;s used</h2>
+          <ul>
+            <li><strong>Privacy-conscious individuals</strong> who want their inbox under their own roof.</li>
+            <li><strong>Newsletter operators</strong> who want a lightweight signup that doesn&rsquo;t leak.</li>
+            <li><strong>Small businesses</strong> with a fixed contact form they can trust.</li>
+          </ul>
+
+          <h2>What it taught us</h2>
+          <p>That &ldquo;boring stack&rdquo; is a feature when the audience cares about privacy. Every avoided dependency is a vector that doesn&rsquo;t need explaining. AutoArchive is one of the smallest projects in the portfolio and one of the easiest to keep running.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>Project facts</h4>
+          <div class="label-row"><span>Status</span><span>Live</span></div>
+          <div class="label-row"><span>Domain</span><span>autoarchivemail.com</span></div>
+          <div class="label-row"><span>Frontend</span><span>Static HTML · Nginx</span></div>
+          <div class="label-row"><span>Backend</span><span>Node contact handler</span></div>
+          <div class="label-row"><span>Database</span><span>SQLite</span></div>
+          <div class="label-row"><span>Email</span><span>Brevo</span></div>
+          <a class="btn btn-primary" href="https://autoarchivemail.com" rel="noopener">Visit AutoArchive →</a>
+          <a class="btn btn-ghost" href="/contact.html">Build something similar</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Project navigation">
+        <a href="/projects/focusguard.html"><div class="lbl">← Previous</div><div class="ttl">FocusGuard</div></a>
+        <a href="/projects/timerforge.html" style="text-align:right;"><div class="lbl">Next →</div><div class="ttl">TimerForge</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2026 Dainty Trading. All rights reserved.</span>
+        <span><a href="/">Home</a> · <a href="/#projects">Projects</a> · <a href="/contact.html">Contact</a></span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

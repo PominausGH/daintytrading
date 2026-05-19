@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="google-site-verification" content="V4tv1Ds0qfskA15qPKqndEsVqsO7xyT10CYzFDBV0BQ" />
+  <title>Billing API — Shared SaaS Billing Infrastructure | Dainty Trading</title>
+  <meta name="description" content="Billing API is the shared payments and subscription service across Dainty Trading's portfolio. Stripe, Brevo, Postgres, Fastify — every product launches with billing wired in on day one." />
+  <link rel="canonical" href="https://daintytrading.com/projects/billing-api.html" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Billing API" />
+  <meta property="og:description" content="Shared billing service across the Dainty Trading portfolio." />
+  <meta property="og:url" content="https://daintytrading.com/projects/billing-api.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Dainty Trading — AI Automation Studio" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="apple-mobile-web-app-title" content="Dainty Trading" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebAPI","name":"Billing API","description":"Shared billing and subscription API across the Dainty Trading portfolio.","url":"https://daintytrading.com/projects/billing-api.html","provider":{"@type":"Organization","name":"Dainty Trading"}}
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a><a href="/services.html">Services</a><a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> / <a href="/#projects">Projects</a> / Billing API</div>
+        <h1>Billing API</h1>
+        <p class="lede">A single billing service backing the whole portfolio. Stripe, subscriptions, metering, refunds, dunning, lifecycle email through Brevo &mdash; every new product gets payments wired in on the first day, not the third sprint.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Category</strong>&nbsp; Infrastructure · SaaS</span>
+          <span class="chip"><strong>Stack</strong>&nbsp; Node · Fastify · Postgres</span>
+          <span class="chip"><strong>Integrations</strong>&nbsp; Stripe · Brevo</span>
+          <span class="chip"><strong>Status</strong>&nbsp; In development</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <h2>The problem</h2>
+          <p>Every new product needed billing, and every new product was implementing billing from scratch. Webhook handling, trial logic, plan upgrades, proration, dunning emails &mdash; the same code, slightly different bugs, in twenty places. The cost wasn&rsquo;t the first build; it was the maintenance tax across the portfolio.</p>
+
+          <h2>What we built</h2>
+          <p>Billing API is a Fastify service backed by Postgres that owns customers, plans, subscriptions, invoices, and webhook reconciliation. Every product calls a small set of endpoints &mdash; create checkout, get entitlements, cancel subscription &mdash; and never touches Stripe directly. The service handles retries, idempotency, plan changes, and downstream lifecycle email through Brevo. Jest tests cover the state machine.</p>
+
+          <h2>The automation angle</h2>
+          <p>The flagship automation is the dunning flow: failed payment triggers a sequence of escalating reminders with grace periods, and reaches a hard cancel only after the configured policy is exhausted. Win-back happens automatically when a cancelled customer renews. The sequence is product-specific without each product having to understand it &mdash; the policy lives once, in the API.</p>
+
+          <h2>How it&rsquo;s used</h2>
+          <ul>
+            <li><strong>Every paid product</strong> in the Dainty Trading portfolio.</li>
+            <li><strong>Internal admin tools</strong> for support, refunds, and entitlement overrides.</li>
+            <li><strong>Reporting</strong> rolling up MRR, churn, LTV across the whole portfolio in one place.</li>
+          </ul>
+
+          <h2>What it taught us</h2>
+          <p>That billing is a state machine, and pretending otherwise costs you sleep. Modeling the lifecycle explicitly &mdash; with named states, named transitions, and a strict rule that webhook events can only mutate state through known transitions &mdash; turned a class of intermittent bugs into impossibilities. We carry that pattern into every client engagement that touches money.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>Project facts</h4>
+          <div class="label-row"><span>Status</span><span>In development</span></div>
+          <div class="label-row"><span>Access</span><span>Internal API only</span></div>
+          <div class="label-row"><span>Backend</span><span>Node · Fastify</span></div>
+          <div class="label-row"><span>Database</span><span>Postgres</span></div>
+          <div class="label-row"><span>Payments</span><span>Stripe</span></div>
+          <div class="label-row"><span>Email</span><span>Brevo</span></div>
+          <div class="label-row"><span>Tests</span><span>Jest</span></div>
+          <a class="btn btn-primary" href="/contact.html">Build something similar</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Project navigation">
+        <a href="/projects/yoga-platform.html"><div class="lbl">← Previous</div><div class="ttl">Yoga Platform</div></a>
+        <a href="/projects/recipe-api.html" style="text-align:right;"><div class="lbl">Next →</div><div class="ttl">Recipe API</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2026 Dainty Trading. All rights reserved.</span>
+        <span><a href="/">Home</a> · <a href="/#projects">Projects</a> · <a href="/contact.html">Contact</a></span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

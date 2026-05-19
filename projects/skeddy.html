@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="google-site-verification" content="V4tv1Ds0qfskA15qPKqndEsVqsO7xyT10CYzFDBV0BQ" />
+  <title>Whisp — Telegram Reminder Bot with Natural-Language Scheduling | Dainty Trading</title>
+  <meta name="description" content="Whisp is a Telegram reminder bot that listens to plain English. Quiet hours, vacation mode, recurring tasks — all parsed by Claude, stored in Postgres, delivered on time." />
+  <link rel="canonical" href="https://daintytrading.com/projects/skeddy.html" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Whisp — Telegram reminder bot" />
+  <meta property="og:description" content="Natural-language scheduling for Telegram, parsed by Claude." />
+  <meta property="og:url" content="https://daintytrading.com/projects/skeddy.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Dainty Trading — AI Automation Studio" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="apple-mobile-web-app-title" content="Dainty Trading" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Whisp","applicationCategory":"UtilitiesApplication","operatingSystem":"Telegram","description":"Telegram reminder bot with natural-language scheduling powered by Claude.","url":"https://reminder.signalreads.com","publisher":{"@type":"Organization","name":"Dainty Trading"}}
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a><a href="/services.html">Services</a><a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> / <a href="/#projects">Projects</a> / Whisp</div>
+        <h1>Whisp</h1>
+        <p class="lede">A Telegram reminder bot that listens to plain English. Tell Whisp &ldquo;remind me to call mum every Sunday at 6pm but not while I&rsquo;m on holiday,&rdquo; and it figures out what you meant.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Category</strong>&nbsp; AI · Bots</span>
+          <span class="chip"><strong>Stack</strong>&nbsp; Python · Postgres</span>
+          <span class="chip"><strong>LLM</strong>&nbsp; Anthropic Claude</span>
+          <span class="chip"><strong>Status</strong>&nbsp; In final testing</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <h2>The problem</h2>
+          <p>Existing reminder apps make you fight a date picker. Existing voice assistants make you fight their grammar. Most of the time the right interface is the chat window already open on your phone &mdash; you say what you mean, the bot does the rest.</p>
+
+          <h2>What we built</h2>
+          <p>Whisp is a Telegram bot that accepts natural-language scheduling and turns it into structured reminders. It supports recurring tasks (&ldquo;every weekday&rdquo;, &ldquo;the last Friday of each month&rdquo;), per-user timezones, quiet hours, vacation mode, and one-shot reminders with relative dates (&ldquo;in two hours&rdquo;, &ldquo;next Tuesday morning&rdquo;). Tasks live in Postgres; a worker fires them on time and handles silent windows.</p>
+
+          <h2>The AI angle</h2>
+          <p>Claude does the parsing. The prompt is small, deterministic, and asks for a structured JSON object. We constrain it with a schema and a tight set of examples; the bot only proceeds if the parse round-trips back into a sentence the user agrees with. When the user says &ldquo;yes that&rsquo;s right&rdquo;, both the input and the parse get logged to a regression set we use to vet new prompt versions.</p>
+
+          <h2>How it&rsquo;s used</h2>
+          <ul>
+            <li><strong>Busy parents</strong> who want to capture a reminder without unlocking another app.</li>
+            <li><strong>Founders</strong> who already live in Telegram for ops chats.</li>
+            <li><strong>Teams</strong> using a shared Whisp bot as a lightweight scheduler for routine pings.</li>
+          </ul>
+
+          <h2>What it taught us</h2>
+          <p>That natural-language input only works when the bot reflects back what it understood, every time. The single biggest reduction in user errors came from making Whisp say &ldquo;OK &mdash; reminder set for Tuesday 9pm, repeats weekly. Reply &lsquo;no&rsquo; to fix.&rdquo; before committing. The undo is more important than the parser.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>Project facts</h4>
+          <div class="label-row"><span>Status</span><span>In final testing</span></div>
+          <div class="label-row"><span>Site</span><span>reminder.signalreads.com</span></div>
+          <div class="label-row"><span>Bot</span><span>Telegram</span></div>
+          <div class="label-row"><span>Backend</span><span>Python</span></div>
+          <div class="label-row"><span>Database</span><span>Postgres</span></div>
+          <div class="label-row"><span>Modes</span><span>Quiet · Vacation · Recurring</span></div>
+          <div class="label-row"><span>LLM</span><span>Anthropic Claude</span></div>
+          <a class="btn btn-primary" href="https://reminder.signalreads.com" rel="noopener">Visit Whisp →</a>
+          <a class="btn btn-ghost" href="/contact.html">Build something similar</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Project navigation">
+        <a href="/projects/meditation.html"><div class="lbl">← Previous</div><div class="ttl">Meditation</div></a>
+        <a href="/projects/marketing-os.html" style="text-align:right;"><div class="lbl">Next →</div><div class="ttl">Marketing OS</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2026 Dainty Trading. All rights reserved.</span>
+        <span><a href="/">Home</a> · <a href="/#projects">Projects</a> · <a href="/contact.html">Contact</a></span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

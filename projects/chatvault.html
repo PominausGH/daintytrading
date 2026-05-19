@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="google-site-verification" content="V4tv1Ds0qfskA15qPKqndEsVqsO7xyT10CYzFDBV0BQ" />
+  <title>ChatVault — One Searchable Archive for Every LLM Conversation | Dainty Trading</title>
+  <meta name="description" content="ChatVault aggregates conversations from Claude, ChatGPT, Gemini, Grok, and Perplexity into a single searchable archive. Stop losing the answer you got three weeks ago in a different tab." />
+  <link rel="canonical" href="https://daintytrading.com/projects/chatvault.html" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="ChatVault — your LLM conversations, all in one place" />
+  <meta property="og:description" content="Aggregate Claude, ChatGPT, Gemini, Grok, and Perplexity into one searchable archive." />
+  <meta property="og:url" content="https://daintytrading.com/projects/chatvault.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Dainty Trading — AI Automation Studio" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="apple-mobile-web-app-title" content="Dainty Trading" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"ChatVault","applicationCategory":"ProductivityApplication","operatingSystem":"Web","description":"Aggregates conversations from Claude, ChatGPT, Gemini, Grok, and Perplexity into a single searchable archive.","url":"https://daintytrading.com/projects/chatvault.html","publisher":{"@type":"Organization","name":"Dainty Trading"}}
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a><a href="/services.html">Services</a><a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> / <a href="/#projects">Projects</a> / ChatVault</div>
+        <h1>ChatVault</h1>
+        <p class="lede">One searchable archive for every conversation you&rsquo;ve had with every model. Claude, ChatGPT, Gemini, Grok, Perplexity &mdash; all in one place, indexed by what you actually said and what they actually answered.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Category</strong>&nbsp; AI · Knowledge management</span>
+          <span class="chip"><strong>Stack</strong>&nbsp; Python · Postgres · pgvector</span>
+          <span class="chip"><strong>Sources</strong>&nbsp; Claude · ChatGPT · Gemini · Grok · Perplexity</span>
+          <span class="chip"><strong>Status</strong>&nbsp; In final testing</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <h2>The problem</h2>
+          <p>If you use multiple LLMs &mdash; and most serious users now do &mdash; your knowledge is scattered. The brilliant breakdown of a contract clause is in Claude. The code review that actually caught the bug is in ChatGPT. The one Gemini answer you keep meaning to come back to is somewhere on a different device. None of them talk to each other; none of them are searchable across providers; and none of them survive the moment you change subscriptions.</p>
+
+          <h2>What we&rsquo;re building</h2>
+          <p>ChatVault is a single archive that ingests conversations from every major LLM provider &mdash; Claude, ChatGPT, Gemini, Grok, and Perplexity &mdash; through their export formats and APIs. Each conversation is stored in Postgres with full-text and semantic indexes (Postgres full-text + <code>pgvector</code>), plus a normalised schema for who-said-what, when, with which model, and at what cost.</p>
+          <p>Search works two ways: keyword (fast, exact, finds the Slack-paste of a regex) and semantic (slower, fuzzy, finds &ldquo;that thing about negotiation tactics from a few weeks ago&rdquo; without the right keywords). Results show the surrounding turns so you get the context, not just the snippet.</p>
+
+          <h2>The AI angle</h2>
+          <p>The interesting work is the recall layer. Embeddings catch the gist; re-ranking with Claude promotes the result that actually answers your question. We log the click-through &mdash; which result the user opened, whether they marked it useful &mdash; and use it to tune ranking over time. Over a few weeks of use the archive becomes meaningfully tailored to how you actually search.</p>
+
+          <h2>How it&rsquo;ll be used</h2>
+          <ul>
+            <li><strong>Power users of multiple models</strong> who want one place that doesn&rsquo;t care which provider produced the answer.</li>
+            <li><strong>Researchers and writers</strong> who use AI for thinking partners and want every prior thread retrievable.</li>
+            <li><strong>Engineers</strong> revisiting code reviews, prompt iterations, and debugging conversations across tools.</li>
+          </ul>
+
+          <h2>Where we are</h2>
+          <p>Ingest is working for Claude exports, ChatGPT exports, Gemini history, and Perplexity threads. Grok is the latest addition. Semantic recall is in private testing with a re-rank step. Next milestone is a small browser extension that captures conversations as you have them, instead of waiting on export-and-import.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>Project facts</h4>
+          <div class="label-row"><span>Status</span><span>In final testing</span></div>
+          <div class="label-row"><span>Site</span><span>chatvault.daintytrading.com</span></div>
+          <div class="label-row"><span>Backend</span><span>Python</span></div>
+          <div class="label-row"><span>Database</span><span>Postgres · pgvector</span></div>
+          <div class="label-row"><span>Sources</span><span>Claude · ChatGPT · Gemini · Grok · Perplexity</span></div>
+          <div class="label-row"><span>Search</span><span>Full-text + semantic</span></div>
+          <div class="label-row"><span>LLM</span><span>Anthropic Claude (re-rank)</span></div>
+          <a class="btn btn-primary" href="/contact.html">Build something similar</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Project navigation">
+        <a href="/projects/marketing-os.html"><div class="lbl">← Previous</div><div class="ttl">Marketing OS</div></a>
+        <a href="/projects/tax-prep.html" style="text-align:right;"><div class="lbl">Next →</div><div class="ttl">Tax Prep</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2026 Dainty Trading. All rights reserved.</span>
+        <span><a href="/">Home</a> · <a href="/#projects">Projects</a> · <a href="/contact.html">Contact</a></span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,72 @@
+# https://daintytrading.com/robots.txt
+# Dainty Trading — AI Automation Studio
+# We welcome search engines and AI crawlers. See /llms.txt for AI-friendly summary.
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+# Major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# AI crawlers — explicitly welcome
+# IMPORTANT: Cloudflare's "Manage AI bots" managed rule (Security > WAF >
+# Managed Rules > Cloudflare Bot Management ruleset) currently blocks
+# ClaudeBot, PerplexityBot, ChatGPT-User, Claude-Web, Perplexity-User and
+# Bytespider with HTTP 403 on this zone. Set that rule's action to Skip
+# in the Cloudflare dashboard if you want AI engines to actually fetch
+# the site — robots.txt has no effect on edge-level blocks.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+Sitemap: https://daintytrading.com/sitemap.xml

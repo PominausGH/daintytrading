@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="google-site-verification" content="V4tv1Ds0qfskA15qPKqndEsVqsO7xyT10CYzFDBV0BQ" />
+  <title>Second Brain — Telegram Note-Taking with AI Recall | Dainty Trading</title>
+  <meta name="description" content="Second Brain is a Telegram-based note-taking system. Forward anything — text, voice, photos, links — and Claude organises, tags, and surfaces it back when you actually need it." />
+  <link rel="canonical" href="https://daintytrading.com/projects/second-brain.html" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Second Brain — Telegram-native note-taking" />
+  <meta property="og:description" content="Forward to a bot, AI organises, you find it again instantly." />
+  <meta property="og:url" content="https://daintytrading.com/projects/second-brain.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Dainty Trading — AI Automation Studio" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="apple-mobile-web-app-title" content="Dainty Trading" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Second Brain","applicationCategory":"ProductivityApplication","operatingSystem":"Telegram","description":"Telegram-based personal knowledge base with AI-powered organisation and recall.","url":"https://secondbrain.daintytrading.com","publisher":{"@type":"Organization","name":"Dainty Trading"}}
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a><a href="/services.html">Services</a><a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> / <a href="/#projects">Projects</a> / Second Brain</div>
+        <h1>Second Brain</h1>
+        <p class="lede">A note-taking system you already know how to use, because it lives where you already live: Telegram. Forward anything &mdash; voice, photo, link, half-written thought &mdash; and Claude organises it, tags it, and gives it back to you when you actually need it.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Category</strong>&nbsp; AI · Knowledge management</span>
+          <span class="chip"><strong>Stack</strong>&nbsp; Python · Postgres · pgvector</span>
+          <span class="chip"><strong>LLM</strong>&nbsp; Anthropic Claude</span>
+          <span class="chip"><strong>Status</strong>&nbsp; In final testing</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <h2>The problem</h2>
+          <p>Note-taking apps fail at the capture step, not the storage step. The friction of opening Notion, choosing a database, picking a template, and typing a title is the reason most thoughts evaporate. Meanwhile, everyone with a phone has a chat window already open. We wanted a knowledge base that started with the chat window and let everything else happen quietly in the background.</p>
+
+          <h2>What we&rsquo;re building</h2>
+          <p>Second Brain is a Telegram bot you forward things to. Voice notes get transcribed; photos get OCR&rsquo;d; links get fetched and summarised; plain messages get filed. Claude reads each capture, decides what kind of thing it is (idea, task, reference, memory, contact), tags it, and links it to anything related you&rsquo;ve already saved. Storage is Postgres with <code>pgvector</code> for semantic search.</p>
+          <p>Recall is the other half. You ask the bot in plain English &mdash; &ldquo;what was that book a friend recommended in March about negotiation?&rdquo; &mdash; and Second Brain searches embeddings, ranks candidates, and returns the original capture with the surrounding context. No app to open, no folder to remember, no tag to have created.</p>
+
+          <h2>The AI angle</h2>
+          <p>Three Claude calls per capture. The first decides the type. The second writes a one-line summary and a set of tags. The third looks at recent captures and proposes links (&ldquo;this looks like a follow-up to the Tuesday note about onboarding&rdquo;) for you to confirm or ignore. Recall uses embeddings first, then Claude to re-rank the top candidates against the query &mdash; the combination is what makes &ldquo;the book about negotiation from March&rdquo; actually find the right note.</p>
+
+          <h2>How it&rsquo;ll be used</h2>
+          <ul>
+            <li><strong>Founders</strong> who think in voice notes between meetings.</li>
+            <li><strong>Researchers</strong> who collect snippets faster than they can file them.</li>
+            <li><strong>Anyone with a chat-first workflow</strong> who&rsquo;s tried &mdash; and abandoned &mdash; three other note apps.</li>
+          </ul>
+
+          <h2>Where we are</h2>
+          <p>Capture, transcription, OCR, and tagging are working. Semantic recall is in private testing. The next milestone is the link-suggestion layer and a small web view for browsing the corpus. Expect a public beta in the second half of 2026.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>Project facts</h4>
+          <div class="label-row"><span>Status</span><span>In final testing</span></div>
+          <div class="label-row"><span>Site</span><span>secondbrain.daintytrading.com</span></div>
+          <div class="label-row"><span>Interface</span><span>Telegram</span></div>
+          <div class="label-row"><span>Backend</span><span>Python</span></div>
+          <div class="label-row"><span>Database</span><span>Postgres · pgvector</span></div>
+          <div class="label-row"><span>Capture</span><span>Voice · Photo · Link · Text</span></div>
+          <div class="label-row"><span>LLM</span><span>Anthropic Claude</span></div>
+          <a class="btn btn-primary" href="https://secondbrain.daintytrading.com" rel="noopener">Visit Second Brain →</a>
+          <a class="btn btn-ghost" href="/contact.html">Build something similar</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Project navigation">
+        <a href="/projects/tax-prep.html"><div class="lbl">← Previous</div><div class="ttl">Tax Prep</div></a>
+        <a href="/projects/convoforge.html" style="text-align:right;"><div class="lbl">Next →</div><div class="ttl">ConvoForge</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2026 Dainty Trading. All rights reserved.</span>
+        <span><a href="/">Home</a> · <a href="/#projects">Projects</a> · <a href="/contact.html">Contact</a></span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

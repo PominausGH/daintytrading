@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="google-site-verification" content="V4tv1Ds0qfskA15qPKqndEsVqsO7xyT10CYzFDBV0BQ" />
+  <title>Price Scout — Dainty Trading</title>
+  <meta name="description" content="A cost-of-living dashboard that tracks grocery, fuel, and energy prices across Australia and the UK. Households see how their spending compares week to week — without manually checking five supermarket apps." />
+  <link rel="canonical" href="https://daintytrading.com/projects/price-scout.html" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Price Scout" />
+  <meta property="og:description" content="A cost-of-living dashboard that tracks grocery, fuel, and energy prices across Australia and the UK. Households see how their spending compares week to week — without manually checking five supermarket apps." />
+  <meta property="og:url" content="https://daintytrading.com/projects/price-scout.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Dainty Trading — AI Automation Studio" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="apple-mobile-web-app-title" content="Dainty Trading" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Price Scout","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"A cost-of-living dashboard that tracks grocery, fuel, and energy prices across Australia and the UK. Households see how their spending compares week to week — without manually checking five supermarket apps.","url":"https://daintytrading.com/projects/price-scout.html","publisher":{"@type":"Organization","name":"Dainty Trading"}}
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a><a href="/services.html">Services</a><a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> / <a href="/#projects">Projects</a> / Price Scout</div>
+        <h1>Price Scout</h1>
+        <p class="lede">A cost-of-living dashboard that tracks grocery, fuel, and energy prices across Australia and the UK. Households see how their spending compares week to week — without manually checking five supermarket apps.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Category</strong>&nbsp; AI · Cost-of-living</span>
+          <span class="chip"><strong>Stack</strong>&nbsp; Next.js 14 · Postgres · Prisma · BullMQ</span>
+          <span class="chip"><strong>LLM</strong>&nbsp; —</span>
+          <span class="chip"><strong>Status</strong>&nbsp; In final testing</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <h2>The problem</h2>
+          <p>Cost-of-living conversations are mostly anecdote. The data exists — supermarkets, fuel stations, and energy providers all publish prices — but it&rsquo;s scattered, formatted differently, and goes stale by the time anyone aggregates it. Households can&rsquo;t tell if their grocery bill is rising because of inflation or because their habits changed.</p>
+
+          <h2>What we&rsquo;re building</h2>
+          <p>Price Scout scrapes weekly price snapshots across major Australian and UK retailers via SerpAPI, normalises them into a per-item-per-region database, and surfaces trends week-over-week. Households connect their preferred basket — what they actually buy — and see whether their spend is tracking with the broader market or drifting.</p>
+
+          <h2>The data angle</h2>
+          <p>The interesting work isn&rsquo;t the scraping &mdash; it&rsquo;s the normalisation. &ldquo;500g pasta&rdquo; means six different SKUs across six retailers; matching them takes a structured product taxonomy that&rsquo;s curated, not learned. We treat the taxonomy as the asset.</p>
+
+          <h2>How it&rsquo;ll be used</h2>
+          <ul><li><strong>Households</strong> doing a budget reset who want a baseline.</li><li><strong>Journalists and policy researchers</strong> who need cost-of-living data without paying for ABS or ONS API access.</li><li><strong>Comparison sites</strong> who want a clean per-item history feed.</li></ul>
+
+          <h2>Where we are</h2>
+          <p>Scrapers and the taxonomy are working. The household dashboard is in private testing with a small group of users in both regions. Next milestone is the alerts layer &mdash; tell users when an item in their basket spikes or drops more than a threshold.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>Project facts</h4>
+          <div class="label-row"><span>Status</span><span>In final testing</span></div>
+          <div class="label-row"><span>Site</span><span>pricescout.daintytrading.com</span></div>
+          <div class="label-row"><span>Frontend</span><span>Next.js 14</span></div>
+          <div class="label-row"><span>Database</span><span>Postgres · Prisma</span></div>
+          <div class="label-row"><span>Workers</span><span>BullMQ on Redis</span></div>
+          <div class="label-row"><span>Source</span><span>SerpAPI</span></div>
+          <div class="label-row"><span>Coverage</span><span>AU · UK</span></div>
+          <a class="btn btn-primary" href="/contact.html">Build something similar</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Project navigation">
+        <a href="/projects/convoforge.html"><div class="lbl">← Previous</div><div class="ttl">ConvoForge</div></a>
+        <a href="/projects/auto-claude.html" style="text-align:right;"><div class="lbl">Next →</div><div class="ttl">Auto-Claude</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2026 Dainty Trading. All rights reserved.</span>
+        <span><a href="/">Home</a> · <a href="/#projects">Projects</a> · <a href="/contact.html">Contact</a></span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

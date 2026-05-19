@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="google-site-verification" content="V4tv1Ds0qfskA15qPKqndEsVqsO7xyT10CYzFDBV0BQ" />
+  <title>Marketing OS — Internal Marketing Operations Platform | Dainty Trading</title>
+  <meta name="description" content="Marketing OS is the internal control tower for Dainty Trading's marketing — campaign planning, web automation via Puppeteer, and an AI-assisted content brief queue. Built on Next.js and Prisma." />
+  <link rel="canonical" href="https://daintytrading.com/projects/marketing-os.html" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Marketing OS" />
+  <meta property="og:description" content="The internal control tower for our portfolio's marketing operations." />
+  <meta property="og:url" content="https://daintytrading.com/projects/marketing-os.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Dainty Trading — AI Automation Studio" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="apple-mobile-web-app-title" content="Dainty Trading" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Marketing OS","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"Internal marketing operations platform for the Dainty Trading portfolio.","url":"https://daintytrading.com/projects/marketing-os.html","publisher":{"@type":"Organization","name":"Dainty Trading"}}
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a><a href="/services.html">Services</a><a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> / <a href="/#projects">Projects</a> / Marketing OS</div>
+        <h1>Marketing OS</h1>
+        <p class="lede">The internal control tower for our portfolio. Campaign planning, web automation through Puppeteer, an AI-assisted content brief queue, and accessibility checks &mdash; one cockpit, many products.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Category</strong>&nbsp; AI · Marketing Ops</span>
+          <span class="chip"><strong>Stack</strong>&nbsp; Next.js 14 · TypeScript · Prisma · Tailwind</span>
+          <span class="chip"><strong>Automation</strong>&nbsp; Puppeteer</span>
+          <span class="chip"><strong>Status</strong>&nbsp; In final testing</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <h2>The problem</h2>
+          <p>Running 21 products means running 21 marketing motions. Spreadsheets get out of sync, briefs go missing, the same SEO checks get repeated by hand on every domain. We needed an internal system that knew about every product, scheduled the work that compounds (content, SEO, lifecycle email), and let us see what shipped versus what slipped.</p>
+
+          <h2>What we built</h2>
+          <p>Marketing OS is a Next.js 14 application backed by Prisma and Postgres. It models the portfolio (products, domains, audiences, campaigns), the calendar (briefs, drafts, scheduled posts, send dates), and the work-queue (claimable tasks for the team). Puppeteer runs scheduled audits across every domain &mdash; meta tags, structured data, canonical URLs, broken links, axe-core accessibility &mdash; and writes regressions back into the queue.</p>
+
+          <h2>The AI angle</h2>
+          <p>The brief queue is where the AI lives. Each campaign turns into structured briefs (audience, angle, channel, length, success metric); the LLM expands a one-line idea into a full brief, suggests three angles, and writes the first-draft hook. The team accepts, edits, or rejects. Over time the queue becomes a corpus of accepted vs rejected briefs that we use to pick angles automatically.</p>
+
+          <h2>How it&rsquo;s used</h2>
+          <ul>
+            <li><strong>Studio operators</strong> see every product&rsquo;s health in one place.</li>
+            <li><strong>Writers</strong> claim briefs from the queue instead of being assigned them.</li>
+            <li><strong>Engineering</strong> gets clean alerts when an SEO regression hits a live site.</li>
+          </ul>
+
+          <h2>What it taught us</h2>
+          <p>That an internal tool is allowed to look ugly &mdash; until the moment your team won&rsquo;t use it. Spending two weeks on the calendar UX paid for itself in adoption. We carry that lesson into client engagements: tools people don&rsquo;t open are tools you didn&rsquo;t build.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>Project facts</h4>
+          <div class="label-row"><span>Status</span><span>In final testing (internal)</span></div>
+          <div class="label-row"><span>Access</span><span>Internal use only</span></div>
+          <div class="label-row"><span>Stack</span><span>Next.js 14 · TS · React 18</span></div>
+          <div class="label-row"><span>ORM</span><span>Prisma</span></div>
+          <div class="label-row"><span>Styling</span><span>Tailwind CSS</span></div>
+          <div class="label-row"><span>Automation</span><span>Puppeteer</span></div>
+          <div class="label-row"><span>A11y</span><span>axe-core</span></div>
+          <a class="btn btn-primary" href="/contact.html">Build something similar</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Project navigation">
+        <a href="/projects/skeddy.html"><div class="lbl">← Previous</div><div class="ttl">Whisp</div></a>
+        <a href="/projects/chatvault.html" style="text-align:right;"><div class="lbl">Next →</div><div class="ttl">ChatVault</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2026 Dainty Trading. All rights reserved.</span>
+        <span><a href="/">Home</a> · <a href="/#projects">Projects</a> · <a href="/contact.html">Contact</a></span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

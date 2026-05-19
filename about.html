@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="google-site-verification" content="V4tv1Ds0qfskA15qPKqndEsVqsO7xyT10CYzFDBV0BQ" />
+  <title>About — Dainty Trading | AI Automation Studio</title>
+  <meta name="description" content="Dainty Trading is a small AI automation studio in Australia. We build production AI products — for our own portfolio and for selected clients. 21 live products is the proof-of-work." />
+  <link rel="canonical" href="https://daintytrading.com/about.html" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0c10" />
+
+  <meta property="og:title" content="About Dainty Trading" />
+  <meta property="og:description" content="A small AI automation studio with 21 live products. Australia-based, working globally." />
+  <meta property="og:url" content="https://daintytrading.com/about.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Dainty Trading — AI Automation Studio" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="apple-mobile-web-app-title" content="Dainty Trading" />
+  <link rel="stylesheet" href="/styles.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About Dainty Trading",
+    "url": "https://daintytrading.com/about.html",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "Dainty Trading",
+      "url": "https://daintytrading.com",
+      "description": "AI automation studio building production AI software."
+    }
+  }
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a>
+        <a href="/services.html">Services</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; About</div>
+        <h1>A studio, not an agency.</h1>
+        <p class="lede">We build production AI software. Mostly for ourselves — 21 products and counting — and occasionally for clients we want to work with.</p>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <h2>What we believe</h2>
+          <p><strong>Shipping is the only proof.</strong> AI is the most over-demoed technology in software. The thing that matters is whether someone pays for the result on Tuesday morning. Every project on our portfolio page is something a real user can sign up for today.</p>
+          <p><strong>Boring infrastructure is the moat.</strong> The flashy bit is the prompt. The reason it works in production is everything around the prompt: routing, evals, queues, billing, observability. We&rsquo;ve already built that layer once, so each new product gets it for free.</p>
+          <p><strong>Small surface, deep stack.</strong> Two-person teams ship more than ten-person teams that need permission. We keep the studio small on purpose.</p>
+
+          <h2>How the portfolio came about</h2>
+          <p>Each product started as something we wanted to use ourselves, or a problem a friend kept describing. Email triage came from drowning in inboxes across three businesses. Ghost Writer came from wanting to publish without spending Sunday writing. The trading bot came from getting tired of staring at charts. We turn the itch into a service, charge a sensible amount, and let it run.</p>
+          <p>The studio underneath is the thing we get paid to build for other people: the same patterns, the same shared infrastructure, the same speed.</p>
+
+          <h2>The toolkit</h2>
+          <ul>
+            <li><strong>LLMs:</strong> Anthropic Claude (Opus, Sonnet, Haiku) as the default; Google Gemini and OpenAI behind <code>LiteLLM</code>/<code>OpenRouter</code> for cost and latency variants.</li>
+            <li><strong>Backends:</strong> Python (FastAPI, Django) and Node.js (Fastify, Express). Postgres for state, Redis for queues, n8n for workflows.</li>
+            <li><strong>Frontends:</strong> Next.js, React, plain HTML when that&rsquo;s the right answer. React Native + Expo for mobile.</li>
+            <li><strong>Plumbing:</strong> Stripe, Brevo, Google OAuth, GlitchTip, Umami, Ghost CMS for marketing sites.</li>
+            <li><strong>Deployment:</strong> Docker Compose on a small fleet of self-hosted boxes; not because it&rsquo;s fashionable, because it&rsquo;s cheaper and we know exactly what&rsquo;s running.</li>
+          </ul>
+
+          <h2>Why we run open source</h2>
+          <p>A studio is only as honest as the boring infrastructure underneath it. Behind every product on the portfolio page sits an open-source stack we run ourselves &mdash; <strong>Umami</strong> for analytics, <strong>Cal.com</strong> for scheduling, <strong>LiteLLM</strong> for routing across model providers, <strong>Paperless-NGX</strong> for documents, <strong>Open WebUI</strong> for direct model access, <strong>Speedtest Tracker</strong> for the studio&rsquo;s own internet, <strong>Portainer</strong> for container ops, <strong>Syncthing</strong> for files, plus <strong>n8n</strong> and <strong>Ghost</strong> for workflow and content. Each one replaces a SaaS most teams pay for.</p>
+          <p>This isn&rsquo;t ideology. It&rsquo;s knowing what we recommend. When we suggest a stack to a client, we already know the failure modes, the upgrade pain, and the realistic running cost &mdash; because we run it ourselves. The same tools we trust for the studio are the tools we can stand up for you on day one, on your hardware, under your auth.</p>
+
+          <h2>If you want to work with us</h2>
+          <p>Read the <a href="/services.html">services page</a> to see how engagements work, then <a href="/contact.html">drop a note</a>. We reply within one business day.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>Studio facts</h4>
+          <div class="label-row"><span>Founded</span><span>Operating since 2024</span></div>
+          <div class="label-row"><span>Team size</span><span>Small &amp; deliberate</span></div>
+          <div class="label-row"><span>Based</span><span>Australia</span></div>
+          <div class="label-row"><span>Live products</span><span>21</span></div>
+          <div class="label-row"><span>LLM-powered</span><span>7 &amp; growing</span></div>
+          <a class="btn btn-primary" href="/contact.html">Get in touch</a>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2026 Dainty Trading. All rights reserved.</span>
+        <span><a href="/">Home</a> · <a href="/#projects">Projects</a> · <a href="/contact.html">Contact</a></span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

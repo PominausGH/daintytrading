@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="google-site-verification" content="V4tv1Ds0qfskA15qPKqndEsVqsO7xyT10CYzFDBV0BQ" />
+  <title>Meditation — Subscription Meditation Library | Dainty Trading</title>
+  <meta name="description" content="A subscription meditation library with a 7-day free trial, Stripe billing, and a content gate that doesn't feel like a content gate. Built on Next.js and FastAPI." />
+  <link rel="canonical" href="https://daintytrading.com/projects/meditation.html" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Meditation — guided scripts as a subscription" />
+  <meta property="og:description" content="Library of guided meditation scripts with a 7-day free trial and Stripe billing." />
+  <meta property="og:url" content="https://daintytrading.com/projects/meditation.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Dainty Trading — AI Automation Studio" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="apple-mobile-web-app-title" content="Dainty Trading" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Meditation","applicationCategory":"HealthApplication","operatingSystem":"Web","description":"Subscription meditation script library with Stripe billing and 7-day free trial.","url":"https://meditation.daintytrading.com","publisher":{"@type":"Organization","name":"Dainty Trading"}}
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a><a href="/services.html">Services</a><a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> / <a href="/#projects">Projects</a> / Meditation</div>
+        <h1>Meditation</h1>
+        <p class="lede">A subscription library of guided meditation scripts. Seven-day free trial, Stripe billing, content gating that respects the reader, and a Next.js front-end that loads in under a second on a slow phone.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Category</strong>&nbsp; Wellness · SaaS</span>
+          <span class="chip"><strong>Stack</strong>&nbsp; Next.js · FastAPI · Postgres</span>
+          <span class="chip"><strong>Billing</strong>&nbsp; Stripe</span>
+          <span class="chip"><strong>Status</strong>&nbsp; In final testing</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <h2>The problem</h2>
+          <p>Meditation apps assume audio is the only medium. For a real subset of users &mdash; teachers, facilitators, therapists, anyone who runs sessions for groups &mdash; what they actually need is the script. We built a service for the people who deliver meditation, not just consume it.</p>
+
+          <h2>What we built</h2>
+          <p>A library of guided meditation scripts organised by length, theme, audience (adults, kids, couples, groups), and tone. Subscribers get unlimited reads and downloads; non-subscribers can sample. The frontend is Next.js with static generation for browsing and server rendering for the gated reading experience. The backend is FastAPI on Postgres with Redis for caching and a clean Stripe subscription lifecycle (trial, active, paused, cancelled, refunded).</p>
+
+          <h2>The automation angle</h2>
+          <p>The interesting automation is the funnel: cohort-aware lifecycle emails through Brevo, a churn-aware win-back flow, and a usage report that tells subscribers which scripts they read most so renewal feels obvious. None of it requires AI &mdash; it requires being honest about what subscribers actually do with the product.</p>
+
+          <h2>How it&rsquo;s used</h2>
+          <ul>
+            <li><strong>Yoga and meditation teachers</strong> sourcing scripts for studio classes.</li>
+            <li><strong>Therapists</strong> using grounding and visualisation scripts in client sessions.</li>
+            <li><strong>Corporate facilitators</strong> running short pre-meeting decompression scripts.</li>
+          </ul>
+
+          <h2>What it taught us</h2>
+          <p>That a Stripe trial is the easiest place to lose a customer. Removing one input from the trial signup &mdash; we made the email optional during the first three days &mdash; lifted trial-to-paid conversion by a meaningful amount. The lesson generalises across every paid product we run.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>Project facts</h4>
+          <div class="label-row"><span>Status</span><span>In final testing</span></div>
+          <div class="label-row"><span>Domain</span><span>meditation.daintytrading.com</span></div>
+          <div class="label-row"><span>Frontend</span><span>Next.js 14</span></div>
+          <div class="label-row"><span>Backend</span><span>Python · FastAPI</span></div>
+          <div class="label-row"><span>Database</span><span>Postgres · Redis</span></div>
+          <div class="label-row"><span>Auth</span><span>JWT</span></div>
+          <div class="label-row"><span>Billing</span><span>Stripe</span></div>
+          <a class="btn btn-primary" href="https://meditation.daintytrading.com" rel="noopener">Visit Meditation →</a>
+          <a class="btn btn-ghost" href="/contact.html">Build something similar</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Project navigation">
+        <a href="/projects/ghost-writer.html"><div class="lbl">← Previous</div><div class="ttl">Ghost Writer</div></a>
+        <a href="/projects/skeddy.html" style="text-align:right;"><div class="lbl">Next →</div><div class="ttl">Whisp</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2026 Dainty Trading. All rights reserved.</span>
+        <span><a href="/">Home</a> · <a href="/#projects">Projects</a> · <a href="/contact.html">Contact</a></span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

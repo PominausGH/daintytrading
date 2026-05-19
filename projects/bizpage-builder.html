@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="google-site-verification" content="V4tv1Ds0qfskA15qPKqndEsVqsO7xyT10CYzFDBV0BQ" />
+  <title>BizPage Builder — AI-Generated Landing Pages for Local Businesses | Dainty Trading</title>
+  <meta name="description" content="BizPage Builder finds local businesses without websites, generates SEO-ready landing pages with Claude, and ships them as deployable ZIPs. Built for agencies and lead-gen operators." />
+  <link rel="canonical" href="https://daintytrading.com/projects/bizpage-builder.html" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="BizPage Builder" />
+  <meta property="og:description" content="Auto-generate landing pages for businesses without websites, ready to deploy." />
+  <meta property="og:url" content="https://daintytrading.com/projects/bizpage-builder.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Dainty Trading — AI Automation Studio" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="apple-mobile-web-app-title" content="Dainty Trading" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"BizPage Builder","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"AI-generated SEO landing pages for small businesses without websites.","url":"https://bizpage.biz","publisher":{"@type":"Organization","name":"Dainty Trading"}}
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a><a href="/services.html">Services</a><a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> / <a href="/#projects">Projects</a> / BizPage Builder</div>
+        <h1>BizPage Builder</h1>
+        <p class="lede">A lead-gen factory in a box. Discover small businesses without websites, generate Google-ready landing pages with Claude, and hand them off as zipped, deployable HTML &mdash; one workflow, hundreds of pages.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Category</strong>&nbsp; AI · Local SEO</span>
+          <span class="chip"><strong>Stack</strong>&nbsp; Python · Flask · Pillow · Jinja2</span>
+          <span class="chip"><strong>LLM</strong>&nbsp; Anthropic Claude</span>
+          <span class="chip"><strong>Status</strong>&nbsp; In development</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <h2>The problem</h2>
+          <p>Roughly 30% of small businesses still don&rsquo;t have a real website &mdash; just a Facebook page or a Google Business Profile. The agencies and lead-gen operators who&rsquo;d like to fix that face a brutal economics problem: bespoke landing pages take hours, but the average yearly value of a small business client is too low to justify it. Templates help; templates plus AI copy are the unlock.</p>
+
+          <h2>What we built</h2>
+          <p>BizPage Builder uses the Google Maps API to discover businesses in a target city and category, filters out the ones with existing websites, and pulls each business&rsquo;s details (hours, photos, reviews, services). Claude turns those structured facts into compelling, SEO-aware copy &mdash; hero headline, services blocks, social proof, FAQ &mdash; and Jinja2 renders the result against a responsive HTML template. The user can tweak any section before exporting a self-contained ZIP that drops onto any host.</p>
+
+          <h2>The AI angle</h2>
+          <p>The hard part isn&rsquo;t generating page copy &mdash; it&rsquo;s generating <em>different</em> page copy for each business. Templates rot fast when 200 plumbers in the same city read the same landing page. Our prompt forces Claude to anchor each page to specific reviews and unique service offerings, and an originality check rejects any output that&rsquo;s too close to a previously generated page.</p>
+
+          <h2>How it&rsquo;s used</h2>
+          <ul>
+            <li><strong>Local SEO agencies</strong> generate &ldquo;before&rdquo; pages for cold outreach prospects.</li>
+            <li><strong>Lead-gen operators</strong> spin up niche, geo-targeted directories at speed.</li>
+            <li><strong>Solo consultants</strong> use it to give themselves portfolio pieces in days.</li>
+          </ul>
+
+          <h2>What it taught us</h2>
+          <p>That the difference between &ldquo;page generator&rdquo; and &ldquo;real product&rdquo; is the export. Spending three days on a really clean ZIP &mdash; minified HTML, optimised images via Pillow, a sitemap and robots.txt baked in &mdash; was worth more than any extra AI feature.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>Project facts</h4>
+          <div class="label-row"><span>Status</span><span>In development</span></div>
+          <div class="label-row"><span>Domain</span><span>bizpage.biz</span></div>
+          <div class="label-row"><span>Backend</span><span>Python · Flask · Gunicorn</span></div>
+          <div class="label-row"><span>Discovery</span><span>Google Maps API</span></div>
+          <div class="label-row"><span>Templating</span><span>Jinja2</span></div>
+          <div class="label-row"><span>Images</span><span>Pillow</span></div>
+          <div class="label-row"><span>Output</span><span>ZIP-bundled HTML</span></div>
+          <a class="btn btn-primary" href="https://bizpage.biz" rel="noopener">Visit BizPage Builder →</a>
+          <a class="btn btn-ghost" href="/contact.html">Build something similar</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Project navigation">
+        <a href="/projects/cv-matcher.html"><div class="lbl">← Previous</div><div class="ttl">CV Matcher</div></a>
+        <a href="/projects/focusguard.html" style="text-align:right;"><div class="lbl">Next →</div><div class="ttl">FocusGuard</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2026 Dainty Trading. All rights reserved.</span>
+        <span><a href="/">Home</a> · <a href="/#projects">Projects</a> · <a href="/contact.html">Contact</a></span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

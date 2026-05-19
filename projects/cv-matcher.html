@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="google-site-verification" content="V4tv1Ds0qfskA15qPKqndEsVqsO7xyT10CYzFDBV0BQ" />
+  <title>CV Matcher — AI Job Matching from LinkedIn | Dainty Trading</title>
+  <meta name="description" content="CV Matcher scrapes LinkedIn jobs, scores them against your CV with Claude, and explains why each match scored the way it did. Less swipe-fatigue, more actual interviews." />
+  <link rel="canonical" href="https://daintytrading.com/projects/cv-matcher.html" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="CV Matcher — AI job matching" />
+  <meta property="og:description" content="Score LinkedIn jobs against your CV with explainable AI matching." />
+  <meta property="og:url" content="https://daintytrading.com/projects/cv-matcher.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Dainty Trading — AI Automation Studio" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="apple-mobile-web-app-title" content="Dainty Trading" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"CV Matcher","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"AI CV-to-job matching with explainable scoring.","url":"https://cvmatcher.work","publisher":{"@type":"Organization","name":"Dainty Trading"}}
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a><a href="/services.html">Services</a><a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> / <a href="/#projects">Projects</a> / CV Matcher</div>
+        <h1>CV Matcher</h1>
+        <p class="lede">Upload your CV. CV Matcher scrapes LinkedIn for relevant openings, scores each one against your actual experience with Claude, and tells you in plain English why each match scored the way it did.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Category</strong>&nbsp; AI · Careers</span>
+          <span class="chip"><strong>Stack</strong>&nbsp; Python · Flask</span>
+          <span class="chip"><strong>LLM</strong>&nbsp; Anthropic Claude</span>
+          <span class="chip"><strong>Status</strong>&nbsp; Live</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <h2>The problem</h2>
+          <p>Job boards are optimised for the employer, not the candidate. The result is hundreds of vaguely-relevant postings, no real ranking, and an application process that punishes anyone who isn&rsquo;t willing to apply to fifty roles a week. We wanted a system that did the reading and ranking, so the human only handled the writing and applying.</p>
+
+          <h2>What we built</h2>
+          <p>CV Matcher takes a CV (PDF or paste-in), extracts a structured profile, and then scrapes LinkedIn for matching openings. Each posting is parsed for explicit and implicit requirements (years, stack, seniority, location, work-rights), scored against the profile, and ranked. The output isn&rsquo;t just a number &mdash; each match comes with a paragraph from Claude explaining the fit and the gap.</p>
+
+          <h2>The AI angle</h2>
+          <p>Two prompts do the heavy lifting. The extractor turns prose CVs and prose job postings into a normalised JSON schema that both sides agree on. The matcher reads the two schemas and produces a score plus a reasoning trace. Keeping these prompts independent means we can iterate on each one in isolation and run a backtest of every change against the user&rsquo;s past matches.</p>
+
+          <h2>How it&rsquo;s used</h2>
+          <ul>
+            <li><strong>Active job seekers</strong> who want a daily curated list instead of doom-scrolling LinkedIn.</li>
+            <li><strong>Career switchers</strong> who use the gap-analysis to decide which skill to add next.</li>
+            <li><strong>Recruiters and agencies</strong> who use it as a sourcing assistant.</li>
+          </ul>
+
+          <h2>What it taught us</h2>
+          <p>Explainability changes behaviour. Numerical match scores got users to ignore everything but the top five. The moment we shipped the &ldquo;why&rdquo; paragraph, users started exploring matches with mid-range scores &mdash; because they could see what was missing and decide whether it actually mattered. That&rsquo;s the difference between a tool that ranks and a tool that helps you decide.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>Project facts</h4>
+          <div class="label-row"><span>Status</span><span>Live</span></div>
+          <div class="label-row"><span>Domain</span><span>cvmatcher.work</span></div>
+          <div class="label-row"><span>Backend</span><span>Python · Flask</span></div>
+          <div class="label-row"><span>Source</span><span>LinkedIn</span></div>
+          <div class="label-row"><span>LLM</span><span>Anthropic Claude</span></div>
+          <div class="label-row"><span>Outputs</span><span>Score + reasoning</span></div>
+          <div class="label-row"><span>Inputs</span><span>PDF · text CV</span></div>
+          <a class="btn btn-primary" href="https://cvmatcher.work" rel="noopener">Visit CV Matcher →</a>
+          <a class="btn btn-ghost" href="/contact.html">Build something similar</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Project navigation">
+        <a href="/projects/missed-calls.html"><div class="lbl">← Previous</div><div class="ttl">Everyring.ai</div></a>
+        <a href="/projects/bizpage-builder.html" style="text-align:right;"><div class="lbl">Next →</div><div class="ttl">BizPage Builder</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2026 Dainty Trading. All rights reserved.</span>
+        <span><a href="/">Home</a> · <a href="/#projects">Projects</a> · <a href="/contact.html">Contact</a></span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

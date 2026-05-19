@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="google-site-verification" content="V4tv1Ds0qfskA15qPKqndEsVqsO7xyT10CYzFDBV0BQ" />
+  <title>ChefForge — AI Recipe Generation &amp; Meal Planning | Dainty Trading</title>
+  <meta name="description" content="ChefForge generates personalised recipes and weekly meal plans with AI. Tell it your constraints — dietary, budget, time, what's already in the fridge — and get a plan that adds up." />
+  <link rel="canonical" href="https://daintytrading.com/projects/chefforge.html" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="ChefForge — AI recipe generation" />
+  <meta property="og:description" content="Personalised recipes and meal plans with constraints that actually hold." />
+  <meta property="og:url" content="https://daintytrading.com/projects/chefforge.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Dainty Trading — AI Automation Studio" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="apple-mobile-web-app-title" content="Dainty Trading" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"ChefForge","applicationCategory":"LifestyleApplication","operatingSystem":"Web","description":"AI recipe and meal-planning service.","url":"https://dinner.daintytrading.com","publisher":{"@type":"Organization","name":"Dainty Trading"}}
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a><a href="/services.html">Services</a><a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> / <a href="/#projects">Projects</a> / ChefForge</div>
+        <h1>ChefForge</h1>
+        <p class="lede">An AI recipe and meal-planning service that takes your real constraints &mdash; dietary, budget, time, what&rsquo;s already in the fridge &mdash; and turns them into a week of dinners with a shopping list that actually adds up.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Category</strong>&nbsp; AI · Lifestyle</span>
+          <span class="chip"><strong>Stack</strong>&nbsp; Python · FastAPI · Postgres</span>
+          <span class="chip"><strong>LLM</strong>&nbsp; OpenRouter</span>
+          <span class="chip"><strong>Status</strong>&nbsp; In development</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <h2>The problem</h2>
+          <p>The first wave of AI recipe apps generated impressive-looking dishes that nobody could actually cook. Either the ingredients didn&rsquo;t exist in your supermarket, the steps assumed equipment you didn&rsquo;t have, or the macros didn&rsquo;t add up to the diet you said you were on. We wanted a system that took constraints seriously and let the AI freelance only inside them.</p>
+
+          <h2>What we built</h2>
+          <p>ChefForge is a FastAPI backend with a clean recipe-and-plan schema. Users describe their household once &mdash; how many people, dietary restrictions, equipment, weekly budget, ingredients to avoid, ingredients to use up &mdash; and ChefForge plans a week of dinners that hit all the constraints. Each recipe is independently solvable: rendered with portion-scaled quantities, total cost, total time, and macros that sum back to the user&rsquo;s daily budget.</p>
+
+          <h2>The AI angle</h2>
+          <p>Generation happens in two passes. The first asks for a balanced weekly outline. The second expands each slot into a full recipe and verifies that the resulting plan still sums to the user&rsquo;s constraints &mdash; if it doesn&rsquo;t, the LLM is told exactly what&rsquo;s wrong and asked to revise. The verifier is deterministic code, not another LLM call, which is why ChefForge stays tight even when the underlying model gets creative.</p>
+
+          <h2>How it&rsquo;s used</h2>
+          <ul>
+            <li><strong>Busy households</strong> who want one less weekly decision.</li>
+            <li><strong>People on specific eating regimes</strong> &mdash; high-protein, gluten-free, low-FODMAP &mdash; who can&rsquo;t trust generic recipe sites.</li>
+            <li><strong>Cooking-curious beginners</strong> who need pacing, not inspiration.</li>
+          </ul>
+
+          <h2>What it taught us</h2>
+          <p>That &ldquo;the AI got it wrong&rdquo; usually means the verifier was missing. Ninety percent of complaints traced back to a constraint we hadn&rsquo;t encoded as a hard check. The fix isn&rsquo;t a smarter prompt &mdash; it&rsquo;s another check.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>Project facts</h4>
+          <div class="label-row"><span>Status</span><span>In development</span></div>
+          <div class="label-row"><span>Domain</span><span>dinner.daintytrading.com</span></div>
+          <div class="label-row"><span>Backend</span><span>Python · FastAPI</span></div>
+          <div class="label-row"><span>Database</span><span>Postgres</span></div>
+          <div class="label-row"><span>Routing</span><span>OpenRouter</span></div>
+          <div class="label-row"><span>Outputs</span><span>Plan · Recipes · Shopping list</span></div>
+          <a class="btn btn-primary" href="https://dinner.daintytrading.com" rel="noopener">Visit ChefForge →</a>
+          <a class="btn btn-ghost" href="/contact.html">Build something similar</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Project navigation">
+        <a href="/projects/devtodo.html"><div class="lbl">← Previous</div><div class="ttl">DevTodo</div></a>
+        <a href="/projects/yoga-platform.html" style="text-align:right;"><div class="lbl">Next →</div><div class="ttl">Yoga Platform</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2026 Dainty Trading. All rights reserved.</span>
+        <span><a href="/">Home</a> · <a href="/#projects">Projects</a> · <a href="/contact.html">Contact</a></span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

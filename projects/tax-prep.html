@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="google-site-verification" content="V4tv1Ds0qfskA15qPKqndEsVqsO7xyT10CYzFDBV0BQ" />
+  <title>Tax Prep — All Your Tax Documents in One Place | Dainty Trading</title>
+  <meta name="description" content="Tax Prep collates every receipt, statement, deduction, and slip into one organised vault — so tax time is a half-hour handover, not a weekend of folders." />
+  <link rel="canonical" href="https://daintytrading.com/projects/tax-prep.html" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Tax Prep — easier tax time" />
+  <meta property="og:description" content="Collates all tax documents in one searchable, year-tagged vault." />
+  <meta property="og:url" content="https://daintytrading.com/projects/tax-prep.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Dainty Trading — AI Automation Studio" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="apple-mobile-web-app-title" content="Dainty Trading" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Tax Prep","applicationCategory":"FinanceApplication","operatingSystem":"Web","description":"Collates tax documents into a single organised, AI-classified vault.","url":"https://daintytrading.com/projects/tax-prep.html","publisher":{"@type":"Organization","name":"Dainty Trading"}}
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a><a href="/services.html">Services</a><a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> / <a href="/#projects">Projects</a> / Tax Prep</div>
+        <h1>Tax Prep</h1>
+        <p class="lede">A vault for everything your accountant will eventually ask for. Drop in receipts, bank statements, payslips, deduction slips, and dividend notices throughout the year &mdash; AI categorises and tags each one &mdash; and tax time becomes a single export instead of a weekend of folders.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Category</strong>&nbsp; AI · Personal finance</span>
+          <span class="chip"><strong>Stack</strong>&nbsp; Next.js · FastAPI · Postgres</span>
+          <span class="chip"><strong>LLM</strong>&nbsp; Anthropic Claude</span>
+          <span class="chip"><strong>Status</strong>&nbsp; In final testing</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <h2>The problem</h2>
+          <p>Tax prep isn&rsquo;t hard because the maths is hard. It&rsquo;s hard because the inputs are scattered across a year of inboxes, banking apps, photos of crumpled receipts, and PDFs from three different brokers. By the time it&rsquo;s due, half a Saturday goes to assembling the pile before any actual returns get filled.</p>
+
+          <h2>What we&rsquo;re building</h2>
+          <p>Tax Prep is a single drop-zone for every document that might matter at tax time. Forward an email, drag a PDF, snap a receipt &mdash; everything lands in a vault organised by tax year and category. Documents are OCR&rsquo;d, classified (income / deductible / capital gains / super / charitable / medical), and tagged with the relevant amounts and dates. At year-end, one export gives your accountant a complete, structured handover.</p>
+
+          <h2>The AI angle</h2>
+          <p>Claude does the classification. Each new document goes through OCR, then a structured prompt that returns category, dollar amount, date, counter-party, and a confidence score. Low-confidence items go to a small review queue you triage in batches. Confidence calibrates over time as you accept or correct the model&rsquo;s guesses &mdash; the system learns your specific deduction categories the same way a long-running accountant learns them.</p>
+
+          <h2>How it&rsquo;ll be used</h2>
+          <ul>
+            <li><strong>Sole traders and contractors</strong> who track receipts in three places and lose two of them.</li>
+            <li><strong>Investors</strong> with brokerage statements, dividends, and capital-gains events that need cross-referencing.</li>
+            <li><strong>Anyone with a complex personal return</strong> who wants tax time to be a half-hour handover, not a weekend.</li>
+          </ul>
+
+          <h2>Where we are</h2>
+          <p>OCR + classification is working. Email forwarding, manual upload, and bank-statement parsing are in. The next milestone is the year-end export &mdash; a single bundle in the format your accountant prefers (CSV, PDF, or a hand-shake with their software). Expected public beta around the next financial year crossover.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>Project facts</h4>
+          <div class="label-row"><span>Status</span><span>In final testing</span></div>
+          <div class="label-row"><span>Site</span><span>taxprep.daintytrading.com</span></div>
+          <div class="label-row"><span>Frontend</span><span>Next.js</span></div>
+          <div class="label-row"><span>Backend</span><span>Python · FastAPI</span></div>
+          <div class="label-row"><span>Database</span><span>Postgres</span></div>
+          <div class="label-row"><span>OCR</span><span>Tesseract + Claude</span></div>
+          <div class="label-row"><span>LLM</span><span>Anthropic Claude</span></div>
+          <a class="btn btn-primary" href="/contact.html">Build something similar</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Project navigation">
+        <a href="/projects/chatvault.html"><div class="lbl">← Previous</div><div class="ttl">ChatVault</div></a>
+        <a href="/projects/second-brain.html" style="text-align:right;"><div class="lbl">Next →</div><div class="ttl">Second Brain</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2026 Dainty Trading. All rights reserved.</span>
+        <span><a href="/">Home</a> · <a href="/#projects">Projects</a> · <a href="/contact.html">Contact</a></span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

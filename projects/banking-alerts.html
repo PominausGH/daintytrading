@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="google-site-verification" content="V4tv1Ds0qfskA15qPKqndEsVqsO7xyT10CYzFDBV0BQ" />
+  <title>Banking Alerts — Dainty Trading</title>
+  <meta name="description" content="Push-notification alerts when bank balances drop below thresholds. No app to install, no SaaS subscription — just an n8n flow on top of Open Banking that pings your phone when something needs attention." />
+  <link rel="canonical" href="https://daintytrading.com/projects/banking-alerts.html" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Banking Alerts" />
+  <meta property="og:description" content="Push-notification alerts when bank balances drop below thresholds. No app to install, no SaaS subscription — just an n8n flow on top of Open Banking that pings your phone when something needs attention." />
+  <meta property="og:url" content="https://daintytrading.com/projects/banking-alerts.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Dainty Trading — AI Automation Studio" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="apple-mobile-web-app-title" content="Dainty Trading" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Banking Alerts","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"Push-notification alerts when bank balances drop below thresholds. No app to install, no SaaS subscription — just an n8n flow on top of Open Banking that pings your phone when something needs attention.","url":"https://daintytrading.com/projects/banking-alerts.html","publisher":{"@type":"Organization","name":"Dainty Trading"}}
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a><a href="/services.html">Services</a><a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> / <a href="/#projects">Projects</a> / Banking Alerts</div>
+        <h1>Banking Alerts</h1>
+        <p class="lede">Push-notification alerts when bank balances drop below thresholds. No app to install, no SaaS subscription &mdash; just an n8n flow on top of Open Banking that pings your phone when something needs attention.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Category</strong>&nbsp; Fintech · Automation</span>
+          <span class="chip"><strong>Stack</strong>&nbsp; Basiq API · n8n · ntfy</span>
+          <span class="chip"><strong>LLM</strong>&nbsp; —</span>
+          <span class="chip"><strong>Status</strong>&nbsp; In development</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <h2>The problem</h2>
+          <p>Banks notify you about marketing offers and not about the things you actually want to know. &ldquo;Your offset account just dropped below the buffer&rdquo; is the alert most account holders would actually open. Setting it up requires either a fintech app you don&rsquo;t want or a custom integration nobody wants to build.</p>
+
+          <h2>What we&rsquo;re building</h2>
+          <p>Banking Alerts is the studio&rsquo;s own minimal version. The Basiq Open Banking API handles consent and account access (Australia-only at the moment). An n8n flow polls balances on a schedule, applies user-defined thresholds, and fires notifications through ntfy &mdash; an open-source push service that doesn&rsquo;t require an account on the recipient&rsquo;s end.</p>
+
+          <h2>The automation angle</h2>
+          <p>All in n8n, deliberately. The whole flow &mdash; auth refresh, balance fetch, threshold check, notification fan-out &mdash; lives in a graph anyone on the team can read and edit. It also means we can extend it (transaction categorisation, alerts on suspicious patterns) without touching code.</p>
+
+          <h2>How it&rsquo;ll be used</h2>
+          <ul><li><strong>Households</strong> running offset and savings buffers that need to stay above minimums.</li><li><strong>Sole traders</strong> watching their business account before paying suppliers.</li><li><strong>Anyone with auto-pays</strong> who wants warning before a direct debit tips the balance.</li></ul>
+
+          <h2>Where we are</h2>
+          <p>Auth, polling, and threshold alerts are working. Next milestone is multi-recipient routing (different thresholds, different phones) and a small admin UI for non-technical users to manage their own thresholds without touching n8n.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>Project facts</h4>
+          <div class="label-row"><span>Status</span><span>In development</span></div>
+          <div class="label-row"><span>Site</span><span>banking.daintytrading.com</span></div>
+          <div class="label-row"><span>Banking</span><span>Basiq Open Banking API</span></div>
+          <div class="label-row"><span>Orchestration</span><span>n8n</span></div>
+          <div class="label-row"><span>Notifications</span><span>ntfy</span></div>
+          <div class="label-row"><span>Region</span><span>Australia</span></div>
+          <a class="btn btn-primary" href="/contact.html">Build something similar</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Project navigation">
+        <a href="/projects/finance-tracker.html"><div class="lbl">← Previous</div><div class="ttl">Finance Tracker</div></a>
+        <a href="/projects/telegram-crypto-sentiment.html" style="text-align:right;"><div class="lbl">Next →</div><div class="ttl">Telegram Crypto Sentiment</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2026 Dainty Trading. All rights reserved.</span>
+        <span><a href="/">Home</a> · <a href="/#projects">Projects</a> · <a href="/contact.html">Contact</a></span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

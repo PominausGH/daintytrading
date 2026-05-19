@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="google-site-verification" content="V4tv1Ds0qfskA15qPKqndEsVqsO7xyT10CYzFDBV0BQ" />
+  <title>Ghost Writer — AI Article Generation &amp; Auto-Publishing | Dainty Trading</title>
+  <meta name="description" content="Ghost Writer is an end-to-end content engine. It detects trending topics on Hacker News, Reddit, and Dev.to, drafts 1,500-word articles with Claude, runs six quality gates, and auto-publishes to LinkedIn and Medium." />
+  <link rel="canonical" href="https://daintytrading.com/projects/ghost-writer.html" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0c10" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Ghost Writer — AI content engine" />
+  <meta property="og:description" content="Trend detection, article generation, six-layer quality checks, multi-platform publishing — fully automated." />
+  <meta property="og:url" content="https://daintytrading.com/projects/ghost-writer.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Dainty Trading — AI Automation Studio" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="apple-mobile-web-app-title" content="Dainty Trading" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Ghost Writer","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"Automated content generation and multi-platform publishing pipeline powered by Claude.","url":"https://signalreads.com","publisher":{"@type":"Organization","name":"Dainty Trading","url":"https://daintytrading.com"}}
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a><a href="/services.html">Services</a><a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> / <a href="/#projects">Projects</a> / Ghost Writer</div>
+        <h1>Ghost Writer</h1>
+        <p class="lede">An end-to-end content engine. Trend detection, AI drafting, multi-layer quality control, and automated publishing to LinkedIn and Medium &mdash; with a human only in the loop when something looks off.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Category</strong>&nbsp; AI · Content automation</span>
+          <span class="chip"><strong>Stack</strong>&nbsp; Python · FastAPI · Postgres</span>
+          <span class="chip"><strong>LLM</strong>&nbsp; Anthropic Claude</span>
+          <span class="chip"><strong>Status</strong>&nbsp; Live</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <h2>The problem</h2>
+          <p>Owned-media works, but only for people who can publish weekly without burning out. Most builders, founders, and consultants have plenty to say and zero capacity to write it down on a schedule. We wanted a pipeline that handled the unsexy 80% &mdash; topic research, structure, draft, polish, scheduling &mdash; while leaving the editorial taste at the start (what topic) and the end (does this go out as-is).</p>
+
+          <h2>What we built</h2>
+          <p>Ghost Writer scrapes Hacker News, Reddit, and Dev.to on a cron, scores topics for relevance against a per-account profile, and queues the winners for drafting. Claude writes a 1,500-word article in the configured voice with structured sections and a working hook. The draft passes through six independent quality gates &mdash; grammar, originality, AI-detector resistance, on-page SEO, link integrity, and brand-voice match &mdash; and only ships if all six pass.</p>
+          <p>Publishing happens through the LinkedIn and Medium APIs with rate limiting, retry, and human approval as an optional gate. A FastAPI dashboard shows the pipeline live: topic queue, draft status, QA results, scheduled posts, and historical performance pulled back from each platform.</p>
+
+          <h2>The AI angle</h2>
+          <p>Generation is the easy part. The hard part is the QA pipeline. We treat each quality check as a small, focused Claude call with its own prompt and pass/fail rubric, and we keep the prompts versioned in Git with a regression test set of articles that should pass and articles that shouldn&rsquo;t. Every change to a prompt has to keep the matrix green before it ships. That&rsquo;s how we keep quality from drifting as Claude itself changes underneath us.</p>
+
+          <h2>How it&rsquo;s used</h2>
+          <ul>
+            <li><strong>Solo operators</strong> get a publishing cadence they couldn&rsquo;t maintain by hand.</li>
+            <li><strong>Agencies</strong> use it as a draft factory, with their writers becoming editors instead of typists.</li>
+            <li><strong>Personal-brand builders</strong> stay top-of-feed without giving up their evenings.</li>
+          </ul>
+
+          <h2>What it taught us</h2>
+          <p>That AI content only earns trust when the failure modes are visible. The dashboard makes the rejected drafts as prominent as the published ones &mdash; you can read why a piece failed AI-detector or originality and what the draft looked like. Hiding the misses would have been faster to build and slower to win confidence.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>Project facts</h4>
+          <div class="label-row"><span>Status</span><span>Live</span></div>
+          <div class="label-row"><span>Domain</span><span>signalreads.com</span></div>
+          <div class="label-row"><span>Backend</span><span>Python · FastAPI</span></div>
+          <div class="label-row"><span>Sources</span><span>HN · Reddit · Dev.to</span></div>
+          <div class="label-row"><span>Targets</span><span>LinkedIn · Medium</span></div>
+          <div class="label-row"><span>Quality gates</span><span>Six</span></div>
+          <div class="label-row"><span>LLM</span><span>Anthropic Claude</span></div>
+          <div class="label-row"><span>Orchestration</span><span>GitHub Actions</span></div>
+          <a class="btn btn-primary" href="https://signalreads.com" rel="noopener">Visit Ghost Writer →</a>
+          <a class="btn btn-ghost" href="/contact.html">Build something similar</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Project navigation">
+        <a href="/projects/timerforge.html"><div class="lbl">← Previous</div><div class="ttl">TimerForge</div></a>
+        <a href="/projects/meditation.html" style="text-align:right;"><div class="lbl">Next →</div><div class="ttl">Meditation</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2026 Dainty Trading. All rights reserved.</span>
+        <span><a href="/">Home</a> · <a href="/#projects">Projects</a> · <a href="/contact.html">Contact</a></span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

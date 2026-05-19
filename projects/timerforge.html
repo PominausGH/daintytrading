@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="google-site-verification" content="V4tv1Ds0qfskA15qPKqndEsVqsO7xyT10CYzFDBV0BQ" />
+  <title>TimerForge — Cross-Platform Countdown Timer SaaS | Dainty Trading</title>
+  <meta name="description" content="TimerForge is a countdown timer that ships as a Windows/Mac/Linux desktop app and a web SaaS. Embeddable, shareable, billed by Stripe. Built on PyQt6 and Node." />
+  <link rel="canonical" href="https://daintytrading.com/projects/timerforge.html" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="TimerForge" />
+  <meta property="og:description" content="Cross-platform countdown timer — desktop and web — embeddable and shareable." />
+  <meta property="og:url" content="https://daintytrading.com/projects/timerforge.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Dainty Trading — AI Automation Studio" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="apple-mobile-web-app-title" content="Dainty Trading" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"TimerForge","applicationCategory":"UtilitiesApplication","operatingSystem":"Windows, macOS, Linux, Web","description":"Countdown timer desktop app and web SaaS.","url":"https://timerforge.app","publisher":{"@type":"Organization","name":"Dainty Trading"}}
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a><a href="/services.html">Services</a><a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> / <a href="/#projects">Projects</a> / TimerForge</div>
+        <h1>TimerForge</h1>
+        <p class="lede">A countdown timer that takes itself seriously. Native desktop apps for Windows, Mac, and Linux. A web SaaS for embedding and sharing. Stripe-billed pro features. The kind of small product that quietly compounds.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Category</strong>&nbsp; SaaS · Cross-platform</span>
+          <span class="chip"><strong>Stack</strong>&nbsp; PyQt6 · Node · Express · Nginx</span>
+          <span class="chip"><strong>Billing</strong>&nbsp; Stripe</span>
+          <span class="chip"><strong>Status</strong>&nbsp; Live</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <h2>The problem</h2>
+          <p>Free timer tools dominate search and disrespect the user. Ad-stuffed pages, settings that don&rsquo;t persist, no way to share or embed, no offline mode. There&rsquo;s a real audience &mdash; teachers, broadcasters, event runners, fitness coaches &mdash; willing to pay a small amount for a timer that just works. We built for them.</p>
+
+          <h2>What we built</h2>
+          <p>TimerForge ships in two forms. The desktop app is built in Python with PyQt6 and packaged for Windows, macOS, and Linux via PyInstaller &mdash; one binary per platform, signed, auto-updating. The web SaaS is a Node and Express service with embeddable timer widgets, shareable URLs, persistent presets, branding controls, and Stripe-billed pro features (large displays, custom themes, scheduled timers, multi-device sync).</p>
+
+          <h2>The automation angle</h2>
+          <p>The interesting work was in the build and release pipeline. Each platform has different signing, notarisation, and packaging quirks; the CI pipeline handles all three from a single push. The web SaaS deploys behind Nginx with Stripe webhooks for licence activation, so a user buying on the marketing site is upgraded everywhere within seconds.</p>
+
+          <h2>How it&rsquo;s used</h2>
+          <ul>
+            <li><strong>Teachers</strong> running test timers on a projector.</li>
+            <li><strong>Streamers and broadcasters</strong> embedding countdowns in OBS scenes.</li>
+            <li><strong>Event runners</strong> pacing keynotes without an AV crew.</li>
+            <li><strong>Fitness coaches</strong> running intervals.</li>
+          </ul>
+
+          <h2>What it taught us</h2>
+          <p>Cross-platform desktop is a real product surface in 2026 if you&rsquo;re willing to do the boring work. The boring work &mdash; code signing, notarisation, auto-update, crash reporting &mdash; is the moat. Once it&rsquo;s done, releases cost almost nothing and the surface is yours.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>Project facts</h4>
+          <div class="label-row"><span>Status</span><span>Live</span></div>
+          <div class="label-row"><span>Domain</span><span>timerforge.app</span></div>
+          <div class="label-row"><span>Desktop</span><span>PyQt6 · PyInstaller</span></div>
+          <div class="label-row"><span>Web</span><span>Node · Express</span></div>
+          <div class="label-row"><span>Reverse proxy</span><span>Nginx</span></div>
+          <div class="label-row"><span>Billing</span><span>Stripe</span></div>
+          <div class="label-row"><span>Targets</span><span>Win · Mac · Linux · Web</span></div>
+          <a class="btn btn-primary" href="https://timerforge.app" rel="noopener">Visit TimerForge →</a>
+          <a class="btn btn-ghost" href="/contact.html">Build something similar</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Project navigation">
+        <a href="/projects/autoarchive.html"><div class="lbl">← Previous</div><div class="ttl">AutoArchive</div></a>
+        <a href="/projects/ghost-writer.html" style="text-align:right;"><div class="lbl">Next →</div><div class="ttl">Ghost Writer</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2026 Dainty Trading. All rights reserved.</span>
+        <span><a href="/">Home</a> · <a href="/#projects">Projects</a> · <a href="/contact.html">Contact</a></span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

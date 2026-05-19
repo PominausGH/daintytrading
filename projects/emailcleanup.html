@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="google-site-verification" content="V4tv1Ds0qfskA15qPKqndEsVqsO7xyT10CYzFDBV0BQ" />
+  <title>Email Cleanup — Bulk Email Domain Validation API | Dainty Trading</title>
+  <meta name="description" content="Email Cleanup is a FastAPI service for bulk email validation. Detects disposable providers, validates domains, and gives you a single endpoint for keeping your mailing lists healthy." />
+  <link rel="canonical" href="https://daintytrading.com/projects/emailcleanup.html" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Email Cleanup" />
+  <meta property="og:description" content="FastAPI service for bulk email domain validation and disposable-provider detection." />
+  <meta property="og:url" content="https://daintytrading.com/projects/emailcleanup.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Dainty Trading — AI Automation Studio" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="apple-mobile-web-app-title" content="Dainty Trading" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebAPI","name":"Email Cleanup","description":"Bulk email validation API.","url":"https://emailcleanup.daintytrading.com","provider":{"@type":"Organization","name":"Dainty Trading"}}
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a><a href="/services.html">Services</a><a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> / <a href="/#projects">Projects</a> / Email Cleanup</div>
+        <h1>Email Cleanup</h1>
+        <p class="lede">A small, fast API that validates email addresses, flags disposable providers, and gives you a single endpoint for keeping mailing lists clean. Simple stack, simple price.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Category</strong>&nbsp; Tools · API</span>
+          <span class="chip"><strong>Stack</strong>&nbsp; Python · FastAPI · SQLite</span>
+          <span class="chip"><strong>Status</strong>&nbsp; Live</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <h2>The problem</h2>
+          <p>Mailing-list hygiene is the most-deferred maintenance task in marketing. Bouncebacks tank deliverability; disposable-email signups poison conversion data; the existing &ldquo;email verification&rdquo; vendors charge per check at scale. We wanted a self-hostable, single-endpoint service that solved 90% of the problem cheaply.</p>
+
+          <h2>What we built</h2>
+          <p>Email Cleanup is a FastAPI service backed by SQLite. It maintains a curated <code>domains.txt</code> of known disposable, role, and parked providers; runs deterministic syntax and MX-record checks; and answers a single <code>POST /validate</code> with a structured verdict per address. Bulk endpoints accept lists and stream results back as soon as each one resolves.</p>
+
+          <h2>The automation angle</h2>
+          <p>The domain list is the product. We auto-update it from public disposable-domain feeds with a manual review queue, and accept user-flagged domains via a single endpoint. There&rsquo;s no LLM here; there doesn&rsquo;t need to be. Pattern matching with good source data beats clever models for the cost-per-call this product targets.</p>
+
+          <h2>How it&rsquo;s used</h2>
+          <ul>
+            <li><strong>SaaS signups</strong> rejecting disposable inboxes before they pollute the funnel.</li>
+            <li><strong>Email senders</strong> cleaning lists before a campaign goes out.</li>
+            <li><strong>Internal tools</strong> across our portfolio that need a fast yes/no.</li>
+          </ul>
+
+          <h2>What it taught us</h2>
+          <p>Not every product needs AI to be valuable. Sometimes the win is a tight schema, a maintained data file, and a service that responds in under twenty milliseconds. We use Email Cleanup ourselves &mdash; it&rsquo;s the kind of unsexy infrastructure that quietly improves every other product.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>Project facts</h4>
+          <div class="label-row"><span>Status</span><span>Live</span></div>
+          <div class="label-row"><span>Domain</span><span>emailcleanup.daintytrading.com</span></div>
+          <div class="label-row"><span>Backend</span><span>Python · FastAPI</span></div>
+          <div class="label-row"><span>Database</span><span>SQLite</span></div>
+          <div class="label-row"><span>Templating</span><span>Jinja2</span></div>
+          <div class="label-row"><span>Latency</span><span>&lt; 20ms p95</span></div>
+          <a class="btn btn-primary" href="https://emailcleanup.daintytrading.com" rel="noopener">Visit Email Cleanup →</a>
+          <a class="btn btn-ghost" href="/contact.html">Build something similar</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Project navigation">
+        <a href="/projects/emailtriage.html"><div class="lbl">← Previous</div><div class="ttl">Email Triage</div></a>
+        <a href="/projects/subscription.html" style="text-align:right;"><div class="lbl">Next →</div><div class="ttl">Subscription Incinerator</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2026 Dainty Trading. All rights reserved.</span>
+        <span><a href="/">Home</a> · <a href="/#projects">Projects</a> · <a href="/contact.html">Contact</a></span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

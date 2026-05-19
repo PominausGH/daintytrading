@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="google-site-verification" content="V4tv1Ds0qfskA15qPKqndEsVqsO7xyT10CYzFDBV0BQ" />
+  <title>ReceiptSnap AI — Dainty Trading</title>
+  <meta name="description" content="Native iOS and Android receipt scanner with on-device capture, cloud OCR, and a tidy expense log. Designed for solo operators who want speed at the till and structured data afterwards, without an SaaS subscription." />
+  <link rel="canonical" href="https://daintytrading.com/projects/receiptsnap-ai.html" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="ReceiptSnap AI" />
+  <meta property="og:description" content="Native iOS and Android receipt scanner with on-device capture, cloud OCR, and a tidy expense log. Designed for solo operators who want speed at the till and structured data afterwards, without an SaaS subscription." />
+  <meta property="og:url" content="https://daintytrading.com/projects/receiptsnap-ai.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Dainty Trading — AI Automation Studio" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="apple-mobile-web-app-title" content="Dainty Trading" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"ReceiptSnap AI","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"Native iOS and Android receipt scanner with on-device capture, cloud OCR, and a tidy expense log. Designed for solo operators who want speed at the till and structured data afterwards, without an SaaS subscription.","url":"https://daintytrading.com/projects/receiptsnap-ai.html","publisher":{"@type":"Organization","name":"Dainty Trading"}}
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a><a href="/services.html">Services</a><a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> / <a href="/#projects">Projects</a> / ReceiptSnap AI</div>
+        <h1>ReceiptSnap AI</h1>
+        <p class="lede">Native iOS and Android receipt scanner with on-device capture, cloud OCR, and a tidy expense log. Designed for solo operators who want speed at the till and structured data afterwards, without an SaaS subscription.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Category</strong>&nbsp; AI · Mobile</span>
+          <span class="chip"><strong>Stack</strong>&nbsp; Swift/SwiftUI · Kotlin/Jetpack Compose · Firebase</span>
+          <span class="chip"><strong>LLM</strong>&nbsp; Google Cloud Vision</span>
+          <span class="chip"><strong>Status</strong>&nbsp; In development</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <h2>The problem</h2>
+          <p>Receipt-tracking apps either bury the user in features they don&rsquo;t want (multi-currency travel reports, team approval flows, subscription tiers) or are so basic they don&rsquo;t actually save the data anywhere structured. There&rsquo;s a gap for solo operators &mdash; tradies, freelancers, sole traders &mdash; who want a fast camera button and a clean export at year-end.</p>
+
+          <h2>What we&rsquo;re building</h2>
+          <p>ReceiptSnap AI is a native app on both platforms (Swift/SwiftUI on iOS, Kotlin + Jetpack Compose on Android). The capture flow is optimised for one-handed use at the till. Google Cloud Vision runs OCR; results sync to Firebase; an export bundles the year as CSV plus original images for your accountant.</p>
+
+          <h2>The AI angle</h2>
+          <p>OCR alone isn&rsquo;t enough &mdash; the value is in the post-OCR cleanup. We extract structured fields (vendor, date, total, GST, line items) and confidence-score each one. Low-confidence fields surface for one-tap correction. Over time the model learns the user&rsquo;s common vendors and pre-fills with high accuracy.</p>
+
+          <h2>How it&rsquo;ll be used</h2>
+          <ul><li><strong>Tradies and contractors</strong> capturing job-related expenses on the go.</li><li><strong>Freelancers and sole traders</strong> who do their own books.</li><li><strong>Travel-heavy professionals</strong> who want every receipt logged before the day ends.</li></ul>
+
+          <h2>Where we are</h2>
+          <p>iOS build is in TestFlight. Android build is following close behind. Public release is gated on the year-end export hitting the format conventions of common accounting software.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>Project facts</h4>
+          <div class="label-row"><span>Status</span><span>In development</span></div>
+          <div class="label-row"><span>Site</span><span>receiptsnap.daintytrading.com</span></div>
+          <div class="label-row"><span>iOS</span><span>Swift · SwiftUI</span></div>
+          <div class="label-row"><span>Android</span><span>Kotlin · Jetpack Compose</span></div>
+          <div class="label-row"><span>Backend</span><span>Firebase</span></div>
+          <div class="label-row"><span>OCR</span><span>Google Cloud Vision</span></div>
+          <a class="btn btn-primary" href="/contact.html">Build something similar</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Project navigation">
+        <a href="/projects/screenshoot-cleaner.html"><div class="lbl">← Previous</div><div class="ttl">ScreenShoot Cleaner</div></a>
+        <a href="/projects/brightpath.html" style="text-align:right;"><div class="lbl">Next →</div><div class="ttl">BrightPath</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2026 Dainty Trading. All rights reserved.</span>
+        <span><a href="/">Home</a> · <a href="/#projects">Projects</a> · <a href="/contact.html">Contact</a></span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

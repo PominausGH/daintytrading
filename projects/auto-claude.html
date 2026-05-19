@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="google-site-verification" content="V4tv1Ds0qfskA15qPKqndEsVqsO7xyT10CYzFDBV0BQ" />
+  <title>Auto-Claude — Dainty Trading</title>
+  <meta name="description" content="An autonomous multi-agent coding framework. Give it a goal — build the feature, fix the bug, spike the prototype — and it plans, builds, runs tests, and iterates until something works, with a human in the loop only when it asks." />
+  <link rel="canonical" href="https://daintytrading.com/projects/auto-claude.html" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Auto-Claude" />
+  <meta property="og:description" content="An autonomous multi-agent coding framework. Give it a goal — build the feature, fix the bug, spike the prototype — and it plans, builds, runs tests, and iterates until something works, with a human in the loop only when it asks." />
+  <meta property="og:url" content="https://daintytrading.com/projects/auto-claude.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Dainty Trading — AI Automation Studio" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="apple-mobile-web-app-title" content="Dainty Trading" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Auto-Claude","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"An autonomous multi-agent coding framework. Give it a goal — build the feature, fix the bug, spike the prototype — and it plans, builds, runs tests, and iterates until something works, with a human in the loop only when it asks.","url":"https://daintytrading.com/projects/auto-claude.html","publisher":{"@type":"Organization","name":"Dainty Trading"}}
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a><a href="/services.html">Services</a><a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> / <a href="/#projects">Projects</a> / Auto-Claude</div>
+        <h1>Auto-Claude</h1>
+        <p class="lede">An autonomous multi-agent coding framework. Give it a goal &mdash; build the feature, fix the bug, spike the prototype &mdash; and it plans, builds, runs tests, and iterates until something works, with a human in the loop only when it asks.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Category</strong>&nbsp; AI · Developer tools</span>
+          <span class="chip"><strong>Stack</strong>&nbsp; Python · FastAPI · React · Electron</span>
+          <span class="chip"><strong>LLM</strong>&nbsp; Anthropic Claude SDK</span>
+          <span class="chip"><strong>Status</strong>&nbsp; In final testing</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <h2>The problem</h2>
+          <p>The interesting question with coding agents isn&rsquo;t whether one Claude call can write a function. It&rsquo;s whether a sequence of calls can hold a project state, recover from failures, and decide when to stop. Most agent frameworks either over-promise (one prompt, full app) or under-deliver (a chat that occasionally writes code).</p>
+
+          <h2>What we&rsquo;re building</h2>
+          <p>Auto-Claude is a multi-agent runtime built directly on the Anthropic Claude SDK. A planner decomposes the goal into steps; specialist agents (research, code, test, review) take ownership of step types; a controller reconciles state and decides what runs next. The desktop app (Electron + React) is the operator&rsquo;s console; the FastAPI backend is the engine.</p>
+
+          <h2>The AI angle</h2>
+          <p>The honest engineering is in the failure handling. Every agent run either succeeds, raises a structured failure with context, or asks the human a single specific question. The controller routes those failures back into the plan instead of silently retrying. This is the difference between a cute demo and a system you trust to run overnight.</p>
+
+          <h2>How it&rsquo;ll be used</h2>
+          <ul><li><strong>Solo developers</strong> who want a project-aware agent for evening tickets.</li><li><strong>Studios like ours</strong> using it to compress repetitive build work.</li><li><strong>Researchers</strong> studying multi-agent failure modes in production conditions.</li></ul>
+
+          <h2>Where we are</h2>
+          <p>Single-goal end-to-end runs are working on real codebases. Multi-day, multi-goal queues are in soak. Public access is gated on a model of cost transparency &mdash; users need to know mid-run how much the agent has spent.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>Project facts</h4>
+          <div class="label-row"><span>Status</span><span>In final testing</span></div>
+          <div class="label-row"><span>Site</span><span>autoclaude.daintytrading.com</span></div>
+          <div class="label-row"><span>Backend</span><span>Python · FastAPI</span></div>
+          <div class="label-row"><span>Frontend</span><span>React · Electron</span></div>
+          <div class="label-row"><span>Agents</span><span>Planner · Code · Test · Review</span></div>
+          <div class="label-row"><span>LLM</span><span>Anthropic Claude SDK</span></div>
+          <a class="btn btn-primary" href="/contact.html">Build something similar</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Project navigation">
+        <a href="/projects/price-scout.html"><div class="lbl">← Previous</div><div class="ttl">Price Scout</div></a>
+        <a href="/projects/fakecall.html" style="text-align:right;"><div class="lbl">Next →</div><div class="ttl">FakeCall</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2026 Dainty Trading. All rights reserved.</span>
+        <span><a href="/">Home</a> · <a href="/#projects">Projects</a> · <a href="/contact.html">Contact</a></span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

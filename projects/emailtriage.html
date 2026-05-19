@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="google-site-verification" content="V4tv1Ds0qfskA15qPKqndEsVqsO7xyT10CYzFDBV0BQ" />
+  <title>Email Triage — AI Inbox Categorization with Claude | Dainty Trading</title>
+  <meta name="description" content="Email Triage uses Claude to categorize incoming Gmail and Outlook mail, score priority 1–10, and draft replies. Multi-account, offline PWA, push notifications, Stripe billing. Built by Dainty Trading." />
+  <link rel="canonical" href="https://daintytrading.com/projects/emailtriage.html" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0c10" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Email Triage — AI inbox categorization" />
+  <meta property="og:description" content="Claude-powered email triage that categorizes, scores, and drafts replies across multiple accounts." />
+  <meta property="og:url" content="https://daintytrading.com/projects/emailtriage.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Dainty Trading — AI Automation Studio" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="apple-mobile-web-app-title" content="Dainty Trading" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"SoftwareApplication",
+    "name":"Email Triage",
+    "applicationCategory":"BusinessApplication",
+    "operatingSystem":"Web, iOS PWA, Android PWA",
+    "description":"AI-powered email triage that categorizes incoming mail, scores priority, and drafts replies using Claude.",
+    "url":"https://email-triage.app",
+    "publisher":{"@type":"Organization","name":"Dainty Trading","url":"https://daintytrading.com"},
+    "offers":{"@type":"Offer","price":"9.00","priceCurrency":"USD"}
+  }
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a><a href="/services.html">Services</a><a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> / <a href="/#projects">Projects</a> / Email Triage</div>
+        <h1>Email Triage</h1>
+        <p class="lede">A Claude-powered email triage system that categorizes, scores, and drafts replies across every Gmail and Outlook account you connect. Built for people whose inbox is the bottleneck.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Category</strong>&nbsp; AI · Productivity</span>
+          <span class="chip"><strong>Stack</strong>&nbsp; TypeScript · React 19 · Postgres · Redis</span>
+          <span class="chip"><strong>LLM</strong>&nbsp; Anthropic Claude</span>
+          <span class="chip"><strong>Status</strong>&nbsp; Live in staging</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <h2>The problem</h2>
+          <p>Most knowledge workers don&rsquo;t have an email problem &mdash; they have a triage problem. The signal is in the inbox, but it&rsquo;s buried under newsletters, notifications, polite no-thanks, and threads that have already concluded without anyone deciding to close them. The cost of fixing this with rules is high; the cost of delegating is higher. We wanted something that read every message, decided what mattered, and saved a draft reply when one was obvious.</p>
+
+          <h2>What we built</h2>
+          <p>Email Triage connects to one or more Gmail or Outlook accounts via OAuth and continuously syncs new messages into Postgres. A worker queue (Bull on Redis) feeds each thread to Claude with a prompt tuned for short, deterministic JSON output: <strong>category</strong> (one of seven), <strong>priority</strong> (1&ndash;10), <strong>summary</strong>, and an optional <strong>draft reply</strong>.</p>
+          <p>The frontend is a React 19 PWA with TanStack Query. It works offline once seeded, sends push notifications when something high-priority lands, and groups inbox views by AI-assigned category. Stripe handles billing on a per-account-per-month plan. Passport.js fronts the OAuth flows.</p>
+
+          <h2>The AI angle</h2>
+          <p>The interesting work isn&rsquo;t the prompt &mdash; it&rsquo;s everything around it. We log every Claude call against the email, the model version, the temperature, and the user&rsquo;s eventual override (did they re-categorise, did they actually send the draft). That gives us an evaluation set that grows by itself, which we re-run nightly against new prompt candidates before we ship them. The gap between a good AI feature and a great one is whether you can answer the question &ldquo;is this prompt better than yesterday&rsquo;s?&rdquo; with data instead of vibes.</p>
+
+          <h2>How it&rsquo;s used</h2>
+          <ul>
+            <li><strong>Solo founders</strong> connect their personal and business Gmail and let the priority score decide what gets opened first.</li>
+            <li><strong>Customer support teams</strong> use the categoriser as a pre-filter before email even reaches the helpdesk.</li>
+            <li><strong>Anyone with three+ inboxes</strong> uses the unified view and stops switching tabs.</li>
+          </ul>
+
+          <h2>What it taught us</h2>
+          <p>That LLMs are good enough at email categorisation that the bottleneck moved to the boring stuff &mdash; OAuth refresh tokens, Gmail&rsquo;s push subscription quirks, Outlook&rsquo;s pagination, push notification permissions on iOS PWAs. Half the codebase is plumbing that earns no podium time but decides whether the product feels reliable. That layer now lives in our shared infrastructure for every product that follows.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>Project facts</h4>
+          <div class="label-row"><span>Status</span><span>Live (staging)</span></div>
+          <div class="label-row"><span>Domain</span><span>email-triage.app</span></div>
+          <div class="label-row"><span>Backend</span><span>Node · Express · TS</span></div>
+          <div class="label-row"><span>Frontend</span><span>React 19 PWA</span></div>
+          <div class="label-row"><span>Database</span><span>Postgres · Prisma</span></div>
+          <div class="label-row"><span>Queue</span><span>Bull on Redis</span></div>
+          <div class="label-row"><span>LLM</span><span>Anthropic Claude</span></div>
+          <div class="label-row"><span>Billing</span><span>Stripe</span></div>
+          <a class="btn btn-primary" href="https://email-triage.app" rel="noopener">Visit Email Triage →</a>
+          <a class="btn btn-ghost" href="/contact.html">Build something similar</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Project navigation">
+        <a href="/projects/brightpath.html"><div class="lbl">← Previous</div><div class="ttl">BrightPath</div></a>
+        <a href="/projects/emailcleanup.html" style="text-align:right;"><div class="lbl">Next →</div><div class="ttl">Email Cleanup</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2026 Dainty Trading. All rights reserved.</span>
+        <span><a href="/">Home</a> · <a href="/#projects">Projects</a> · <a href="/contact.html">Contact</a></span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

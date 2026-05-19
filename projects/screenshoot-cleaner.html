@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="google-site-verification" content="V4tv1Ds0qfskA15qPKqndEsVqsO7xyT10CYzFDBV0BQ" />
+  <title>ScreenShoot Cleaner — Dainty Trading</title>
+  <meta name="description" content="Drop a folder of messy screenshots and notes, get back a single clean PDF. Auto-crops, deskews, and orders the images, then bundles them with any matching note files into a tidy export." />
+  <link rel="canonical" href="https://daintytrading.com/projects/screenshoot-cleaner.html" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="ScreenShoot Cleaner" />
+  <meta property="og:description" content="Drop a folder of messy screenshots and notes, get back a single clean PDF. Auto-crops, deskews, and orders the images, then bundles them with any matching note files into a tidy export." />
+  <meta property="og:url" content="https://daintytrading.com/projects/screenshoot-cleaner.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Dainty Trading — AI Automation Studio" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="apple-mobile-web-app-title" content="Dainty Trading" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"ScreenShoot Cleaner","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"Drop a folder of messy screenshots and notes, get back a single clean PDF. Auto-crops, deskews, and orders the images, then bundles them with any matching note files into a tidy export.","url":"https://daintytrading.com/projects/screenshoot-cleaner.html","publisher":{"@type":"Organization","name":"Dainty Trading"}}
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a><a href="/services.html">Services</a><a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> / <a href="/#projects">Projects</a> / ScreenShoot Cleaner</div>
+        <h1>ScreenShoot Cleaner</h1>
+        <p class="lede">Drop a folder of messy screenshots and notes, get back a single clean PDF. Auto-crops, deskews, and orders the images, then bundles them with any matching note files into a tidy export.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Category</strong>&nbsp; Productivity · Automation</span>
+          <span class="chip"><strong>Stack</strong>&nbsp; Python · Streamlit · OpenCV</span>
+          <span class="chip"><strong>LLM</strong>&nbsp; —</span>
+          <span class="chip"><strong>Status</strong>&nbsp; In development</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <h2>The problem</h2>
+          <p>Screenshot folders rot. They&rsquo;re a mix of dimensions, half are off-axis from a phone photo, none of them are in any sensible order, and the few notes that go with them are scattered alongside in different formats. When you actually need to share or archive a batch, &ldquo;clean it up&rdquo; takes longer than the original work did.</p>
+
+          <h2>What we&rsquo;re building</h2>
+          <p>A Streamlit app that takes a folder, runs OpenCV pre-processing (auto-crop, deskew, contrast), pairs each image with any matching <code>.txt</code> or <code>.md</code> notes, sorts by timestamp, and renders the lot as a single ReportLab PDF. The whole thing fits in a single page of Python.</p>
+
+          <h2>The automation angle</h2>
+          <p>No AI here on purpose. The deterministic image pipeline (rotate-by-largest-rect, edge-detect crop, contrast normalisation) handles 95% of the cases. Adding an LLM would slow it down and make it less predictable.</p>
+
+          <h2>How it&rsquo;ll be used</h2>
+          <ul><li><strong>Researchers and students</strong> assembling reading-and-annotation packs.</li><li><strong>Designers</strong> bundling reference shots and rationale notes for a client review.</li><li><strong>Anyone with a screenshots folder they&rsquo;ve been avoiding.</strong></li></ul>
+
+          <h2>Where we are</h2>
+          <p>Working tool, used daily inside the studio. Public release is a polish pass &mdash; better defaults, drag-and-drop on the Streamlit page, and an option to push the resulting PDF straight into Paperless-NGX.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>Project facts</h4>
+          <div class="label-row"><span>Status</span><span>In development</span></div>
+          <div class="label-row"><span>Site</span><span>screenshootcleaner.daintytrading.com</span></div>
+          <div class="label-row"><span>Backend</span><span>Python · Streamlit</span></div>
+          <div class="label-row"><span>Image</span><span>OpenCV</span></div>
+          <div class="label-row"><span>PDF</span><span>ReportLab</span></div>
+          <div class="label-row"><span>Mode</span><span>Local-first</span></div>
+          <a class="btn btn-primary" href="/contact.html">Build something similar</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Project navigation">
+        <a href="/projects/telegram-crypto-sentiment.html"><div class="lbl">← Previous</div><div class="ttl">Telegram Crypto Sentiment</div></a>
+        <a href="/projects/receiptsnap-ai.html" style="text-align:right;"><div class="lbl">Next →</div><div class="ttl">ReceiptSnap AI</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2026 Dainty Trading. All rights reserved.</span>
+        <span><a href="/">Home</a> · <a href="/#projects">Projects</a> · <a href="/contact.html">Contact</a></span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

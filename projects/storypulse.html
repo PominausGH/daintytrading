@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="google-site-verification" content="V4tv1Ds0qfskA15qPKqndEsVqsO7xyT10CYzFDBV0BQ" />
+  <title>StoryPulse — Instagram Growth Automation SaaS | Dainty Trading</title>
+  <meta name="description" content="StoryPulse automates Instagram story views and reactions on behalf of connected accounts, drives profile visits and follower growth, and publishes AI-generated captions through the Meta Graph API." />
+  <link rel="canonical" href="https://daintytrading.com/projects/storypulse.html" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="StoryPulse — Instagram growth on autopilot" />
+  <meta property="og:description" content="Automated story views, AI captions, anti-detection, multi-account campaigns, Stripe-billed plans." />
+  <meta property="og:url" content="https://daintytrading.com/projects/storypulse.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Dainty Trading — AI Automation Studio" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="apple-mobile-web-app-title" content="Dainty Trading" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"StoryPulse","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"Instagram growth automation SaaS: automated story views, AI captions, anti-detection, multi-account campaigns, tiered Stripe billing.","url":"https://daintytrading.com/projects/storypulse.html","publisher":{"@type":"Organization","name":"Dainty Trading"}}
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a><a href="/services.html">Services</a><a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> / <a href="/#projects">Projects</a> / StoryPulse</div>
+        <h1>StoryPulse</h1>
+        <p class="lede">An Instagram growth-automation SaaS for creators and agencies. Automated story views and reactions drive profile visits; AI writes captions, hooks, and hashtags; multi-account campaigns target by hashtag, location, or competitor &mdash; with the anti-detection layer that decides whether any of it actually works.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Category</strong>&nbsp; AI · Marketing automation</span>
+          <span class="chip"><strong>Stack</strong>&nbsp; Next.js · Postgres · Prisma · BullMQ</span>
+          <span class="chip"><strong>LLM</strong>&nbsp; OpenRouter (captions)</span>
+          <span class="chip"><strong>Status</strong>&nbsp; In development</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <h2>The problem</h2>
+          <p>Organic growth on Instagram is a full-time second job, and most paid &ldquo;growth&rdquo; tools either get accounts banned or quietly do nothing. Creators and small agencies need a system that <em>actually drives discovery</em> without burning the asset they&rsquo;re trying to grow. That&rsquo;s a balance of throughput, behaviour, and infrastructure most off-the-shelf tools fail to hold.</p>
+
+          <h2>What we&rsquo;re building</h2>
+          <p>StoryPulse connects Instagram accounts via session-cookie auth and runs configurable campaigns. Targeting is by hashtag, location, or competitor account. Background workers (BullMQ on Redis) view stories of targeted users throughout the day, optionally sending emoji reactions to surface in their notifications. Engagement events are logged with attribution &mdash; did a story view turn into a profile visit, did the visit turn into a follow.</p>
+          <p>Content publishing is the other half. Users upload videos, AI generates caption copy / hooks / hashtags, and StoryPulse publishes through the official Meta Graph API. Tiered subscriptions (Starter, Growth, Agency) gate account count, daily action volume, and AI generation quotas; Stripe handles billing.</p>
+
+          <h2>The anti-detection layer</h2>
+          <p>This is where the real engineering lives. Per-account proxy rotation through iProyal. Human-behaviour mimicry &mdash; randomised delays, session warm-up preludes, viewing patterns that don&rsquo;t look like a script. Strict rate limiting and a 14-day warm-up cap for new accounts. Health monitoring detects banned, challenged, or expired sessions and pauses the account before more damage is done. The platform&rsquo;s value is directly proportional to how seriously this layer is taken.</p>
+
+          <h2>The AI angle</h2>
+          <p>AI shows up in two places. The caption generator turns a video and a brand brief into three caption variants (short hook, long-form, CTA-led), with hashtag sets calibrated to reach without spam-flagging. The targeting recommender suggests hashtags and competitors based on the account&rsquo;s niche &mdash; same idea as the matchers we built for CV Matcher, applied to Instagram audiences.</p>
+
+          <h2>How it&rsquo;ll be used</h2>
+          <ul>
+            <li><strong>Solo creators</strong> who can&rsquo;t spend three hours a day on growth manually.</li>
+            <li><strong>Small social agencies</strong> running 5&ndash;50 client accounts who need health monitoring and campaign templating.</li>
+            <li><strong>Brands launching new accounts</strong> who need a safe warm-up runway before scaling activity.</li>
+          </ul>
+
+          <h2>Where we are</h2>
+          <p>Campaign management, story-view automation, content publishing through the Graph API, and Stripe billing are working. Caption generation is integrated and being tuned. Public launch is gated on the anti-detection layer hitting our internal tolerance for false-positive bans across a multi-week soak test &mdash; this is one of those products where shipping early would destroy more value than waiting six weeks costs.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>Project facts</h4>
+          <div class="label-row"><span>Status</span><span>In development</span></div>
+          <div class="label-row"><span>Site</span><span>storypulse.daintytrading.com</span></div>
+          <div class="label-row"><span>Frontend</span><span>Next.js</span></div>
+          <div class="label-row"><span>Database</span><span>Postgres · Prisma</span></div>
+          <div class="label-row"><span>Workers</span><span>BullMQ on Redis</span></div>
+          <div class="label-row"><span>Proxies</span><span>iProyal (per-account)</span></div>
+          <div class="label-row"><span>Publishing</span><span>Meta Graph API</span></div>
+          <div class="label-row"><span>Billing</span><span>Stripe (tiered)</span></div>
+          <a class="btn btn-primary" href="/contact.html">Build something similar</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Project navigation">
+        <a href="/projects/fakecall.html"><div class="lbl">← Previous</div><div class="ttl">FakeCall</div></a>
+        <a href="/projects/devtodo.html" style="text-align:right;"><div class="lbl">Next →</div><div class="ttl">DevTodo</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2026 Dainty Trading. All rights reserved.</span>
+        <span><a href="/">Home</a> · <a href="/#projects">Projects</a> · <a href="/contact.html">Contact</a></span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Dainty Trading">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7c5cff"/>
+      <stop offset="100%" stop-color="#20d3a7"/>
+    </linearGradient>
+  </defs>
+  <rect width="100" height="100" rx="22" fill="url(#g)"/>
+  <path fill="#ffffff" fill-rule="evenodd"
+    d="M22 18 H52 C72 18 82 32 82 50 C82 68 72 82 52 82 H22 Z
+       M38 33 H52 C64 33 68 39 68 50 C68 61 64 67 52 67 H38 Z"/>
+  <path fill="#ffffff"
+    d="M53 42 L43 52 L49 52 L49 62 L57 62 L57 52 L63 52 Z"/>
+</svg>
