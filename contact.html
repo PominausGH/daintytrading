@@ -91,37 +91,94 @@
     <div class="container">
       <div class="detail-body">
         <article class="prose">
-          <form class="form-grid" action="https://formspree.io/f/your-id" method="POST" novalidate>
-            <div>
-              <label for="name">Your name</label>
-              <input id="name" name="name" type="text" required autocomplete="name" />
-            </div>
-            <div>
-              <label for="email">Email</label>
-              <input id="email" name="email" type="email" required autocomplete="email" />
-            </div>
-            <div>
-              <label for="company">Company (optional)</label>
-              <input id="company" name="company" type="text" autocomplete="organization" />
-            </div>
-            <div>
-              <label for="engagement">What kind of engagement?</label>
-              <select id="engagement" name="engagement">
-                <option value="product-build">AI product build (concept → paying product)</option>
-                <option value="retrofit">Automation retrofit (add AI to my existing SaaS)</option>
-                <option value="infra">AI infrastructure (gateway, evals, billing, observability)</option>
-                <option value="other">Something else</option>
-              </select>
-            </div>
-            <div>
-              <label for="message">What&rsquo;s the project?</label>
-              <textarea id="message" name="message" required placeholder="What it is, why it matters, anything you've already tried."></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Send enquiry</button>
-            <p class="muted" style="font-size:13px; margin:0;">
-              Or email <a href="mailto:hello@daintytrading.com">hello@daintytrading.com</a> directly.
-            </p>
-          </form>
+          <div id="contact-form-wrap">
+            <form class="form-grid" id="contact-form" novalidate>
+              <div>
+                <label for="name">Your name</label>
+                <input id="name" name="name" type="text" required autocomplete="name" />
+              </div>
+              <div>
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" required autocomplete="email" />
+              </div>
+              <div>
+                <label for="company">Company (optional)</label>
+                <input id="company" name="company" type="text" autocomplete="organization" />
+              </div>
+              <div>
+                <label for="engagement">What kind of engagement?</label>
+                <select id="engagement" name="engagement">
+                  <option value="AI product build (concept → paying product)">AI product build (concept → paying product)</option>
+                  <option value="Automation retrofit (add AI to my existing SaaS)">Automation retrofit (add AI to my existing SaaS)</option>
+                  <option value="AI infrastructure (gateway, evals, billing, observability)">AI infrastructure (gateway, evals, billing, observability)</option>
+                  <option value="Something else">Something else</option>
+                </select>
+              </div>
+              <div>
+                <label for="message">What&rsquo;s the project?</label>
+                <textarea id="message" name="message" required placeholder="What it is, why it matters, anything you've already tried."></textarea>
+              </div>
+
+              <!-- Honeypot — invisible to humans; bots fill it in -->
+              <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">
+                <label for="dt_website">Website (leave blank)</label>
+                <input type="text" id="dt_website" name="dt_website" tabindex="-1" autocomplete="off" />
+              </div>
+              <input type="hidden" id="dt_form_loaded_at" name="dt_form_loaded_at" />
+
+              <button type="submit" id="contact-submit" class="btn btn-primary">Send enquiry</button>
+              <p id="form-error" class="muted" style="font-size:13px; margin:0; color:#f87171; display:none;"></p>
+              <p class="muted" style="font-size:13px; margin:0;">
+                Or email <a href="mailto:hello@daintytrading.com">hello@daintytrading.com</a> directly.
+              </p>
+            </form>
+          </div>
+
+          <div id="contact-success" style="display:none; padding: 32px 0;">
+            <h3 style="margin:0 0 12px;">Enquiry received!</h3>
+            <p>Thanks — we&rsquo;ll reply within one business day with our read on the project and any clarifying questions.</p>
+            <p class="muted" style="font-size:13px;">You should also get a confirmation email shortly.</p>
+          </div>
+
+          <script>
+            document.getElementById('dt_form_loaded_at').value = String(Date.now());
+
+            document.getElementById('contact-form').addEventListener('submit', async function (e) {
+              e.preventDefault();
+              var btn = document.getElementById('contact-submit');
+              var errEl = document.getElementById('form-error');
+              errEl.style.display = 'none';
+              btn.disabled = true;
+              btn.textContent = 'Sending…';
+
+              var payload = {
+                name: document.getElementById('name').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                company: document.getElementById('company').value.trim(),
+                engagement: document.getElementById('engagement').value,
+                message: document.getElementById('message').value.trim(),
+                dt_website: document.getElementById('dt_website').value,
+                dt_form_loaded_at: document.getElementById('dt_form_loaded_at').value,
+              };
+
+              try {
+                var res = await fetch('/api/contact', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(payload),
+                });
+                var data = await res.json().catch(function() { return {}; });
+                if (!res.ok) throw new Error(data.error || 'Something went wrong');
+                document.getElementById('contact-form-wrap').style.display = 'none';
+                document.getElementById('contact-success').style.display = 'block';
+              } catch (err) {
+                errEl.textContent = err.message;
+                errEl.style.display = 'block';
+                btn.disabled = false;
+                btn.textContent = 'Send enquiry';
+              }
+            });
+          </script>
 
           <h2 style="margin-top:48px;">What happens next</h2>
           <ul>
