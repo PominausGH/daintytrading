@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>How to Add AI to an Existing SaaS Without Rewriting It — Dainty Trading</title>
+  <meta name="description" content="Most SaaS products don't need a rebuild to get AI features. They need one well-chosen workflow, a clean API endpoint, and a prompt that doesn't hallucinate on your data. Here's the pattern we use." />
+  <link rel="canonical" href="https://daintytrading.com/blog/how-to-add-ai-to-existing-saas.html" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0c10" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="How to Add AI to an Existing SaaS Without Rewriting It" />
+  <meta property="og:description" content="Most SaaS products don't need a rebuild to get AI features. They need one well-chosen workflow, a clean API endpoint, and a prompt that doesn't hallucinate on your data." />
+  <meta property="og:url" content="https://daintytrading.com/blog/how-to-add-ai-to-existing-saas.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "How to Add AI to an Existing SaaS Without Rewriting It",
+    "description": "Most SaaS products don't need a rebuild to get AI features. They need one well-chosen workflow, a clean API endpoint, and a prompt that doesn't hallucinate on your data.",
+    "url": "https://daintytrading.com/blog/how-to-add-ai-to-existing-saas.html",
+    "datePublished": "2026-05-20",
+    "dateModified": "2026-05-20",
+    "author": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "publisher": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "mainEntityOfPage": "https://daintytrading.com/blog/how-to-add-ai-to-existing-saas.html",
+    "keywords": ["AI retrofit", "add AI to SaaS", "LLM integration", "AI automation", "SaaS AI features"]
+  }
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a>
+        <a href="/services.html">Services</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/blog.html">Blog</a> &nbsp;/&nbsp; AI Retrofit</div>
+        <h1>How to Add AI to an Existing SaaS Without Rewriting It</h1>
+        <p class="lede">Most SaaS products don&rsquo;t need a rebuild to get AI features. They need one well-chosen workflow, a clean API endpoint, and a prompt that doesn&rsquo;t hallucinate on your data.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Topic</strong>&nbsp; AI · Engineering</span>
+          <span class="chip"><strong>Published</strong>&nbsp; 20 May 2026</span>
+          <span class="chip"><strong>Read time</strong>&nbsp; 6 min</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+
+          <h2>The rewrite trap</h2>
+          <p>The first thing most founders want to do when they decide to add AI is rewrite their product. New architecture, new stack, AI-native from the ground up. This is almost always the wrong call. You have a working product, paying customers, and production data. A rewrite puts all three at risk for the sake of catching up to a trend.</p>
+          <p>The better question is: <strong>which one workflow in your product would be meaningfully better if an LLM touched it?</strong> Start there. Build a clean boundary around it. Swap out the old logic for an AI-powered endpoint. Ship it. Then pick the next one.</p>
+
+          <h2>The three workflows worth retrofitting first</h2>
+          <p>After building <a href="/projects/emailtriage.html">Email Triage</a>, <a href="/projects/missed-calls.html">Everyring.ai</a>, and several client retrofits, we keep landing on the same three categories as the highest-value first moves:</p>
+
+          <h3>1. Draft generation</h3>
+          <p>Anywhere your users are writing from scratch — replies, reports, summaries, proposals — an LLM can produce a first draft that your user edits down to 10 seconds of work. The AI doesn&rsquo;t need to be right, it needs to be 80% right and fast. Draft generation is the single easiest retrofit because the blast radius of a bad output is low: the user sees it before it goes anywhere.</p>
+
+          <h3>2. Classification and triage</h3>
+          <p>Anywhere you have incoming items that need to be routed, prioritised, or labelled — support tickets, leads, emails, documents — a classifier prompt outperforms rules-based systems by a wide margin on edge cases. The output is structured (a label, a score, a category), which means it slots directly into your existing database schema. No UI changes required.</p>
+
+          <h3>3. Structured extraction</h3>
+          <p>Anywhere unstructured text needs to become structured data — receipts, contracts, forms, call transcripts — an LLM with a well-designed output schema replaces a fragile regex pipeline. Tools like Claude&rsquo;s tool use or structured outputs make this reliable enough for production.</p>
+
+          <h2>The integration pattern</h2>
+          <p>The implementation is simpler than it looks. You add one new API endpoint to your existing backend. That endpoint receives the relevant context (the email, the ticket, the document), calls an LLM with a prompt you control, and returns a structured response. Your existing frontend and database don&rsquo;t change. The LLM is a function call, not an architecture.</p>
+
+          <p>In pseudo-code, the endpoint looks like this:</p>
+          <p><code>POST /api/ai/triage</code><br />
+          Input: <code>{ item_id, content, context }</code><br />
+          → fetch full context from your DB<br />
+          → build prompt<br />
+          → call LLM API<br />
+          → parse structured response<br />
+          → write result back to your DB<br />
+          Output: <code>{ priority, category, suggested_action }</code></p>
+
+          <p>Your existing UI reads from the same database it always has. The AI result is just another field.</p>
+
+          <h2>What actually takes time</h2>
+          <p>The API call is not the work. The work is:</p>
+          <ul>
+            <li><strong>Prompt engineering.</strong> Getting the model to produce consistently structured output on your specific data distribution takes iteration. Budget a week of prompt work before you call it done.</li>
+            <li><strong>Handling model failures.</strong> LLMs occasionally return malformed JSON, refuse to answer, or produce outputs outside your expected range. Your retry logic and fallback behaviour matters.</li>
+            <li><strong>Evaluation.</strong> You need a way to measure whether the AI output is good. Eyeballing a sample isn&rsquo;t enough at scale. Even a simple spreadsheet-based eval set of 50 real examples beats nothing.</li>
+            <li><strong>Cost monitoring.</strong> Token costs at low volume feel trivial. At 10,000 calls/day they are not. Wire up cost tracking before you launch.</li>
+          </ul>
+
+          <h2>Use a gateway, not direct API calls</h2>
+          <p>Don&rsquo;t hard-code calls to <code>api.anthropic.com</code> directly. Route through a gateway like <a href="https://litellm.ai" rel="noopener" target="_blank">LiteLLM</a> or <a href="https://openrouter.ai" rel="noopener" target="_blank">OpenRouter</a>. You get model switching without code changes, request logging, rate-limit handling, and cost tracking for free. When Anthropic releases a better model next quarter, you change one config value, not ten API call sites.</p>
+          <p>We self-host LiteLLM across our entire portfolio. Every product routes through the same gateway. This is part of our <a href="/services.html">AI infrastructure work</a> for clients too — it&rsquo;s the first thing we stand up.</p>
+
+          <h2>A realistic timeline</h2>
+          <p>A single well-scoped AI workflow — from discovery to production — takes four weeks in our experience. Week one is discovery and architecture. Weeks two and three are the build. Week four is integration testing, evaluation, and deploy. If it&rsquo;s taking longer than that, the scope is too broad.</p>
+          <p>If you want to talk through what that looks like for your product, <a href="/contact.html">drop us a note</a>. We&rsquo;ll tell you honestly whether your workflow is a good first candidate.</p>
+
+        </article>
+
+        <aside class="sidecard">
+          <h4>About this post</h4>
+          <div class="label-row"><span>Published</span><span>20 May 2026</span></div>
+          <div class="label-row"><span>Topic</span><span>AI Engineering</span></div>
+          <div class="label-row"><span>Read time</span><span>6 min</span></div>
+          <div class="label-row"><span>Author</span><span>Dainty Trading</span></div>
+          <a class="btn btn-primary" href="/contact.html">Start an AI retrofit →</a>
+          <a class="btn btn-ghost" href="/services.html">See our services</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Blog navigation">
+        <a href="/blog.html"><div class="lbl">← Back</div><div class="ttl">All posts</div></a>
+        <a href="/blog/what-an-ai-automation-sprint-looks-like.html" style="text-align:right;"><div class="lbl">Next →</div><div class="ttl">What an AI Sprint Looks Like</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2026 Dainty Trading. All rights reserved.</span>
+        <span><a href="/">Home</a> · <a href="/blog.html">Blog</a> · <a href="/contact.html">Contact</a></span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

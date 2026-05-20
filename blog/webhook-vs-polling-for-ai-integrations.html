@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Webhook vs Polling for AI Integrations: When Each Makes Sense — Dainty Trading</title>
+  <meta name="description" content="Both patterns work for AI integrations. The right choice depends on latency requirements, whether the data source emits events, and how much retry logic you want to own. Here's how we decide." />
+  <link rel="canonical" href="https://daintytrading.com/blog/webhook-vs-polling-for-ai-integrations.html" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0c10" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Webhook vs Polling for AI Integrations: When Each Makes Sense" />
+  <meta property="og:description" content="Both patterns work for AI integrations. Here's how we decide which one to use — and the cases where you'll want both." />
+  <meta property="og:url" content="https://daintytrading.com/blog/webhook-vs-polling-for-ai-integrations.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Webhook vs Polling for AI Integrations: When Each Makes Sense",
+    "description": "Both patterns work for AI integrations. The right choice depends on latency requirements, whether the data source emits events, and how much retry logic you want to own.",
+    "url": "https://daintytrading.com/blog/webhook-vs-polling-for-ai-integrations.html",
+    "datePublished": "2026-04-22",
+    "dateModified": "2026-04-22",
+    "author": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "publisher": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "mainEntityOfPage": "https://daintytrading.com/blog/webhook-vs-polling-for-ai-integrations.html",
+    "keywords": ["webhook vs polling", "AI integration patterns", "real-time AI triggers", "event-driven AI", "polling AI workflow"]
+  }
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a>
+        <a href="/services.html">Services</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/blog.html">Blog</a> &nbsp;/&nbsp; AI Engineering</div>
+        <h1>Webhook vs Polling for AI Integrations: When Each Makes Sense</h1>
+        <p class="lede">Both patterns work. The right choice depends on latency requirements, whether the data source emits events, and how much you want to think about retry logic at 3am.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Topic</strong>&nbsp; AI · Engineering</span>
+          <span class="chip"><strong>Published</strong>&nbsp; 22 Apr 2026</span>
+          <span class="chip"><strong>Read time</strong>&nbsp; 6 min</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+
+          <h2>Why the choice matters for AI specifically</h2>
+          <p>Most integration patterns tutorials talk about webhooks and polling in the abstract. For AI integrations the choice has a concrete downstream effect: polling introduces latency between when data arrives and when the AI processes it, which directly affects the usefulness of the output. An email triage system that processes messages 20 minutes after arrival is less useful than one that processes them within 30 seconds.</p>
+          <p>On the other hand, webhooks push complexity onto your system — you need a public endpoint, you need to handle retries when your service is briefly down, and you need to be careful about replay attacks. For batch AI workflows that run once a day, that complexity is unnecessary.</p>
+
+          <h2>The webhook case</h2>
+          <p>Use webhooks when:</p>
+          <ul>
+            <li><strong>Latency is user-visible.</strong> If a user takes an action and expects a result within seconds, you need to process the event as it happens. <a href="/projects/emailtriage.html">Email Triage</a> runs on webhooks from the Gmail push notification API — the AI triage result appears while the email thread is still open.</li>
+            <li><strong>The data source supports them.</strong> Most modern SaaS APIs (Stripe, GitHub, Twilio, Shopify, Gmail) emit webhooks. If the source already pushes events, accept them — polling the same API would be wasteful and slower.</li>
+            <li><strong>Event volume is moderate and spiky.</strong> Webhooks are efficient because they only fire when something happens. If you have a customer who sends 200 emails in an hour and nothing the next day, polling every minute would burn API quota for nothing.</li>
+          </ul>
+
+          <h3>What you need to handle with webhooks</h3>
+          <p>Webhook receivers need to be production-grade. That means:</p>
+          <ul>
+            <li><strong>Idempotency.</strong> Webhook providers retry on delivery failure. Your handler needs to process the same event twice without creating duplicate records or sending duplicate AI outputs.</li>
+            <li><strong>Fast acknowledgement.</strong> Return a 200 within 2–5 seconds. Offload the actual AI processing to a queue. If your LLM call takes 8 seconds and the webhook provider times out at 5, you&rsquo;ll get retries on every single request.</li>
+            <li><strong>Signature verification.</strong> Verify the <code>X-Webhook-Signature</code> or equivalent header before processing. Without this, anyone who discovers your endpoint can feed you arbitrary payloads.</li>
+          </ul>
+
+          <h2>The polling case</h2>
+          <p>Use polling when:</p>
+          <ul>
+            <li><strong>The data source doesn&rsquo;t emit events.</strong> Legacy systems, databases, flat files, and many internal APIs don&rsquo;t push. You have to pull. There&rsquo;s no shame in polling a database on a schedule.</li>
+            <li><strong>Latency doesn&rsquo;t matter.</strong> Nightly batch jobs — sentiment analysis on the day&rsquo;s Telegram messages, generating tomorrow&rsquo;s content queue, running your financial reconciliation — don&rsquo;t need real-time triggers. A cron job at 2am is simpler and more reliable than a webhook receiver that has to be up 24/7.</li>
+            <li><strong>You want to control throughput.</strong> Polling lets you decide exactly how fast you process items. This is useful when your AI cost envelope is fixed — process 500 items per hour, not however many the webhook firehose sends.</li>
+          </ul>
+          <p>Our <a href="/projects/telegram-crypto-sentiment.html">Telegram Crypto Sentiment</a> project polls Telegram channels on a schedule. The channels don&rsquo;t emit webhooks, the analysis runs in batches, and the latency between a message being posted and the sentiment score being computed is acceptable for the use case (daily signals, not real-time trading).</p>
+
+          <h2>The hybrid: webhook to queue, polling the queue</h2>
+          <p>The pattern we use most in production for AI integrations is: webhook receiver → job queue → workers polling the queue.</p>
+          <p>The webhook receiver does nothing except validate the signature, persist the raw event to a queue, and return a 200. Workers poll the queue, pull items, run the AI processing, and write results. This gives you the low latency of webhooks and the controlled throughput and retry semantics of polling.</p>
+          <p>We use this in <a href="/projects/missed-calls.html">Everyring.ai</a>: a missed call arrives via webhook from the telephony provider, gets queued, and the AI drafts the follow-up message within seconds. If the AI call fails, the queue retries with backoff. The webhook receiver itself is never blocked.</p>
+
+          <h2>Decision rule</h2>
+          <p>Ask two questions:</p>
+          <ul>
+            <li>Does the data source emit events? If yes, start with webhooks.</li>
+            <li>Does the user need the result in under 60 seconds? If yes, you need near-real-time processing — webhooks or very frequent polling.</li>
+          </ul>
+          <p>If both answers are no, a scheduled polling job is simpler and you should use it. Save the webhook complexity for when the latency requirement actually demands it.</p>
+
+        </article>
+
+        <aside class="sidecard">
+          <h4>About this post</h4>
+          <div class="label-row"><span>Published</span><span>22 Apr 2026</span></div>
+          <div class="label-row"><span>Topic</span><span>AI Engineering</span></div>
+          <div class="label-row"><span>Read time</span><span>6 min</span></div>
+          <div class="label-row"><span>Author</span><span>Dainty Trading</span></div>
+          <a class="btn btn-primary" href="/contact.html">Start a project →</a>
+          <a class="btn btn-ghost" href="/services.html">See our services</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Blog navigation">
+        <a href="/blog/ai-features-that-show-up-in-your-pl.html"><div class="lbl">← Previous</div><div class="ttl">AI Features That Show Up in Your P&amp;L</div></a>
+        <a href="/blog.html" style="text-align:right;"><div class="lbl">Back to</div><div class="ttl">All posts</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2026 Dainty Trading. All rights reserved.</span>
+        <span><a href="/">Home</a> · <a href="/blog.html">Blog</a> · <a href="/contact.html">Contact</a></span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

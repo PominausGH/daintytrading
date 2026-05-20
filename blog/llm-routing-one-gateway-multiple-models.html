@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LLM Routing: Why We Run Claude, Gemini, and OpenAI Behind One Gateway — Dainty Trading</title>
+  <meta name="description" content="Hard-coding a single model provider into your app is a liability. Here's how we route across Claude, Gemini, and OpenAI — and the rules we use to decide which model runs which task." />
+  <link rel="canonical" href="https://daintytrading.com/blog/llm-routing-one-gateway-multiple-models.html" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0c10" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="LLM Routing: Why We Run Claude, Gemini, and OpenAI Behind One Gateway" />
+  <meta property="og:description" content="Hard-coding a single model provider into your app is a liability. Here's how we route across LLMs — and the rules we use to decide which model runs which task." />
+  <meta property="og:url" content="https://daintytrading.com/blog/llm-routing-one-gateway-multiple-models.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "LLM Routing: Why We Run Claude, Gemini, and OpenAI Behind One Gateway",
+    "description": "Hard-coding a single model provider into your app is a liability. Here's how we route across LLMs and the rules we use to decide which model runs which task.",
+    "url": "https://daintytrading.com/blog/llm-routing-one-gateway-multiple-models.html",
+    "datePublished": "2026-05-06",
+    "dateModified": "2026-05-06",
+    "author": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "publisher": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "mainEntityOfPage": "https://daintytrading.com/blog/llm-routing-one-gateway-multiple-models.html",
+    "keywords": ["LLM routing", "LiteLLM", "OpenRouter", "Claude vs Gemini", "LLM gateway", "model routing production"]
+  }
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a>
+        <a href="/services.html">Services</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/blog.html">Blog</a> &nbsp;/&nbsp; AI Infrastructure</div>
+        <h1>LLM Routing: Why We Run Claude, Gemini, and OpenAI Behind One Gateway</h1>
+        <p class="lede">Hard-coding a single model provider into your app is a liability. Here&rsquo;s how we route across models — and the rules we use to decide which one runs what task.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Topic</strong>&nbsp; AI · Infrastructure</span>
+          <span class="chip"><strong>Published</strong>&nbsp; 6 May 2026</span>
+          <span class="chip"><strong>Read time</strong>&nbsp; 7 min</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+
+          <h2>The problem with a single provider</h2>
+          <p>Most AI applications start the same way: pick a model, hard-code the API call, ship it. That works fine until the model you chose gets deprecated, its price doubles, a competitor releases something significantly better, or it goes down at the worst possible moment. Any of these events requires a code change across every place you called the API directly.</p>
+          <p>We learned this lesson early and now every product we build — whether for our own portfolio or for clients — routes LLM calls through a single gateway. The application code sees one endpoint. The gateway decides which provider gets the request.</p>
+
+          <h2>How the gateway works</h2>
+          <p>We self-host <a href="https://litellm.ai" rel="noopener" target="_blank">LiteLLM</a> as the primary gateway. It presents an OpenAI-compatible API so the application code never changes — you call <code>POST /chat/completions</code> with a model name, and LiteLLM translates that into the right provider API call.</p>
+          <p>For products that need access to models outside LiteLLM&rsquo;s direct integrations, or where we want managed fallback and routing, we add <a href="https://openrouter.ai" rel="noopener" target="_blank">OpenRouter</a> as a second layer. This is the setup behind <a href="/projects/brightpath.html">BrightPath</a>, where different lesson types use different models depending on the required reasoning depth and cost envelope.</p>
+          <p>The gateway gives us:</p>
+          <ul>
+            <li><strong>Request logging.</strong> Every call, latency, token count, and cost is recorded. This is how we catch a prompt change that accidentally doubled token usage.</li>
+            <li><strong>Rate limit handling.</strong> The gateway retries on 429s and switches providers on hard limits. The application sees a result, not an error.</li>
+            <li><strong>Cost tracking per project.</strong> We tag requests with a project ID and generate weekly cost reports. Without this, costs drift invisibly.</li>
+            <li><strong>Zero-downtime model upgrades.</strong> When Anthropic released Claude 3.5 Sonnet, we changed one config value. No deploys, no PR reviews, no regression testing of API call sites.</li>
+          </ul>
+
+          <h2>Our model routing rules</h2>
+          <p>Not all tasks need the same model. We route based on three criteria: reasoning requirement, latency tolerance, and cost per call.</p>
+
+          <h3>Claude Sonnet — reasoning and long context</h3>
+          <p>We default to Claude for tasks that require sustained reasoning, careful instruction following, or long context windows. This includes: writing first drafts from complex briefs, tutoring conversations in BrightPath, contract and document analysis, and any task where a wrong output has meaningful downstream consequences.</p>
+          <p>Claude is our most expensive default, but the quality floor is higher than the alternatives on tasks where the prompt is complicated and the output needs to be consistent.</p>
+
+          <h3>Gemini Flash — high-volume, fast, cheap</h3>
+          <p>For high-throughput tasks where latency matters and cost compounds fast — real-time classification, suggestion generation, short completions — Gemini Flash is usually the right call. It&rsquo;s significantly cheaper per token than Claude Sonnet and fast enough for interactive use. BrightPath uses it for inline hint generation during lessons: needs to be instant, doesn&rsquo;t need to be brilliant.</p>
+
+          <h3>GPT-4o — when client infrastructure requires it</h3>
+          <p>We occasionally default to GPT-4o on client engagements where the client already has Azure OpenAI credits, enterprise agreements, or compliance requirements that tie them to Microsoft infrastructure. The gateway makes this a config change, not a rebuild.</p>
+
+          <h2>When to introduce routing</h2>
+          <p>You don&rsquo;t need a gateway on day one. If you have one model doing one task, a direct API call is fine. Introduce a gateway when:</p>
+          <ul>
+            <li>You have more than two distinct AI workflows with different requirements</li>
+            <li>You&rsquo;re spending more than $500/month on model API calls</li>
+            <li>You need request logging for debugging or compliance</li>
+            <li>You want to experiment with model switching without code changes</li>
+          </ul>
+          <p>Setting up LiteLLM takes about a day. We include it as standard in our <a href="/services.html">AI infrastructure engagements</a>.</p>
+
+          <h2>One thing people get wrong</h2>
+          <p>Teams often try to pick &ldquo;the best model&rdquo; once and use it everywhere. There is no best model — there is the right model for a given task at a given cost point. The goal of a routing layer is to match tasks to models correctly, not to standardise on a single provider out of preference or familiarity.</p>
+          <p>If you&rsquo;re running the same frontier model for both a 10,000-token document analysis and a two-sentence category label, you&rsquo;re probably overpaying on one and correctly spending on the other.</p>
+
+        </article>
+
+        <aside class="sidecard">
+          <h4>About this post</h4>
+          <div class="label-row"><span>Published</span><span>6 May 2026</span></div>
+          <div class="label-row"><span>Topic</span><span>AI Infrastructure</span></div>
+          <div class="label-row"><span>Read time</span><span>7 min</span></div>
+          <div class="label-row"><span>Author</span><span>Dainty Trading</span></div>
+          <a class="btn btn-primary" href="/contact.html">Talk infrastructure →</a>
+          <a class="btn btn-ghost" href="/services.html">See our services</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Blog navigation">
+        <a href="/blog/what-an-ai-automation-sprint-looks-like.html"><div class="lbl">← Previous</div><div class="ttl">What an AI Sprint Looks Like</div></a>
+        <a href="/blog/ai-features-that-show-up-in-your-pl.html" style="text-align:right;"><div class="lbl">Next →</div><div class="ttl">AI Features That Show Up in Your P&amp;L</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2026 Dainty Trading. All rights reserved.</span>
+        <span><a href="/">Home</a> · <a href="/blog.html">Blog</a> · <a href="/contact.html">Contact</a></span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
