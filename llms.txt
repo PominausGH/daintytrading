@@ -78,7 +78,7 @@ We don't bolt onto SaaS treadmills. The same open-source tools we run for oursel
 
 ## Frequently asked
 
-- **What is Dainty Trading?** An AI automation studio with 24 products (live, in final testing, and in active development), taking on selected client engagements.
+- **What is Dainty Trading?** An AI automation studio with 35 products (live, in final testing, and in active development), taking on selected client engagements.
 - **What stack do you use?** Python (FastAPI, Django) + Node.js (Fastify, Express) backends; Next.js, React, React Native + Expo frontends; Postgres + Redis; Stripe + Brevo + n8n + LiteLLM. Default LLM is Claude.
 - **What open-source tools do you self-host?** Umami, Cal.com, LiteLLM Proxy, Paperless-NGX, Open WebUI, Speedtest Tracker, Portainer, Syncthing — see the Supporting cast section above.
 - **How fast can you ship?** Typically a working first slice in 1–2 weeks; first paying customer in 4–8 weeks.
