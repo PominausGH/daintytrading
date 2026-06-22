@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Don't Ship AI Features to 100% on Day One &mdash; Dainty Trading</title>
+  <meta name="description" content="Gradual rollouts, A/B testing, and shadow mode are critical for AI features. Learn how to instrument and deploy safely." />
+  <link rel="canonical" href="https://daintytrading.com/blog/ai-feature-flags-gradual-rollouts.html" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0c10" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Don't Ship AI Features to 100% on Day One" />
+  <meta property="og:description" content="Gradual rollouts, A/B testing, and shadow mode are critical for AI features. Learn how to instrument and deploy safely." />
+  <meta property="og:url" content="https://daintytrading.com/blog/ai-feature-flags-gradual-rollouts.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.jpg" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Don't Ship AI Features to 100% on Day One",
+    "description": "Gradual rollouts, A/B testing, and shadow mode are critical for AI features. Learn how to instrument and deploy safely.",
+    "url": "https://daintytrading.com/blog/ai-feature-flags-gradual-rollouts.html",
+    "datePublished": "2026-06-08",
+    "dateModified": "2026-06-08",
+    "author": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "publisher": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "mainEntityOfPage": "https://daintytrading.com/blog/ai-feature-flags-gradual-rollouts.html"
+  }
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a>
+        <a href="/services.html">Services</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/blog.html">Blog</a> &nbsp;/&nbsp; AI · Engineering</div>
+        <h1>Don't Ship AI Features to 100% on Day One</h1>
+        <p class="lede">Gradual rollouts, A/B testing, and shadow mode are critical for AI features. Learn how to instrument and deploy safely.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Topic</strong>&nbsp; AI · Engineering</span>
+          <span class="chip"><strong>Published</strong>&nbsp; 8 June 2026</span>
+          <span class="chip"><strong>Read time</strong>&nbsp; 6 min</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <p>Shipping an AI feature to 100% of users on day one is a critical mistake. AI isn't deterministic. It fails in novel, unpredictable ways that are difficult to catch in a test environment. The "happy path" works in development, but real-world prompts and diverse user inputs expose breakdowns you simply cannot anticipate. We've seen this repeatedly, whether it's an LLM hallucinating a critical response in a customer support tool or misinterpreting a complex query in a data analysis agent. Unlike traditional software bugs that often manifest deterministically, AI failures are probabilistic and context-dependent. A full rollout without safeguards means your first real-world test is a potential incident for all users. You need to control exposure, learn fast, and iterate safely.</p>
+
+<h2>The Common Wrong Approach</h2>
+<p>Most teams build an AI feature, test it internally with a few predefined scenarios, and then flip a global switch, exposing it to everyone. This seems reasonable initially because it's the simplest path. The thinking often goes: "It worked in staging, so it'll work in production." This approach might suffice for traditional features where you can exhaustively test known edge cases and expect consistent behavior. However, it catastrophically breaks down for AI features.</p>
+<p>Unforeseen failures are rampant. AI models, especially large language models (LLMs), fail in ways you can't predict in a test environment—hallucinations, subtle misinterpretations, or catastrophic token limit errors on specific, complex inputs. We’ve had clients call us at 2 AM after a full rollout led to immediate, widespread incidents. Beyond functionality, a sudden surge of traffic to an unoptimized prompt or an expensive model can lead to unexpected API bills within hours. A bad first impression with a broken AI feature can kill user trust and adoption. When 100% of users are affected, diagnosing the root cause under pressure is incredibly difficult, especially given AI's non-deterministic nature.</p>
+
+<h2>The Better Approach</h2>
+<p>At Dainty, we treat AI feature deployment with extreme caution and recommend a multi-layered approach:</p>
+<ol>
+<li><strong>Feature Flags for Control:</strong> Use a robust feature flagging system like LaunchDarkly or Split.io. This is non-negotiable. It provides granular control over who sees the feature and, critically, a kill switch if things go wrong.</li>
+<li><strong>Gradual Percentage Rollouts:</strong> Start with 1% of users, then increment to 5%, 10%, 25%, 50%, and finally 100%. Monitor key metrics intently at each stage. This allows you to catch issues with a small blast radius.</li>
+<li><strong>A/B Testing:</strong> This is crucial for comparing different prompt engineering approaches, model versions, or even the AI output against a human fallback. Define clear success metrics upfront, such as user engagement, task completion rate, or reduction in support tickets. For our Email Triage project, we A/B tested several summarization prompts, finding significant differences in user satisfaction and time saved.</li>
+<li><strong>Shadow Mode:</strong> Run the AI feature in the background for a subset of users without exposing its output to them. Log its predictions and compare them against a baseline (e.g., human-generated output, existing system's output). This lets you gather real-world performance data and identify failure modes <em>before</em> any user sees a bad result. We used shadow mode extensively for BrightPath's content generation, comparing AI outputs to human editor reviews to fine-tune quality.</li>
+<li><strong>Robust Instrumentation:</strong>
+<ul>
+<li><strong>Cost Tracking:</strong> Log token usage and estimated cost per API call. Alert if costs spike unexpectedly.</li>
+<li><strong>Latency:</strong> Monitor end-to-end latency, including API calls and all pre/post-processing.</li>
+<li><strong>Success/Failure Rates:</strong> Track API errors (e.g., rate limits, invalid requests) and internal logic errors.</li>
+<li><strong>Quality Metrics:</strong> This is paramount. For a summarizer, track "summaries accepted by user" vs. "summaries edited/discarded." For a content generator, track "content published" vs. "content rejected." For our CV Matcher, we track "candidate presented" vs. "candidate rejected" by the hiring manager.</li>
+<li><strong>User Feedback Loops:</strong> Implement simple "thumbs up/down" or "was this helpful?" buttons directly in the UI. This provides immediate, invaluable qualitative data.</li>
+<li><strong>Guardrail Violations:</strong> If you have safety mechanisms (e.g., content moderation, PII detection), log every time they trigger.</li>
+</ul>
+</li>
+</ol>
+<p>This approach gives you a kill switch, allows for quick iteration, and builds confidence before wider release. We apply these principles to every AI system we build, from AutoArchive Mail to Ghost Writer.</p>
+
+<h2>Where This Breaks</h2>
+<p>While highly effective, this comprehensive approach isn't always the right fit. It adds complexity that might not be worth it for every scenario:</p>
+<ul>
+<li><strong>Over-engineering for Simple Features:</strong> If your AI feature is a trivial internal tool with low impact (e.g., a simple text rewriter for internal memos), the full suite of A/B testing and shadow mode might be overkill. A simple percentage rollout via a configurable variable might suffice.</li>
+<li><strong>Cost of Feature Flagging Tools:</strong> Enterprise-grade tools like LaunchDarkly aren't cheap. For a bootstrapped startup, a homegrown solution (even just an entry in a config service or database) can provide basic percentage rollouts, but be aware of its limitations and maintenance burden.</li>
+<li><strong>Complexity Overhead:</strong> Managing dozens of feature flags, especially for A/B tests, adds operational overhead. You need a clear strategy for naming conventions, flag lifecycle management, and cleaning up old flags.</li>
+<li><strong>Defining Quality Metrics:</strong> The hardest part is often defining meaningful, measurable quality metrics for AI output. If you can't measure it, you can't effectively A/B test or use shadow mode to validate impact. This requires significant upfront product thinking and collaboration.</li>
+<li><strong>Small User Bases:</strong> For products with very few users, percentage rollouts might not provide enough statistically significant data quickly. In these cases, focus on shadow mode and direct, qualitative user feedback from a small, trusted group.</li>
+</ul>
+
+<h2>Practical Next Step</h2>
+<p>Pick one existing or upcoming AI feature. Instead of planning a hard launch, implement a simple percentage rollout. If you don't yet have a dedicated feature flag system, use a conditional check in your code based on a user ID hash or a randomly generated number (e.g., <code>if (hash(userId) % 100 &lt; rolloutPercentage)</code>). Start at 5% of your user base. Crucially, add at least two metrics:</p>
+<ol>
+<li><strong>AI API call success/failure rate:</strong> Track HTTP status codes and any model-specific error messages.</li>
+<li><strong>User interaction metric:</strong> Implement a simple "thumbs up" / "thumbs down" button, or log whether the AI-generated content was ultimately saved or sent by the user.</li>
+</ol>
+<p>Monitor these metrics daily for a week. You'll quickly see if your initial assumptions about quality hold up in the wild. This small investment pays dividends in stability and user satisfaction. If you need help structuring these rollouts or setting up the right telemetry, we frequently guide teams through this process; consider a <a href="https://daintytrading.com/contact.html">Start a project</a> discussion with Dainty.</p>
+        
+<div class="cast-philosophy" style="margin-top:40px;border-top:1px solid var(--border);padding-top:32px;">
+  <p><strong>We build production AI, not prototypes.</strong>
+  If you're looking to ship something like what's described here — see
+  <a href="/services.html">how we work</a> or
+  <a href="/contact.html">start a project brief &rarr;</a></p>
+</div>
+</article>
+
+        <aside class="sidecard">
+          <h4>About this post</h4>
+          <div class="label-row"><span>Published</span><span>8 June 2026</span></div>
+          <div class="label-row"><span>Topic</span><span>AI · Engineering</span></div>
+          <div class="label-row"><span>Read time</span><span>6 min</span></div>
+          <div class="label-row"><span>Author</span><span>Dainty Trading</span></div>
+          <a class="btn btn-primary" href="https://daintytrading.com/contact.html">Start a project &rarr;</a>
+          <a class="btn btn-ghost" href="/services.html">See our services</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Blog navigation">
+        <a href="/blog.html"><div class="lbl">&larr; Back</div><div class="ttl">All posts</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="/" class="brand" style="margin-bottom:14px;">
+            <span class="brand-mark" aria-hidden="true"></span>
+            Dainty Trading
+          </a>
+          <p class="muted" style="font-size:13.5px; max-width:360px;">
+            AI automation studio. We build production AI software for ourselves and selected clients.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Studio</h4>
+          <a href="/about.html">About</a>
+          <a href="/services.html">Services</a>
+          <a href="/blog.html">Blog</a>
+          <a href="/contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Featured projects</h4>
+          <a href="/projects/emailtriage.html">Email Triage</a>
+          <a href="/projects/ghost-writer.html">Ghost Writer</a>
+          <a href="/projects/convoforge.html">ConvoForge</a>
+          <a href="/projects/brightpath.html">BrightPath</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="/sitemap.xml">Sitemap</a>
+          <a href="/llms.txt">llms.txt</a>
+          <a href="/robots.txt">robots.txt</a>
+          <a href="/privacy.html">Privacy policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Dainty Trading. All rights reserved.</span>
+        <span>Built in Australia.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

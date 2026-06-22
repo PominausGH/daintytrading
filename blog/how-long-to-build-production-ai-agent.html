@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>How long does it take to build a production AI agent? &mdash; Dainty Trading</title>
+  <meta name="description" content="A reliable production AI agent takes 2–3 months to build. The demo takes a week, but the gap is evaluation pipelines, fallback handling, and edge cases." />
+  <link rel="canonical" href="https://daintytrading.com/blog/how-long-to-build-production-ai-agent.html" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0c10" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="How long does it take to build a production AI agent?" />
+  <meta property="og:description" content="A reliable production AI agent takes 2–3 months to build. The demo takes a week, but the gap is evaluation pipelines, fallback handling, and edge cases." />
+  <meta property="og:url" content="https://daintytrading.com/blog/how-long-to-build-production-ai-agent.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.jpg" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "How long does it take to build a production AI agent?",
+    "description": "A reliable production AI agent takes 2–3 months to build. The demo takes a week, but the gap is evaluation pipelines, fallback handling, and edge cases.",
+    "url": "https://daintytrading.com/blog/how-long-to-build-production-ai-agent.html",
+    "datePublished": "2026-06-17",
+    "dateModified": "2026-06-17",
+    "author": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "publisher": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "mainEntityOfPage": "https://daintytrading.com/blog/how-long-to-build-production-ai-agent.html"
+  }
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a>
+        <a href="/services.html">Services</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/blog.html">Blog</a> &nbsp;/&nbsp; Process</div>
+        <h1>How long does it take to build a production AI agent?</h1>
+        <p class="lede">A reliable production AI agent takes 2–3 months to build. The demo takes a week, but the gap is evaluation pipelines, fallback handling, and edge cases.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Topic</strong>&nbsp; Process</span>
+          <span class="chip"><strong>Published</strong>&nbsp; 17 June 2026</span>
+          <span class="chip"><strong>Read time</strong>&nbsp; 5 min</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <h2>The honest timeline for a production AI agent</h2>
+<p>A reliable production AI agent takes two to three months from proof of concept to deployment. You can build a demo in a week. The gap between that demo and a system you can trust with actual users consists of evaluation pipelines, fallback handling, and discovering the edge cases you never find until real traffic hits.</p>
+
+<p>When developers ask about timelines, they usually underestimate the friction of moving from a probabilistic prototype to a deterministic product. They think the hard part is making the model understand the task. It isn't. The hard part is making the model execute the task consistently, 10,000 times in a row, without hallucinating data, dropping application state, or degrading when the context window fills up.</p>
+
+<h2>The demo trap</h2>
+<p>Most teams fall into what we call the demo trap. They build a prototype in a weekend hackathon. They wire up Claude 3.5 Sonnet or GPT-4o, feed it a massive system prompt, and get it to perfectly execute the golden path. The stakeholders are amazed. They declare the project 90 percent done.</p>
+
+<p>Then they push to a staging environment with real, messy user data. This is where the illusion shatters. The agent gets confused by a weirdly formatted JSON payload. It loops infinitely when an external API times out. At 2am on a Sunday, you find out your application crashes because a user pasted a 200,000-token log file and you didn't implement token counting and truncation before the API call.</p>
+
+<p>Because the team used a thick abstraction layer—like early agent frameworks that hide the raw HTTP API calls—they can't easily debug the exact requests failing under the hood. Their only lever is the system prompt. They spend the next six months playing prompt whack-a-mole. They add "NEVER DO X" to the prompt to fix one bug, which causes the model to over-correct and break three existing features. The project stalls in an indefinite "almost there" phase. The team burns out trying to control software behavior using English prose instead of code, and the deployment date gets pushed back quarter after quarter.</p>
+
+<h2>Inverting the architecture</h2>
+<p>At Dainty, we treat the LLM call as the easiest, least important part of the system. The actual work is building the scaffolding around it. When we built Email Triage and AutoArchive Mail, the core prompt engineering took an afternoon. The next two months were spent building a deterministic state machine, setting up an evaluation suite, and writing explicit fallback logic.</p>
+
+<p>First, you have to invert your architecture. Stop trying to build an AI that uses tools, and start building a traditional, deterministic software application that occasionally calls an LLM to make a routing decision or transform unstructured text. When a new payload arrives in Email Triage, we don't just dump the raw text into a giant conversational context window. We extract the metadata deterministically. We use an LLM specifically to classify the intent. If the intent is "invoice," the system routes it to a deterministic script that parses the PDF. The LLM is a function call, not the brain of the entire application. The agent's state lives in your database, not in the LLM's context window.</p>
+
+<p>Second, you need an evaluation pipeline before you ship to production. You cannot refactor a prompt if you don't know mathematically how it affects your baseline. We pull hundreds of real-world examples of user inputs, run them through the new prompt, and score the outputs. We use LLM-as-a-judge for fuzzy metrics like tone and helpfulness, but strict deterministic tests for structure. If the agent is supposed to output a JSON schema, we don't just ask nicely in the prompt. We use the API's structured output features and write application code to catch, parse, and retry failures.</p>
+
+<p>Third, build for failure. LLM APIs go down. They time out. They return garbage. Your agent needs explicit, coded rules for what to do when the model fails. If the intent classifier returns an ambiguous result, the agent shouldn't guess. It should seamlessly escalate to a human or ask the user a clarifying question. We build guardrails into the application code, not the prompt. If you want to limit the agent's actions, don't tell it to behave—restrict its API credentials at the system level.</p>
+
+<h2>Where this approach breaks</h2>
+<p>This rigorous, software-engineering-first approach adds significant overhead. If you're building a lightweight internal tool for three forgiving co-workers who know how to coax the model back on track, spending two months on an eval pipeline and a state machine is a massive waste of time and money. Just ship the weekend prototype.</p>
+
+<p>Similarly, if your agent is entirely read-only—like a documentation summarizer—the risk profile is low enough that you can tolerate occasional hallucinations without catastrophic failure. But the moment the agent takes actions on behalf of a user, writes to a production database, or represents your brand in customer-facing interactions, the "just ship the prompt" methodology becomes a severe technical liability.</p>
+
+<h2>Measure before you modify</h2>
+<p>Stop tweaking your prompt and start measuring it. Before you write another line of code, pull 50 diverse, difficult examples of inputs your agent will face in production. Create a CSV with columns for input, expected output, and a pass/fail assertion. Write a simple Python script to run your current prompt against all 50 inputs concurrently, parse the results, and log the accuracy percentage. Once you have that baseline, you can actually see what breaks.</p>
+
+<p>If you're stuck in the prompt engineering loop and need to transition your prototype into a robust system, <a href="https://daintytrading.com/contact.html">start a project</a> with us. We'll help you build the infrastructure required to get your agent out of staging and into a reliable production environment.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>About this post</h4>
+          <div class="label-row"><span>Published</span><span>17 June 2026</span></div>
+          <div class="label-row"><span>Topic</span><span>Process</span></div>
+          <div class="label-row"><span>Read time</span><span>5 min</span></div>
+          <div class="label-row"><span>Author</span><span>Dainty Trading</span></div>
+          <a class="btn btn-primary" href="https://daintytrading.com/contact.html">Start a project &rarr;</a>
+          <a class="btn btn-ghost" href="/services.html">See our services</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Blog navigation">
+        <a href="/blog.html"><div class="lbl">&larr; Back</div><div class="ttl">All posts</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="/" class="brand" style="margin-bottom:14px;">
+            <span class="brand-mark" aria-hidden="true"></span>
+            Dainty Trading
+          </a>
+          <p class="muted" style="font-size:13.5px; max-width:360px;">
+            AI automation studio. We build production AI software for ourselves and selected clients.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Studio</h4>
+          <a href="/about.html">About</a>
+          <a href="/services.html">Services</a>
+          <a href="/blog.html">Blog</a>
+          <a href="/contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Featured projects</h4>
+          <a href="/projects/emailtriage.html">Email Triage</a>
+          <a href="/projects/ghost-writer.html">Ghost Writer</a>
+          <a href="/projects/convoforge.html">ConvoForge</a>
+          <a href="/projects/brightpath.html">BrightPath</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="/sitemap.xml">Sitemap</a>
+          <a href="/llms.txt">llms.txt</a>
+          <a href="/robots.txt">robots.txt</a>
+          <a href="/privacy.html">Privacy policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Dainty Trading. All rights reserved.</span>
+        <span>Built in Australia.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

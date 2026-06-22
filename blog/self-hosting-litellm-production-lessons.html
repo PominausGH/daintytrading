@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Self-hosting LiteLLM: 6 months in production &mdash; Dainty Trading</title>
+  <meta name="description" content="After half a year, we share what actually works when self-hosting LiteLLM as a unified LLM gateway, and where it adds complexity." />
+  <link rel="canonical" href="https://daintytrading.com/blog/self-hosting-litellm-production-lessons.html" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0c10" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Self-hosting LiteLLM: 6 months in production" />
+  <meta property="og:description" content="After half a year, we share what actually works when self-hosting LiteLLM as a unified LLM gateway, and where it adds complexity." />
+  <meta property="og:url" content="https://daintytrading.com/blog/self-hosting-litellm-production-lessons.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.jpg" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Self-hosting LiteLLM: 6 months in production",
+    "description": "After half a year, we share what actually works when self-hosting LiteLLM as a unified LLM gateway, and where it adds complexity.",
+    "url": "https://daintytrading.com/blog/self-hosting-litellm-production-lessons.html",
+    "datePublished": "2026-06-08",
+    "dateModified": "2026-06-08",
+    "author": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "publisher": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "mainEntityOfPage": "https://daintytrading.com/blog/self-hosting-litellm-production-lessons.html"
+  }
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a>
+        <a href="/services.html">Services</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/blog.html">Blog</a> &nbsp;/&nbsp; AI · Engineering</div>
+        <h1>Self-hosting LiteLLM: 6 months in production</h1>
+        <p class="lede">After half a year, we share what actually works when self-hosting LiteLLM as a unified LLM gateway, and where it adds complexity.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Topic</strong>&nbsp; AI · Engineering</span>
+          <span class="chip"><strong>Published</strong>&nbsp; 8 June 2026</span>
+          <span class="chip"><strong>Read time</strong>&nbsp; 5 min</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <p>The moment you add a second LLM provider to your stack – maybe Anthropic for long-context tasks, Google for multimodal, or OpenAI for general-purpose – you've introduced a significant new operational headache. Suddenly, your direct API calls are tightly coupled to a single vendor's API, rate limits, and pricing model. We've seen teams hard-code provider-specific logic across their codebase, leading to brittle systems that are a nightmare to debug or switch. After six months of self-hosting LiteLLM across projects like <em>Email Triage</em> and <em>Ghost Writer</em>, we can confidently say: abstracting your LLM calls behind a unified gateway isn't optional, it's essential for any serious AI product.</p>
+
+<h2>The Common Wrong Approach</h2>
+<p>Most teams start simple: direct API calls to <code>api.anthropic.com</code> or <code>api.openai.com</code>. It's fast to get a proof-of-concept running. You pull in the official client library, set an API key, and you're making requests. This approach seems reasonable until you need to add another provider, implement intelligent fallbacks when one service is slow, or track token usage consistently across different billing models. We've seen <code>if/else</code> spaghetti grow around <code>provider_name</code> variables, each branch handling specific API quirks, retry logic, and error codes. This leads to vendor lock-in by inertia, makes cost optimization through dynamic model switching almost impossible, and turns observability into a bespoke integration nightmare for every single LLM endpoint.</p>
+
+<h2>The Better Approach</h2>
+<p>Our recommendation, refined over half a year of production use, is to self-host LiteLLM as a unified API gateway. We deploy it as a Docker container, often within a Kubernetes cluster for resilience, exposing a single endpoint to our application services. Instead of direct calls, our code targets this LiteLLM gateway, treating all models as if they were behind a single, consistent OpenAI-compatible API.</p>
+
+<p>The core of our setup is a <code>config.yaml</code> file. Here, we map logical model names like <code>fast-triage-model</code> or <code>creative-writer-model</code> to specific provider models (e.g., <code>anthropic/claude-3-haiku-20240307</code> or <code>openai/gpt-4o</code>). This allows our application code to request <code>fast-triage-model</code> without knowing or caring which underlying provider is serving it. We manage API keys securely as environment variables, passed directly to the LiteLLM container.</p>
+
+<p>LiteLLM handles critical infrastructure concerns out of the box:</p>
+<ul>
+<li><strong>Unified API:</strong> A single <code>completion</code> interface abstracts away provider-specific nuances.</li>
+<li><strong>Automatic Retries &amp; Fallbacks:</strong> Configure <code>max_retries</code> and <code>fallback_models</code> directly in your <code>config.yaml</code>. If <code>gpt-4o</code> hits a rate limit, LiteLLM can automatically try <code>claude-3-opus-20240229</code>. This is invaluable for <em>Email Triage</em>, ensuring no customer request gets dropped.</li>
+<li><strong>Token Counting &amp; Cost Tracking:</strong> LiteLLM normalizes token counts and provides cost estimates, giving us a single source of truth for spend across all providers.</li>
+<li><strong>Caching:</strong> We leverage LiteLLM's built-in caching for common requests, reducing latency and API costs for applications like <em>BrightPath</em> where certain prompts are highly repeatable.</li>
+</ul>
+
+<p>This abstraction lets us dynamically route traffic based on cost, performance, or even specific model capabilities without changing application code. For <em>Ghost Writer</em>, we can send initial draft requests to a cheaper, faster model like <code>gpt-3.5-turbo</code>, then route final polish passes to <code>claude-3-opus-20240229</code>, all configured at the gateway level. If you're looking to unify your LLM infrastructure, consider Dainty's expertise to <a href="https://daintytrading.com/contact.html">start a project</a> and implement a robust gateway solution.</p>
+
+<h2>Where This Breaks</h2>
+<p>While LiteLLM is powerful, it's not a silver bullet. The biggest drawback is operational overhead. You're now running another critical service that needs monitoring, scaling, and patching. This adds complexity that a small team using only one or two models from a single provider might not justify. We've also encountered situations where LiteLLM's integration with a brand new LLM provider had subtle bugs or missing features that required workarounds or waiting for upstream fixes. Debugging can be trickier, as you're adding another layer between your app and the LLM API. While <code>litellm.set_verbose(True)</code> helps, understanding network issues or provider-specific errors can sometimes require direct API calls to isolate. Furthermore, while LiteLLM offers basic caching and observability hooks, it's not a full-fledged monitoring or cost management platform. You'll still need to integrate its logs and metrics into your existing infrastructure. Don't expect it to replace your Datadog or Prometheus setup.</p>
+
+<h2>Practical Next Step</h2>
+<p>If you're managing multiple LLM providers or anticipate doing so, dedicate an afternoon to a LiteLLM proof-of-concept. Start by pulling the LiteLLM Docker image: <code>docker pull ghcr.io/berriai/litellm</code>. Next, create a simple <code>config.yaml</code> to define two custom models, one mapping to OpenAI's <code>gpt-4o</code> and another to Anthropic's <code>claude-3-opus-20240229</code>. Define environment variables for your API keys (<code>OPENAI_API_KEY</code>, <code>ANTHROPIC_API_KEY</code>). Then, run the container: <code>docker run -p 4000:4000 -v ./config.yaml:/app/config.yaml -e OPENAI_API_KEY=$OPENAI_API_KEY -e ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY ghcr.io/berriai/litellm</code>. Finally, from your application, send a simple completion request to <code>http://localhost:4000/chat/completions</code>, swapping the <code>model</code> parameter between your custom names. Experiment with <code>fallback_models</code> in your <code>config.yaml</code> to see the resilience in action. This minimal setup will quickly demonstrate the power of a unified gateway.</p>
+        
+<div class="cast-philosophy" style="margin-top:40px;border-top:1px solid var(--border);padding-top:32px;">
+  <p><strong>We build production AI, not prototypes.</strong>
+  If you're looking to ship something like what's described here — see
+  <a href="/services.html">how we work</a> or
+  <a href="/contact.html">start a project brief &rarr;</a></p>
+</div>
+</article>
+
+        <aside class="sidecard">
+          <h4>About this post</h4>
+          <div class="label-row"><span>Published</span><span>8 June 2026</span></div>
+          <div class="label-row"><span>Topic</span><span>AI · Engineering</span></div>
+          <div class="label-row"><span>Read time</span><span>5 min</span></div>
+          <div class="label-row"><span>Author</span><span>Dainty Trading</span></div>
+          <a class="btn btn-primary" href="https://daintytrading.com/contact.html">Start a project &rarr;</a>
+          <a class="btn btn-ghost" href="/services.html">See our services</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Blog navigation">
+        <a href="/blog.html"><div class="lbl">&larr; Back</div><div class="ttl">All posts</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="/" class="brand" style="margin-bottom:14px;">
+            <span class="brand-mark" aria-hidden="true"></span>
+            Dainty Trading
+          </a>
+          <p class="muted" style="font-size:13.5px; max-width:360px;">
+            AI automation studio. We build production AI software for ourselves and selected clients.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Studio</h4>
+          <a href="/about.html">About</a>
+          <a href="/services.html">Services</a>
+          <a href="/blog.html">Blog</a>
+          <a href="/contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Featured projects</h4>
+          <a href="/projects/emailtriage.html">Email Triage</a>
+          <a href="/projects/ghost-writer.html">Ghost Writer</a>
+          <a href="/projects/convoforge.html">ConvoForge</a>
+          <a href="/projects/brightpath.html">BrightPath</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="/sitemap.xml">Sitemap</a>
+          <a href="/llms.txt">llms.txt</a>
+          <a href="/robots.txt">robots.txt</a>
+          <a href="/privacy.html">Privacy policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Dainty Trading. All rights reserved.</span>
+        <span>Built in Australia.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

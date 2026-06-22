@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Core pages -->
   <url>
     <loc>https://daintytrading.com/</loc>
-    <lastmod>2026-05-07</lastmod>
+    <lastmod>2026-06-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://daintytrading.com/services.html</loc>
-    <lastmod>2026-05-07</lastmod>
+    <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -20,9 +22,9 @@
   </url>
   <url>
     <loc>https://daintytrading.com/contact.html</loc>
-    <lastmod>2026-05-07</lastmod>
+    <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://daintytrading.com/privacy.html</loc>
@@ -30,50 +32,112 @@
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+
+  <!-- Geo pages -->
+  <url>
+    <loc>https://daintytrading.com/australia.html</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://daintytrading.com/sydney.html</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://daintytrading.com/central-coast.html</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://daintytrading.com/usa.html</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://daintytrading.com/uk.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Service sub-pages -->
+  <url>
+    <loc>https://daintytrading.com/services/ai-product-builds.html</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://daintytrading.com/services/ai-automation-retrofit.html</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://daintytrading.com/services/ai-infrastructure.html</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Blog -->
   <url>
     <loc>https://daintytrading.com/blog.html</loc>
-    <lastmod>2026-05-20</lastmod>
+    <lastmod>2026-06-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://daintytrading.com/blog/how-to-add-ai-to-existing-saas.html</loc>
-    <lastmod>2026-05-20</lastmod>
+    <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://daintytrading.com/blog/what-an-ai-automation-sprint-looks-like.html</loc>
-    <lastmod>2026-05-13</lastmod>
+    <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://daintytrading.com/blog/llm-routing-one-gateway-multiple-models.html</loc>
-    <lastmod>2026-05-06</lastmod>
+    <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://daintytrading.com/blog/ai-features-that-show-up-in-your-pl.html</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://daintytrading.com/blog/webhook-vs-polling-for-ai-integrations.html</loc>
-    <lastmod>2026-04-22</lastmod>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Projects — Live -->
+  <url>
+    <loc>https://daintytrading.com/projects/brightpath.html</loc>
+    <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://daintytrading.com/projects/emailtriage.html</loc>
-    <lastmod>2026-05-07</lastmod>
+    <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://daintytrading.com/projects/ghost-writer.html</loc>
+    <loc>https://daintytrading.com/projects/emailcleanup.html</loc>
     <lastmod>2026-05-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -85,13 +149,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://daintytrading.com/projects/convoforge.html</loc>
-    <lastmod>2026-05-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://daintytrading.com/projects/brightpath.html</loc>
+    <loc>https://daintytrading.com/projects/missed-calls.html</loc>
     <lastmod>2026-05-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -109,64 +167,10 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://daintytrading.com/projects/devtodo.html</loc>
-    <lastmod>2026-05-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://daintytrading.com/projects/skeddy.html</loc>
-    <lastmod>2026-05-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://daintytrading.com/projects/focusguard.html</loc>
     <lastmod>2026-05-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://daintytrading.com/projects/chefforge.html</loc>
-    <lastmod>2026-05-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://daintytrading.com/projects/meditation.html</loc>
-    <lastmod>2026-05-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://daintytrading.com/projects/yoga-platform.html</loc>
-    <lastmod>2026-05-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://daintytrading.com/projects/timerforge.html</loc>
-    <lastmod>2026-05-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://daintytrading.com/projects/missed-calls.html</loc>
-    <lastmod>2026-05-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://daintytrading.com/projects/marketing-os.html</loc>
-    <lastmod>2026-05-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://daintytrading.com/projects/billing-api.html</loc>
-    <lastmod>2026-05-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://daintytrading.com/projects/autoarchive.html</loc>
@@ -175,22 +179,36 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://daintytrading.com/projects/emailcleanup.html</loc>
+    <loc>https://daintytrading.com/projects/timerforge.html</loc>
     <lastmod>2026-05-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://daintytrading.com/projects/second-brain.html</loc>
+    <loc>https://daintytrading.com/projects/ghost-writer.html</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Projects — In final testing -->
+  <url>
+    <loc>https://daintytrading.com/projects/meditation.html</loc>
     <lastmod>2026-05-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://daintytrading.com/projects/recipe-api.html</loc>
+    <loc>https://daintytrading.com/projects/skeddy.html</loc>
     <lastmod>2026-05-07</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://daintytrading.com/projects/marketing-os.html</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://daintytrading.com/projects/chatvault.html</loc>
@@ -205,16 +223,72 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://daintytrading.com/projects/storypulse.html</loc>
+    <loc>https://daintytrading.com/projects/second-brain.html</loc>
     <lastmod>2026-05-07</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://daintytrading.com/projects/convoforge.html</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://daintytrading.com/projects/price-scout.html</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://daintytrading.com/projects/auto-claude.html</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://daintytrading.com/projects/fakecall.html</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Projects — In active development -->
+  <url>
+    <loc>https://daintytrading.com/projects/storypulse.html</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://daintytrading.com/projects/devtodo.html</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://daintytrading.com/projects/chefforge.html</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://daintytrading.com/projects/yoga-platform.html</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://daintytrading.com/projects/billing-api.html</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://daintytrading.com/projects/recipe-api.html</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://daintytrading.com/projects/screenshot-to-text.html</loc>
@@ -227,12 +301,6 @@
     <lastmod>2026-05-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://daintytrading.com/projects/auto-claude.html</loc>
-    <lastmod>2026-05-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://daintytrading.com/projects/prompt-builder.html</loc>
@@ -259,7 +327,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://daintytrading.com/projects/screenshoot-cleaner.html</loc>
+    <loc>https://daintytrading.com/projects/screenshot-cleaner.html</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -270,9 +338,58 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
+
   <url>
-    <loc>https://daintytrading.com/projects/fakecall.html</loc>
-    <lastmod>2026-05-08</lastmod>
+    <loc>https://daintytrading.com/blog/ai-feature-flags-gradual-rollouts.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://daintytrading.com/blog/automated-ai-feedback-loops-evaluation.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://daintytrading.com/blog/how-we-evaluate-llms-beyond-benchmarks.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://daintytrading.com/blog/llm-rate-limiting-production-patterns.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://daintytrading.com/blog/rules-still-win-when-not-to-use-llm.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://daintytrading.com/blog/self-hosting-litellm-production-lessons.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://daintytrading.com/blog/token-cost-optimization-savings.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://daintytrading.com/blog/unglamorous-ops-work-production-ai.html</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://daintytrading.com/blog/how-long-to-build-production-ai-agent.html</loc>
+    <lastmod>2026-06-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>

@@ -13,11 +13,11 @@
   <meta property="og:title" content="Blog — Dainty Trading" />
   <meta property="og:description" content="Practical writing on AI automation from a studio that ships production AI software." />
   <meta property="og:url" content="https://daintytrading.com/blog.html" />
-  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.jpg" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
   <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
@@ -25,6 +25,7 @@
   <link rel="manifest" href="/site.webmanifest" />
   <meta name="apple-mobile-web-app-title" content="Dainty Trading" />
   <link rel="stylesheet" href="/styles.css" />
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -45,14 +46,16 @@
   <a href="#main" class="skip">Skip to content</a>
   <header class="site-header">
     <div class="container nav">
-      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
-      <nav class="nav-links" aria-label="Primary">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 2l2.09 6.91L21 12l-6.91 2.09L12 22l-2.09-7.91L2 12l7.91-2.09L12 2z"/></svg></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary" id="main-nav">
         <a href="/#projects">Projects</a>
         <a href="/services.html">Services</a>
         <a href="/blog.html">Blog</a>
         <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
         <a href="/contact.html" class="nav-cta">Start a project</a>
       </nav>
+      <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.getElementById('main-nav').classList.toggle('nav-open')">&#9776;</button>
     </div>
   </header>
 
@@ -67,6 +70,96 @@
 
     <div class="container" style="padding-top: 56px; padding-bottom: 100px;">
       <div class="project-grid">
+        <a class="project-card" href="/blog/how-long-to-build-production-ai-agent.html">
+          <span class="tag">Process</span>
+          <h3>How long does it take to build a production AI agent?</h3>
+          <p>A reliable production AI agent takes 2–3 months to build. The demo takes a week, but the gap is evaluation pipelines, fallback handling, and edge cases.</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:auto; padding-top:12px;">
+            <span style="font-size:12px; color:var(--text-muted);">17 June 2026 &middot; 5 min read</span>
+            <span class="arrow" style="padding-top:0;">Read &rarr;</span>
+          </div>
+        </a>
+
+        <a class="project-card" href="/blog/unglamorous-ops-work-production-ai.html">
+          <span class="tag">AI · Engineering</span>
+          <h3>The unglamorous ops work behind production AI</h3>
+          <p>What happens after the AI demo: managing P99 latency, sanitizing PII from prompt logs, and handling malformed JSON failures in production.</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:auto; padding-top:12px;">
+            <span style="font-size:12px; color:var(--text-muted);">10 June 2026 &middot; 5 min read</span>
+            <span class="arrow" style="padding-top:0;">Read &rarr;</span>
+          </div>
+        </a>
+
+        <a class="project-card" href="/blog/llm-rate-limiting-production-patterns.html">
+          <span class="tag">AI · Engineering</span>
+          <h3>Stop Hitting LLM Rate Limits: What We Learned Shipping</h3>
+          <p>Learn production patterns for rate limiting AI endpoints, including per-user, cost-based, and queue-based throttling, to avoid provider limits and unexpected bills.</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:auto; padding-top:12px;">
+            <span style="font-size:12px; color:var(--text-muted);">8 June 2026 &middot; 4 min read</span>
+            <span class="arrow" style="padding-top:0;">Read &rarr;</span>
+          </div>
+        </a>
+
+        <a class="project-card" href="/blog/ai-feature-flags-gradual-rollouts.html">
+          <span class="tag">AI · Engineering</span>
+          <h3>Don't Ship AI Features to 100% on Day One</h3>
+          <p>Gradual rollouts, A/B testing, and shadow mode are critical for AI features. Learn how to instrument and deploy safely.</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:auto; padding-top:12px;">
+            <span style="font-size:12px; color:var(--text-muted);">8 June 2026 &middot; 6 min read</span>
+            <span class="arrow" style="padding-top:0;">Read &rarr;</span>
+          </div>
+        </a>
+
+        <a class="project-card" href="/blog/how-we-evaluate-llms-beyond-benchmarks.html">
+          <span class="tag">AI · Engineering</span>
+          <h3>How We Evaluate LLMs: Beyond Benchmarks</h3>
+          <p>Stop guessing which LLM works best. Our framework helps you pick the right model for your task, measuring cost, quality, and long-term fit.</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:auto; padding-top:12px;">
+            <span style="font-size:12px; color:var(--text-muted);">8 June 2026 &middot; 5 min read</span>
+            <span class="arrow" style="padding-top:0;">Read &rarr;</span>
+          </div>
+        </a>
+
+        <a class="project-card" href="/blog/self-hosting-litellm-production-lessons.html">
+          <span class="tag">AI · Engineering</span>
+          <h3>Self-hosting LiteLLM: 6 months in production</h3>
+          <p>After half a year, we share what actually works when self-hosting LiteLLM as a unified LLM gateway, and where it adds complexity.</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:auto; padding-top:12px;">
+            <span style="font-size:12px; color:var(--text-muted);">8 June 2026 &middot; 5 min read</span>
+            <span class="arrow" style="padding-top:0;">Read &rarr;</span>
+          </div>
+        </a>
+
+        <a class="project-card" href="/blog/rules-still-win-when-not-to-use-llm.html">
+          <span class="tag">AI · Engineering</span>
+          <h3>Rules Still Win: When Not to Use an LLM</h3>
+          <p>LLMs aren't a silver bullet. We break down Dainty's decision tree for when deterministic rules outperform AI models.</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:auto; padding-top:12px;">
+            <span style="font-size:12px; color:var(--text-muted);">8 June 2026 &middot; 5 min read</span>
+            <span class="arrow" style="padding-top:0;">Read &rarr;</span>
+          </div>
+        </a>
+
+        <a class="project-card" href="/blog/automated-ai-feedback-loops-evaluation.html">
+          <span class="tag">AI · Engineering</span>
+          <h3>Building AI Feedback Loops That Don't Require Manual Labeling</h3>
+          <p>Stop waiting for user ratings. Learn how to build a reliable AI evaluation framework using automated checks, sampling, and implicit signals.</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:auto; padding-top:12px;">
+            <span style="font-size:12px; color:var(--text-muted);">7 June 2026 &middot; 5 min read</span>
+            <span class="arrow" style="padding-top:0;">Read &rarr;</span>
+          </div>
+        </a>
+
+        <a class="project-card" href="/blog/token-cost-optimization-savings.html">
+          <span class="tag">AI · Engineering</span>
+          <h3>Token Cost Optimization: Where the Savings Actually Are</h3>
+          <p>The highest ROI strategies for reducing LLM token costs in production: prompt caching, model routing, context trimming, and output constraints.</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:auto; padding-top:12px;">
+            <span style="font-size:12px; color:var(--text-muted);">7 June 2026 &middot; 5 min read</span>
+            <span class="arrow" style="padding-top:0;">Read &rarr;</span>
+          </div>
+        </a>
+
 
         <a class="project-card" href="/blog/how-to-add-ai-to-existing-saas.html">
           <span class="tag">AI · Engineering</span>

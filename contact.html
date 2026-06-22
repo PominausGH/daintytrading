@@ -13,12 +13,13 @@
   <meta property="og:title" content="Contact Dainty Trading" />
   <meta property="og:description" content="Tell us what you want built. We reply within one business day." />
   <meta property="og:url" content="https://daintytrading.com/contact.html" />
-  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Dainty Trading — AI Automation Studio" />
+  <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.jpg" />
 
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
@@ -27,6 +28,7 @@
   <link rel="manifest" href="/site.webmanifest" />
   <meta name="apple-mobile-web-app-title" content="Dainty Trading" />
   <link rel="stylesheet" href="/styles.css" />
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 
   <script type="application/ld+json">
   {
@@ -69,14 +71,16 @@
   <a href="#main" class="skip">Skip to content</a>
   <header class="site-header">
     <div class="container nav">
-      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
-      <nav class="nav-links" aria-label="Primary">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 2l2.09 6.91L21 12l-6.91 2.09L12 22l-2.09-7.91L2 12l7.91-2.09L12 2z"/></svg></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary" id="main-nav">
         <a href="/#projects">Projects</a>
         <a href="/services.html">Services</a>
         <a href="/blog.html">Blog</a>
         <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
         <a href="/contact.html" class="nav-cta">Start a project</a>
       </nav>
+      <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.getElementById('main-nav').classList.toggle('nav-open')">&#9776;</button>
     </div>
   </header>
 
@@ -85,7 +89,7 @@
       <div class="container">
         <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; Contact</div>
         <h1>Tell us what you want built.</h1>
-        <p class="lede">Two paragraphs is plenty: what the product is, and why it matters. We&rsquo;ll reply within one business day with a scoped first sprint.</p>
+        <p class="lede">Two paragraphs is enough. What&rsquo;s the workflow or product? What outcome would make it worth doing? We reply within one business day with a realistic scope &mdash; no pitch call required to get a straight answer.</p>
       </div>
     </section>
 
@@ -116,8 +120,16 @@
                 </select>
               </div>
               <div>
+                <label for="timeline">What&rsquo;s your timeline?</label>
+                <select id="timeline" name="timeline">
+                  <option value="ASAP">ASAP — I want to move now</option>
+                  <option value="1-3 months">1&ndash;3 months</option>
+                  <option value="Just exploring">Just exploring for now</option>
+                </select>
+              </div>
+              <div>
                 <label for="message">What&rsquo;s the project?</label>
-                <textarea id="message" name="message" required placeholder="What it is, why it matters, anything you've already tried."></textarea>
+                <textarea id="message" name="message" required placeholder="One paragraph on the problem, one on what success looks like. That&rsquo;s all we need."></textarea>
               </div>
 
               <!-- Honeypot — invisible to humans; bots fill it in -->
@@ -129,16 +141,20 @@
 
               <button type="submit" id="contact-submit" class="btn btn-primary">Send enquiry</button>
               <p id="form-error" class="muted" style="font-size:13px; margin:0; color:#f87171; display:none;"></p>
+              <p class="muted" style="font-size:12px;margin:0;color:var(--text-muted);">&#128274; No cookies &middot; Your data is never sold or shared &middot; <a href="/privacy.html" style="color:var(--text-muted);text-decoration:underline;">Privacy policy</a></p>
               <p class="muted" style="font-size:13px; margin:0;">
-                Or email <a href="mailto:hello@daintytrading.com">hello@daintytrading.com</a> directly.
+                Once we&rsquo;ve read your brief we&rsquo;ll reach out &mdash; or <a href="https://cal.daintytrading.com/andrewdainty" target="_blank" rel="noopener">book a time directly</a> and pick a slot that suits you.
+              </p>
+              <p class="muted" style="font-size:13px; margin:0;">
+                Phone: <button class="phone-reveal-btn" data-a="614" data-b="850" data-c="13007" onclick="var n='+'+this.dataset.a+this.dataset.b+this.dataset.c;this.outerHTML='<a href=\'tel:'+n+'\' class=\'phone-revealed\'>'+n+'<\/a>';">show number</button>
               </p>
             </form>
           </div>
 
           <div id="contact-success" style="display:none; padding: 32px 0;">
-            <h3 style="margin:0 0 12px;">Enquiry received!</h3>
-            <p>Thanks — we&rsquo;ll reply within one business day with our read on the project and any clarifying questions.</p>
-            <p class="muted" style="font-size:13px;">You should also get a confirmation email shortly.</p>
+            <h3 style="margin:0 0 12px;">Brief received.</h3>
+            <p>We&rsquo;ll read it today and reply within one business day. In the meantime, you&rsquo;re welcome to <a href="https://cal.daintytrading.com/andrewdainty" target="_blank" rel="noopener">book a time directly</a> &mdash; pick a slot that suits you and we&rsquo;ll go over your project together.</p>
+            <p class="muted" style="font-size:13px;">While you wait: <a href="/#projects">see the full portfolio &rarr;</a></p>
           </div>
 
           <script>
@@ -157,6 +173,7 @@
                 email: document.getElementById('email').value.trim(),
                 company: document.getElementById('company').value.trim(),
                 engagement: document.getElementById('engagement').value,
+                timeline: document.getElementById('timeline').value,
                 message: document.getElementById('message').value.trim(),
                 dt_website: document.getElementById('dt_website').value,
                 dt_form_loaded_at: document.getElementById('dt_form_loaded_at').value,
@@ -191,10 +208,12 @@
 
         <aside class="sidecard">
           <h4>Direct contact</h4>
-          <div class="label-row"><span>Email</span><span>hello@daintytrading.com</span></div>
+          <div class="label-row"><span>Phone</span><span><button class="phone-reveal-btn" data-a="614" data-b="850" data-c="13007" onclick="var n='+'+this.dataset.a+this.dataset.b+this.dataset.c;this.outerHTML='<a href=\'tel:'+n+'\' class=\'phone-revealed\'>'+n+'<\/a>';">show</button></span></div>
           <div class="label-row"><span>Reply time</span><span>1 business day</span></div>
-          <div class="label-row"><span>Timezone</span><span>AEST (UTC+10)</span></div>
-          <div class="label-row"><span>Languages</span><span>English</span></div>
+          <div class="label-row"><span>Timezone</span><span>AU &middot; UK &middot; US</span></div>
+          <div class="label-row"><span>Sales call?</span><span>Not required</span></div>
+          <div class="label-row"><span>Data sold?</span><span>Never</span></div>
+          <a class="btn btn-primary" href="https://cal.daintytrading.com/andrewdainty" target="_blank" rel="noopener">Book a time directly &rarr;</a>
           <a class="btn btn-ghost" href="/services.html">See engagement types</a>
         </aside>
       </div>
@@ -233,6 +252,7 @@
           <a href="/llms.txt">llms.txt</a>
           <a href="/robots.txt">robots.txt</a>
           <a href="/privacy.html">Privacy policy</a>
+          <a href="/australia.html">Australia</a>
         </div>
       </div>
       <div class="footer-bottom">

@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>How We Evaluate LLMs: Beyond Benchmarks &mdash; Dainty Trading</title>
+  <meta name="description" content="Stop guessing which LLM works best. Our framework helps you pick the right model for your task, measuring cost, quality, and long-term fit." />
+  <link rel="canonical" href="https://daintytrading.com/blog/how-we-evaluate-llms-beyond-benchmarks.html" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0c10" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="How We Evaluate LLMs: Beyond Benchmarks" />
+  <meta property="og:description" content="Stop guessing which LLM works best. Our framework helps you pick the right model for your task, measuring cost, quality, and long-term fit." />
+  <meta property="og:url" content="https://daintytrading.com/blog/how-we-evaluate-llms-beyond-benchmarks.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.jpg" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "How We Evaluate LLMs: Beyond Benchmarks",
+    "description": "Stop guessing which LLM works best. Our framework helps you pick the right model for your task, measuring cost, quality, and long-term fit.",
+    "url": "https://daintytrading.com/blog/how-we-evaluate-llms-beyond-benchmarks.html",
+    "datePublished": "2026-06-08",
+    "dateModified": "2026-06-08",
+    "author": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "publisher": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "mainEntityOfPage": "https://daintytrading.com/blog/how-we-evaluate-llms-beyond-benchmarks.html"
+  }
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a>
+        <a href="/services.html">Services</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/blog.html">Blog</a> &nbsp;/&nbsp; AI · Engineering</div>
+        <h1>How We Evaluate LLMs: Beyond Benchmarks</h1>
+        <p class="lede">Stop guessing which LLM works best. Our framework helps you pick the right model for your task, measuring cost, quality, and long-term fit.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Topic</strong>&nbsp; AI · Engineering</span>
+          <span class="chip"><strong>Published</strong>&nbsp; 8 June 2026</span>
+          <span class="chip"><strong>Read time</strong>&nbsp; 5 min</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <p>A robust LLM evaluation, from test set creation to a confident model decision, typically takes 1-2 weeks for a well-defined task. This structured approach ensures you pick the right model for your specific needs, avoiding costly re-engineering months down the line when initial assumptions inevitably fail in production. The alternative is usually a gut feeling or relying on public benchmarks that rarely reflect your specific use case.</p>
+
+<p>Most teams start LLM projects by hard-coding calls to <code>api.anthropic.com</code> or <code>api.openai.com</code>. They pick a model like <code>gpt-4o</code> or <code>claude-3-opus-20240229</code> because it's the "best" or "newest." Then they run a few manual tests in a notebook or playground. If it looks okay, they ship it. This seems reasonable initially. It gets you to a proof of concept fast. The problem is, "best" is subjective and often doesn't mean "best for your specific task at your specific price point." We've seen clients commit to one model, only to realize six months later that a cheaper, faster model could achieve 95% of the quality for 10% of the cost. The refactor then becomes a painful, low-priority engineering task.</p>
+
+<h2>The Dainty Evaluation Framework</h2>
+
+<p>We use a structured framework whenever we need to select an LLM for a client's specific task. It's how we made decisions for projects like our Email Triage system and the Ghost Writer content generation service. This isn't about theoretical perfection; it’s about making a data-driven choice that holds up in production.</p>
+
+<p>Here’s our process:</p>
+
+<ol>
+<li>
+<p><b>Define the Task & Success Metrics:</b> Before touching any model, we define what "good" means. For Email Triage, "good" meant accurately classifying emails into one of five categories with high precision and recall, and low latency for user experience. For Ghost Writer, it's about generating human-like, grammatically correct content that adheres to specific brand guidelines. We set clear, measurable metrics: accuracy, F1 score, specific error types to avoid, average token count, and latency targets.</p>
+</li>
+<li>
+<p><b>Build a Representative Test Set:</b> This is non-negotiable. We create a JSONL or CSV file with 100-300 diverse examples of inputs and their ideal outputs. This set must cover common cases, edge cases, adversarial inputs, and data distributions expected in production. For Email Triage, this included short spam, long customer support queries, and internal memos. We don't just pull from the happy path; we actively seek out failure modes.</p>
+</li>
+<li>
+<p><b>Automate Evaluation & Scoring:</b> We write a Python script that iterates through the test set, sends each input to a list of candidate LLMs (e.g., <code>gpt-4o</code>, <code>claude-3-sonnet-20240229</code>, <code>mixtral-8x7b-instruct-v0.1</code> via a provider like Together.ai), and captures the output. We then use a combination of programmatic checks (e.g., regex for output format, keyword presence) and a "scoring LLM" (often <code>gpt-4o</code> or <code>claude-3-opus</code>) to score the output against our defined metrics. For nuanced tasks, a small human review loop is integrated for a subset of results. Each run logs latency, token usage, and the computed quality score. Tools like Weights & Biases or a custom logging solution help track these metrics over time.</p>
+</li>
+<li>
+<p><b>Calculate Cost-per-Quality-Point:</b> This is where the rubber meets the road. We take the total cost (input tokens + output tokens) for processing the entire test set and divide it by the aggregate quality score. A cheaper model with slightly lower quality might be a better choice if its cost-per-quality-point is significantly lower. For example, if <code>claude-3-haiku-20240307</code> delivers 90% of the quality of <code>gpt-4o</code> but at 1/20th the cost, its cost-per-quality-point will likely win for many high-volume applications.</p>
+</li>
+<li>
+<p><b>Decision and Iteration:</b> With these metrics, we make a clear decision. We don't just pick the highest quality; we pick the one that best balances quality, cost, and latency for the specific business objective. This evaluation isn't static. As models evolve (e.g., new versions released every few months in 2026), or our task requirements shift, we rerun this framework. It provides a repeatable, defensible process.</p>
+</li>
+</ol>
+
+<h2>Where This Approach Breaks</h2>
+
+<p>While robust, this framework isn't always the right fit. If your LLM integration is a trivial, one-off script that runs daily on 10 inputs, investing a week in this evaluation is overkill. For tasks where "good enough" means 80% accuracy and the cost is negligible, manual spot-checking might suffice. This framework also adds complexity if your task definition or requirements are highly volatile and change weekly. Maintaining a representative test set and an automated evaluation pipeline requires discipline. If you're a small team building your first AI feature, a simplified version of this might be a better starting point. However, for any core feature that impacts customer experience or significant operational cost, this rigor pays dividends.</p>
+
+<h2>Practical Next Step</h2>
+
+<p>This week, pick one critical LLM-powered feature you're building or considering. Define what "success" looks like for that feature in concrete, measurable terms. Then, start building a small, representative test set – 20-50 examples of inputs and their ideal outputs. Focus on diversity, not just happy paths. Put this test set into a JSONL file. Even without a full automated pipeline, having this ground truth will immediately make your model selection and iteration process more objective. If you find yourself struggling to define "good" or build a diverse test set, that's often a sign that the problem itself isn't well-defined yet. For those looking to implement this kind of robust system or needing help defining their AI strategy, we regularly help clients architect and <a href="https://daintytrading.com/contact.html">start a project</a> with these evaluation systems.</p>
+        
+<div class="cast-philosophy" style="margin-top:40px;border-top:1px solid var(--border);padding-top:32px;">
+  <p><strong>We build production AI, not prototypes.</strong>
+  If you're looking to ship something like what's described here — see
+  <a href="/services.html">how we work</a> or
+  <a href="/contact.html">start a project brief &rarr;</a></p>
+</div>
+</article>
+
+        <aside class="sidecard">
+          <h4>About this post</h4>
+          <div class="label-row"><span>Published</span><span>8 June 2026</span></div>
+          <div class="label-row"><span>Topic</span><span>AI · Engineering</span></div>
+          <div class="label-row"><span>Read time</span><span>5 min</span></div>
+          <div class="label-row"><span>Author</span><span>Dainty Trading</span></div>
+          <a class="btn btn-primary" href="https://daintytrading.com/contact.html">Start a project &rarr;</a>
+          <a class="btn btn-ghost" href="/services.html">See our services</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Blog navigation">
+        <a href="/blog.html"><div class="lbl">&larr; Back</div><div class="ttl">All posts</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="/" class="brand" style="margin-bottom:14px;">
+            <span class="brand-mark" aria-hidden="true"></span>
+            Dainty Trading
+          </a>
+          <p class="muted" style="font-size:13.5px; max-width:360px;">
+            AI automation studio. We build production AI software for ourselves and selected clients.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Studio</h4>
+          <a href="/about.html">About</a>
+          <a href="/services.html">Services</a>
+          <a href="/blog.html">Blog</a>
+          <a href="/contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Featured projects</h4>
+          <a href="/projects/emailtriage.html">Email Triage</a>
+          <a href="/projects/ghost-writer.html">Ghost Writer</a>
+          <a href="/projects/convoforge.html">ConvoForge</a>
+          <a href="/projects/brightpath.html">BrightPath</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="/sitemap.xml">Sitemap</a>
+          <a href="/llms.txt">llms.txt</a>
+          <a href="/robots.txt">robots.txt</a>
+          <a href="/privacy.html">Privacy policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Dainty Trading. All rights reserved.</span>
+        <span>Built in Australia.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

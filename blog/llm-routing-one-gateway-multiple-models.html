@@ -12,17 +12,18 @@
   <meta property="og:title" content="LLM Routing: Why We Run Claude, Gemini, and OpenAI Behind One Gateway" />
   <meta property="og:description" content="Hard-coding a single model provider into your app is a liability. Here's how we route across LLMs — and the rules we use to decide which model runs which task." />
   <meta property="og:url" content="https://daintytrading.com/blog/llm-routing-one-gateway-multiple-models.html" />
-  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.jpg" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
   <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
   <link rel="stylesheet" href="/styles.css" />
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -44,12 +45,13 @@
   <a href="#main" class="skip">Skip to content</a>
   <header class="site-header">
     <div class="container nav">
-      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 2l2.09 6.91L21 12l-6.91 2.09L12 22l-2.09-7.91L2 12l7.91-2.09L12 2z"/></svg></span> Dainty Trading</a>
       <nav class="nav-links" aria-label="Primary">
         <a href="/#projects">Projects</a>
         <a href="/services.html">Services</a>
         <a href="/blog.html">Blog</a>
         <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
         <a href="/contact.html" class="nav-cta">Start a project</a>
       </nav>
     </div>
@@ -114,6 +116,14 @@
           <h2>One thing people get wrong</h2>
           <p>Teams often try to pick &ldquo;the best model&rdquo; once and use it everywhere. There is no best model — there is the right model for a given task at a given cost point. The goal of a routing layer is to match tasks to models correctly, not to standardise on a single provider out of preference or familiarity.</p>
           <p>If you&rsquo;re running the same frontier model for both a 10,000-token document analysis and a two-sentence category label, you&rsquo;re probably overpaying on one and correctly spending on the other.</p>
+
+
+          <div class="cast-philosophy" style="margin-top:40px;border-top:1px solid var(--border);padding-top:32px;">
+            <p><strong>We build production AI, not prototypes.</strong>
+            If you&rsquo;re looking to ship something like what&rsquo;s described here &mdash; see
+            <a href="/services.html">how we work</a> or
+            <a href="/contact.html">start a project brief &rarr;</a></p>
+          </div>
 
         </article>
 

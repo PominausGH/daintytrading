@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Token Cost Optimization: Where the Savings Actually Are &mdash; Dainty Trading</title>
+  <meta name="description" content="The highest ROI strategies for reducing LLM token costs in production: prompt caching, model routing, context trimming, and output constraints." />
+  <link rel="canonical" href="https://daintytrading.com/blog/token-cost-optimization-savings.html" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0c10" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Token Cost Optimization: Where the Savings Actually Are" />
+  <meta property="og:description" content="The highest ROI strategies for reducing LLM token costs in production: prompt caching, model routing, context trimming, and output constraints." />
+  <meta property="og:url" content="https://daintytrading.com/blog/token-cost-optimization-savings.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.jpg" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Token Cost Optimization: Where the Savings Actually Are",
+    "description": "The highest ROI strategies for reducing LLM token costs in production: prompt caching, model routing, context trimming, and output constraints.",
+    "url": "https://daintytrading.com/blog/token-cost-optimization-savings.html",
+    "datePublished": "2026-06-07",
+    "dateModified": "2026-06-07",
+    "author": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "publisher": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "mainEntityOfPage": "https://daintytrading.com/blog/token-cost-optimization-savings.html"
+  }
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 2l2.09 6.91L21 12l-6.91 2.09L12 22l-2.09-7.91L2 12l7.91-2.09L12 2z"/></svg></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a>
+        <a href="/services.html">Services</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/blog.html">Blog</a> &nbsp;/&nbsp; AI · Engineering</div>
+        <h1>Token Cost Optimization: Where the Savings Actually Are</h1>
+        <p class="lede">The highest ROI strategies for reducing LLM token costs in production: prompt caching, model routing, context trimming, and output constraints.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Topic</strong>&nbsp; AI · Engineering</span>
+          <span class="chip"><strong>Published</strong>&nbsp; 7 June 2026</span>
+          <span class="chip"><strong>Read time</strong>&nbsp; 5 min</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <p>How do you optimize LLM token costs in production? The highest ROI comes from prompt caching, aggressive context trimming, routing simple tasks to smaller models, and capping output length. When you process 10,000+ requests a day, cutting your prompt context by 30% and caching the rest saves thousands of dollars a month. Most engineering teams overcomplicate cost reduction by immediately trying to fine-tune open-weights models or migrating to entirely new hosting ecosystems. The reality is that the fastest path to reducing your Anthropic or OpenAI bill by 80% is fixing your architecture and data hygiene, not replacing the frontier model entirely. The real savings are in the plumbing.</p>
+
+<h2>The Common Wrong Approach</h2>
+
+<p>The standard progression goes like this: you launch a feature using Claude 3.5 Sonnet or GPT-4o. It works great. Usage scales. Then you get your first $5,000 API bill, and the finance team starts asking questions. The immediate reaction from engineering is usually a knee-jerk pivot to hosting Llama 3 or Mistral locally, or trying to fine-tune a smaller model to handle the exact same workload.</p>
+
+<p>This is almost always a mistake for small teams. The moment you decide to host your own inference, you trade a predictable API bill for DevOps salaries, GPU instance costs, and massive latency spikes. You spend six weeks wrestling with vLLM, TensorRT, and batching infrastructure instead of shipping product features.</p> 
+
+<p>Or worse, you blindly swap your premium model for a cheaper one (like Claude 3.5 Haiku or GPT-4o-mini) across the board to save money quickly, only to watch your pipeline's accuracy tank. Customers complain, edge cases fail, and you realize the smaller model simply cannot handle the complex reasoning required for your core tasks without heavy hand-holding.</p>
+
+<h2>The Better Approach</h2>
+
+<p>Here is what actually works. At Dainty Trading, we run systems like CV Matcher and Email Triage processing tens of thousands of requests daily. We don't host our own models. We aggressively optimize how we use the big ones.</p>
+
+<p>First: <strong>Prompt Caching.</strong> If you are passing the same 50-page PDF, dense system instructions, or extensive few-shot examples into every request, you are burning money on every call. Both Anthropic and OpenAI support prompt caching. By moving static context to the absolute top of your prompt and structuring your calls to reuse that cached prefix, we typically see a 50–80% reduction in input token costs. For a high-volume feature, this single architectural change is transformative.</p>
+
+<p>Second: <strong>Model Routing by Task Complexity.</strong> Not every request needs a frontier model. In our document extraction pipelines, we route the heavy lifting—like analyzing a contract for subtle indemnification clauses—to Claude 3.5 Sonnet. But the subsequent tasks, like formatting the extracted entities into JSON, classifying the document type, or summarizing the output, get routed to Claude 3.5 Haiku. Haiku is dramatically cheaper and faster. Use a router abstraction in your code to split the workflow based on the cognitive load required for each step.</p>
+
+<p>Third: <strong>Context Trimming.</strong> LLMs do not need the entire 50-message conversation history to answer a simple follow-up question. Implement a strict rolling window or a summarization step for chat applications. For RAG (Retrieval-Augmented Generation), strictly enforce a top-K limit on retrieved chunks. We mandate that no RAG payload exceeds 4,000 tokens unless the task specifically requires long-context synthesis. Filter your context before you pay to send it.</p>
+
+<p>Fourth: <strong>Output Constraints.</strong> Output tokens are significantly more expensive than input tokens. Use the <code>max_tokens</code> parameter aggressively. If you expect a JSON boolean, cap the output at 10 tokens. If you ask for a summary, add "in under 50 words" to the prompt <em>and</em> cap the API parameter at around 75 tokens. It forces the model to be concise and physically prevents runaway generation loops from draining your balance.</p>
+
+<h2>Where This Breaks</h2>
+
+<p>This approach is not a silver bullet. Prompt caching only yields ROI if your cache hit rate is consistently high. If every user request features a completely unique, massive system prompt, or you are constantly shifting the order of your input messages, you will actually pay <em>more</em> due to cache-write premiums.</p>
+
+<p>Model routing introduces significant architectural complexity. You now have to maintain multiple prompts tailored to different models, monitor performance across various endpoints, and handle varied rate limits and downtime. Sometimes, debugging a pipeline where step one uses Sonnet and step two uses Haiku takes twice as long because the errors cascade unpredictably between model behaviors.</p>
+
+<p>For very low-volume applications—anything under a few hundred requests a day—the engineering time spent building a robust router and optimizing cache hits simply isn't worth the $20 a month you save. Keep it simple until the bill hurts.</p>
+
+<h2>Practical Next Step</h2>
+
+<p>To cut costs this week, start with your output tokens. Audit your highest-volume API calls and hard-code a <code>max_tokens</code> limit that is exactly 20% above your expected response size. It takes five minutes and stops bleeding immediately. Next, identify the largest static block of text in your inputs (usually system prompts or RAG context rules) and restructure your API calls to utilize provider-native prompt caching.</p>
+
+<p>If you are dealing with spiraling inference costs and need help architecting a more efficient pipeline, <a href="https://daintytrading.com/contact.html">start a project</a> with us. We can help you implement these routing and caching strategies without degrading your product's performance or introducing unnecessary infrastructure complexity.</p>
+
+          <div class="cast-philosophy" style="margin-top:40px;border-top:1px solid var(--border);padding-top:32px;">
+            <p><strong>We build production AI, not prototypes.</strong>
+            If you&rsquo;re looking to ship something like what&rsquo;s described here &mdash; see
+            <a href="/services.html">how we work</a> or
+            <a href="/contact.html">start a project brief &rarr;</a></p>
+          </div>
+
+        </article>
+
+        <aside class="sidecard">
+          <h4>About this post</h4>
+          <div class="label-row"><span>Published</span><span>7 June 2026</span></div>
+          <div class="label-row"><span>Topic</span><span>AI · Engineering</span></div>
+          <div class="label-row"><span>Read time</span><span>5 min</span></div>
+          <div class="label-row"><span>Author</span><span>Dainty Trading</span></div>
+          <a class="btn btn-primary" href="https://daintytrading.com/contact.html">Start a project &rarr;</a>
+          <a class="btn btn-ghost" href="/services.html">See our services</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Blog navigation">
+        <a href="/blog.html"><div class="lbl">&larr; Back</div><div class="ttl">All posts</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="/" class="brand" style="margin-bottom:14px;">
+            <span class="brand-mark" aria-hidden="true"></span>
+            Dainty Trading
+          </a>
+          <p class="muted" style="font-size:13.5px; max-width:360px;">
+            AI automation studio. We build production AI software for ourselves and selected clients.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Studio</h4>
+          <a href="/about.html">About</a>
+          <a href="/services.html">Services</a>
+          <a href="/blog.html">Blog</a>
+          <a href="/contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Featured projects</h4>
+          <a href="/projects/emailtriage.html">Email Triage</a>
+          <a href="/projects/ghost-writer.html">Ghost Writer</a>
+          <a href="/projects/convoforge.html">ConvoForge</a>
+          <a href="/projects/brightpath.html">BrightPath</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="/sitemap.xml">Sitemap</a>
+          <a href="/llms.txt">llms.txt</a>
+          <a href="/robots.txt">robots.txt</a>
+          <a href="/privacy.html">Privacy policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Dainty Trading. All rights reserved.</span>
+        <span>Built in Australia.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
