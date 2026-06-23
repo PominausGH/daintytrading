@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="google-site-verification" content="V4tv1Ds0qfskA15qPKqndEsVqsO7xyT10CYzFDBV0BQ" />
-  <title>AutoArchive — Personal Email Archive &amp; Search | Dainty Trading</title>
-  <meta name="description" content="AutoArchive is a personal email archive and search tool that respects your data. Static frontend, lean Node contact handler, Brevo for newsletter capture. No surveillance, no SaaS lock-in." />
+  <title>AutoArchive — Enterprise Shared Mailbox Archiving | Dainty Trading</title>
+  <meta name="description" content="AutoArchive backs up 45 shared email boxes to a secure local disk. Each email is saved with its message ID in the filename for instant retrieval — built for Westpac." />
   <link rel="canonical" href="https://daintytrading.com/projects/autoarchive.html" />
   <meta name="robots" content="index, follow" />
   <meta property="og:type" content="article" />
@@ -59,11 +59,11 @@
       <div class="container">
         <div class="crumbs"><a href="/">Home</a> / <a href="/#projects">Projects</a> / AutoArchive</div>
         <h1>AutoArchive</h1>
-        <p class="lede">A small, sharp tool for archiving and searching your own email. No SaaS lock-in, no surveillance, no syncing your inbox to a third-party AI to be monetised. Just a clean archive you control.</p>
+        <p class="lede">Built for Westpac — one of Australia&rsquo;s Big 4 banks. 45 shared email boxes, backed up nightly to a secure local disk. Every email saved with its message ID baked into the filename — find anything in seconds, no database required.</p>
         <div class="meta-row">
           <span class="chip"><strong>Category</strong>&nbsp; Email · Automation</span>
-          <span class="chip"><strong>Stack</strong>&nbsp; Nginx · Node · SQLite</span>
-          <span class="chip"><strong>Email</strong>&nbsp; Brevo</span>
+          <span class="chip"><strong>Client</strong>&nbsp; Westpac</span>
+          <span class="chip"><strong>Scale</strong>&nbsp; 45 shared mailboxes</span>
           <span class="chip"><strong>Status</strong>&nbsp; Live</span>
         </div>
       </div>
@@ -89,34 +89,34 @@
       <div class="detail-body">
         <article class="prose">
           <h2>The problem</h2>
-          <p>Most email tools assume you want them in your inbox forever. The privacy-conscious half of the market wants the opposite: archive everything older than ninety days, search it locally, and never give a third party the keys to read it. We built for that audience.</p>
+          <p>Westpac runs 45 shared email boxes across teams — compliance, operations, customer service. Each box receives hundreds of messages a day. When a specific email needs to be retrieved for an audit, a dispute, or a compliance review, the question is always the same: where is it, and how fast can you find it? Without a structured archive, the answer is &ldquo;somewhere, eventually.&rdquo; That&rsquo;s not good enough for a bank.</p>
 
           <h2>What we built</h2>
-          <p>AutoArchive ships as a static front-end behind Nginx, a small Node contact handler, and a SQLite-backed archive on disk. Newsletter capture runs through Brevo without exposing your subscriber list to a vendor that might pivot. The whole thing fits on a small VPS and runs on hardware you can describe in a sentence.</p>
+          <p>AutoArchive connects to all 45 shared mailboxes and runs a nightly backup job, pulling every email down and writing it to a secure, air-gapped local disk. The key design decision: each file is named using the email&rsquo;s unique message ID. No database, no index to maintain, no search UI to build — the filesystem <em>is</em> the search. A staff member looking for a specific email pastes the message ID into a file search and has it in under a second.</p>
+          <p>The tool handles the full mailbox set in a single run, logs what it backed up and what it skipped, and alerts on failure. It&rsquo;s designed to be auditable — a compliance team can verify the backup without understanding the code.</p>
 
           <h2>The automation angle</h2>
-          <p>The interesting work is the email-in pipeline. Inbound mail goes through a deterministic rules layer (header fingerprints, list-IDs, content patterns) and only the fall-throughs hit anything fancy. The result is a system you can audit by reading 200 lines of code, which is the right answer for a privacy product.</p>
+          <p>The interesting constraint was reliability over cleverness. A nightly job that touches 45 live mailboxes at a bank cannot fail silently. Every step writes a structured log entry. If a mailbox is unreachable, the job continues with the rest and flags the failure — it doesn&rsquo;t abort. The result is a system that keeps running even when individual mailboxes have issues, and gives ops a clear picture of exactly what was and wasn&rsquo;t archived each night.</p>
 
           <h2>How it&rsquo;s used</h2>
           <ul>
-            <li><strong>Privacy-conscious individuals</strong> who want their inbox under their own roof.</li>
-            <li><strong>Newsletter operators</strong> who want a lightweight signup that doesn&rsquo;t leak.</li>
-            <li><strong>Small businesses</strong> with a fixed contact form they can trust.</li>
+            <li><strong>Compliance teams</strong> retrieve specific emails by message ID for audits and regulatory requests.</li>
+            <li><strong>Operations staff</strong> recover emails that were deleted or moved from shared boxes.</li>
+            <li><strong>IT</strong> verifies nightly backup completeness from the structured run log.</li>
           </ul>
 
           <h2>What it taught us</h2>
-          <p>That &ldquo;boring stack&rdquo; is a feature when the audience cares about privacy. Every avoided dependency is a vector that doesn&rsquo;t need explaining. AutoArchive is one of the smallest projects in the portfolio and one of the easiest to keep running.</p>
+          <p>That the right data structure eliminates the need for a search product. Naming files by message ID means retrieval is a filesystem operation — fast, reliable, and requires no software beyond a file browser. The constraint that felt like a limitation (no database) turned out to be the feature: nothing to maintain, nothing to corrupt, nothing to explain to an auditor.</p>
         </article>
 
         <aside class="sidecard">
           <h4>Project facts</h4>
+          <div class="label-row"><span>Client</span><span>Westpac</span></div>
+          <div class="label-row"><span>Mailboxes</span><span>45 shared</span></div>
+          <div class="label-row"><span>Schedule</span><span>Nightly backup</span></div>
+          <div class="label-row"><span>Storage</span><span>Secure local disk</span></div>
+          <div class="label-row"><span>Search</span><span>Message ID filename</span></div>
           <div class="label-row"><span>Status</span><span>Live</span></div>
-          <div class="label-row"><span>Domain</span><span>autoarchivemail.com</span></div>
-          <div class="label-row"><span>Frontend</span><span>Static HTML · Nginx</span></div>
-          <div class="label-row"><span>Backend</span><span>Node contact handler</span></div>
-          <div class="label-row"><span>Database</span><span>SQLite</span></div>
-          <div class="label-row"><span>Email</span><span>Brevo</span></div>
-          <a class="btn btn-primary" href="https://autoarchivemail.com" rel="noopener">Visit AutoArchive →</a>
           <a class="btn btn-ghost" href="/contact.html">Build something similar</a>
         </aside>
       </div>
