@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="google-site-verification" content="V4tv1Ds0qfskA15qPKqndEsVqsO7xyT10CYzFDBV0BQ" />
+  <title>AI Infrastructure Services — LLM Gateway, Evals, Billing, Observability | Dainty Trading</title>
+  <meta name="description" content="LLM gateways, prompt versioning, eval pipelines, billing metering, queue workers, and observability. The infrastructure layer that keeps AI features running at 3am. 3–8 week engagements." />
+  <link rel="canonical" href="https://daintytrading.com/services/ai-infrastructure.html" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0c10" />
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="AI Infrastructure Services — LLM Gateway, Evals, Billing | Dainty Trading" />
+  <meta property="og:description" content="LLM gateways, prompt versioning, eval pipelines, billing metering, and observability. The infrastructure that keeps AI features up at 3am." />
+  <meta property="og:url" content="https://daintytrading.com/services/ai-infrastructure.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Dainty Trading — AI Automation Studio" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.jpg" />
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="apple-mobile-web-app-title" content="Dainty Trading" />
+  <link rel="stylesheet" href="/styles.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "AI Infrastructure Services",
+    "provider": {
+      "@type": "Organization",
+      "name": "Dainty Trading",
+      "url": "https://daintytrading.com"
+    },
+    "serviceType": "AI infrastructure and platform engineering",
+    "description": "LLM gateways, prompt versioning, eval pipelines, queue workers, billing metering, and observability for production AI applications.",
+    "areaServed": "Worldwide",
+    "offers": {
+      "@type": "Offer",
+      "name": "AI infrastructure build",
+      "description": "3–8 week engagement. Delivered as building blocks your team owns and operates after handover."
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Why do AI features fail in production?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Most AI feature failures in production aren't model failures — they're infrastructure failures. Missing retry logic, no spend caps, no eval pipeline, prompts that drift without version control, costs that compound silently, no graceful degradation when the provider is down."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is an LLM gateway and why do I need one?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "An LLM gateway sits between your application and model providers (Anthropic, OpenAI, Google). It handles routing, failover, rate limiting, spend caps, and logging centrally — so you don't need to implement these in every service that calls an LLM."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does an AI eval pipeline look like?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "An eval pipeline runs a set of representative inputs through your LLM feature and scores the outputs against expected results before each deploy. It catches prompt regressions before they hit users — the same way unit tests catch code regressions."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you handle AI billing and cost control?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We instrument every LLM call with token counts, latency, and cost. Spend caps per user, per tenant, and per feature are enforced at the gateway layer. Usage-based billing to end-users is wired to Stripe with per-request metering."
+        }
+      }
+    ]
+  }
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 2l2.09 6.91L21 12l-6.91 2.09L12 22l-2.09-7.91L2 12l7.91-2.09L12 2z"/></svg></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a>
+        <a href="/services.html">Services</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/services.html">Services</a> &nbsp;/&nbsp; AI Infrastructure</div>
+        <h1>AI Infrastructure &mdash; The Plumbing That Keeps LLM Features Running</h1>
+        <p class="lede">The reason most AI features collapse isn&rsquo;t the model. It&rsquo;s the plumbing. We build the unsexy layer that decides whether your AI feature still works at 3am: LLM gateways, prompt versioning, evals, queue workers, billing meters, and structured fallbacks.</p>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+
+          <h2>Why AI features fail in production</h2>
+          <p>Most AI feature failures aren&rsquo;t model failures. The models are good. The failures happen in the surrounding infrastructure: no retry logic when the provider times out, prompts that drift without version control, costs that compound silently, no graceful degradation, no eval pipeline to catch regressions before they hit users.</p>
+          <p>We&rsquo;ve run 35 products on the same AI stack. We&rsquo;ve hit these failure modes ourselves. The infrastructure work we offer to clients is the same layer we self-host for our own portfolio.</p>
+
+          <h2>What we build</h2>
+
+          <h3>LLM gateway</h3>
+          <p>A self-hosted gateway (LiteLLM) that sits between your application and every model provider. One endpoint, one API key management surface, one place to configure routing rules, failover, rate limiting, spend caps, and logging. When Anthropic releases a better model, you change a config value &mdash; not ten call sites.</p>
+          <ul>
+            <li>Route across Claude, Gemini, OpenAI, and open-weights models</li>
+            <li>Automatic failover with configurable retry logic</li>
+            <li>Per-tenant, per-feature spend caps enforced at the edge</li>
+            <li>Request logging: prompt, response, tokens, latency, cost, model, tenant</li>
+          </ul>
+
+          <h3>Prompt versioning and CI</h3>
+          <p>Prompts are code. They should be versioned, reviewed, and tested before they go to production. We set up a prompt store with version history and a CI step that runs your eval set on every prompt change &mdash; the same way unit tests run on every code change.</p>
+
+          <h3>Eval pipeline</h3>
+          <p>An eval pipeline runs representative inputs through your LLM feature and scores the outputs before each deploy. It catches regressions in LLM behaviour that don&rsquo;t show up in code tests. We help you build the golden dataset (typically 30&ndash;100 examples from real production data) and wire it into your CI pipeline.</p>
+
+          <h3>Queue workers and async processing</h3>
+          <p>LLM calls that take more than two seconds should not be on the HTTP request path. We build async queue infrastructure (Bull on Redis, or n8n for orchestration-heavy workflows) that decouples LLM processing from user-facing response times and gives you retry, dead-letter, and priority handling for free.</p>
+
+          <h3>Billing and usage metering</h3>
+          <p>If you charge users per token, per call, or per successful action, the metering layer needs to be accurate, auditable, and integrated with your billing provider (Stripe) before you launch &mdash; not after the first billing dispute. We build the metering layer as a first-class component.</p>
+
+          <h3>Observability</h3>
+          <p>Traces, token counts, latencies, and costs &mdash; per feature, per tenant, per model, per time window. We instrument every LLM call and route telemetry to your existing observability stack or help you stand one up. Cost-per-action dashboards are a standard deliverable.</p>
+
+          <h2>How the engagement works</h2>
+          <p>Infrastructure engagements run 3&ndash;8 weeks and are typically delivered as building blocks your team owns and operates after handover. We don&rsquo;t create vendor lock-in to our own tooling &mdash; we use open-source components (LiteLLM, n8n, Postgres) that you can run, fork, and modify independently.</p>
+          <p>The deliverable at the end is: running infrastructure, documentation, runbooks, and a handover session with your team.</p>
+
+          <h2>Frequently asked questions</h2>
+
+          <details class="faq-item">
+            <summary>Do we need a gateway if we only use one model provider?</summary>
+            <p>Yes &mdash; for spend caps, logging, and fallback handling alone. Provider outages happen. Spending overruns happen. Having no central logging layer means you&rsquo;re flying blind on cost and reliability.</p>
+          </details>
+          <details class="faq-item">
+            <summary>What if we already have some infrastructure in place?</summary>
+            <p>We audit what you have, identify the gaps, and fill them. We don&rsquo;t tear down working infrastructure for the sake of using our preferred tools.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Can you work with our existing cloud provider?</summary>
+            <p>Yes. We&rsquo;re cloud-agnostic. Docker-based deployments run on AWS, GCP, Azure, Fly.io, Hetzner, or bare metal. We default to whatever minimises operational overhead for your team.</p>
+          </details>
+          <details class="faq-item">
+            <summary>How do we handle sensitive data in LLM calls?</summary>
+            <p>The gateway layer is the right place to implement PII redaction before calls leave your infrastructure. We can build a redaction step into the gateway that strips or masks sensitive fields before they reach any external model provider.</p>
+          </details>
+
+        </article>
+
+        <aside class="sidecard">
+          <h4>AI infrastructure</h4>
+          <div class="label-row"><span>Typical timeline</span><span>3&ndash;8 weeks</span></div>
+          <div class="label-row"><span>Gateway</span><span>LiteLLM (self-hosted)</span></div>
+          <div class="label-row"><span>Orchestration</span><span>n8n · Bull/Redis</span></div>
+          <div class="label-row"><span>Billing</span><span>Stripe metering</span></div>
+          <div class="label-row"><span>Handover</span><span>Docs + runbooks</span></div>
+          <a class="btn btn-primary" href="/contact.html">Talk infrastructure &rarr;</a>
+          <a class="btn btn-ghost" href="/blog/llm-routing-one-gateway-multiple-models.html">Read: LLM routing</a>
+        </aside>
+      </div>
+
+      <div class="cta-banner" style="margin-top:72px;">
+        <h2>Is your AI infrastructure ready for production?</h2>
+        <p>Tell us what you have and what&rsquo;s breaking. We&rsquo;ll tell you what the gaps are &mdash; before you pay for anything.</p>
+        <a class="btn btn-primary" href="/contact.html">Talk infrastructure &rarr;</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="/" class="brand" style="margin-bottom:14px;">
+            <span class="brand-mark" aria-hidden="true"></span>
+            Dainty Trading
+          </a>
+          <p class="muted" style="font-size:13.5px; max-width:360px;">
+            AI automation studio. We build production AI software for ourselves and selected clients.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <a href="/services/ai-product-builds.html">AI product builds</a>
+          <a href="/services/ai-automation-retrofit.html">Automation retrofits</a>
+          <a href="/services/ai-infrastructure.html">AI infrastructure</a>
+          <a href="/contact.html">Start a project</a>
+        </div>
+        <div class="footer-col">
+          <h4>Featured projects</h4>
+          <a href="/projects/brightpath.html">BrightPath</a>
+          <a href="/projects/emailtriage.html">Email Triage</a>
+          <a href="/projects/ghost-writer.html">Ghost Writer</a>
+          <a href="/projects/billing-api.html">Billing API</a>
+        </div>
+        <div class="footer-col">
+          <h4>Studio</h4>
+          <a href="/about.html">About</a>
+          <a href="/blog.html">Blog</a>
+          <a href="/australia.html">Australia</a>
+          <a href="/privacy.html">Privacy policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Dainty Trading. All rights reserved.</span>
+        <span>Built in Australia.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
