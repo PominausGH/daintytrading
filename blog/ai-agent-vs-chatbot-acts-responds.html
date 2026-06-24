@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Agent vs. Chatbot: An Agent Acts, a Chatbot Responds &mdash; Dainty Trading</title>
+  <meta name="description" content="A chatbot answers questions. An AI agent, however, executes multi-step tasks using external tools and memory, acting autonomously to achieve a goal." />
+  <link rel="canonical" href="https://daintytrading.com/blog/ai-agent-vs-chatbot-acts-responds.html" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0c10" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="AI Agent vs. Chatbot: An Agent Acts, a Chatbot Responds" />
+  <meta property="og:description" content="A chatbot answers questions. An AI agent, however, executes multi-step tasks using external tools and memory, acting autonomously to achieve a goal." />
+  <meta property="og:url" content="https://daintytrading.com/blog/ai-agent-vs-chatbot-acts-responds.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "AI Agent vs. Chatbot: An Agent Acts, a Chatbot Responds",
+    "description": "A chatbot answers questions. An AI agent, however, executes multi-step tasks using external tools and memory, acting autonomously to achieve a goal.",
+    "url": "https://daintytrading.com/blog/ai-agent-vs-chatbot-acts-responds.html",
+    "datePublished": "2026-06-24",
+    "dateModified": "2026-06-24",
+    "author": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "publisher": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "mainEntityOfPage": "https://daintytrading.com/blog/ai-agent-vs-chatbot-acts-responds.html"
+  }
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a>
+        <a href="/services.html">Services</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/blog.html">Blog</a> &nbsp;/&nbsp; AI · Engineering</div>
+        <h1>AI Agent vs. Chatbot: An Agent Acts, a Chatbot Responds</h1>
+        <p class="lede">A chatbot answers questions. An AI agent, however, executes multi-step tasks using external tools and memory, acting autonomously to achieve a goal.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Topic</strong>&nbsp; AI · Engineering</span>
+          <span class="chip"><strong>Published</strong>&nbsp; 24 June 2026</span>
+          <span class="chip"><strong>Read time</strong>&nbsp; 4 min</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <p>A chatbot responds to queries. An AI agent, however, executes multi-step tasks using external tools and memory, acting autonomously to achieve a goal. This distinction is critical because many teams building AI features today are frustrated when their "chatbot" can only answer questions, not perform the complex, multi-step actions they actually need. The gap between a conversational interface and a true agent that can interact with your systems is where most production AI projects hit their first major wall.</p>
+
+<p>Most teams start by connecting an LLM API to a chat UI. They add some Retrieval Augmented Generation (RAG) to pull context from internal documents, then wrap it up and call it an "agent." This seems reasonable because initial demos look impressive. The LLM generates coherent responses, and it feels like it's "thinking." You might even tell it, "Book me a flight," and it generates a convincing paragraph about how it would book a flight. The problem is, it can't actually *do* it. It’s a sophisticated talker, not a doer. We saw this early in our Email Triage project prototypes; the LLM could summarize emails beautifully, but struggled to perform actions like "move this to archive" without explicit, structured instructions it could process.</p>
+
+<p>At Dainty, we build true AI agents, not just chatbots. The core difference lies in an agentic architecture that goes far beyond a simple LLM call. An agent needs an orchestrator (often an LLM itself) that can break down a complex request into a sequence of sub-tasks. Crucially, it must have access to a robust set of external tools—specific, well-defined functions that map directly to your APIs, databases, and internal systems. Think <code>send_email(to, subject, body)</code>, <code>query_crm(customer_id)</code>, or <code>update_inventory(item_id, quantity)</code>. These are real API calls, not just suggestions.</p>
+
+<p>Beyond tool use, an agent requires persistent memory and state management. It needs to remember past interactions, user preferences, and the ongoing status of multi-step tasks. This isn't just passing the last few turns of a conversation; it's storing structured data about a pending order, a partially completed booking, or a user's long-term goals. We often leverage frameworks like LangChain or LlamaIndex for their agent capabilities, but we always abstract and harden the critical tool definitions and state management into our own services. For example, our BrightPath agent needs to query multiple internal systems (CRM, ERP) and external APIs (mapping, weather) to plan complex routes, then execute updates. This is a multi-tool agent that processes real-world data and triggers real-world actions, far beyond what a simple chatbot can accomplish. Our AutoArchive Mail project uses agents to categorize, summarize, and move emails, requiring specific API calls to internal systems. If you're grappling with this distinction and need to move beyond basic chatbots to production-ready agents, we can help you architect and build these systems. Start a project with us to explore how we tackle these challenges at Dainty.</p>
+
+<p>This agentic approach isn't a silver bullet. The added complexity is significant. Building a full agent requires careful definition of every tool, robust error handling for external API calls, and sophisticated state management. This means more moving parts to monitor, more potential failure modes, and longer debugging cycles when something breaks. Each tool call adds latency and often direct cost, as it’s another round trip to an external system. A simple chatbot might respond in 500ms; an agent performing three or four tool calls, re-planning, and reflecting on its progress could easily take 5-10 seconds. We learned this building CV Matcher: for certain high-throughput filtering tasks, a simpler RAG system with a strong classification model proved more efficient and less prone to latency issues than an overly agentic approach.</p>
+
+<p>To move beyond chatbots this week, start by defining the actual "actions" your AI needs to perform. If your system merely needs to answer questions or summarize text, a sophisticated RAG chatbot is likely sufficient. If it needs to *do* something—book a meeting, update a record, send a message, create a report—you need an agent. Inventory the specific APIs and internal functions your agent would need to call. Create simple, well-defined function signatures for these. Then, experiment with the function calling features offered by models like OpenAI's GPT-4o or Anthropic's Claude 3 Opus, or explore basic agent implementations within frameworks like LangChain. Most importantly, log every LLM call, every tool invocation, and every step of the agent's reasoning. You will need this detailed telemetry for debugging when the agent inevitably takes an unexpected path.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>About this post</h4>
+          <div class="label-row"><span>Published</span><span>24 June 2026</span></div>
+          <div class="label-row"><span>Topic</span><span>AI · Engineering</span></div>
+          <div class="label-row"><span>Read time</span><span>4 min</span></div>
+          <div class="label-row"><span>Author</span><span>Dainty Trading</span></div>
+          <a class="btn btn-primary" href="https://daintytrading.com/contact.html">Start a project &rarr;</a>
+          <a class="btn btn-ghost" href="/services.html">See our services</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Blog navigation">
+        <a href="/blog.html"><div class="lbl">&larr; Back</div><div class="ttl">All posts</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="/" class="brand" style="margin-bottom:14px;">
+            <span class="brand-mark" aria-hidden="true"></span>
+            Dainty Trading
+          </a>
+          <p class="muted" style="font-size:13.5px; max-width:360px;">
+            AI automation studio. We build production AI software for ourselves and selected clients.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Studio</h4>
+          <a href="/about.html">About</a>
+          <a href="/services.html">Services</a>
+          <a href="/blog.html">Blog</a>
+          <a href="/contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Featured projects</h4>
+          <a href="/projects/emailtriage.html">Email Triage</a>
+          <a href="/projects/ghost-writer.html">Ghost Writer</a>
+          <a href="/projects/convoforge.html">ConvoForge</a>
+          <a href="/projects/brightpath.html">BrightPath</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="/sitemap.xml">Sitemap</a>
+          <a href="/llms.txt">llms.txt</a>
+          <a href="/robots.txt">robots.txt</a>
+          <a href="/privacy.html">Privacy policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Dainty Trading. All rights reserved.</span>
+        <span>Built in Australia.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
