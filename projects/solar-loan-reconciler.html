@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="google-site-verification" content="V4tv1Ds0qfskA15qPKqndEsVqsO7xyT10CYzFDBV0BQ" />
+  <title>Solar Loan Reconciler — Automated Weekly Payout Matching | Dainty Trading</title>
+  <meta name="description" content="Automated Friday reconciliation system for a financial company's solar loan payouts. Collects daily CSVs Mon–Fri, matches them against the weekly Loan Payout Report, flags unmatched IDs, and emails a clean HTML report to the loans team." />
+  <link rel="canonical" href="https://daintytrading.com/projects/solar-loan-reconciler.html" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Solar Loan Reconciler" />
+  <meta property="og:description" content="Automated Friday reconciliation system that eliminates missed solar loan payouts for a financial company." />
+  <meta property="og:url" content="https://daintytrading.com/projects/solar-loan-reconciler.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Dainty Trading — AI Automation Studio" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.jpg" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="apple-mobile-web-app-title" content="Dainty Trading" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Solar Loan Reconciler","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"Automated Friday reconciliation system for solar loan payouts. Matches daily transaction CSVs against the weekly Loan Payout Report, flags gaps, and emails a clean HTML report to the loans team.","url":"https://daintytrading.com/projects/solar-loan-reconciler.html","publisher":{"@type":"Organization","name":"Dainty Trading"}}
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://daintytrading.com/"},
+      {"@type":"ListItem","position":2,"name":"Projects","item":"https://daintytrading.com/#projects"},
+      {"@type":"ListItem","position":3,"name":"Solar Loan Reconciler"}
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 2l2.09 6.91L21 12l-6.91 2.09L12 22l-2.09-7.91L2 12l7.91-2.09L12 2z"/></svg></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a><a href="/services.html">Services</a><a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> / <a href="/#projects">Projects</a> / Solar Loan Reconciler</div>
+        <h1>Solar Loan Reconciler</h1>
+        <p class="lede">Built for a financial company to eliminate missed solar loan payouts. Every Friday, the system collects a week&rsquo;s worth of transaction CSVs, matches them against the Loan Payout Report, flags any IDs that don&rsquo;t line up, and emails a clean HTML report directly to the loans team &mdash; automatically, without anyone touching it.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Category</strong>&nbsp; Finance · Automation</span>
+          <span class="chip"><strong>Client</strong>&nbsp; Financial company</span>
+          <span class="chip"><strong>Schedule</strong>&nbsp; Every Friday</span>
+          <span class="chip"><strong>Status</strong>&nbsp; Live</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <h2>The problem</h2>
+          <p>The client had a recurring problem: loans slipping through the cracks. The loans team was manually cross-referencing daily transaction files against a weekly payout report, and the process was error-prone enough that one missed payout had already triggered a due notice. That was the incident that kicked off this project.</p>
+          <p>The root cause wasn&rsquo;t negligence &mdash; it was volume and format mismatch. Five separate CSV files arriving on different days, one consolidated report arriving on Friday, and no automated way to reconcile them. Something was always going to get missed.</p>
+
+          <h2>What we built</h2>
+          <p>Every Monday to Friday, transaction data arrives by email as CSV attachments. The system collects all five daily files automatically, including the Friday CSV. Also on Friday, the Loan Payout Report arrives.</p>
+          <p>Once the application has confirmed it holds the full week &mdash; five daily CSVs and the Loan Payout Report &mdash; it runs the reconciliation. All daily CSVs are imported into a single DataFrame. The Loan Payout Report is imported into a second. The system then performs a comprehensive lookup across both: every ID in the payout report is checked against the transaction data. Any ID that doesn&rsquo;t match is flagged.</p>
+          <p>The output is a clean, professional HTML table containing every unmatched payout. That table is emailed directly to the loans team so they can action outstanding payouts the same day, before the weekend.</p>
+
+          <h2>The automation angle</h2>
+          <p>The key design constraint was zero manual steps. No one should need to download files, open spreadsheets, or run a script. The system watches for the emails, collects the attachments, waits until the full week&rsquo;s data is present, runs the match, and fires the report &mdash; all without intervention.</p>
+          <p>The HTML email format was a deliberate choice. The loans team receives a report they can act on immediately without downloading anything or opening a separate tool. The flagged IDs are right there in their inbox, formatted for quick scanning.</p>
+
+          <h2>How it&rsquo;s used</h2>
+          <ul>
+            <li><strong>Loans team</strong> receives the Friday report in their inbox and works through any flagged IDs the same afternoon.</li>
+            <li><strong>Management</strong> has a weekly paper trail showing which payouts were reconciled and which required manual follow-up.</li>
+            <li><strong>Operations</strong> no longer manually touch any files &mdash; the process runs entirely on autopilot.</li>
+          </ul>
+
+          <h2>The result</h2>
+          <p>Since the system went live, the client has had zero missed loan payouts. The Friday reconciliation that previously required manual effort and was prone to error now runs on autopilot every week. The loans team receives a clear, actionable report rather than a pile of spreadsheets to compare by hand.</p>
+
+          <blockquote>
+            <p>&ldquo;This solar project completely transformed how we handle our loan payouts. Before this solution, we had a recurring problem where loans would slip through the cracks. One missed payout led to a due notice, which is why this project was built. Since implementing this automated Friday process, we&rsquo;ve eliminated missed loans entirely. The weekly reconciliation is now reliable, efficient, and runs on autopilot every Friday &mdash; saving significant time and removing the risk of human error.&rdquo;</p>
+            <cite>&mdash; Client, Financial Company</cite>
+          </blockquote>
+        </article>
+
+        <aside class="sidecard">
+          <h4>Project facts</h4>
+          <div class="label-row"><span>Client</span><span>Financial company</span></div>
+          <div class="label-row"><span>Data sources</span><span>5 daily CSVs + report</span></div>
+          <div class="label-row"><span>Schedule</span><span>Automated every Friday</span></div>
+          <div class="label-row"><span>Output</span><span>HTML email report</span></div>
+          <div class="label-row"><span>Match method</span><span>DataFrame lookup</span></div>
+          <div class="label-row"><span>Status</span><span>Live</span></div>
+          <a class="btn btn-ghost" href="/contact.html">Build something similar</a>
+        </aside>
+      </div>
+
+
+      <div class="cta-banner" style="margin:48px 0 0;">
+        <h2>Want to build something like this?</h2>
+        <p>We scope projects in 48&nbsp;hours and ship a first demo in 1&ndash;2&nbsp;weeks. Tell us what you need.</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+          <a class="btn btn-primary" href="/contact.html">Start a project &rarr;</a>
+          <a class="btn btn-ghost" href="/services.html">See how we work</a>
+        </div>
+      </div>
+
+      <nav class="next-prev" aria-label="Project navigation">
+        <a href="/projects/convoforge.html"><div class="lbl">← Previous</div><div class="ttl">ConvoForge</div></a>
+        <a href="/projects/meditation.html" style="text-align:right;"><div class="lbl">Next →</div><div class="ttl">Meditation</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="/" class="brand" style="margin-bottom:14px;">
+            <span class="brand-mark" aria-hidden="true"></span>
+            Dainty Trading
+          </a>
+          <p class="muted" style="font-size:13.5px; max-width:360px;">
+            AI automation studio. We build production AI software for ourselves and selected clients.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Studio</h4>
+          <a href="/about.html">About</a>
+          <a href="/services.html">Services</a>
+          <a href="/blog.html">Blog</a>
+          <a href="/contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Featured projects</h4>
+          <a href="/projects/emailtriage.html">Email Triage</a>
+          <a href="/projects/ghost-writer.html">Ghost Writer</a>
+          <a href="/projects/convoforge.html">ConvoForge</a>
+          <a href="/projects/brightpath.html">BrightPath</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="/sitemap.xml">Sitemap</a>
+          <a href="/llms.txt">llms.txt</a>
+          <a href="/robots.txt">robots.txt</a>
+          <a href="/privacy.html">Privacy policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Dainty Trading · ABN 65 366 917 788 · All rights reserved.</span>
+        <span>Built in Australia.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

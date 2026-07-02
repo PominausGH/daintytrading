@@ -1,11 +1,11 @@
 # Dainty Trading
 
-> Dainty Trading is an Australian AI automation studio. We design, build, and operate production AI software — 35 products in our portfolio (live, in final testing, or in active development) covering email triage, AI content generation, education, knowledge management, marketing automation, scheduling, billing, and SaaS infrastructure. We also self-host the open-source stack we recommend (analytics, scheduling, LLM routing, document management, and more) and take on a small number of client engagements each quarter (AI product builds, automation retrofits, AI infrastructure).
+> Dainty Trading is an Australian AI automation studio. We design, build, and operate production AI software — 37 products in our portfolio (live, in final testing, or in active development) covering email triage, AI content generation, education, knowledge management, marketing automation, scheduling, billing, and SaaS infrastructure. We also self-host the open-source stack we recommend (analytics, scheduling, LLM routing, document management, and more) and take on a small number of client engagements each quarter (AI product builds, automation retrofits, AI infrastructure).
 
 ## About the studio
 
 - **What we are**: A small, deliberate AI automation studio.
-- **What we do**: Build production AI software for our own portfolio (35 products) and selected clients.
+- **What we do**: Build production AI software for our own portfolio (37 products) and selected clients.
 - **Where we are**: Australia. We work async with clients globally.
 - **What we believe**: Shipping is the only proof. Boring infrastructure is the moat. Small surface, deep stack. We run the open-source tools we recommend.
 - **Default LLM**: Anthropic Claude. We also route through OpenRouter and LiteLLM to use Google Gemini, OpenAI, Grok, Perplexity, and others when economics or latency demand it.
@@ -28,10 +28,12 @@
 - [BrightPath](https://daintytrading.com/projects/brightpath.html) — live at **brightpath.school**. Personalised K-12 online school with an AI tutor named Pax (routed through OpenRouter, default Gemini Flash + Claude for harder tutoring).
 - [CV Matcher](https://daintytrading.com/projects/cv-matcher.html) — live at **cvmatcher.work**. Scrapes LinkedIn jobs, scores them against your CV with Claude, returns explainable match reasoning.
 - [BizPage Builder](https://daintytrading.com/projects/bizpage-builder.html) — live at **bizpage.biz**. Discovers small businesses without websites via Google Maps API; generates SEO-ready landing pages with Claude; exports as deployable ZIP.
-- [FocusGuard](https://daintytrading.com/projects/focusguard.html) — live at **focusshield.app**. Cross-platform task and focus app — web, iOS, Android — Expo + Node + Postgres.
+- [FocusShield](https://daintytrading.com/projects/focusguard.html) — live at **focusshield.app**. Cross-platform task and focus app — web, iOS, Android — Expo + Node + Postgres.
 - [AutoArchive](https://daintytrading.com/projects/autoarchive.html) — live at **autoarchivemail.com**. Personal email archive and search. Static HTML + Node + SQLite + Brevo.
 - [TimerForge](https://daintytrading.com/projects/timerforge.html) — live at **timerforge.app**. Cross-platform countdown timer. PyQt6 desktop apps + Node web SaaS, Stripe-billed.
 - [Email Cleanup](https://daintytrading.com/projects/emailcleanup.html) — live at **emailcleanup.daintytrading.com**. FastAPI service for bulk email validation and disposable-provider detection.
+- [ConvoForge](https://daintytrading.com/projects/convoforge.html) — live at **convoforge.signalreads.com**. Multimodal communication coach. Speech analysis, body language detection, AI avatar roleplay, real-time meeting overlay.
+- [Solar Loan Reconciler](https://daintytrading.com/projects/solar-loan-reconciler.html) — live, built for a financial company. Collects Mon–Fri solar loan transaction CSVs, matches them against the weekly Loan Payout Report, flags gaps, and emails a clean HTML report to the loans team every Friday.
 
 ## In final testing (pre-launch)
 
@@ -41,14 +43,14 @@
 - [ChatVault](https://daintytrading.com/projects/chatvault.html) — pre-launch. One searchable archive of every conversation across Claude, ChatGPT, Gemini, Grok, and Perplexity. Postgres + pgvector with re-ranking via Claude.
 - [Tax Prep](https://daintytrading.com/projects/tax-prep.html) — pre-launch. Drop-zone for receipts, statements, and slips throughout the year; Claude classifies and tags; year-end export gives your accountant a structured handover.
 - [Second Brain](https://daintytrading.com/projects/second-brain.html) — pre-launch (no public domain yet). Telegram-native note-taking. Forward voice/photo/link/text and Claude organises, tags, and surfaces it back via semantic recall (Postgres + pgvector).
-- [ConvoForge](https://daintytrading.com/projects/convoforge.html) — staging at **convoforge.signalreads.com**. Multimodal communication coach. Speech analysis, body language detection, AI avatar roleplay, real-time meeting overlay.
 - [Price Scout](https://daintytrading.com/projects/price-scout.html) — pre-launch. Cost-of-living dashboard tracking grocery, fuel, and energy prices across Australia and the UK. Stack: Next.js 14, Postgres, Prisma, BullMQ, SerpAPI.
 - [Auto-Claude](https://daintytrading.com/projects/auto-claude.html) — pre-launch. Autonomous multi-agent coding framework. Plans, builds, runs tests, iterates. Stack: Python/FastAPI, Electron, React, Anthropic Claude SDK.
 - [FakeCall](https://daintytrading.com/projects/fakecall.html) — pre-launch. Native iOS/Android app that schedules believable incoming calls with a Claude-driven AI persona on the other end. Stack: Swift/SwiftUI, Kotlin/Jetpack Compose, CallKit.
+- [StoryPulse](https://daintytrading.com/projects/storypulse.html) — in final testing. Instagram growth automation SaaS. Automated story views, AI captions, multi-account campaigns, anti-detection layer (per-account proxy rotation + human-behaviour mimicry), tiered Stripe plans. Stack: Next.js, Postgres + Prisma, BullMQ, iProyal proxies.
+- [Post Reel](https://daintytrading.com/projects/postreel.html) — in final testing. Social media scheduler with an AI video studio built in. Give it a URL, it crawls the site, writes a script, synthesises a voiceover, and produces a finished short-form video — scheduled across 12 platforms automatically.
 
 ## In active development
 
-- [StoryPulse](https://daintytrading.com/projects/storypulse.html) — Instagram growth automation SaaS. Automated story views, AI captions, multi-account campaigns, anti-detection layer (per-account proxy rotation + human-behaviour mimicry), tiered Stripe plans. Stack: Next.js, Postgres + Prisma, BullMQ, iProyal proxies.
 - [DevTodo](https://daintytrading.com/projects/devtodo.html) — staging at **todo.daintytrading.com**. Pulls TODOs from code, syncs Google Calendar, n8n-orchestrated, uses Claude (via LiteLLM) to write task summaries.
 - [ChefForge](https://daintytrading.com/projects/chefforge.html) — staging at **dinner.daintytrading.com**. AI recipe and meal planning with constraint-aware verification (deterministic checker on top of LLM generation).
 - [Yoga Platform](https://daintytrading.com/projects/yoga-platform.html) — staging at **yoga.daintytrading.com**. 500+ poses, sequence builder, Vite web + Expo mobile, on Supabase.
@@ -78,7 +80,7 @@ We don't bolt onto SaaS treadmills. The same open-source tools we run for oursel
 
 ## Frequently asked
 
-- **What is Dainty Trading?** An AI automation studio with 35 products (live, in final testing, and in active development), taking on selected client engagements.
+- **What is Dainty Trading?** An AI automation studio with 37 products (live, in final testing, and in active development), taking on selected client engagements.
 - **What stack do you use?** Python (FastAPI, Django) + Node.js (Fastify, Express) backends; Next.js, React, React Native + Expo frontends; Postgres + Redis; Stripe + Brevo + n8n + LiteLLM. Default LLM is Claude.
 - **What open-source tools do you self-host?** Umami, Cal.com, LiteLLM Proxy, Paperless-NGX, Open WebUI, Speedtest Tracker, Portainer, Syncthing — see the Supporting cast section above.
 - **How fast can you ship?** Typically a working first slice in 1–2 weeks; first paying customer in 4–8 weeks.
