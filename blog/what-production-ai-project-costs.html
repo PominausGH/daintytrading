@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>What a Production AI Project Actually Costs &mdash; Dainty Trading</title>
+  <meta name="description" content="A production AI project typically costs $15k to over $200k, driven by complexity, evaluation needs, and robustness requirements." />
+  <link rel="canonical" href="https://daintytrading.com/blog/what-production-ai-project-costs.html" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0c10" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="What a Production AI Project Actually Costs" />
+  <meta property="og:description" content="A production AI project typically costs $15k to over $200k, driven by complexity, evaluation needs, and robustness requirements." />
+  <meta property="og:url" content="https://daintytrading.com/blog/what-production-ai-project-costs.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "What a Production AI Project Actually Costs",
+    "description": "A production AI project typically costs $15k to over $200k, driven by complexity, evaluation needs, and robustness requirements.",
+    "url": "https://daintytrading.com/blog/what-production-ai-project-costs.html",
+    "datePublished": "2026-07-08",
+    "dateModified": "2026-07-08",
+    "author": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "publisher": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "mainEntityOfPage": "https://daintytrading.com/blog/what-production-ai-project-costs.html"
+  }
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a>
+        <a href="/services.html">Services</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/blog.html">Blog</a> &nbsp;/&nbsp; Business</div>
+        <h1>What a Production AI Project Actually Costs</h1>
+        <p class="lede">A production AI project typically costs $15k to over $200k, driven by complexity, evaluation needs, and robustness requirements.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Topic</strong>&nbsp; Business</span>
+          <span class="chip"><strong>Published</strong>&nbsp; 8 July 2026</span>
+          <span class="chip"><strong>Read time</strong>&nbsp; 4 min</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <p>A reliable production AI agent typically costs anywhere from $15,000 for a straightforward API integration to over $200,000 for a complex agentic system requiring extensive evaluation and fine-tuning. The demo you saw built in a weekend is often a fraction of the real cost. What drives this wide range isn't the model itself, but the engineering rigor required to make it reliable, observable, and maintainable in production.</p>
+
+<p>Most teams drastically underestimate the investment needed beyond the initial proof-of-concept. They see the impressive "hello world" prompt or a basic RAG setup, then assume scaling it is a simple matter of increasing API calls. This leads to hard-coding calls directly to <code>api.openai.com</code> or <code>api.anthropic.com</code>, embedding specific prompt templates deeply within application logic, and building minimal error handling. This approach works fine for a personal script, or even an internal tool with low stakes and dedicated human oversight. The problem emerges when you hit rate limits, encounter unexpected model behavior, or need to switch providers. Suddenly, a simple prompt change requires a code redeploy, and an API outage brings down a critical user-facing feature. We've seen this lead to panicked 2 AM debugging sessions and a complete lack of confidence in the AI component's stability.</p>
+
+<p>At Dainty, we approach AI development with a focus on production readiness from day one. This means architecting for resilience, observability, and iterative improvement. The "better approach" means understanding that the AI model is just one component of a larger system. We typically classify projects into three cost tiers based on complexity:</p>
+<ul>
+<li><p><strong>Simple Integrations ($15k - $30k):</strong> These involve wrapping existing LLM APIs for specific, well-defined tasks like text classification or summarization. Think of our <a href="https://daintytrading.com/projects/autoarchive-mail.html">AutoArchive Mail</a> feature, which classifies inbound emails. This tier focuses on robust API proxies, standardized prompt structures, basic retry logic, and minimal, targeted evaluation sets. The cost here covers setting up the infrastructure, initial prompt engineering, and ensuring stable integration with your existing system.</p></li>
+<li><p><strong>Intermediate Agents/RAG Systems ($40k - $80k):</strong> This tier involves more complex logic, often incorporating Retrieval Augmented Generation (RAG) or multi-step agentic behavior with tool use. Our <a href="https://daintytrading.com/projects/cv-matcher.html">CV Matcher</a> project, for instance, requires retrieving relevant candidate data and then structuring an output. Costs here rise due to the need for vector database integration (e.g., Pinecone, Weaviate), more sophisticated prompt orchestration, comprehensive evaluation frameworks to measure retrieval quality and response accuracy, and robust fallback mechanisms when RAG fails to find relevant information or the agent gets stuck.</p></li>
+<li><p><strong>Complex Agentic Systems/Fine-tuning ($100k - $200k+):</strong> These are highly customized systems, often requiring significant data preparation, fine-tuning of open-source models (or even proprietary ones via APIs), and intricate multi-agent orchestration. Projects like our <a href="https://daintytrading.com/projects/ghost-writer.html">Ghost Writer</a> demand nuanced output generation that often benefits from fine-tuning or advanced prompting techniques over specific datasets. The cost here is driven by the data engineering effort, the compute for fine-tuning, the development of sophisticated evaluation harnesses (human-in-the-loop, adversarial testing), and extensive monitoring for drift and performance degradation. These systems are designed to operate autonomously with high reliability, requiring deep integration into existing business processes and robust infrastructure.</p></li>
+</ul>
+<p>The primary drivers of increased cost across these tiers are not just more code, but the investment in evaluation infrastructure, comprehensive error handling, logging, monitoring, and the iterative cycles required to achieve acceptable production quality.</p>
+
+<p>This tiered investment approach isn't always necessary. For a quick internal script that helps an individual developer, or a non-critical feature where "good enough" is truly sufficient, the overhead of a fully robust production system adds unnecessary complexity. If your tolerance for failure is high, and the potential impact of an AI hallucination or outage is low, then a simpler, less expensive approach might be appropriate. We also advise against over-engineering for projects where the core AI component is highly experimental and might be completely refactored after initial user feedback. The goal is to match the rigor of your AI system to its business criticality and risk profile, not to blindly apply the most complex solution.</p>
+
+<p>To accurately scope a project and understand its true cost, start by defining the success metrics and, critically, the failure modes. What does "production ready" actually mean for this specific feature? Outline the non-negotiable requirements for latency, error rates, and response quality. Then, ask potential vendors or your internal team to break down the effort for evaluation, fallback handling, and monitoring, not just the core AI logic. This week, identify one AI feature you're considering and map out its potential failure points and what a truly unacceptable outcome would look like. This exercise alone will clarify the necessary investment. If you're ready to start a project with clear expectations, <a href="https://daintytrading.com/contact.html">start a project</a> with us, and we can help you navigate these trade-offs.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>About this post</h4>
+          <div class="label-row"><span>Published</span><span>8 July 2026</span></div>
+          <div class="label-row"><span>Topic</span><span>Business</span></div>
+          <div class="label-row"><span>Read time</span><span>4 min</span></div>
+          <div class="label-row"><span>Author</span><span>Dainty Trading</span></div>
+          <a class="btn btn-primary" href="https://daintytrading.com/contact.html">Start a project &rarr;</a>
+          <a class="btn btn-ghost" href="/services.html">See our services</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Blog navigation">
+        <a href="/blog.html"><div class="lbl">&larr; Back</div><div class="ttl">All posts</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="/" class="brand" style="margin-bottom:14px;">
+            <span class="brand-mark" aria-hidden="true"></span>
+            Dainty Trading
+          </a>
+          <p class="muted" style="font-size:13.5px; max-width:360px;">
+            AI automation studio. We build production AI software for ourselves and selected clients.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Studio</h4>
+          <a href="/about.html">About</a>
+          <a href="/services.html">Services</a>
+          <a href="/blog.html">Blog</a>
+          <a href="/contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Featured projects</h4>
+          <a href="/projects/emailtriage.html">Email Triage</a>
+          <a href="/projects/ghost-writer.html">Ghost Writer</a>
+          <a href="/projects/convoforge.html">ConvoForge</a>
+          <a href="/projects/brightpath.html">BrightPath</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="/sitemap.xml">Sitemap</a>
+          <a href="/llms.txt">llms.txt</a>
+          <a href="/robots.txt">robots.txt</a>
+          <a href="/privacy.html">Privacy policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Dainty Trading. All rights reserved.</span>
+        <span>Built in Australia.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
