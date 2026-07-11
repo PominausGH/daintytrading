@@ -46,7 +46,15 @@
     "offers": {
       "@type": "Offer",
       "name": "SEO & GEO audit and fix",
-      "description": "1–3 week engagement. Full technical audit, prioritized fix list, and implementation shipped directly to your codebase — not a PDF report."
+      "description": "1–3 week engagement. Full technical audit, prioritized fix list, and implementation shipped directly to your codebase — not a PDF report.",
+      "price": "2000",
+      "priceCurrency": "AUD",
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "price": "2000",
+        "priceCurrency": "AUD",
+        "minPrice": "2000"
+      }
     }
   }
   </script>
@@ -77,6 +85,14 @@
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "1–3 weeks for most sites, depending on site size and how we get access — a direct repo commit is fastest, CMS access takes a little longer to coordinate."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does an SEO & GEO audit cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "$2,000 flat for single-template sites — one CMS or static site, one language, no product catalog. Larger sites get a custom quote based on the number of distinct page templates, not raw page count: e-commerce, multi-language, or more than five or six unique page types push it past the flat rate."
         }
       },
       {
@@ -183,6 +199,10 @@
             <p>1&ndash;3 weeks for most sites, depending on size and how we get access &mdash; a direct repo commit is fastest.</p>
           </details>
           <details class="faq-item">
+            <summary>How much does it cost?</summary>
+            <p>$2,000 flat for single-template sites &mdash; one CMS or static site, one language, no product catalog. Larger sites get a custom quote based on the number of distinct page templates, not raw page count: e-commerce, multi-language, or more than five or six unique page types push it past the flat rate.</p>
+          </details>
+          <details class="faq-item">
             <summary>Is this a one-time fix or an ongoing retainer?</summary>
             <p>One-time audit-and-fix by default. We can set up a quarterly check-in afterwards if it&rsquo;s useful &mdash; no retainer required either way.</p>
           </details>
@@ -195,10 +215,12 @@
 
         <aside class="sidecard">
           <h4>SEO &amp; GEO Optimization</h4>
+          <div class="label-row"><span>Price</span><span>From $2,000 flat</span></div>
           <div class="label-row"><span>Typical timeline</span><span>1&ndash;3 weeks</span></div>
           <div class="label-row"><span>Covers</span><span>Meta · Schema · llms.txt</span></div>
           <div class="label-row"><span>Delivery</span><span>Shipped to code</span></div>
           <div class="label-row"><span>Pairs with</span><span>Product builds &amp; retrofits</span></div>
+          <p style="font-size:12px;color:var(--text-muted);margin:10px 0 16px;">$2,000 flat covers single-template sites. Custom quote for e-commerce, multi-language, or larger template counts.</p>
           <a class="btn btn-primary" href="/contact.html">Start an audit &rarr;</a>
           <a class="btn btn-ghost" href="/services.html">All services</a>
         </aside>
