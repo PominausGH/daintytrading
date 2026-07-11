@@ -84,6 +84,12 @@
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
+  <url>
+    <loc>https://daintytrading.com/services/seo-geo-optimization.html</loc>
+    <lastmod>2026-07-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
 
   <!-- Blog -->
   <url>
@@ -338,6 +344,12 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
+  <url>
+    <loc>https://daintytrading.com/projects/solar-loan-reconciler.html</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 
   <url>
     <loc>https://daintytrading.com/blog/ai-feature-flags-gradual-rollouts.html</loc>
@@ -390,6 +402,12 @@
   <url>
     <loc>https://daintytrading.com/blog/how-long-to-build-production-ai-agent.html</loc>
     <lastmod>2026-06-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://daintytrading.com/blog/what-production-ai-project-costs.html</loc>
+    <lastmod>2026-07-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
