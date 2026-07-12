@@ -571,7 +571,7 @@ section { padding: 84px 0; }
   margin-bottom: 32px;
 }
 @media (max-width: 820px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
-.footer-col h4 {
+.footer-col h3 {
   font-size: 12.5px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
