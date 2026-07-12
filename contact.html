@@ -189,6 +189,7 @@
                 if (!res.ok) throw new Error(data.error || 'Something went wrong');
                 document.getElementById('contact-form-wrap').style.display = 'none';
                 document.getElementById('contact-success').style.display = 'block';
+                if (window.umami) window.umami.track('lead_submitted');
               } catch (err) {
                 errEl.textContent = err.message;
                 errEl.style.display = 'block';
