@@ -3,6 +3,7 @@ const express = require('express');
 const rateLimit = require('express-rate-limit');
 
 const contactRoutes = require('./routes/contact');
+const { startSuppressionMonitor } = require('./lib/suppression-monitor');
 
 const app = express();
 app.set('trust proxy', 1);
@@ -24,4 +25,5 @@ app.get('/api/health', (_req, res) => res.json({ ok: true }));
 
 app.listen(PORT, () => {
   console.log(`Dainty API listening on :${PORT}`);
+  startSuppressionMonitor();
 });

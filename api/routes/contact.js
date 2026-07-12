@@ -1,6 +1,7 @@
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const { sendEmail } = require('../lib/email');
+const { saveSubmission } = require('../lib/store');
 
 const router = express.Router();
 
@@ -72,7 +73,13 @@ router.post('/', contactRateLimiter, async (req, res) => {
   const flagPrefix = spamReason ? `[REVIEW · ${spamReason}] ` : '';
 
   try {
-    await sendEmail({
+    saveSubmission({ ...data, spamReason, ip: req.ip });
+  } catch (err) {
+    console.error('contact route error: failed to save submission to local store:', err.message);
+  }
+
+  try {
+    const notifyResult = await sendEmail({
       to: notifyEmail,
       replyTo: data.email,
       subject: `${flagPrefix}New enquiry from ${data.name}`,
@@ -90,8 +97,13 @@ router.post('/', contactRateLimiter, async (req, res) => {
       `,
     });
 
+    if (!notifyResult.success) {
+      console.error('contact route error: notification email failed:', notifyResult.error);
+      return res.status(500).json({ error: 'Failed to send enquiry. Please try again or email us directly.' });
+    }
+
     if (!spamReason) {
-      await sendEmail({
+      const ackResult = await sendEmail({
         to: data.email,
         subject: "We've received your enquiry — Dainty Trading",
         html: `
@@ -106,6 +118,9 @@ router.post('/', contactRateLimiter, async (req, res) => {
           <p style="font-size:12px;color:#94a3b8;">This is an automated acknowledgement. Please don't reply to this message — your original enquiry has a reply-to address set.</p>
         `,
       });
+      if (!ackResult.success) {
+        console.error('contact route error: acknowledgement email failed:', ackResult.error);
+      }
     }
 
     res.status(201).json({ success: true });
