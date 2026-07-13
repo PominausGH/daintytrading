@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>What an SEO &amp; GEO Audit Actually Finds &mdash; Dainty Trading</title>
+  <meta name="description" content="The recurring, fixable issues we find on almost every unaudited site: broken schema, missing llms.txt, robots.txt accidentally blocking AI crawlers, and thin metadata." />
+  <link rel="canonical" href="https://daintytrading.com/blog/what-an-seo-geo-audit-actually-finds.html" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0c10" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="What an SEO &amp; GEO Audit Actually Finds" />
+  <meta property="og:description" content="The recurring, fixable issues we find on almost every unaudited site: broken schema, missing llms.txt, robots.txt accidentally blocking AI crawlers, and thin metadata." />
+  <meta property="og:url" content="https://daintytrading.com/blog/what-an-seo-geo-audit-actually-finds.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "What an SEO & GEO Audit Actually Finds",
+    "description": "The recurring, fixable issues we find on almost every unaudited site: broken schema, missing llms.txt, robots.txt accidentally blocking AI crawlers, and thin metadata.",
+    "url": "https://daintytrading.com/blog/what-an-seo-geo-audit-actually-finds.html",
+    "datePublished": "2026-07-13",
+    "dateModified": "2026-07-13",
+    "author": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "publisher": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "mainEntityOfPage": "https://daintytrading.com/blog/what-an-seo-geo-audit-actually-finds.html"
+  }
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a>
+        <a href="/services.html">Services</a>
+        <a href="/services/seo-geo-optimization.html">SEO/GEO</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/blog.html">Blog</a> &nbsp;/&nbsp; SEO &amp; GEO</div>
+        <h1>What an SEO &amp; GEO Audit Actually Finds</h1>
+        <p class="lede">The recurring, fixable issues we find on almost every unaudited site: broken schema, missing llms.txt, robots.txt accidentally blocking AI crawlers, and thin metadata.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Topic</strong>&nbsp; SEO &amp; GEO</span>
+          <span class="chip"><strong>Published</strong>&nbsp; 13 July 2026</span>
+          <span class="chip"><strong>Read time</strong>&nbsp; 5 min</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <p>Most sites we audit were built to look right in a browser, not to be read correctly by a crawler — human or AI. That's not a criticism; it's just not what most teams are optimizing for when they ship. But it means the same handful of issues show up again and again, and every one of them is a fix, not a redesign. Here's what actually turns up.</p>
+
+          <h2>Missing or broken structured data</h2>
+          <p>Schema markup (JSON-LD, usually) is how a page tells Google — and increasingly, an AI answer engine — what it actually is: a product, an article, a business, a set of frequently asked questions. Sites without it aren't broken, they just leave the crawler to guess. We see three variants of this constantly: no schema at all, schema copy-pasted from a template that still references the wrong business name or URL, and schema that's syntactically valid JSON but semantically wrong (an <code>Organization</code> block with no <code>FAQPage</code> even though the page has an actual FAQ section a few hundred pixels below it).</p>
+
+          <h2>No <code>llms.txt</code></h2>
+          <p><code>llms.txt</code> is the newer of the two — a plain-text file at the site root that gives AI crawlers and agents a direct, structured summary of what the site is, what it costs, and where the key pages are, instead of making them infer it from rendered HTML. Almost nobody has one yet, which is exactly why it's worth having: it's a cheap, high-signal way to make sure an AI answer engine describes your product accurately instead of guessing from a scraped homepage.</p>
+
+          <h2>Robots.txt accidentally blocking the crawlers you want</h2>
+          <p>This is the one that surprises people most. A robots.txt file written a few years ago, before AI crawlers existed as a named category, will often use a broad <code>Disallow</code> rule that was meant to keep out scrapers or bad bots — and ends up blocking GPTBot, ClaudeBot, and PerplexityBot along with them. The site owner never opted into this; it's just what happens when a rule written for one era of the web gets left alone as the web changes around it. The fix is almost always a few lines, not a rewrite.</p>
+
+          <h2>Thin or duplicated meta tags</h2>
+          <p>Titles and meta descriptions that are missing, truncated, identical across pages, or — a specific one we've seen more than once — contain literal unrendered template markup because a client-side templating tag didn't get replaced before the page shipped to a crawler that doesn't run JavaScript. Small thing, visible everywhere it matters: search results, social previews, browser tabs.</p>
+
+          <h2>Why this is a code fix, not a report</h2>
+          <p>Most SEO audits end as a PDF with a priority list and leave the implementation to you. We do the opposite: the audit is the first half of the engagement, the fix is shipped directly into your codebase in the second half, and a third pass verifies it actually took — re-indexation, crawler access, the works. If you want to know specifically what's broken on your own site before committing to anything, <a href="/services/seo-geo-optimization.html">see how the engagement works</a>, or <a href="/contact.html">send us the URL</a> and we'll tell you what we find.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>About this post</h4>
+          <div class="label-row"><span>Published</span><span>13 July 2026</span></div>
+          <div class="label-row"><span>Topic</span><span>SEO &amp; GEO</span></div>
+          <div class="label-row"><span>Read time</span><span>5 min</span></div>
+          <div class="label-row"><span>Author</span><span>Dainty Trading</span></div>
+          <a class="btn btn-primary" href="/services/seo-geo-optimization.html">See the SEO/GEO service &rarr;</a>
+          <a class="btn btn-ghost" href="/contact.html">Start an audit</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Blog navigation">
+        <a href="/blog.html"><div class="lbl">&larr; Back</div><div class="ttl">All posts</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="/" class="brand" style="margin-bottom:14px;">
+            <span class="brand-mark" aria-hidden="true"></span>
+            Dainty Trading
+          </a>
+          <p class="muted" style="font-size:13.5px; max-width:360px;">
+            AI automation studio. We build production AI software for ourselves and selected clients.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h3>Studio</h3>
+          <a href="/about.html">About</a>
+          <a href="/services.html">Services</a>
+          <a href="/services/seo-geo-optimization.html">SEO/GEO</a>
+          <a href="/blog.html">Blog</a>
+          <a href="/contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h3>Featured projects</h3>
+          <a href="/projects/emailtriage.html">Email Triage</a>
+          <a href="/projects/ghost-writer.html">Ghost Writer</a>
+          <a href="/projects/convoforge.html">ConvoForge</a>
+          <a href="/projects/brightpath.html">BrightPath</a>
+        </div>
+        <div class="footer-col">
+          <h3>Resources</h3>
+          <a href="/sitemap.xml">Sitemap</a>
+          <a href="/llms.txt">llms.txt</a>
+          <a href="/robots.txt">robots.txt</a>
+          <a href="/privacy.html">Privacy policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Dainty Trading. All rights reserved.</span>
+        <span>Built in Australia.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

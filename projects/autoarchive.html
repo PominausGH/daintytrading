@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="google-site-verification" content="V4tv1Ds0qfskA15qPKqndEsVqsO7xyT10CYzFDBV0BQ" />
   <title>AutoArchive — Enterprise Shared Mailbox Archiving | Dainty Trading</title>
-  <meta name="description" content="AutoArchive backs up 45 shared email boxes to a secure local disk. Each email is saved with its message ID in the filename for instant retrieval — built for Westpac." />
+  <meta name="description" content="AutoArchive backs up 45 shared email boxes to a secure local disk. Each email is saved with its message ID in the filename for instant retrieval — built for a Big 4 Australian bank." />
   <link rel="canonical" href="https://daintytrading.com/projects/autoarchive.html" />
   <meta name="robots" content="index, follow" />
   <meta property="og:type" content="article" />
@@ -47,7 +47,8 @@
     <div class="container nav">
       <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 2l2.09 6.91L21 12l-6.91 2.09L12 22l-2.09-7.91L2 12l7.91-2.09L12 2z"/></svg></span> Dainty Trading</a>
       <nav class="nav-links" aria-label="Primary">
-        <a href="/#projects">Projects</a><a href="/services.html">Services</a><a href="/about.html">About</a>
+        <a href="/#projects">Projects</a><a href="/services.html">Services</a>
+        <a href="/services/seo-geo-optimization.html">SEO/GEO</a><a href="/about.html">About</a>
         <a href="/contact.html">Contact</a>
         <a href="/contact.html" class="nav-cta">Start a project</a>
       </nav>
@@ -59,10 +60,10 @@
       <div class="container">
         <div class="crumbs"><a href="/">Home</a> / <a href="/#projects">Projects</a> / AutoArchive</div>
         <h1>AutoArchive</h1>
-        <p class="lede">Built for Westpac — one of Australia&rsquo;s Big 4 banks. 45 shared email boxes, backed up nightly to a secure local disk. Every email saved with its message ID baked into the filename — find anything in seconds, no database required.</p>
+        <p class="lede">Built for a Big 4 Australian bank. 45 shared email boxes, backed up four times a day to a secure local disk. Every email saved with its message ID baked into the filename — find anything in seconds, no database required.</p>
         <div class="meta-row">
           <span class="chip"><strong>Category</strong>&nbsp; Email · Automation</span>
-          <span class="chip"><strong>Client</strong>&nbsp; Westpac</span>
+          <span class="chip"><strong>Client</strong>&nbsp; Big 4 Australian bank (name withheld)</span>
           <span class="chip"><strong>Scale</strong>&nbsp; 45 shared mailboxes</span>
           <span class="chip"><strong>Status</strong>&nbsp; Live</span>
         </div>
@@ -89,20 +90,20 @@
       <div class="detail-body">
         <article class="prose">
           <h2>The problem</h2>
-          <p>Westpac runs 45 shared email boxes across teams — compliance, operations, customer service. Each box receives hundreds of messages a day. When a specific email needs to be retrieved for an audit, a dispute, or a compliance review, the question is always the same: where is it, and how fast can you find it? Without a structured archive, the answer is &ldquo;somewhere, eventually.&rdquo; That&rsquo;s not good enough for a bank.</p>
+          <p>The client runs 45 shared email boxes across teams — compliance, operations, customer service. Each box receives hundreds of messages a day. When a specific email needs to be retrieved for an audit, a dispute, or a compliance review, the question is always the same: where is it, and how fast can you find it? Without a structured archive, the answer is &ldquo;somewhere, eventually.&rdquo; That&rsquo;s not good enough for a bank.</p>
 
           <h2>What we built</h2>
-          <p>AutoArchive connects to all 45 shared mailboxes and runs a nightly backup job, pulling every email down and writing it to a secure, air-gapped local disk. The key design decision: each file is named using the email&rsquo;s unique message ID. No database, no index to maintain, no search UI to build — the filesystem <em>is</em> the search. A staff member looking for a specific email pastes the message ID into a file search and has it in under a second.</p>
+          <p>AutoArchive connects to all 45 shared mailboxes and runs a backup job four times a day, pulling every email down and writing it to a secure, air-gapped local disk. The key design decision: each file is named using the email&rsquo;s unique message ID. No database, no index to maintain, no search UI to build — the filesystem <em>is</em> the search. A staff member looking for a specific email pastes the message ID into a file search and has it in under a second.</p>
           <p>The tool handles the full mailbox set in a single run, logs what it backed up and what it skipped, and alerts on failure. It&rsquo;s designed to be auditable — a compliance team can verify the backup without understanding the code.</p>
 
           <h2>The automation angle</h2>
-          <p>The interesting constraint was reliability over cleverness. A nightly job that touches 45 live mailboxes at a bank cannot fail silently. Every step writes a structured log entry. If a mailbox is unreachable, the job continues with the rest and flags the failure — it doesn&rsquo;t abort. The result is a system that keeps running even when individual mailboxes have issues, and gives ops a clear picture of exactly what was and wasn&rsquo;t archived each night.</p>
+          <p>The interesting constraint was reliability over cleverness. A job that touches 45 live mailboxes at a bank, four times a day, cannot fail silently. Every step writes a structured log entry. If a mailbox is unreachable, the job continues with the rest and flags the failure — it doesn&rsquo;t abort. The result is a system that keeps running even when individual mailboxes have issues, and gives ops a clear picture of exactly what was and wasn&rsquo;t archived on every run.</p>
 
           <h2>How it&rsquo;s used</h2>
           <ul>
             <li><strong>Compliance teams</strong> retrieve specific emails by message ID for audits and regulatory requests.</li>
             <li><strong>Operations staff</strong> recover emails that were deleted or moved from shared boxes.</li>
-            <li><strong>IT</strong> verifies nightly backup completeness from the structured run log.</li>
+            <li><strong>IT</strong> verifies backup completeness from the structured run log after every run.</li>
           </ul>
 
           <h2>What it taught us</h2>
@@ -111,9 +112,9 @@
 
         <aside class="sidecard">
           <h4>Project facts</h4>
-          <div class="label-row"><span>Client</span><span>Westpac</span></div>
+          <div class="label-row"><span>Client</span><span>Big 4 Australian bank</span></div>
           <div class="label-row"><span>Mailboxes</span><span>45 shared</span></div>
-          <div class="label-row"><span>Schedule</span><span>Nightly backup</span></div>
+          <div class="label-row"><span>Schedule</span><span>4x daily backup</span></div>
           <div class="label-row"><span>Storage</span><span>Secure local disk</span></div>
           <div class="label-row"><span>Search</span><span>Message ID filename</span></div>
           <div class="label-row"><span>Status</span><span>Live</span></div>
@@ -154,6 +155,7 @@
           <h3>Studio</h3>
           <a href="/about.html">About</a>
           <a href="/services.html">Services</a>
+        <a href="/services/seo-geo-optimization.html">SEO/GEO</a>
           <a href="/blog.html">Blog</a>
           <a href="/contact.html">Contact</a>
         </div>
