@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Tools We Actually Use in Production (2026) &mdash; Dainty Trading</title>
+  <meta name="description" content="Forget the hype. We share the essential AI tools professional engineers at Dainty use daily for evals, tracing, prompting, and deployment in 2026." />
+  <link rel="canonical" href="https://daintytrading.com/blog/ai-tools-production-engineers-use-2026.html" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0c10" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="AI Tools We Actually Use in Production (2026)" />
+  <meta property="og:description" content="Forget the hype. We share the essential AI tools professional engineers at Dainty use daily for evals, tracing, prompting, and deployment in 2026." />
+  <meta property="og:url" content="https://daintytrading.com/blog/ai-tools-production-engineers-use-2026.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "AI Tools We Actually Use in Production (2026)",
+    "description": "Forget the hype. We share the essential AI tools professional engineers at Dainty use daily for evals, tracing, prompting, and deployment in 2026.",
+    "url": "https://daintytrading.com/blog/ai-tools-production-engineers-use-2026.html",
+    "datePublished": "2026-07-15",
+    "dateModified": "2026-07-15",
+    "author": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "publisher": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "mainEntityOfPage": "https://daintytrading.com/blog/ai-tools-production-engineers-use-2026.html"
+  }
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a>
+        <a href="/services.html">Services</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/blog.html">Blog</a> &nbsp;/&nbsp; AI · Engineering</div>
+        <h1>AI Tools We Actually Use in Production (2026)</h1>
+        <p class="lede">Forget the hype. We share the essential AI tools professional engineers at Dainty use daily for evals, tracing, prompting, and deployment in 2026.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Topic</strong>&nbsp; AI · Engineering</span>
+          <span class="chip"><strong>Published</strong>&nbsp; 15 July 2026</span>
+          <span class="chip"><strong>Read time</strong>&nbsp; 5 min</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <p>What AI tools do professional software engineers actually use in 2026? We're not talking about the latest viral GitHub repo that will be unmaintained in six months. We're talking about the unglamorous workhorses: the prompt gateways, evaluation frameworks, and observability platforms that let us ship reliable AI features. At Dainty, these tools are foundational for everything from our Email Triage to the BrightPath agent. They solve real problems with cost, consistency, and debuggability.</p>
+
+<p>Most teams start simple. They hard-code calls directly to <code>api.anthropic.com</code> or <code>api.openai.com</code>. They embed API keys directly in environment variables, maybe behind a secrets manager. This feels fast and gets a proof-of-concept running in an afternoon. The problem is that it doesn't scale. You get no versioning for your prompts. A/B testing prompt variations becomes a nightmare of Git branches and manual deployments. You have zero visibility into token costs or latency per prompt. Debugging a production issue means sifting through raw API logs or adding <code>print()</code> statements. When a new model comes out, or you need to switch providers, it's a code rewrite across your entire codebase. This "fast start" quickly becomes a technical debt trap.</p>
+
+<h2>The Production Stack We Use</h2>
+
+<p>We've learned that shipping robust AI systems requires dedicated infrastructure. Here's what we deploy and recommend:</p>
+
+<p><strong>1. Prompt Gateways & Management: Helicone.</strong></p>
+<p>This is non-negotiable. Helicone sits in front of all our LLM API calls. It gives us caching, cost tracking, rate limiting, and A/B testing of different prompt versions. Crucially, it abstracts away the LLM provider. If we need to switch from Anthropic to OpenAI, or route some requests to a self-hosted open-source model, Helicone handles it. For our Ghost Writer project, A/B testing prompt variations for tone and length via Helicone was crucial before rolling out to all users. Alternatives like LiteLLM or Vellum offer similar capabilities, but we've found Helicone's developer experience and cost-effectiveness hard to beat.</p>
+
+<p><strong>2. Evaluation Frameworks: LangSmith Evals & Custom Harnesses.</strong></p>
+<p>You cannot ship production AI without automated evaluations. We build programmatic evals that check output quality, adherence to constraints, and factual accuracy. LangSmith provides excellent primitives for this. For our CV Matcher, we built an eval suite that checks if extracted skills match the job description and resume, catching regressions when we update the underlying model or prompt. These aren't just unit tests; they're regression tests for your AI's behavior. We run them on every code commit and before every deployment. If your evals don't pass, the build fails.</p>
+
+<p><strong>3. Observability & Tracing: LangSmith.</strong></p>
+<p>When a complex agent chain fails, you need to know why. LangSmith gives us full visibility into every LLM call, tool invocation, and intermediate step. We can see token usage, latency, and exactly where an agent deviated from its expected path. Debugging an AutoArchive Mail agent often involves tracing a failed classification to a specific tool call or an LLM hallucination. Arize AI and Weights & Biases also offer strong observability platforms, but LangSmith integrates seamlessly with the LangChain ecosystem we use for many of our agentic projects.</p>
+
+<p><strong>4. Vector Databases: Pinecone or Supabase pgvector.</strong></p>
+<p>For Retrieval Augmented Generation (RAG) patterns, a robust vector database is essential. We use Pinecone for high-scale applications like BrightPath, which stores and retrieves millions of documentation chunks. For simpler setups or projects already leveraging PostgreSQL, Supabase's pgvector extension is a solid, cost-effective choice. The choice often comes down to scale, existing infrastructure, and budget.</p>
+
+<h2>Where This Approach Breaks</h2>
+
+<p>This stack isn't a silver bullet. For a small team building a single-prompt, low-volume feature, integrating a full gateway and tracing solution might feel like over-engineering. The overhead of setting up and maintaining these tools can outweigh the benefits if your AI component is trivial. The cost of some enterprise-grade observability tools, like Arize AI, can also become significant for smaller budgets. Furthermore, while these tools abstract away LLM providers, they introduce their own form of vendor lock-in. Switching from Helicone to another gateway, for example, isn't trivial. You still need dedicated engineering time to integrate them, write meaningful evaluations, and monitor the dashboards. There's no magical "AI deployment" button yet.</p>
+
+<h2>Your Next Step This Week</h2>
+
+<p>Don't try to implement everything at once. Pick one tool and integrate it with an existing AI feature. If you're currently making direct API calls to an LLM, spend an hour integrating <a href="https://www.helicone.ai/">Helicone</a>. Wrap your existing <code>openai.chat.completions.create</code> or <code>anthropic.messages.create</code> calls with Helicone's SDK. This will immediately give you cost visibility, basic caching, and a platform for future A/B tests. If you're building a more complex agent or chain, integrate LangSmith for tracing. Just a few lines of code can start providing invaluable debugging insights. If you need help architecting your AI infrastructure, we regularly help clients with these exact challenges. Consider how Dainty can <a href="https://daintytrading.com/contact.html">start a project</a> with your team to build resilient AI features.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>About this post</h4>
+          <div class="label-row"><span>Published</span><span>15 July 2026</span></div>
+          <div class="label-row"><span>Topic</span><span>AI · Engineering</span></div>
+          <div class="label-row"><span>Read time</span><span>5 min</span></div>
+          <div class="label-row"><span>Author</span><span>Dainty Trading</span></div>
+          <a class="btn btn-primary" href="https://daintytrading.com/contact.html">Start a project &rarr;</a>
+          <a class="btn btn-ghost" href="/services.html">See our services</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Blog navigation">
+        <a href="/blog.html"><div class="lbl">&larr; Back</div><div class="ttl">All posts</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="/" class="brand" style="margin-bottom:14px;">
+            <span class="brand-mark" aria-hidden="true"></span>
+            Dainty Trading
+          </a>
+          <p class="muted" style="font-size:13.5px; max-width:360px;">
+            AI automation studio. We build production AI software for ourselves and selected clients.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Studio</h4>
+          <a href="/about.html">About</a>
+          <a href="/services.html">Services</a>
+          <a href="/blog.html">Blog</a>
+          <a href="/contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Featured projects</h4>
+          <a href="/projects/emailtriage.html">Email Triage</a>
+          <a href="/projects/ghost-writer.html">Ghost Writer</a>
+          <a href="/projects/convoforge.html">ConvoForge</a>
+          <a href="/projects/brightpath.html">BrightPath</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="/sitemap.xml">Sitemap</a>
+          <a href="/llms.txt">llms.txt</a>
+          <a href="/robots.txt">robots.txt</a>
+          <a href="/privacy.html">Privacy policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Dainty Trading. All rights reserved.</span>
+        <span>Built in Australia.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
