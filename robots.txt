@@ -18,12 +18,6 @@ User-agent: DuckDuckBot
 Allow: /
 
 # AI crawlers — explicitly welcome
-# IMPORTANT: Cloudflare's "Manage AI bots" managed rule (Security > WAF >
-# Managed Rules > Cloudflare Bot Management ruleset) currently blocks
-# ClaudeBot, PerplexityBot, ChatGPT-User, Claude-Web, Perplexity-User and
-# Bytespider with HTTP 403 on this zone. Set that rule's action to Skip
-# in the Cloudflare dashboard if you want AI engines to actually fetch
-# the site — robots.txt has no effect on edge-level blocks.
 User-agent: GPTBot
 Allow: /
 
