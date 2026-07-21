@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>How Do You Test an AI System Before It Goes to Production? &mdash; Dainty Trading</title>
+  <meta name="description" content="A practical eval stack for AI systems: unit evals, integration evals, and regression evals, and what "good enough" actually means before you ship." />
+  <link rel="canonical" href="https://daintytrading.com/blog/how-to-test-an-ai-system-before-production.html" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0c10" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="How Do You Test an AI System Before It Goes to Production?" />
+  <meta property="og:description" content="A practical eval stack for AI systems: unit evals, integration evals, and regression evals, and what "good enough" actually means before you ship." />
+  <meta property="og:url" content="https://daintytrading.com/blog/how-to-test-an-ai-system-before-production.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "How Do You Test an AI System Before It Goes to Production?",
+    "description": "A practical eval stack for AI systems: unit evals, integration evals, and regression evals, and what "good enough" actually means before you ship.",
+    "url": "https://daintytrading.com/blog/how-to-test-an-ai-system-before-production.html",
+    "datePublished": "2026-07-22",
+    "dateModified": "2026-07-22",
+    "author": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "publisher": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "mainEntityOfPage": "https://daintytrading.com/blog/how-to-test-an-ai-system-before-production.html"
+  }
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a>
+        <a href="/services.html">Services</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/blog.html">Blog</a> &nbsp;/&nbsp; AI · Engineering</div>
+        <h1>How Do You Test an AI System Before It Goes to Production?</h1>
+        <p class="lede">A practical eval stack for AI systems: unit evals, integration evals, and regression evals, and what "good enough" actually means before you ship.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Topic</strong>&nbsp; AI · Engineering</span>
+          <span class="chip"><strong>Published</strong>&nbsp; 22 July 2026</span>
+          <span class="chip"><strong>Read time</strong>&nbsp; 5 min</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <p>You test an AI system before production with three layers of evals, not manual spot-checking: unit evals that score individual prompt behavior against a fixed dataset, integration evals that run the full pipeline end to end, and regression evals that re-run both automatically every time you change a model, prompt, or dependency. If you're only testing by reading outputs and thinking "yeah, that looks right," you don't have a test suite. You have a vibe, and vibes don't catch the failure that shows up three weeks after launch on the one input pattern nobody thought to try.</p>
+
+<h2>The common wrong approach: reading outputs and calling it QA</h2>
+<p>Most teams test an LLM feature the way they'd test a UI: run it a few times, eyeball the responses, ship if nothing looks broken. This feels reasonable because the failures are often subtle — not a stack trace, just a slightly wrong summary, a JSON field that's technically valid but semantically off, a classification that's confident and incorrect. Nothing crashes, so nothing gets caught.</p>
+<p>It breaks the moment you touch anything. Bump the model version, tweak a system prompt to fix one bug, add a new tool — and you have no way to know what else moved. We've seen a one-line prompt change meant to fix a formatting issue quietly drop the model's tool-calling accuracy on edge-case inputs by 15%. Nobody noticed until a customer did. Manual testing samples a handful of cases you already thought of. It cannot tell you about the 200 cases you didn't.</p>
+
+<h2>The better approach: three layers of evals</h2>
+<p><strong>Unit evals</strong> test one prompt or one model call in isolation, against a fixed dataset of inputs with known-good outputs or scoring criteria. For Email Triage, a Dainty project that classifies inbound email into action categories, this means a dataset of 150+ real (anonymized) emails with human-labeled correct categories, run through the classifier on every change, scored for exact match and near-miss. We use <a href="https://www.promptfoo.dev/">promptfoo</a> or a thin custom harness on top of pytest — the tool matters less than having a dataset that's actually representative of production traffic, including the annoying edge cases: forwarded threads, auto-replies, emails in a second language.</p>
+<p>For outputs that aren't exact-match — summaries, generated copy, extracted structured data with some tolerance — we score with an LLM-as-judge: a separate model call that grades the output against a rubric (correctness, completeness, tone) and returns a 1–5 score plus a reason. This is not perfect, but it's consistent, and consistency is what you need to detect regressions, not a philosophical guarantee of correctness.</p>
+<p><strong>Integration evals</strong> run the whole pipeline — retrieval, tool calls, multi-step agent loops, the works — against realistic scenarios, and check the final outcome, not just one step. For Ghost Writer, our AI drafting tool, that means feeding in a full brief-to-draft workflow and checking the final draft against style and factual-accuracy criteria, not just whether the first LLM call parsed correctly. Integration evals catch the failures unit evals structurally can't: a retrieval step that returns stale context, a tool call that succeeds but with the wrong arguments, state that leaks between steps in a multi-turn agent.</p>
+<p><strong>Regression evals</strong> are the first two, wired into CI, run on every prompt change, every model version bump, every dependency update. This is the layer that actually earns its keep. Anthropic and OpenAI ship model updates that change behavior in ways their release notes don't fully capture. Without a regression suite, you find out from your users. With one, you find out in a PR check, before it ships.</p>
+
+<h2>Where this breaks</h2>
+<p>Eval suites cost real time to build and maintain, and for a two-person team shipping a first AI feature, a full three-layer stack is probably overkill on day one. Start with unit evals on your highest-risk prompt — the one where a wrong answer costs money or trust — before building the rest out. LLM-as-judge scoring also drifts: the judge model updates too, and its grading criteria can shift under you, so re-baseline it periodically against human review, don't treat its scores as ground truth forever. And evals only test what's in your dataset — if your production traffic shifts (new user segment, new input format), your eval set goes stale and gives you false confidence. Budget time to refresh it quarterly, not once at launch.</p>
+
+<h2>What to do this week</h2>
+<p>Pick your single highest-stakes prompt — the one where being wrong is expensive — and write 20 real examples with expected outputs or a clear pass/fail rubric. Run it through promptfoo or a 50-line pytest script. That's your first unit eval. It won't cover everything, but it will catch the next regression before your users do, and it's the seed that the integration and regression layers grow from. If you want help building this out for a production system, <a href="https://daintytrading.com/contact.html">start a project</a> with us — this is exactly the kind of gap we get called in to close, most recently on a structured-extraction pipeline for CV Matcher where the eval suite caught a model-update regression before it ever reached a customer.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>About this post</h4>
+          <div class="label-row"><span>Published</span><span>22 July 2026</span></div>
+          <div class="label-row"><span>Topic</span><span>AI · Engineering</span></div>
+          <div class="label-row"><span>Read time</span><span>5 min</span></div>
+          <div class="label-row"><span>Author</span><span>Dainty Trading</span></div>
+          <a class="btn btn-primary" href="https://daintytrading.com/contact.html">Start a project &rarr;</a>
+          <a class="btn btn-ghost" href="/services.html">See our services</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Blog navigation">
+        <a href="/blog.html"><div class="lbl">&larr; Back</div><div class="ttl">All posts</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="/" class="brand" style="margin-bottom:14px;">
+            <span class="brand-mark" aria-hidden="true"></span>
+            Dainty Trading
+          </a>
+          <p class="muted" style="font-size:13.5px; max-width:360px;">
+            AI automation studio. We build production AI software for ourselves and selected clients.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Studio</h4>
+          <a href="/about.html">About</a>
+          <a href="/services.html">Services</a>
+          <a href="/blog.html">Blog</a>
+          <a href="/contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Featured projects</h4>
+          <a href="/projects/emailtriage.html">Email Triage</a>
+          <a href="/projects/ghost-writer.html">Ghost Writer</a>
+          <a href="/projects/convoforge.html">ConvoForge</a>
+          <a href="/projects/brightpath.html">BrightPath</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="/sitemap.xml">Sitemap</a>
+          <a href="/llms.txt">llms.txt</a>
+          <a href="/robots.txt">robots.txt</a>
+          <a href="/privacy.html">Privacy policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Dainty Trading. All rights reserved.</span>
+        <span>Built in Australia.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
