@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="google-site-verification" content="V4tv1Ds0qfskA15qPKqndEsVqsO7xyT10CYzFDBV0BQ" />
   <title>SEO &amp; GEO Optimization — Get Found by Google and by AI | Dainty Trading</title>
-  <meta name="description" content="We audit and fix technical SEO and GEO (generative engine optimization) — schema markup, meta tags, llms.txt, AI-crawler-aware robots.txt, FAQ schema — so your site ranks in Google and gets cited by ChatGPT, Claude, and Perplexity. 1–3 week engagements." />
+  <meta name="description" content="We audit and fix technical SEO and GEO (generative engine optimization) — schema markup, meta tags, llms.txt, AI-crawler-aware robots.txt, FAQ schema — so your site ranks in Google and gets cited by ChatGPT, Claude, and Perplexity. Audit from $450, Setup from $2,000, no lock-in." />
   <link rel="canonical" href="https://daintytrading.com/services/seo-geo-optimization.html" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#0a0c10" />
@@ -30,6 +30,28 @@
   <meta name="apple-mobile-web-app-title" content="Dainty Trading" />
   <link rel="stylesheet" href="/styles.css" />
 
+  <style>
+    .price-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin:10px 0; }
+    @media (max-width:980px) { .price-grid { grid-template-columns:1fr; } }
+    .price-card { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:24px; display:flex; flex-direction:column; }
+    .price-card.featured { border-color:var(--accent); box-shadow:var(--shadow); }
+    .price-card .tier { font-size:13px; letter-spacing:.04em; text-transform:uppercase; color:var(--text-muted); }
+    .price-card .price { font-size:30px; font-weight:700; margin:6px 0 2px; color:var(--text); }
+    .price-card .price small { font-size:14px; font-weight:500; color:var(--text-muted); }
+    .price-card .note { font-size:12.5px; color:var(--text-muted); margin:0 0 14px; }
+    .price-card ul { list-style:none; padding:0; margin:6px 0 18px; flex:1; }
+    .price-card li { font-size:14px; color:var(--text-dim); padding:7px 0 7px 22px; position:relative; border-top:1px solid var(--border); }
+    .price-card li:first-child { border-top:none; }
+    .price-card li::before { content:"\2713"; position:absolute; left:0; color:var(--accent); font-weight:700; }
+    .price-card .btn { width:100%; text-align:center; }
+    .price-badge { display:inline-block; font-size:11px; text-transform:uppercase; letter-spacing:.05em; background:var(--accent-soft); color:var(--accent); padding:3px 9px; border-radius:999px; margin-bottom:10px; }
+    .month-list { list-style:none; padding:0; margin:6px 0 0; }
+    .month-list li { font-size:13.5px; color:var(--text-dim); padding:5px 0 5px 20px; position:relative; border:none; }
+    .month-list li::before { content:"\2192"; position:absolute; left:0; color:var(--text-muted); font-weight:400; }
+    .honest-note { background:var(--accent-soft); border:1px solid var(--border); border-radius:var(--radius-sm); padding:14px 16px; font-size:14px; color:var(--text-dim); margin:22px 0; }
+    .honest-note strong { color:var(--text); }
+  </style>
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -43,18 +65,14 @@
     "serviceType": "Search engine optimization and generative engine optimization",
     "description": "Technical SEO and GEO audits and fixes — schema markup, meta tags, sitemaps, llms.txt, AI-crawler-aware robots.txt, and FAQ schema — so a site ranks in Google and gets cited correctly by AI answer engines.",
     "areaServed": "Worldwide",
-    "offers": {
-      "@type": "Offer",
-      "name": "SEO & GEO audit and fix",
-      "description": "1–3 week engagement. Full technical audit, prioritized fix list, and implementation shipped directly to your codebase — not a PDF report.",
-      "price": "2000",
-      "priceCurrency": "AUD",
-      "priceSpecification": {
-        "@type": "PriceSpecification",
-        "price": "2000",
-        "priceCurrency": "AUD",
-        "minPrice": "2000"
-      }
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "SEO & GEO packages",
+      "itemListElement": [
+        { "@type": "Offer", "name": "Audit", "price": "450", "priceCurrency": "AUD", "description": "Full technical SEO and GEO audit with a prioritised, plain-English fix list. Credited toward Setup if you proceed." },
+        { "@type": "Offer", "name": "Setup", "price": "2000", "priceCurrency": "AUD", "description": "One-off. Audit plus fixes shipped to code: meta tags, schema markup, llms.txt, AI-crawler-aware robots.txt, sitemap and page-speed fixes. Single-template sites; custom quote for e-commerce, multi-language, or larger sites." },
+        { "@type": "Offer", "name": "Growth", "price": "550", "priceCurrency": "AUD", "description": "Monthly. Ongoing SEO/GEO monitoring, schema and llms.txt updates as content changes, one optimization pass per month, and a plain-English report. Cancel anytime." }
+      ]
     }
   }
   </script>
@@ -92,7 +110,7 @@
         "name": "How much does an SEO & GEO audit cost?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "$2,000 flat for single-template sites — one CMS or static site, one language, no product catalog. Larger sites get a custom quote based on the number of distinct page templates, not raw page count: e-commerce, multi-language, or more than five or six unique page types push it past the flat rate."
+          "text": "Three tiers: Audit is $450 (credited toward Setup if you proceed), Setup is from $2,000 one-off for single-template sites — one CMS or static site, one language, no product catalog — and Growth is an optional from $550/month plan for ongoing monitoring and updates. Larger sites for Setup get a custom quote based on the number of distinct page templates, not raw page count: e-commerce, multi-language, or more than five or six unique page types push it past the flat rate."
         }
       },
       {
@@ -100,7 +118,7 @@
         "name": "Do you handle ongoing SEO or just a one-time fix?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The default is a one-time audit-and-fix engagement. If it's useful, we can set up a quarterly check-in to catch drift — no retainer required either way."
+          "text": "Setup is a one-time audit-and-fix engagement by default. If it's useful, the optional Growth plan (from $550/month, cancel anytime) covers ongoing monitoring and monthly updates — no lock-in contract either way."
         }
       }
     ]
@@ -112,7 +130,7 @@
   <a href="#main" class="skip">Skip to content</a>
   <header class="site-header">
     <div class="container nav">
-      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 2l2.09 6.91L21 12l-6.91 2.09L12 22l-2.09-7.91L2 12l7.91-2.09L12 2z"/></svg></span> Dainty Trading</a>
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"><img src="/brand-mark.png" width="28" height="28" alt="" loading="lazy"/></span> Dainty Trading</a>
       <nav class="nav-links" aria-label="Primary">
         <a href="/#projects">Projects</a>
         <a href="/services.html">Services</a>
@@ -131,7 +149,7 @@
         <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/services.html">Services</a>
         <a href="/services/seo-geo-optimization.html">SEO/GEO</a> &nbsp;/&nbsp; SEO &amp; GEO Optimization</div>
         <h1>SEO &amp; GEO Optimization &mdash; Get Found by Google and by AI</h1>
-        <p class="lede">Search didn&rsquo;t stop at Google. ChatGPT, Claude, and Perplexity now answer questions that used to send a click to your site &mdash; and most sites aren&rsquo;t structured to be cited by them. We audit and fix both: classic technical SEO and the newer generative-engine layer, shipped directly into your codebase.</p>
+        <p class="lede">Search didn&rsquo;t stop at Google. A growing share of Google searches now get answered by an AI Overview before any blue link shows, and ChatGPT, Claude, and Perplexity answer questions that used to send a click to your site &mdash; most sites aren&rsquo;t structured to be the source any of them quote. We audit and fix both: classic technical SEO and the newer generative-engine layer, shipped directly into your codebase.</p>
       </div>
     </section>
 
@@ -141,6 +159,58 @@
 
           <h2>What &ldquo;SEO &amp; GEO&rdquo; means here</h2>
           <p><strong>SEO</strong> is the classic discipline: does Google understand your pages, index them correctly, and rank them for what they&rsquo;re actually about. <strong>GEO</strong> (generative engine optimization) is the newer half &mdash; whether an AI answer engine can find your content, trust it, and quote it correctly when someone asks it a question your business can answer. Both run on the same underlying signal: structured, crawlable, unambiguous content. We treat them as one engagement, not two.</p>
+
+          <h2>Packages</h2>
+          <div class="price-grid">
+            <div class="price-card">
+              <span class="tier">Audit</span>
+              <div class="price">$450 <small>one-off</small></div>
+              <p class="note">Credited toward Setup if you go ahead.</p>
+              <ul>
+                <li>Full technical SEO + GEO audit</li>
+                <li>What AI crawlers can and can&rsquo;t currently see</li>
+                <li>How you show up in AI answers vs. your competitors</li>
+                <li>Every piece of structured data checked</li>
+                <li>A ranked fix list &mdash; plain English, not a checklist</li>
+                <li>Yours to keep, whether you continue or not</li>
+              </ul>
+              <a class="btn btn-primary" href="/contact.html">Start with an audit &rarr;</a>
+            </div>
+
+            <div class="price-card featured">
+              <span class="price-badge">Most popular</span>
+              <span class="tier">Setup</span>
+              <div class="price">from $2,000 <small>one-off</small></div>
+              <p class="note">We fix it. Shipped to code, not a report.</p>
+              <ul>
+                <li>Everything in the audit &mdash; then we implement it</li>
+                <li>Meta tags, canonicals, OG images, sitemap/robots.txt</li>
+                <li><code>llms.txt</code> &amp; AI-crawler-aware <code>robots.txt</code></li>
+                <li>FAQPage, Organization, Product, BreadcrumbList schema</li>
+                <li>Single-template sites; custom quote for e-commerce or multi-language</li>
+              </ul>
+              <a class="btn btn-primary" href="/contact.html">Get a quote &rarr;</a>
+            </div>
+
+            <div class="price-card">
+              <span class="tier">Growth <small style="text-transform:none;letter-spacing:0;">&mdash; monthly</small></span>
+              <div class="price">from $550<small>/mo</small></div>
+              <p class="note">Cancel anytime. Optional, not required.</p>
+              <p style="font-size:13px;color:var(--text-muted);margin:0 0 4px;">What a month looks like:</p>
+              <ul class="month-list">
+                <li>Monitoring rankings and AI-citation coverage</li>
+                <li>Schema &amp; <code>llms.txt</code> updates as content changes</li>
+                <li>One optimization pass or new fix per month</li>
+                <li>A plain-English report: what changed, what moved</li>
+                <li>Quiet monitoring for anything that breaks</li>
+              </ul>
+              <a class="btn btn-ghost" href="/contact.html" style="margin-top:16px;">Talk it through &rarr;</a>
+            </div>
+          </div>
+
+          <div class="honest-note">
+            <strong>We&rsquo;ll tell you when you don&rsquo;t need us.</strong> The monthly Growth plan is only worth it if there&rsquo;s ongoing work to do. If a month has nothing useful in it, we say so &mdash; and if you just needed the one-time Setup, we&rsquo;ll tell you that too. No lock-in, ever.
+          </div>
 
           <h2>What we audit and fix</h2>
           <h3>Technical SEO</h3>
@@ -152,12 +222,14 @@
             <li>Structured data: Organization, Product, FAQPage, BreadcrumbList</li>
           </ul>
           <h3>GEO (generative engine optimization)</h3>
+          <p>This is what gets split into separate service names elsewhere &mdash; Answer Engine Optimization (AEO), LLM Optimization (LLMO), Google AI Overview optimization &mdash; we treat it as one connected discipline, not three retainers:</p>
           <ul>
             <li>An <code>llms.txt</code> file so AI crawlers get a clean summary of what your site is and does</li>
             <li>AI-crawler-aware <code>robots.txt</code> rules &mdash; explicit allow/deny for bots like GPTBot, ClaudeBot, and PerplexityBot, instead of a generic block that hides you from all of them by accident</li>
             <li>FAQPage schema written for direct-answer extraction, not just SEO snippet decoration</li>
             <li>Organization schema with clear, unambiguous entity facts an LLM won&rsquo;t hallucinate around</li>
             <li>Content structure that&rsquo;s quotable &mdash; direct answers near the top, not buried three paragraphs into marketing copy</li>
+            <li>A read on how you currently show up in AI answers next to the businesses you actually compete with</li>
           </ul>
 
           <h2>How the engagement works</h2>
@@ -202,11 +274,11 @@
           </details>
           <details class="faq-item">
             <summary>How much does it cost?</summary>
-            <p>$2,000 flat for single-template sites &mdash; one CMS or static site, one language, no product catalog. Larger sites get a custom quote based on the number of distinct page templates, not raw page count: e-commerce, multi-language, or more than five or six unique page types push it past the flat rate.</p>
+            <p>Audit is $450 (credited toward Setup if you go ahead), Setup is from $2,000 one-off for single-template sites, and Growth is an optional from $550/month for ongoing monitoring and updates. Larger sites for Setup get a custom quote based on the number of distinct page templates, not raw page count: e-commerce, multi-language, or more than five or six unique page types push it past the flat rate.</p>
           </details>
           <details class="faq-item">
             <summary>Is this a one-time fix or an ongoing retainer?</summary>
-            <p>One-time audit-and-fix by default. We can set up a quarterly check-in afterwards if it&rsquo;s useful &mdash; no retainer required either way.</p>
+            <p>Setup is a one-time audit-and-fix by default. The optional Growth plan (from $550/month, cancel anytime) covers ongoing monitoring and monthly updates if it&rsquo;s useful &mdash; no lock-in either way.</p>
           </details>
           <details class="faq-item">
             <summary>Can you guarantee a #1 ranking?</summary>
@@ -217,12 +289,12 @@
 
         <aside class="sidecard">
           <h4>SEO &amp; GEO Optimization</h4>
-          <div class="label-row"><span>Price</span><span>From $2,000 flat</span></div>
+          <div class="label-row"><span>Audit</span><span>$450 (credited)</span></div>
+          <div class="label-row"><span>Setup</span><span>from $2,000</span></div>
+          <div class="label-row"><span>Growth</span><span>from $550/mo</span></div>
           <div class="label-row"><span>Typical timeline</span><span>1&ndash;3 weeks</span></div>
-          <div class="label-row"><span>Covers</span><span>Meta · Schema · llms.txt</span></div>
           <div class="label-row"><span>Delivery</span><span>Shipped to code</span></div>
-          <div class="label-row"><span>Pairs with</span><span>Product builds &amp; retrofits</span></div>
-          <p style="font-size:12px;color:var(--text-muted);margin:10px 0 16px;">$2,000 flat covers single-template sites. Custom quote for e-commerce, multi-language, or larger template counts. Not the $5k&ndash;$15k-plus retainer agencies typically quote for the same audit-and-fix scope.</p>
+          <p style="font-size:12px;color:var(--text-muted);margin:10px 0 16px;">Setup covers single-template sites. Custom quote for e-commerce, multi-language, or larger template counts. Not the $5k&ndash;$15k-plus retainer agencies typically quote for the same audit-and-fix scope.</p>
           <a class="btn btn-primary" href="/contact.html">Start an audit &rarr;</a>
           <a class="btn btn-ghost" href="/services.html">All services</a>
         </aside>
@@ -260,7 +332,7 @@
       <div class="footer-grid">
         <div class="footer-col">
           <a href="/" class="brand" style="margin-bottom:14px;">
-            <span class="brand-mark" aria-hidden="true"></span>
+            <span class="brand-mark" aria-hidden="true"><img src="/brand-mark.png" width="28" height="28" alt="" loading="lazy"/></span>
             Dainty Trading
           </a>
           <p class="muted" style="font-size:13.5px; max-width:360px;">
@@ -273,6 +345,8 @@
           <a href="/services/ai-automation-retrofit.html">Automation retrofits</a>
           <a href="/services/ai-infrastructure.html">AI infrastructure</a>
           <a href="/services/seo-geo-optimization.html">SEO &amp; GEO optimization</a>
+          <a href="/services/local-seo.html">Local SEO &amp; GEO</a>
+          <a href="/services/website-builds.html">Website builds</a>
           <a href="/contact.html">Start a project</a>
         </div>
         <div class="footer-col">

@@ -71,7 +71,7 @@
   <a href="#main" class="skip">Skip to content</a>
   <header class="site-header">
     <div class="container nav">
-      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 2l2.09 6.91L21 12l-6.91 2.09L12 22l-2.09-7.91L2 12l7.91-2.09L12 2z"/></svg></span> Dainty Trading</a>
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"><img src="/brand-mark.png" width="28" height="28" alt="" loading="lazy"/></span> Dainty Trading</a>
       <nav class="nav-links" aria-label="Primary" id="main-nav">
         <a href="/#projects">Projects</a>
         <a href="/services.html">Services</a>
@@ -121,6 +121,10 @@
                   <option value="Something else">Something else</option>
                 </select>
               </div>
+              <div id="url-field-wrap" style="display:none;">
+                <label for="url">Your website URL</label>
+                <input id="url" name="url" type="url" placeholder="https://example.com" autocomplete="url" />
+              </div>
               <div>
                 <label for="timeline">What&rsquo;s your timeline?</label>
                 <select id="timeline" name="timeline">
@@ -162,6 +166,17 @@
           <script>
             document.getElementById('dt_form_loaded_at').value = String(Date.now());
 
+            var engagementEl = document.getElementById('engagement');
+            var urlFieldWrap = document.getElementById('url-field-wrap');
+            var urlInput = document.getElementById('url');
+            function toggleUrlField() {
+              var needsUrl = engagementEl.value === 'SEO/GEO audit and fix';
+              urlFieldWrap.style.display = needsUrl ? 'block' : 'none';
+              urlInput.required = needsUrl;
+            }
+            engagementEl.addEventListener('change', toggleUrlField);
+            toggleUrlField();
+
             document.getElementById('contact-form').addEventListener('submit', async function (e) {
               e.preventDefault();
               var btn = document.getElementById('contact-submit');
@@ -175,6 +190,7 @@
                 email: document.getElementById('email').value.trim(),
                 company: document.getElementById('company').value.trim(),
                 engagement: document.getElementById('engagement').value,
+                url: document.getElementById('url').value.trim(),
                 timeline: document.getElementById('timeline').value,
                 message: document.getElementById('message').value.trim(),
                 dt_website: document.getElementById('dt_website').value,
@@ -206,6 +222,7 @@
             <li><strong>Within one business day</strong> &mdash; you&rsquo;ll get a written reply with our read on the project and any clarifying questions.</li>
             <li><strong>Within a week</strong> &mdash; if it&rsquo;s a fit, we send a one-page scope for the first sprint with a fixed price and a hard end date.</li>
             <li><strong>Within two weeks</strong> &mdash; first working slice, deployed somewhere you can use it.</li>
+            <li><strong>From week three</strong> &mdash; we iterate with you: weekly demos, one feature per sprint, revising based on what you and real users see, until it&rsquo;s a product you can rely on. Typically paying customers by week eight, or we&rsquo;ll tell you why not.</li>
           </ul>
         </article>
 
@@ -228,7 +245,7 @@
       <div class="footer-grid">
         <div class="footer-col">
           <a href="/" class="brand" style="margin-bottom:14px;">
-            <span class="brand-mark" aria-hidden="true"></span>
+            <span class="brand-mark" aria-hidden="true"><img src="/brand-mark.png" width="28" height="28" alt="" loading="lazy"/></span>
             Dainty Trading
           </a>
           <p class="muted" style="font-size:13.5px; max-width:360px;">
@@ -274,7 +291,6 @@
   s1.async=true;
   s1.src='https://embed.tawk.to/6a463cc2539b7e1d4b7d2fc3/1jsh5qmog';
   s1.charset='UTF-8';
-  s1.setAttribute('crossorigin','*');
   s0.parentNode.insertBefore(s1,s0);
   })();
   </script>

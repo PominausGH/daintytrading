@@ -10,6 +10,12 @@
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
   <meta name="theme-color" content="#0a0c10" />
 
+  <link rel="alternate" hreflang="en" href="https://daintytrading.com/" />
+  <link rel="alternate" hreflang="en-AU" href="https://daintytrading.com/australia.html" />
+  <link rel="alternate" hreflang="en-GB" href="https://daintytrading.com/uk.html" />
+  <link rel="alternate" hreflang="en-US" href="https://daintytrading.com/usa.html" />
+  <link rel="alternate" hreflang="x-default" href="https://daintytrading.com/" />
+
   <!-- Open Graph / social -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Dainty Trading — AI Automation Studio" />
@@ -46,9 +52,10 @@
     "url": "https://daintytrading.com",
     "logo": "https://daintytrading.com/og-card.jpg",
     "description": "AI automation studio building production AI software across email, trading, education, content, and SaaS infrastructure.",
-    "founder": { "@type": "Person", "name": "Dainty Trading" },
+    "founder": { "@type": "Person", "name": "Andrew Dainty" },
     "sameAs": [
-      "https://daintytrading.com"
+      "https://www.linkedin.com/in/andrewdainty/",
+      "https://substack.com/@andrewdainty"
     ],
     "knowsAbout": [
       "AI automation", "Large language models", "Claude API",
@@ -90,7 +97,7 @@
       {"@type":"ListItem","position":10,"url":"https://daintytrading.com/projects/timerforge.html","name":"TimerForge"},
       {"@type":"ListItem","position":11,"url":"https://daintytrading.com/projects/ghost-writer.html","name":"Ghost Writer"},
       {"@type":"ListItem","position":12,"url":"https://daintytrading.com/projects/meditation.html","name":"Meditation"},
-      {"@type":"ListItem","position":13,"url":"https://daintytrading.com/projects/skeddy.html","name":"Whisp"},
+      {"@type":"ListItem","position":13,"url":"https://daintytrading.com/projects/skeddy.html","name":"Nudgle"},
       {"@type":"ListItem","position":14,"url":"https://daintytrading.com/projects/marketing-os.html","name":"Marketing OS"},
       {"@type":"ListItem","position":15,"url":"https://daintytrading.com/projects/chatvault.html","name":"ChatVault"},
       {"@type":"ListItem","position":16,"url":"https://daintytrading.com/projects/tax-prep.html","name":"Tax Prep"},
@@ -175,7 +182,7 @@
 
   <header class="site-header">
     <div class="container nav">
-      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 2l2.09 6.91L21 12l-6.91 2.09L12 22l-2.09-7.91L2 12l7.91-2.09L12 2z"/></svg></span> Dainty Trading</a>
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"><img src="/brand-mark.png" width="28" height="28" alt="" loading="lazy"/></span> Dainty Trading</a>
       <nav class="nav-links" aria-label="Primary" id="main-nav">
         <a href="/#projects">Projects</a>
         <a href="/services.html">Services</a>
@@ -422,7 +429,7 @@
         <div class="project-group">
           <h3 class="group-heading group-test">
             <span class="group-label"><span class="group-dot" aria-hidden="true"></span>In final testing</span>
-            <span class="group-count">11 products</span>
+            <span class="group-count">12 products</span>
           </h3>
           <div class="project-grid">
           <a class="project-card" href="/projects/meditation.html">
@@ -433,7 +440,7 @@
           </a>
           <a class="project-card" href="/projects/skeddy.html">
             <span class="tag">AI · Bots <span class="badge-test">in test</span></span>
-            <h3>Whisp</h3>
+            <h3>Nudgle</h3>
             <p>Telegram reminder bot with natural-language scheduling. Quiet hours, vacation mode, recurring tasks — all parsed by Claude.</p>
             <span class="arrow">Read the story →</span>
           </a>
@@ -491,13 +498,19 @@
             <p>Social media scheduler with an AI video studio built in. Give it a URL, it crawls the site, writes a script, synthesises a voiceover, and produces a finished short-form video — scheduled across 12 platforms automatically.</p>
             <span class="arrow">Read the story →</span>
           </a>
+          <a class="project-card" href="/projects/billing-api.html">
+            <span class="tag">Infrastructure · SaaS <span class="badge-test">in test</span></span>
+            <h3>Billing API</h3>
+            <p>Shared billing service across our portfolio. Stripe, Brevo, Postgres, and a Fastify core that lets every product launch on day one with payments wired in.</p>
+            <span class="arrow">Read the story →</span>
+          </a>
           </div>
         </div>
 
         <div class="project-group">
           <h3 class="group-heading group-dev">
             <span class="group-label"><span class="group-dot" aria-hidden="true"></span>In active development</span>
-            <span class="group-count">13 products</span>
+            <span class="group-count">12 products</span>
           </h3>
           <div class="project-grid">
           <a class="project-card" href="/projects/devtodo.html">
@@ -516,12 +529,6 @@
             <span class="tag">Wellness · Mobile <span class="badge-dev">in dev</span></span>
             <h3>Yoga Platform</h3>
             <p>500+ poses, sequence builder, mobile + web. Filter by chakra, prop, body part, or style — then save your flow.</p>
-            <span class="arrow">Read the story →</span>
-          </a>
-          <a class="project-card" href="/projects/billing-api.html">
-            <span class="tag">Infrastructure · SaaS <span class="badge-dev">in dev</span></span>
-            <h3>Billing API</h3>
-            <p>Shared billing service across our portfolio. Stripe, Brevo, Postgres, and a Fastify core that lets every product launch on day one with payments wired in.</p>
             <span class="arrow">Read the story →</span>
           </a>
           <a class="project-card" href="/projects/recipe-api.html">
@@ -709,7 +716,7 @@
           <div class="service-card">
             <div class="icon">04</div>
             <h3><a href="/services/seo-geo-optimization.html" style="color:inherit;">SEO &amp; GEO optimization</a></h3>
-            <p>Get found by Google and by AI answer engines. We audit and fix meta tags, schema markup, llms.txt, and AI-crawler access — shipped directly to your codebase, not a PDF. Flat $2,000 — not the $5k&ndash;$15k-plus retainer agencies typically quote for the same audit-and-fix scope.</p>
+            <p>Get found by Google and by AI answer engines. We audit and fix meta tags, schema markup, llms.txt, and AI-crawler access — shipped directly to your codebase, not a PDF. Audit from $450, Setup from $2,000 — not the $5k&ndash;$15k-plus retainer agencies typically quote for the same audit-and-fix scope.</p>
           </div>
         </div>
       </div>
@@ -844,7 +851,7 @@
       <div class="footer-grid">
         <div class="footer-col">
           <a href="/" class="brand" style="margin-bottom:14px;">
-            <span class="brand-mark" aria-hidden="true"></span>
+            <span class="brand-mark" aria-hidden="true"><img src="/brand-mark.png" width="28" height="28" alt="" loading="lazy"/></span>
             Dainty Trading
           </a>
           <p class="muted" style="font-size:13.5px; max-width:360px;">
@@ -884,7 +891,7 @@
     </div>
   </footer>
 
-  <!-- Tawk.to Script — commented out in favor of the EveryRing widget below.
+  <!--Start of Tawk.to Script-->
   <script type="text/javascript">
   var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
   (function(){
@@ -892,14 +899,9 @@
   s1.async=true;
   s1.src='https://embed.tawk.to/6a463cc2539b7e1d4b7d2fc3/1jsh5qmog';
   s1.charset='UTF-8';
-  s1.setAttribute('crossorigin','*');
   s0.parentNode.insertBefore(s1,s0);
   })();
   </script>
-  -->
-
-  <script src="https://everyring.ai/api/chat/widget.js"
-          data-tenant="bright-path-education-mnn43eml"
-          async></script>
+  <!--End of Tawk.to Script-->
 </body>
 </html>

@@ -15,8 +15,10 @@
   --border-strong: #2a3142;
   --text: #e7ecf3;
   --text-dim: #aab2c0;
-  --text-muted: #6b7384;
+  --text-muted: #7e889c;
   --accent: #7c5cff;
+  --accent-btn: #7859f6;
+  --accent-text: #9971ff;
   --accent-2: #20d3a7;
   --accent-soft: rgba(124, 92, 255, 0.12);
   --warn: #ffb547;
@@ -55,7 +57,7 @@ body {
 
 img { max-width: 100%; display: block; }
 
-a { color: var(--accent); text-decoration: none; }
+a { color: var(--accent-text); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
 .container {
@@ -93,12 +95,18 @@ a:hover { text-decoration: underline; }
 .brand-mark {
   width: 28px; height: 28px;
   border-radius: 7px;
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  overflow: hidden;
   box-shadow: 0 0 0 1px rgba(255,255,255,0.06) inset, 0 6px 16px -6px rgba(124,92,255,0.6);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+}
+.brand-mark img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .brand-logo {
   height: 48px;
@@ -112,7 +120,7 @@ a:hover { text-decoration: underline; }
 }
 .nav-links a:hover { color: var(--text); text-decoration: none; }
 .nav-cta {
-  background: var(--accent);
+  background: var(--accent-btn);
   color: #fff !important;
   padding: 8px 14px;
   border-radius: 999px;
@@ -205,7 +213,7 @@ h1, h2, h3, h4 {
   transition: all 0.15s ease;
 }
 .btn-primary {
-  background: var(--accent);
+  background: var(--accent-btn);
   color: #fff;
 }
 .btn-primary:hover { filter: brightness(1.08); text-decoration: none; }
@@ -315,7 +323,7 @@ section { padding: 84px 0; }
   margin-top: auto;
   padding-top: 12px;
   font-size: 13.5px;
-  color: var(--accent);
+  color: var(--accent-text);
   font-weight: 600;
 }
 .badge-dev {
@@ -500,7 +508,7 @@ section { padding: 84px 0; }
   border-radius: 10px;
   display: grid; place-items: center;
   background: var(--accent-soft);
-  color: var(--accent);
+  color: var(--accent-text);
   font-weight: 700;
   margin-bottom: 16px;
   border: 1px solid var(--border-strong);
@@ -530,7 +538,7 @@ section { padding: 84px 0; }
 .faq-item summary::-webkit-details-marker { display: none; }
 .faq-item summary::after {
   content: "+";
-  color: var(--accent);
+  color: var(--accent-text);
   font-size: 22px;
   font-weight: 400;
   line-height: 1;
@@ -733,7 +741,7 @@ code, kbd {
 }
 .skip:focus {
   left: 16px; top: 16px;
-  background: var(--accent);
+  background: var(--accent-btn);
   color: #fff;
   padding: 8px 12px;
   border-radius: 6px;
@@ -765,7 +773,7 @@ code, kbd {
 .flow-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 @media (max-width: 720px) { .flow-grid { grid-template-columns: 1fr; } }
 .flow-step { padding: 28px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--bg-card); }
-.flow-num { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 10px; }
+.flow-num { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-text); margin-bottom: 10px; }
 .flow-step h3 { font-size: 17px; font-weight: 700; margin: 0 0 10px; }
 .flow-step p { font-size: 14px; color: var(--text-dim); line-height: 1.6; margin: 0; }
 
@@ -782,10 +790,10 @@ code, kbd {
   transition: border-color 0.15s, background 0.15s;
 }
 .blog-preview-card:hover { border-color: var(--accent); background: var(--bg-card-hover); text-decoration: none; }
-.blog-preview-card .post-tag { font-size: 11.5px; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+.blog-preview-card .post-tag { font-size: 11.5px; color: var(--accent-text); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
 .blog-preview-card h3 { font-size: 16px; font-weight: 700; margin: 0; line-height: 1.4; color: var(--text); }
 .blog-preview-card p { font-size: 13.5px; color: var(--text-dim); line-height: 1.55; margin: 0; flex: 1; }
-.blog-preview-card .read-link { font-size: 13px; color: var(--accent); font-weight: 600; }
+.blog-preview-card .read-link { font-size: 13px; color: var(--accent-text); font-weight: 600; }
 
 /* Footer social links */
 .footer-social { display: flex; gap: 12px; margin-top: 12px; }

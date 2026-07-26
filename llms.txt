@@ -38,7 +38,7 @@
 ## In final testing (pre-launch)
 
 - [Meditation](https://daintytrading.com/projects/meditation.html) — at **meditation.daintytrading.com**. Subscription meditation script library. 7-day free trial, Stripe billing.
-- [Whisp](https://daintytrading.com/projects/skeddy.html) — at **reminder.signalreads.com**. Telegram reminder bot with Claude-powered natural-language scheduling.
+- [Nudgle](https://daintytrading.com/projects/skeddy.html) — at **nudgle.app**. Telegram reminder bot with Claude-powered natural-language scheduling.
 - [Marketing OS](https://daintytrading.com/projects/marketing-os.html) — internal use only (no public domain). Marketing operations platform: campaigns, briefs, Puppeteer-based SEO/a11y audits, AI-assisted brief queue.
 - [ChatVault](https://daintytrading.com/projects/chatvault.html) — pre-launch. One searchable archive of every conversation across Claude, ChatGPT, Gemini, Grok, and Perplexity. Postgres + pgvector with re-ranking via Claude.
 - [Tax Prep](https://daintytrading.com/projects/tax-prep.html) — pre-launch. Drop-zone for receipts, statements, and slips throughout the year; Claude classifies and tags; year-end export gives your accountant a structured handover.
@@ -48,13 +48,13 @@
 - [FakeCall](https://daintytrading.com/projects/fakecall.html) — pre-launch. Native iOS/Android app that schedules believable incoming calls with a Claude-driven AI persona on the other end. Stack: Swift/SwiftUI, Kotlin/Jetpack Compose, CallKit.
 - [StoryPulse](https://daintytrading.com/projects/storypulse.html) — in final testing. Instagram growth automation SaaS. Automated story views, AI captions, multi-account campaigns, anti-detection layer (per-account proxy rotation + human-behaviour mimicry), tiered Stripe plans. Stack: Next.js, Postgres + Prisma, BullMQ, iProyal proxies.
 - [Post Reel](https://daintytrading.com/projects/postreel.html) — in final testing. Social media scheduler with an AI video studio built in. Give it a URL, it crawls the site, writes a script, synthesises a voiceover, and produces a finished short-form video — scheduled across 12 platforms automatically.
+- [Billing API](https://daintytrading.com/projects/billing-api.html) — internal API only (no public domain). Shared billing service across the portfolio. Fastify on Postgres, Stripe + Brevo, full subscription state machine.
 
 ## In active development
 
 - [DevTodo](https://daintytrading.com/projects/devtodo.html) — staging at **todo.daintytrading.com**. Pulls TODOs from code, syncs Google Calendar, n8n-orchestrated, uses Claude (via LiteLLM) to write task summaries.
 - [ChefForge](https://daintytrading.com/projects/chefforge.html) — staging at **dinner.daintytrading.com**. AI recipe and meal planning with constraint-aware verification (deterministic checker on top of LLM generation).
 - [Yoga Platform](https://daintytrading.com/projects/yoga-platform.html) — staging at **yoga.daintytrading.com**. 500+ poses, sequence builder, Vite web + Expo mobile, on Supabase.
-- [Billing API](https://daintytrading.com/projects/billing-api.html) — internal API only (no public domain). Shared billing service across the portfolio. Fastify on Postgres, Stripe + Brevo, full subscription state machine.
 - [Recipe API](https://daintytrading.com/projects/recipe-api.html) — staging at **recipe.daintytrading.com**. Reference Django REST Framework backend for recipes/ingredients.
 - [Screenshot to Text](https://daintytrading.com/projects/screenshot-to-text.html) — production OCR for tables, handwriting, and complex layouts. Stack: Python/Flask, Postgres, Celery/Redis, Tesseract, GPT-4 Vision, Stripe, Cloudflare R2.
 - [Receipt Bridge](https://daintytrading.com/projects/receipt-bridge.html) — field workers SMS a receipt photo, OCR extracts the data, finance reviews in a dashboard. Stack: Django 5, Celery/Redis, Google Cloud Vision, Twilio, AWS S3, Postgres.

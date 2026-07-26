@@ -84,6 +84,12 @@
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
+  <url>
+    <loc>https://daintytrading.com/services/website-builds.html</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
 
   <!-- Blog -->
   <url>
@@ -378,6 +384,12 @@
   <url>
     <loc>https://daintytrading.com/blog/self-hosting-litellm-production-lessons.html</loc>
     <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://daintytrading.com/blog/how-to-set-up-vps-hosting-securely.html</loc>
+    <lastmod>2026-07-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

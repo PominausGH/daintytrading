@@ -44,7 +44,7 @@ router.post('/', contactRateLimiter, async (req, res) => {
     return res.status(200).json({ success: true });
   }
 
-  const { name, email, company, engagement, message } = req.body;
+  const { name, email, company, engagement, url, message } = req.body;
   const errors = [];
 
   if (!name || typeof name !== 'string' || name.trim().length < 2) {
@@ -56,6 +56,11 @@ router.post('/', contactRateLimiter, async (req, res) => {
   if (!message || typeof message !== 'string' || message.trim().length < 10) {
     errors.push('Project description is required (minimum 10 characters)');
   }
+  if (engagement === 'SEO/GEO audit and fix') {
+    if (!url || typeof url !== 'string' || !/^https?:\/\/.+\..+/i.test(url.trim())) {
+      errors.push('A website URL is required for SEO/GEO enquiries');
+    }
+  }
 
   if (errors.length > 0) {
     return res.status(400).json({ error: errors[0] });
@@ -66,6 +71,7 @@ router.post('/', contactRateLimiter, async (req, res) => {
     email: sanitize(email).toLowerCase(),
     company: sanitize(company),
     engagement: sanitize(engagement),
+    url: sanitize(url),
     message: sanitize(message),
   };
 
@@ -89,6 +95,7 @@ router.post('/', contactRateLimiter, async (req, res) => {
         <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
         <p><strong>Company:</strong> ${escapeHtml(data.company) || '—'}</p>
         <p><strong>Engagement type:</strong> ${escapeHtml(data.engagement) || '—'}</p>
+        ${data.url ? `<p><strong>Website URL:</strong> <a href="${escapeHtml(data.url)}">${escapeHtml(data.url)}</a></p>` : ''}
         <hr style="margin:16px 0;border:none;border-top:1px solid #e2e8f0;"/>
         <p><strong>Project description:</strong></p>
         <p style="white-space:pre-wrap;background:#f8fafc;padding:12px 16px;border-radius:6px;">${escapeHtml(data.message)}</p>

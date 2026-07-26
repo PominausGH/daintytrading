@@ -23,7 +23,7 @@ const projects = [
   { slug: 'timerforge',              name: 'TimerForge',               category: 'Productivity',   status: 'Live' },
   { slug: 'emailcleanup',            name: 'Email Cleanup',            category: 'Email',          status: 'Live' },
   { slug: 'meditation',              name: 'Meditation',               category: 'Wellness',       status: 'In testing' },
-  { slug: 'skeddy',                  name: 'Whisp',                    category: 'Scheduling',     status: 'In testing' },
+  { slug: 'skeddy',                  name: 'Nudgle',                   category: 'Scheduling',     status: 'In testing' },
   { slug: 'marketing-os',            name: 'Marketing OS',             category: 'Marketing',      status: 'In testing' },
   { slug: 'chatvault',               name: 'ChatVault',                category: 'AI',             status: 'In testing' },
   { slug: 'tax-prep',                name: 'Tax Prep',                 category: 'Finance',        status: 'In testing' },

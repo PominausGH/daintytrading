@@ -1,0 +1,4 @@
+Contact: mailto:genmailing@gmail.com
+Expires: 2027-07-17T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://daintytrading.com/.well-known/security.txt
