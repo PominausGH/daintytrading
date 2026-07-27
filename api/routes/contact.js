@@ -44,7 +44,7 @@ router.post('/', contactRateLimiter, async (req, res) => {
     return res.status(200).json({ success: true });
   }
 
-  const { name, email, company, engagement, url, message } = req.body;
+  const { name, email, company, engagement, url, timeline, message } = req.body;
   const errors = [];
 
   if (!name || typeof name !== 'string' || name.trim().length < 2) {
@@ -72,11 +72,13 @@ router.post('/', contactRateLimiter, async (req, res) => {
     company: sanitize(company),
     engagement: sanitize(engagement),
     url: sanitize(url),
+    timeline: sanitize(timeline),
     message: sanitize(message),
   };
 
   const notifyEmail = process.env.CONTACT_NOTIFICATION_EMAIL || 'hello@daintytrading.com';
-  const flagPrefix = spamReason ? `[REVIEW · ${spamReason}] ` : '';
+  const isLowPriority = data.engagement === 'SEO/GEO audit and fix' && data.timeline === 'Just exploring';
+  const flagPrefix = spamReason ? `[REVIEW · ${spamReason}] ` : (isLowPriority ? '[LOW-PRIORITY] ' : '');
 
   try {
     saveSubmission({ ...data, spamReason, ip: req.ip });
@@ -95,6 +97,7 @@ router.post('/', contactRateLimiter, async (req, res) => {
         <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
         <p><strong>Company:</strong> ${escapeHtml(data.company) || '—'}</p>
         <p><strong>Engagement type:</strong> ${escapeHtml(data.engagement) || '—'}</p>
+        <p><strong>Timeline:</strong> ${escapeHtml(data.timeline) || '—'}</p>
         ${data.url ? `<p><strong>Website URL:</strong> <a href="${escapeHtml(data.url)}">${escapeHtml(data.url)}</a></p>` : ''}
         <hr style="margin:16px 0;border:none;border-top:1px solid #e2e8f0;"/>
         <p><strong>Project description:</strong></p>
