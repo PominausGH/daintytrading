@@ -38,7 +38,6 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
   <meta name="apple-mobile-web-app-title" content="Dainty Trading" />
-  <link rel="alternate" type="application/rss+xml" title="Dainty Trading" href="https://daintytrading.com/feed.xml" />
   <link rel="stylesheet" href="/styles.css" />
   <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 
@@ -176,6 +175,7 @@
   }
   </script>
   <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+  <script defer src="/js/ui-handlers.js"></script>
 </head>
 <body>
   <a href="#main" class="skip">Skip to content</a>
@@ -192,7 +192,7 @@
         <a href="/contact.html">Contact</a>
         <a href="/contact.html" class="nav-cta">Start a project</a>
       </nav>
-      <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.getElementById('main-nav').classList.toggle('nav-open')">&#9776;</button>
+      <button class="nav-toggle" aria-label="Toggle navigation">&#9776;</button>
     </div>
   </header>
 
@@ -887,22 +887,13 @@
       </div>
       <div class="footer-bottom">
         <span>© 2026 Dainty Trading · ABN 65 366 917 788 · All rights reserved.</span>
-        <span>Phone: <button class="phone-reveal-btn" data-a="614" data-b="850" data-c="13007" onclick="var n='+'+this.dataset.a+this.dataset.b+this.dataset.c;this.outerHTML='<a href=\'tel:'+n+'\' class=\'phone-revealed\'>'+n+'<\/a>';">show</button> &middot; Built in Australia.</span>
+        <span>Phone: <button class="phone-reveal-btn" data-a="614" data-b="850" data-c="13007">show</button> &middot; Built in Australia.</span>
       </div>
     </div>
   </footer>
 
   <!--Start of Tawk.to Script-->
-  <script type="text/javascript">
-  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-  (function(){
-  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-  s1.async=true;
-  s1.src='https://embed.tawk.to/6a463cc2539b7e1d4b7d2fc3/1jsh5qmog';
-  s1.charset='UTF-8';
-  s0.parentNode.insertBefore(s1,s0);
-  })();
-  </script>
+  <script defer src="/js/tawk-embed.js"></script>
   <!--End of Tawk.to Script-->
 </body>
 </html>

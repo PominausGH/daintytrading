@@ -66,6 +66,7 @@
     .form-grid button { justify-self: start; }
   </style>
   <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+  <script defer src="/js/ui-handlers.js"></script>
 </head>
 <body>
   <a href="#main" class="skip">Skip to content</a>
@@ -81,7 +82,7 @@
         <a href="/contact.html">Contact</a>
         <a href="/contact.html" class="nav-cta">Start a project</a>
       </nav>
-      <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.getElementById('main-nav').classList.toggle('nav-open')">&#9776;</button>
+      <button class="nav-toggle" aria-label="Toggle navigation">&#9776;</button>
     </div>
   </header>
 
@@ -152,7 +153,7 @@
                 Once we&rsquo;ve read your brief we&rsquo;ll reach out &mdash; or <a href="https://cal.daintytrading.com/andrewdainty" target="_blank" rel="noopener">book a time directly</a> and pick a slot that suits you.
               </p>
               <p class="muted" style="font-size:13px; margin:0;">
-                Phone: <button class="phone-reveal-btn" data-a="614" data-b="850" data-c="13007" onclick="var n='+'+this.dataset.a+this.dataset.b+this.dataset.c;this.outerHTML='<a href=\'tel:'+n+'\' class=\'phone-revealed\'>'+n+'<\/a>';">show number</button>
+                Phone: <button class="phone-reveal-btn" data-a="614" data-b="850" data-c="13007">show number</button>
               </p>
             </form>
           </div>
@@ -163,59 +164,7 @@
             <p class="muted" style="font-size:13px;">While you wait: <a href="/#projects">see the full portfolio &rarr;</a></p>
           </div>
 
-          <script>
-            document.getElementById('dt_form_loaded_at').value = String(Date.now());
-
-            var engagementEl = document.getElementById('engagement');
-            var urlFieldWrap = document.getElementById('url-field-wrap');
-            var urlInput = document.getElementById('url');
-            function toggleUrlField() {
-              var needsUrl = engagementEl.value === 'SEO/GEO audit and fix';
-              urlFieldWrap.style.display = needsUrl ? 'block' : 'none';
-              urlInput.required = needsUrl;
-            }
-            engagementEl.addEventListener('change', toggleUrlField);
-            toggleUrlField();
-
-            document.getElementById('contact-form').addEventListener('submit', async function (e) {
-              e.preventDefault();
-              var btn = document.getElementById('contact-submit');
-              var errEl = document.getElementById('form-error');
-              errEl.style.display = 'none';
-              btn.disabled = true;
-              btn.textContent = 'Sending…';
-
-              var payload = {
-                name: document.getElementById('name').value.trim(),
-                email: document.getElementById('email').value.trim(),
-                company: document.getElementById('company').value.trim(),
-                engagement: document.getElementById('engagement').value,
-                url: document.getElementById('url').value.trim(),
-                timeline: document.getElementById('timeline').value,
-                message: document.getElementById('message').value.trim(),
-                dt_website: document.getElementById('dt_website').value,
-                dt_form_loaded_at: document.getElementById('dt_form_loaded_at').value,
-              };
-
-              try {
-                var res = await fetch('/api/contact', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify(payload),
-                });
-                var data = await res.json().catch(function() { return {}; });
-                if (!res.ok) throw new Error(data.error || 'Something went wrong');
-                document.getElementById('contact-form-wrap').style.display = 'none';
-                document.getElementById('contact-success').style.display = 'block';
-                if (window.umami) window.umami.track('lead_submitted');
-              } catch (err) {
-                errEl.textContent = err.message;
-                errEl.style.display = 'block';
-                btn.disabled = false;
-                btn.textContent = 'Send enquiry';
-              }
-            });
-          </script>
+          <script defer src="/js/contact-form.js"></script>
 
           <h2 style="margin-top:48px;">What happens next</h2>
           <ul>
@@ -228,7 +177,7 @@
 
         <aside class="sidecard">
           <h4>Direct contact</h4>
-          <div class="label-row"><span>Phone</span><span><button class="phone-reveal-btn" data-a="614" data-b="850" data-c="13007" onclick="var n='+'+this.dataset.a+this.dataset.b+this.dataset.c;this.outerHTML='<a href=\'tel:'+n+'\' class=\'phone-revealed\'>'+n+'<\/a>';">show</button></span></div>
+          <div class="label-row"><span>Phone</span><span><button class="phone-reveal-btn" data-a="614" data-b="850" data-c="13007">show</button></span></div>
           <div class="label-row"><span>Reply time</span><span>1 business day</span></div>
           <div class="label-row"><span>Timezone</span><span>AU &middot; UK &middot; US</span></div>
           <div class="label-row"><span>Sales call?</span><span>Not required</span></div>
@@ -285,16 +234,7 @@
   </footer>
 
   <!--Start of Tawk.to Script-->
-  <script type="text/javascript">
-  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-  (function(){
-  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-  s1.async=true;
-  s1.src='https://embed.tawk.to/6a463cc2539b7e1d4b7d2fc3/1jsh5qmog';
-  s1.charset='UTF-8';
-  s0.parentNode.insertBefore(s1,s0);
-  })();
-  </script>
+  <script defer src="/js/tawk-embed.js"></script>
   <!--End of Tawk.to Script-->
 </body>
 </html>
