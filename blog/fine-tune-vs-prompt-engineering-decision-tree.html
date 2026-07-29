@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Fine-Tune or Prompt Better? A Decision Tree for 2026 &mdash; Dainty Trading</title>
+  <meta name="description" content="Fine-tune when you have 1,000+ labelled examples and a bounded task. Otherwise, prompt engineering wins on cost and speed. Here's the real decision tree." />
+  <link rel="canonical" href="https://daintytrading.com/blog/fine-tune-vs-prompt-engineering-decision-tree.html" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0c10" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Fine-Tune or Prompt Better? A Decision Tree for 2026" />
+  <meta property="og:description" content="Fine-tune when you have 1,000+ labelled examples and a bounded task. Otherwise, prompt engineering wins on cost and speed. Here's the real decision tree." />
+  <meta property="og:url" content="https://daintytrading.com/blog/fine-tune-vs-prompt-engineering-decision-tree.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Fine-Tune or Prompt Better? A Decision Tree for 2026",
+    "description": "Fine-tune when you have 1,000+ labelled examples and a bounded task. Otherwise, prompt engineering wins on cost and speed. Here's the real decision tree.",
+    "url": "https://daintytrading.com/blog/fine-tune-vs-prompt-engineering-decision-tree.html",
+    "datePublished": "2026-07-29",
+    "dateModified": "2026-07-29",
+    "author": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "publisher": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "mainEntityOfPage": "https://daintytrading.com/blog/fine-tune-vs-prompt-engineering-decision-tree.html"
+  }
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a>
+        <a href="/services.html">Services</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/blog.html">Blog</a> &nbsp;/&nbsp; AI · Engineering</div>
+        <h1>Fine-Tune or Prompt Better? A Decision Tree for 2026</h1>
+        <p class="lede">Fine-tune when you have 1,000+ labelled examples and a bounded task. Otherwise, prompt engineering wins on cost and speed. Here's the real decision tree.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Topic</strong>&nbsp; AI · Engineering</span>
+          <span class="chip"><strong>Published</strong>&nbsp; 29 July 2026</span>
+          <span class="chip"><strong>Read time</strong>&nbsp; 5 min</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <p>Fine-tune when you have 1,000+ labelled examples and the task is narrow, repetitive, and stable — a fixed classification schema, a consistent output format, a single well-defined transformation. Prompt when your task is variable, your data is scarce, or the requirements are still moving. Most teams get this backwards: they reach for fine-tuning because it feels more "real" than prompt engineering, and they end up maintaining a training pipeline for a problem that a better system prompt would have solved in an afternoon.</p>
+
+<h2>The common wrong approach</h2>
+<p>A team ships a feature with a decent prompt. It's 80% accurate. Instead of digging into the 20% of failures, someone suggests "let's just fine-tune it." They scrape together 200 examples from support tickets, fine-tune a model, and get... 82% accuracy, now locked to a specific model version, with a training pipeline nobody wants to own six months later.</p>
+<p>This happens because fine-tuning looks like a shortcut around the hard work of prompt iteration. It isn't. Fine-tuning bakes in whatever patterns are in your training data — including the noise, the edge cases you didn't think to exclude, and the labeling inconsistencies from whoever tagged ticket #4,891 at 6pm on a Friday. If your underlying task definition is fuzzy, fine-tuning makes it fuzzily consistent, not correct. And now every prompt change requires retraining instead of a git commit.</p>
+
+<h2>The better approach</h2>
+<p>Start with the decision tree, in order:</p>
+<p><strong>1. Do you have 1,000+ labelled examples, and is the task bounded?</strong> Bounded means: same input shape every time, same output schema every time, task definition unlikely to change in the next six months. Email Triage, one of our internal tools, hit this bar — routing incoming email into a fixed set of categories based on years of labeled examples. Fine-tuning a smaller model there beat prompting a larger one on cost and latency, because the task never varies.</p>
+<p><strong>2. If you don't have the data or the task shifts, prompt — and treat prompting as engineering, not guesswork.</strong> That means: a versioned prompt file in your repo, not a string in a Slack thread. A small eval set (even 30-50 examples) that you run against every prompt change. Structured output via tool calling or JSON schema instead of hoping the model formats things correctly. For Ghost Writer, our content-drafting tool, the brief changes every time — different client voice, different format, different constraints. There's no fixed task to fine-tune against. The system prompt plus a retrieval step pulling in the client's style guide does the work that fine-tuning couldn't.</p>
+<p><strong>3. Compare real costs, not vibes.</strong> Fine-tuning costs: data collection and labeling (usually the biggest line item — budget weeks, not days), training runs, evaluation, and — the one teams forget — versioning. When the base model updates, do you retrain? When your task definition shifts, do you relabel and retrain? Prompting costs: iteration time up front, and marginally higher per-token cost at inference if you need a bigger model to hit the same accuracy a fine-tuned small model would. For most startups shipping a feature with fewer than a few hundred thousand monthly requests, prompt iteration time is cheaper than a training pipeline's maintenance burden, full stop.</p>
+<p><strong>4. Consider the middle ground.</strong> Few-shot examples in the prompt handle a surprising amount of what people think they need fine-tuning for. If 5-10 examples in-context get you to 90%+ accuracy, you don't have a fine-tuning problem. We've had clients come to us assuming they needed a custom model when what they actually needed was better examples and a stricter output schema — that's a conversation worth having before you commit engineering time to either path.</p>
+
+<h2>Where this breaks</h2>
+<p>The decision tree isn't absolute. Sometimes you have 1,000+ examples but the task still isn't bounded — customer support tickets, for instance, where the category taxonomy itself keeps growing. Fine-tuning there gives you a model confidently wrong about categories that didn't exist when you trained it. And sometimes you have a genuinely bounded task with only 200 examples — not enough to fine-tune reliably, but few-shot prompting with those same 200 examples as a retrieval-augmented example bank gets you most of the benefit without the training cost. Data volume and task boundedness both have to hold. One without the other, and you're better off prompting.</p>
+
+<h2>Practical next step</h2>
+<p>This week, before you fine-tune anything: build a 30-50 example eval set for the task you're considering, and run your current best prompt against it. If you're above 85% and the failures are random rather than systematic, you have a prompting problem, not a training-data problem — iterate on the prompt. If you're below that and the failures cluster around specific patterns you have hundreds of labeled examples for, that's your fine-tuning signal. If you want a second opinion on which side of the line your project falls on, <a href="https://daintytrading.com/contact.html">start a project</a> with us and we'll look at your eval numbers directly.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>About this post</h4>
+          <div class="label-row"><span>Published</span><span>29 July 2026</span></div>
+          <div class="label-row"><span>Topic</span><span>AI · Engineering</span></div>
+          <div class="label-row"><span>Read time</span><span>5 min</span></div>
+          <div class="label-row"><span>Author</span><span>Dainty Trading</span></div>
+          <a class="btn btn-primary" href="https://daintytrading.com/contact.html">Start a project &rarr;</a>
+          <a class="btn btn-ghost" href="/services.html">See our services</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Blog navigation">
+        <a href="/blog.html"><div class="lbl">&larr; Back</div><div class="ttl">All posts</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="/" class="brand" style="margin-bottom:14px;">
+            <span class="brand-mark" aria-hidden="true"></span>
+            Dainty Trading
+          </a>
+          <p class="muted" style="font-size:13.5px; max-width:360px;">
+            AI automation studio. We build production AI software for ourselves and selected clients.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Studio</h4>
+          <a href="/about.html">About</a>
+          <a href="/services.html">Services</a>
+          <a href="/blog.html">Blog</a>
+          <a href="/contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Featured projects</h4>
+          <a href="/projects/emailtriage.html">Email Triage</a>
+          <a href="/projects/ghost-writer.html">Ghost Writer</a>
+          <a href="/projects/convoforge.html">ConvoForge</a>
+          <a href="/projects/brightpath.html">BrightPath</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="/sitemap.xml">Sitemap</a>
+          <a href="/llms.txt">llms.txt</a>
+          <a href="/robots.txt">robots.txt</a>
+          <a href="/privacy.html">Privacy policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Dainty Trading. All rights reserved.</span>
+        <span>Built in Australia.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

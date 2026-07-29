@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>How Do You Handle Failures in an AI Pipeline Gracefully? &mdash; Dainty Trading</title>
+  <meta name="description" content="A production AI pipeline needs validation, retries, fallbacks, and escalation for every failure mode — not just a try/catch around the API call." />
+  <link rel="canonical" href="https://daintytrading.com/blog/handle-failures-ai-pipeline-gracefully.html" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0c10" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="How Do You Handle Failures in an AI Pipeline Gracefully?" />
+  <meta property="og:description" content="A production AI pipeline needs validation, retries, fallbacks, and escalation for every failure mode — not just a try/catch around the API call." />
+  <meta property="og:url" content="https://daintytrading.com/blog/handle-failures-ai-pipeline-gracefully.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "How Do You Handle Failures in an AI Pipeline Gracefully?",
+    "description": "A production AI pipeline needs validation, retries, fallbacks, and escalation for every failure mode — not just a try/catch around the API call.",
+    "url": "https://daintytrading.com/blog/handle-failures-ai-pipeline-gracefully.html",
+    "datePublished": "2026-07-29",
+    "dateModified": "2026-07-29",
+    "author": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "publisher": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "mainEntityOfPage": "https://daintytrading.com/blog/handle-failures-ai-pipeline-gracefully.html"
+  }
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a>
+        <a href="/services.html">Services</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/blog.html">Blog</a> &nbsp;/&nbsp; Process</div>
+        <h1>How Do You Handle Failures in an AI Pipeline Gracefully?</h1>
+        <p class="lede">A production AI pipeline needs validation, retries, fallbacks, and escalation for every failure mode — not just a try/catch around the API call.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Topic</strong>&nbsp; Process</span>
+          <span class="chip"><strong>Published</strong>&nbsp; 29 July 2026</span>
+          <span class="chip"><strong>Read time</strong>&nbsp; 5 min</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <p>You handle AI pipeline failures gracefully by treating each failure mode as a distinct problem with its own fix — malformed output gets schema validation and a retry, slow tool calls get timeouts and circuit breakers, context overflow gets truncation or summarization before the call, and hallucinated fields get a confidence check with a path to a human. There's no single "error handling" layer that covers all of this. Teams that ship reliable AI features build four or five small, boring systems instead of one clever one.</p>
+
+<p>That distinction matters because most teams don't build any of them until something breaks in production.</p>
+
+<h2>The common wrong approach</h2>
+
+<p>Most teams wrap the model call in a try/catch, log the exception, and call it done. It works in the demo because the demo uses clean inputs and a happy-path prompt. Then real traffic arrives: a customer email with three nested forwards, a PDF that OCR'd badly, a user request that doesn't map cleanly to any of your tool definitions. The model returns JSON with a trailing comma. It calls a tool with a hallucinated parameter that looks plausible but doesn't exist in your schema. It times out because the context window ballooned past what you tested with.</p>
+
+<p>The try/catch catches the exception, sure. But "catch and log" isn't a strategy — it's a shrug. The pipeline stalls, the user sees a spinner or a generic error, and someone finds out three days later when a customer complains. We saw this exact pattern on an early version of Email Triage: the classifier worked fine until a vendor started sending auto-generated receipts with malformed HTML, and the whole triage queue backed up silently overnight.</p>
+
+<h2>The better approach</h2>
+
+<p>Design for each failure mode separately, at the point where it actually occurs.</p>
+
+<p><strong>Malformed output.</strong> Validate every model response against a schema before it touches downstream logic — Zod on the Node side, Pydantic on the Python side. Don't just check "is this valid JSON." Check field types, required fields, and value ranges. On failure, retry once with the validation error fed back into the prompt ("your last response was missing the `priority` field — return it again"). This single-retry-with-feedback pattern fixes the large majority of malformed outputs without a human ever seeing it.</p>
+
+<p><strong>Tool call timeouts.</strong> Set an explicit timeout on every tool call — shorter than you think you need, because a hung tool call blocks the whole turn. Wrap it in a circuit breaker so a failing downstream service (a flaky CRM API, a slow vector DB) doesn't take out every request in flight. On timeout, don't retry blindly — retry with backoff, cap it at two attempts, then fail the tool call explicitly and let the model decide what to do next, or fall back to a cached or degraded response.</p>
+
+<p><strong>Context window exceeded.</strong> This one you can catch before it happens. Track token count as you assemble the prompt, not after the API rejects it. When you're close to the limit, don't just truncate from the top — summarize older context, drop low-relevance retrieved chunks first, and keep the most recent turns and the system instructions intact. On Ghost Writer, we run a pre-flight token count on every draft-plus-research bundle and trigger a summarization pass at 80% of the limit, before the model ever sees a truncated mess.</p>
+
+<p><strong>Hallucinated required fields.</strong> This is the hardest one because the output looks structurally valid — right types, right shape, just factually wrong. The fix is a verification step: cross-check extracted fields against a source of truth where one exists (an order ID against your database, a date against the original document), and flag anything that can't be verified rather than passing it downstream as fact. On CV Matcher, we don't let an extracted "years of experience" figure feed into ranking until it's cross-referenced against the dates actually stated in the document.</p>
+
+<p>Every one of these needs a ceiling. After N retries, stop retrying and escalate — to a fallback response, a degraded mode, or a human queue. Escalation isn't a failure of the pipeline; it's the pipeline working correctly.</p>
+
+<h2>Where this breaks</h2>
+
+<p>All of this is real engineering effort, and for a two-person team validating a rough idea, it's often not worth building yet. If you're at ten users and manually checking outputs anyway, spend your time on the product question, not a circuit breaker library. The risk is knowing when to stop deferring it — usually the moment you stop personally reading every output, or the moment a failure would reach a paying customer instead of you. Building this too early is wasted effort; building it too late is an incident.</p>
+
+<p>The other honest limit: verification steps add latency and cost. Cross-checking every hallucination-prone field against a source of truth means an extra lookup, sometimes an extra model call. That's a real tradeoff against speed, and it's worth measuring rather than assuming.</p>
+
+<h2>Practical next step</h2>
+
+<p>This week, pick the one failure mode in your pipeline you've actually seen happen — check your logs, it's probably malformed output or a timeout — and add explicit handling for just that one: a schema validator with a single feedback-retry, or a timeout with a two-attempt backoff. Don't try to build all four systems at once. If you want a second pair of eyes on where your pipeline is most exposed, <a href="https://daintytrading.com/contact.html">start a project</a> with us and we'll walk through it together.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>About this post</h4>
+          <div class="label-row"><span>Published</span><span>29 July 2026</span></div>
+          <div class="label-row"><span>Topic</span><span>Process</span></div>
+          <div class="label-row"><span>Read time</span><span>5 min</span></div>
+          <div class="label-row"><span>Author</span><span>Dainty Trading</span></div>
+          <a class="btn btn-primary" href="https://daintytrading.com/contact.html">Start a project &rarr;</a>
+          <a class="btn btn-ghost" href="/services.html">See our services</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Blog navigation">
+        <a href="/blog.html"><div class="lbl">&larr; Back</div><div class="ttl">All posts</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="/" class="brand" style="margin-bottom:14px;">
+            <span class="brand-mark" aria-hidden="true"></span>
+            Dainty Trading
+          </a>
+          <p class="muted" style="font-size:13.5px; max-width:360px;">
+            AI automation studio. We build production AI software for ourselves and selected clients.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Studio</h4>
+          <a href="/about.html">About</a>
+          <a href="/services.html">Services</a>
+          <a href="/blog.html">Blog</a>
+          <a href="/contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Featured projects</h4>
+          <a href="/projects/emailtriage.html">Email Triage</a>
+          <a href="/projects/ghost-writer.html">Ghost Writer</a>
+          <a href="/projects/convoforge.html">ConvoForge</a>
+          <a href="/projects/brightpath.html">BrightPath</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="/sitemap.xml">Sitemap</a>
+          <a href="/llms.txt">llms.txt</a>
+          <a href="/robots.txt">robots.txt</a>
+          <a href="/privacy.html">Privacy policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Dainty Trading. All rights reserved.</span>
+        <span>Built in Australia.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
