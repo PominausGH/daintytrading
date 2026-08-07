@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="google-site-verification" content="V4tv1Ds0qfskA15qPKqndEsVqsO7xyT10CYzFDBV0BQ" />
-  <title>Dainty Trading — AI Automation Studio | 37 Products Shipped</title>
+  <title>Dainty Trading — AI Automation Studio | 17 Live AI Products</title>
   <meta name="description" content="Dainty Trading is an Australian AI development agency. We build production LLM software — from first demo to paying customers in weeks. Start a project today." />
   <link rel="canonical" href="https://daintytrading.com/" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
@@ -136,39 +136,55 @@
         "name": "What is Dainty Trading?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Dainty Trading is an Australian AI development studio that builds production LLM software — 13 live products shipped. We take client engagements and run our own portfolio of AI products covering email automation, education, content generation, and SaaS infrastructure."
+          "text": "Dainty Trading is an AI automation studio. We design, build, and operate production AI software — 37 products covering email, content, education, knowledge management, marketing automation, scheduling, billing, and SaaS infrastructure. Some are shipped and live; others are in final testing or active development. Each project page is honest about which."
         }
       },
       {
         "@type": "Question",
-        "name": "What kind of AI automation projects does Dainty Trading build?",
+        "name": "What kind of AI projects do you take on?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Dainty Trading builds full-stack AI products from concept to paying customers. Typical projects include LLM-powered email triage, AI content pipelines, AI tutors, CV matching, and communication coaching — using Anthropic Claude as the primary LLM, with Gemini and OpenRouter for cost and latency routing."
+          "text": "LLM-powered features (Claude, Gemini, OpenRouter), agentic workflows, content automation pipelines, AI-driven personalisation, and structured-extraction systems. We also do the boring infrastructure that keeps them up — gateways, queues, evals, billing."
         }
       },
       {
         "@type": "Question",
-        "name": "Does Dainty Trading work with clients or only on its own products?",
+        "name": "What stack do you build on?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes. Dainty Trading has 13 live products as proof of delivery and takes on client engagements. Client work includes custom AI agents, retrofitting AI into existing SaaS, and building LLM infrastructure (gateways, evals, billing, observability). Engagements typically run 2–12 weeks."
+          "text": "Python (FastAPI, Django) and Node.js (Fastify, Express) on the backend; Next.js, React, and React Native on the front; PostgreSQL and Redis for state; n8n for orchestration; Stripe for billing; LiteLLM for routing across model providers; Docker everywhere."
         }
       },
       {
         "@type": "Question",
-        "name": "What technologies does Dainty Trading use?",
+        "name": "Do you only build with Claude?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Dainty Trading uses Anthropic Claude as its primary LLM, routed through LiteLLM and OpenRouter. Backends are Python (FastAPI) and Node.js (Fastify). Frontends are Next.js and React. Infrastructure runs on Postgres, Redis, n8n, and Docker — self-hosted."
+          "text": "No. We default to Anthropic Claude because it punches above its weight on long-context and structured tasks, but we route through OpenRouter and LiteLLM so projects can pick Gemini, OpenAI, or open-weights when the economics or latency demand it."
         }
       },
       {
         "@type": "Question",
-        "name": "How can I work with Dainty Trading?",
+        "name": "How fast can you ship?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Contact Dainty Trading at daintytrading.com/contact.html. Replies arrive within one business day. The first sprint is scoped within a week. A first working demo ships within two weeks. No retainer and no pitch call required to get started."
+          "text": "First demo in 1–2 weeks for most builds. A first paying customer in 4–8 weeks. We move fast because we've already built the boring parts (billing, auth, LLM routing, observability) and reuse them across every project."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where are you based?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Australia. We work async with clients globally and are happy to operate in your timezone."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I start?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Email us via the contact page with two paragraphs: what you want built and why it matters. We'll reply within one business day with a scoped first sprint."
         }
       }
     ]
@@ -286,7 +302,7 @@
           <div class="service-card">
             <div class="icon">01</div>
             <h3>Proof of work, not pitch decks</h3>
-            <p>We have 37 products &mdash; 13 live and paying &mdash; you can click on right now. Every project page shows the real stack, the build timeline, and what broke. That&rsquo;s the portfolio. Judge us on it.</p>
+            <p>We have 37 products &mdash; 17 live and paying &mdash; you can click on right now. Every project page shows the real stack, the build timeline, and what broke. That&rsquo;s the portfolio. Judge us on it.</p>
           </div>
           <div class="service-card">
             <div class="icon">02</div>
@@ -344,7 +360,7 @@
                 <div class="project-group">
           <h3 class="group-heading group-live">
             <span class="group-label"><span class="group-dot" aria-hidden="true"></span>Live</span>
-            <span class="group-count">13 products</span>
+            <span class="group-count">17 products</span>
           </h3>
           <div class="project-grid">
           <a class="project-card" href="/projects/brightpath.html">
@@ -429,31 +445,49 @@
             <span class="outcome-line">Zero missed loans since go-live &middot; Fully automated every Friday</span>
             <span class="arrow">Read the story →</span>
           </a>
+          <a class="project-card" href="/projects/skeddy.html">
+            <span class="tag">AI · Bots</span>
+            <h3>Nudgle</h3>
+            <p>Telegram reminder bot with natural-language scheduling. Quiet hours, vacation mode, recurring tasks — all parsed by Claude.</p>
+            <span class="arrow">Read the story →</span>
+          </a>
+          <a class="project-card" href="/projects/marketing-os.html">
+            <span class="tag">AI · Marketing Ops</span>
+            <h3>Marketing OS</h3>
+            <p>The internal control tower for our marketing — campaign planning, web automation via Puppeteer, and an AI-assisted content brief queue.</p>
+            <span class="arrow">Read the story →</span>
+          </a>
+          <a class="project-card" href="/projects/postreel.html">
+            <span class="tag">AI · Social media</span>
+            <h3>Post Reel</h3>
+            <p>Social media scheduler with an AI video studio built in. Give it a URL, it crawls the site, writes a script, synthesises a voiceover, and produces a finished short-form video — scheduled across 12 platforms automatically.</p>
+            <span class="arrow">Read the story →</span>
+          </a>
+          <a class="project-card" href="/projects/billing-api.html">
+            <span class="tag">Infrastructure · SaaS</span>
+            <h3>Billing API</h3>
+            <p>Shared billing service across our portfolio. Stripe, Brevo, Postgres, and a Fastify core that lets every product launch on day one with payments wired in.</p>
+            <span class="arrow">Read the story →</span>
+          </a>
           </div>
         </div>
 
         <div class="project-group">
           <h3 class="group-heading group-test">
             <span class="group-label"><span class="group-dot" aria-hidden="true"></span>In final testing</span>
-            <span class="group-count">12 products</span>
+            <span class="group-count">8 products</span>
           </h3>
           <div class="project-grid">
+          <a class="project-card" href="/projects/second-brain.html">
+            <span class="tag">AI · Knowledge <span class="badge-test">in test</span></span>
+            <h3>Second Brain</h3>
+            <p>Telegram-native note-taking. Forward anything &mdash; voice, photo, link, half-thought &mdash; and Claude tags it, links it, and gives it back when you actually need it.</p>
+            <span class="arrow">Read the story →</span>
+          </a>
           <a class="project-card" href="/projects/meditation.html">
             <span class="tag">Wellness · SaaS <span class="badge-test">in test</span></span>
             <h3>Meditation</h3>
             <p>Subscription meditation library with a 7-day free trial, Stripe billing, and a content gate that doesn&rsquo;t feel like a content gate.</p>
-            <span class="arrow">Read the story →</span>
-          </a>
-          <a class="project-card" href="/projects/skeddy.html">
-            <span class="tag">AI · Bots <span class="badge-test">in test</span></span>
-            <h3>Nudgle</h3>
-            <p>Telegram reminder bot with natural-language scheduling. Quiet hours, vacation mode, recurring tasks — all parsed by Claude.</p>
-            <span class="arrow">Read the story →</span>
-          </a>
-          <a class="project-card" href="/projects/marketing-os.html">
-            <span class="tag">AI · Marketing Ops <span class="badge-test">in test</span></span>
-            <h3>Marketing OS</h3>
-            <p>The internal control tower for our marketing — campaign planning, web automation via Puppeteer, and an AI-assisted content brief queue.</p>
             <span class="arrow">Read the story →</span>
           </a>
           <a class="project-card" href="/projects/chatvault.html">
@@ -466,12 +500,6 @@
             <span class="tag">AI · Personal Finance <span class="badge-test">in test</span></span>
             <h3>Tax Prep</h3>
             <p>Drop receipts, statements, and slips in throughout the year. Claude classifies and tags. At year-end, one export gives your accountant a structured handover.</p>
-            <span class="arrow">Read the story →</span>
-          </a>
-          <a class="project-card" href="/projects/second-brain.html">
-            <span class="tag">AI · Knowledge <span class="badge-test">in test</span></span>
-            <h3>Second Brain</h3>
-            <p>Telegram-native note-taking. Forward anything &mdash; voice, photo, link, half-thought &mdash; and Claude tags it, links it, and gives it back when you actually need it.</p>
             <span class="arrow">Read the story →</span>
           </a>
           <a class="project-card" href="/projects/price-scout.html">
@@ -496,18 +524,6 @@
             <span class="tag">AI · Marketing automation <span class="badge-test">in test</span></span>
             <h3>StoryPulse</h3>
             <p>Instagram growth-automation SaaS. Automated story views and reactions, AI captions, multi-account campaigns, anti-detection layer, Stripe-billed plans.</p>
-            <span class="arrow">Read the story →</span>
-          </a>
-          <a class="project-card" href="/projects/postreel.html">
-            <span class="tag">AI · Social media <span class="badge-test">in test</span></span>
-            <h3>Post Reel</h3>
-            <p>Social media scheduler with an AI video studio built in. Give it a URL, it crawls the site, writes a script, synthesises a voiceover, and produces a finished short-form video — scheduled across 12 platforms automatically.</p>
-            <span class="arrow">Read the story →</span>
-          </a>
-          <a class="project-card" href="/projects/billing-api.html">
-            <span class="tag">Infrastructure · SaaS <span class="badge-test">in test</span></span>
-            <h3>Billing API</h3>
-            <p>Shared billing service across our portfolio. Stripe, Brevo, Postgres, and a Fastify core that lets every product launch on day one with payments wired in.</p>
             <span class="arrow">Read the story →</span>
           </a>
           </div>

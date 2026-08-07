@@ -98,6 +98,9 @@
           <h2>The AI angle</h2>
           <p>Two prompts do the heavy lifting. The extractor turns prose CVs and prose job postings into a normalised JSON schema that both sides agree on. The matcher reads the two schemas and produces a score plus a reasoning trace. Keeping these prompts independent means we can iterate on each one in isolation and run a backtest of every change against the user&rsquo;s past matches.</p>
 
+          <h2>Filtering, sorting, and exporting matches</h2>
+          <p>Once a match runs, a filter bar lets you set a minimum match percentage, select must-have skills from a multi-select populated from that result set, and sort by match score, candidate name, or source file &mdash; entirely client-side, no reload. Premium accounts can export the ranked list as CSV (UTF-8 BOM so Excel reads the encoding correctly, skills semicolon-joined so commas never split a column) or XLSX (bold header row, frozen top row, match percentage stored as a real number so it sorts and filters properly in Excel, not as text).</p>
+
           <h2>How it&rsquo;s used</h2>
           <ul>
             <li><strong>Active job seekers</strong> who want a daily curated list instead of doom-scrolling LinkedIn.</li>

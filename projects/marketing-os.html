@@ -65,7 +65,7 @@
           <span class="chip"><strong>Category</strong>&nbsp; AI · Marketing Ops</span>
           <span class="chip"><strong>Stack</strong>&nbsp; Next.js 14 · TypeScript · Prisma · Tailwind</span>
           <span class="chip"><strong>Automation</strong>&nbsp; Puppeteer</span>
-          <span class="chip"><strong>Status</strong>&nbsp; In final testing</span>
+          <span class="chip"><strong>Status</strong>&nbsp; Live</span>
         </div>
       </div>
     </section>
@@ -82,6 +82,9 @@
           <h2>The AI angle</h2>
           <p>The brief queue is where the AI lives. Each campaign turns into structured briefs (audience, angle, channel, length, success metric); the LLM expands a one-line idea into a full brief, suggests three angles, and writes the first-draft hook. The team accepts, edits, or rejects. Over time the queue becomes a corpus of accepted vs rejected briefs that we use to pick angles automatically.</p>
 
+          <h2>SEO/GEO auditing, not just campaign ops</h2>
+          <p>Beyond the content queue, Marketing OS is what actually audits every domain in the portfolio. It calls Google&rsquo;s PageSpeed Insights API for real performance/accessibility/SEO scores, and a zero-dependency Search Console client (JWT-signed against a service account, no <code>googleapis</code> dependency) for indexing coverage, search-analytics totals, and per-URL inspection &mdash; the same data behind the weekly audit reports this site itself gets checked against. A separate GEO module generates <code>llms.txt</code>, an AI-crawler-aware <code>robots.txt</code>, and <code>FAQPage</code>/<code>Organization</code> structured data per domain, so a fix that starts as an audit finding can go straight to a pushed file without leaving the tool.</p>
+
           <h2>How it&rsquo;s used</h2>
           <ul>
             <li><strong>Studio operators</strong> see every product&rsquo;s health in one place.</li>
@@ -95,7 +98,7 @@
 
         <aside class="sidecard">
           <h4>Project facts</h4>
-          <div class="label-row"><span>Status</span><span>In final testing (internal)</span></div>
+          <div class="label-row"><span>Status</span><span>Live</span></div>
           <div class="label-row"><span>Access</span><span>Internal use only</span></div>
           <div class="label-row"><span>Stack</span><span>Next.js 14 · TS · React 18</span></div>
           <div class="label-row"><span>ORM</span><span>Prisma</span></div>

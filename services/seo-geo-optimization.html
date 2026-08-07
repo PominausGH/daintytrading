@@ -50,6 +50,12 @@
     .month-list li::before { content:"\2192"; position:absolute; left:0; color:var(--text-muted); font-weight:400; }
     .honest-note { background:var(--accent-soft); border:1px solid var(--border); border-radius:var(--radius-sm); padding:14px 16px; font-size:14px; color:var(--text-dim); margin:22px 0; }
     .honest-note strong { color:var(--text); }
+    .results-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin:20px 0; }
+    @media (max-width:980px) { .results-grid { grid-template-columns:1fr; } }
+    .result-card { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:22px; }
+    .result-stat { font-size:22px; font-weight:700; color:var(--accent); line-height:1.2; }
+    .result-label { font-size:12.5px; text-transform:uppercase; letter-spacing:.04em; color:var(--text-muted); margin:4px 0 10px; }
+    .result-card p:last-child { font-size:14px; color:var(--text-dim); margin:0; }
   </style>
 
   <script type="application/ld+json">
@@ -231,6 +237,27 @@
             <li>Content structure that&rsquo;s quotable &mdash; direct answers near the top, not buried three paragraphs into marketing copy</li>
             <li>A read on how you currently show up in AI answers next to the businesses you actually compete with</li>
           </ul>
+
+          <h2>Real numbers from real audits</h2>
+          <p>We don&rsquo;t have client case studies to publish yet &mdash; but we run this exact audit-and-fix tooling continuously across our own live products, and these wins are unedited pulls from that audit log, not staged marketing copy.</p>
+          <div class="results-grid">
+            <div class="result-card">
+              <div class="result-stat">14.6s &rarr; 3.0s</div>
+              <p class="result-label">LCP &middot; signalreads.com</p>
+              <p>A shared image pipeline was saving AI-generated article images unresized. One fix recompressed 27 existing images in place &mdash; PSI performance score went 73 &rarr; 93 and homepage image weight dropped 92.8% (44MB &rarr; 3.2MB), same day.</p>
+            </div>
+            <div class="result-card">
+              <div class="result-stat">5.2s &rarr; 2.3s</div>
+              <p class="result-label">LCP &middot; timerforge.app</p>
+              <p>Removed a dead Stripe.js script and added cache headers on the one page whose entire job is converting a first-time visitor into a purchase. Held steady on every re-audit since.</p>
+            </div>
+            <div class="result-card">
+              <div class="result-stat">Contradiction found &amp; fixed</div>
+              <p class="result-label">AI-citation accuracy &middot; focusshield.app</p>
+              <p>Caught <code>llms.txt</code> stating &ldquo;no account required&rdquo; while the site&rsquo;s own FAQ schema said the opposite &mdash; exactly the kind of mismatch that gets a brand mis-cited by ChatGPT or Perplexity. Fixed so every surface agrees.</p>
+            </div>
+          </div>
+          <p style="font-size:13px;color:var(--text-muted);margin:0 0 32px;">Pulled from our own continuous audit tooling &mdash; see <a href="/projects/marketing-os.html">how it works</a>.</p>
 
           <h2>How the engagement works</h2>
 
