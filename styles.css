@@ -162,10 +162,42 @@ a:hover { text-decoration: underline; }
   .nav-links.nav-open .nav-cta { margin-top: 4px; }
 }
 
-/* Hero */
+/* Hero — copied from staging.tradepriceshutters.com.au's pattern: photo as a
+   background behind the text, scoped to .hero only (header stays opaque,
+   untouched, on its own background above this). */
 .hero {
+  position: relative;
   padding: 96px 0 72px;
   text-align: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero-bg picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.hero-bg img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 35%;
+}
+.hero-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(10,12,16,0.55) 0%, rgba(10,12,16,0.45) 45%, rgba(10,12,16,0.85) 100%);
+}
+.hero .container {
+  position: relative;
+  z-index: 1;
 }
 .eyebrow {
   display: inline-block;
