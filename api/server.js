@@ -3,6 +3,7 @@ const express = require('express');
 const rateLimit = require('express-rate-limit');
 
 const contactRoutes = require('./routes/contact');
+const reviewsRoutes = require('./routes/reviews');
 const { startSuppressionMonitor } = require('./lib/suppression-monitor');
 
 const app = express();
@@ -20,6 +21,7 @@ app.use('/api/', rateLimit({
 }));
 
 app.use('/api/contact', contactRoutes);
+app.use('/api/reviews', reviewsRoutes);
 
 app.get('/api/health', (_req, res) => res.json({ ok: true }));
 

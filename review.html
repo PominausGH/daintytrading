@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="google-site-verification" content="V4tv1Ds0qfskA15qPKqndEsVqsO7xyT10CYzFDBV0BQ" />
+  <title>Leave a Review — Dainty Trading</title>
+  <meta name="description" content="Worked with Dainty Trading on a project? Leave a quick review — takes about a minute." />
+  <link rel="canonical" href="https://daintytrading.com/review.html" />
+  <meta name="robots" content="noindex, follow" />
+  <meta name="theme-color" content="#0a0c10" />
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="apple-mobile-web-app-title" content="Dainty Trading" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+
+  <style>
+    .form-grid { display: grid; gap: 16px; max-width: 640px; }
+    .form-grid label { display: block; font-size: 14px; color: var(--text-dim); margin-bottom: 6px; }
+    .form-grid input, .form-grid textarea, .form-grid select {
+      width: 100%; padding: 12px 14px; border-radius: 10px;
+      background: var(--bg-elev); border: 1px solid var(--border); color: var(--text);
+      font: inherit;
+    }
+    .form-grid input:focus, .form-grid textarea:focus, .form-grid select:focus {
+      outline: none; border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(124,92,255,0.18);
+    }
+    .form-grid textarea { min-height: 120px; resize: vertical; }
+    .form-grid button { justify-self: start; }
+    .google-review-box {
+      max-width: 640px; margin-top: 40px; padding: 20px 22px;
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      background: var(--bg-elev);
+    }
+    .google-review-box p { margin: 0 0 10px; font-size: 14px; color: var(--text-dim); }
+  </style>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+  <script defer src="/js/ui-handlers.js"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"><img src="/brand-mark.png" width="28" height="28" alt="" loading="lazy"/></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary" id="main-nav">
+        <a href="/work.html">Projects</a>
+        <a href="/services.html">Services</a>
+        <a href="/services/seo-geo-optimization.html">SEO/GEO</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+      <button class="nav-toggle" aria-label="Toggle navigation">&#9776;</button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; Leave a review</div>
+        <h1>Got two minutes? Tell us how it went.</h1>
+        <p class="lede">If we&rsquo;ve built something for you, a few honest lines helps other founders decide whether to reach out. We read every review and most end up on the site &mdash; credited with your name, unless you tell us otherwise.</p>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <div id="review-form-wrap">
+            <form class="form-grid" id="review-form" novalidate>
+              <div>
+                <label for="name">Your name</label>
+                <input id="name" name="name" type="text" required autocomplete="name" />
+              </div>
+              <div>
+                <label for="company">Company (optional)</label>
+                <input id="company" name="company" type="text" autocomplete="organization" />
+              </div>
+              <div>
+                <label for="project">Which project?</label>
+                <select id="project" name="project">
+                  <option value="">Not sure / general feedback</option>
+                  <option>BrightPath</option>
+                  <option>Email Triage</option>
+                  <option>Email Cleanup</option>
+                  <option>Subscription Incinerator</option>
+                  <option>Everyring.ai</option>
+                  <option>CV Matcher</option>
+                  <option>BizPage Builder</option>
+                  <option>FocusShield</option>
+                  <option>AutoArchive</option>
+                  <option>TimerForge</option>
+                  <option>Ghost Writer</option>
+                  <option>ConvoForge</option>
+                  <option>Solar Loan Reconciler</option>
+                  <option>Nudgle</option>
+                  <option>Marketing OS</option>
+                  <option>Post Reel</option>
+                  <option>Billing API</option>
+                  <option>SEO/GEO optimization</option>
+                  <option>A client engagement (custom build)</option>
+                </select>
+              </div>
+              <div>
+                <label for="rating">Rating</label>
+                <select id="rating" name="rating" required>
+                  <option value="5">★★★★★ — Excellent</option>
+                  <option value="4">★★★★☆ — Good</option>
+                  <option value="3">★★★☆☆ — Okay</option>
+                  <option value="2">★★☆☆☆ — Not great</option>
+                  <option value="1">★☆☆☆☆ — Poor</option>
+                </select>
+              </div>
+              <div>
+                <label for="quote">Your review</label>
+                <textarea id="quote" name="quote" required placeholder="What did we build, and how has it worked out for you?"></textarea>
+              </div>
+              <div>
+                <label for="email">Email (optional)</label>
+                <input id="email" name="email" type="email" autocomplete="email" placeholder="In case we want to follow up before publishing" />
+              </div>
+
+              <!-- Honeypot — invisible to humans; bots fill it in -->
+              <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">
+                <label for="dt_website">Work phone</label>
+                <input type="text" id="dt_website" name="dt_website" tabindex="-1" autocomplete="off" />
+              </div>
+              <input type="hidden" id="dt_form_loaded_at" name="dt_form_loaded_at" />
+
+              <button type="submit" id="review-submit" class="btn btn-primary">Submit review</button>
+              <p id="form-error" class="muted" style="font-size:13px; margin:0; color:#f87171; display:none;"></p>
+              <p class="muted" style="font-size:12px;margin:0;color:var(--text-muted);">&#128274; Your data is never sold or shared &middot; <a href="/privacy.html" style="color:var(--text-muted);text-decoration:underline;">Privacy policy</a></p>
+            </form>
+          </div>
+
+          <div id="review-success" style="display:none; padding: 32px 0;">
+            <h3 style="margin:0 0 12px;">Thanks &mdash; got it.</h3>
+            <p>We read every review that comes in. Most end up on the site within a few days.</p>
+            <p class="muted" style="font-size:13px;"><a href="/work.html">See the full portfolio &rarr;</a></p>
+          </div>
+
+          <script defer src="/js/review-form.js"></script>
+
+          <div class="google-review-box">
+            <p><strong>Prefer Google?</strong> If you'd rather leave a review on our Google Business Profile instead (or as well), that helps us too.</p>
+            <a class="btn btn-ghost" href="https://share.google/KfQ7Lp4bfTxGkzhSl" target="_blank" rel="noopener">Leave a Google review &rarr;</a>
+          </div>
+        </article>
+
+        <aside class="sidecard">
+          <h4>Why we ask</h4>
+          <p class="muted" style="font-size:13.5px;">Real feedback from real projects is more useful to the next founder than anything we could write ourselves. Thank you.</p>
+          <a class="btn btn-ghost" href="/work.html">See the portfolio</a>
+          <a class="btn btn-ghost" href="/contact.html">Start a project</a>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="/" class="brand" style="margin-bottom:14px;">
+            <span class="brand-mark" aria-hidden="true"><img src="/brand-mark.png" width="28" height="28" alt="" loading="lazy"/></span>
+            Dainty Trading
+          </a>
+          <p class="muted" style="font-size:13.5px; max-width:360px;">
+            AI automation studio. We build production AI software for ourselves and selected clients.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h3>Studio</h3>
+          <a href="/about.html">About</a>
+          <a href="/services.html">Services</a>
+          <a href="/services/seo-geo-optimization.html">SEO/GEO</a>
+          <a href="/blog.html">Blog</a>
+          <a href="/contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h3>Featured projects</h3>
+          <a href="/projects/emailtriage.html">Email Triage</a>
+          <a href="/projects/ghost-writer.html">Ghost Writer</a>
+          <a href="/projects/convoforge.html">ConvoForge</a>
+          <a href="/projects/brightpath.html">BrightPath</a>
+        </div>
+        <div class="footer-col">
+          <h3>Resources</h3>
+          <a href="/sitemap.xml">Sitemap</a>
+          <a href="/llms.txt">llms.txt</a>
+          <a href="/robots.txt">robots.txt</a>
+          <a href="/privacy.html">Privacy policy</a>
+          <a href="/terms.html">Terms of service</a>
+          <a href="/australia.html">Australia</a>
+          <a href="/usa.html">USA</a>
+          <a href="/uk.html">UK</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Dainty Trading · ABN 65 366 917 788 · All rights reserved.</span>
+        <span>Phone: <button class="phone-reveal-btn" data-a="614" data-b="850" data-c="13007">show</button> &middot; Built in Australia.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!--Start of Tawk.to Script-->
+  <script defer src="/js/tawk-embed.js"></script>
+  <!--End of Tawk.to Script-->
+</body>
+</html>
