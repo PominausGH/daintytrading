@@ -27,7 +27,8 @@ function renderNotes(notes) {
     return;
   }
   list.innerHTML = notes.map(function (n) {
-    var meta = escapeHtml(n.name) + ' &middot; ' + formatDate(n.submittedAt) +
+    var badge = n.author === 'studio' ? '<span class="note-badge">Dainty Trading</span> ' : '';
+    var meta = badge + escapeHtml(n.name) + ' &middot; ' + formatDate(n.submittedAt) +
       (n.targetDate ? ' &middot; target: ' + escapeHtml(n.targetDate) : '');
     return '<li><div class="note-meta">' + meta + '</div><div class="note-text">' + escapeHtml(n.note) + '</div></li>';
   }).join('');

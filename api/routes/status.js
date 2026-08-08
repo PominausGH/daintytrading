@@ -29,6 +29,7 @@ router.get('/:token', readLimiter, (req, res) => {
     note: n.note,
     targetDate: n.targetDate,
     submittedAt: n.submittedAt,
+    author: n.author || 'client',
   }));
   res.json({
     clientName: client.clientName,

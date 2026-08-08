@@ -9,12 +9,15 @@
  *   node scripts/client-status.js update <token> --status "In progress" --phase "Building the quote calculator" --next "Demo Friday"
  *   node scripts/client-status.js update <token> --notify-email "someone@example.com"  (extra recipient for note notifications)
  *
+ * Leave a note on a client's timeline (shows up alongside their own notes):
+ *   node scripts/client-status.js note <token> "Pushed the demo to Monday, waiting on your go-ahead" --date 2026-08-17
+ *
  * Read one:
  *   node scripts/client-status.js show <token>
  */
 const path = require('path');
 process.env.DATA_DIR = process.env.DATA_DIR || path.join(__dirname, '..', 'data');
-const { getClient, createClient } = require('../lib/clients-store');
+const { getClient, createClient, saveClientNote } = require('../lib/clients-store');
 const fs = require('fs');
 
 const [, , cmd, ...rest] = process.argv;
@@ -57,6 +60,26 @@ if (cmd === 'new') {
   fs.writeFileSync(file, JSON.stringify(client, null, 2));
   console.log('Updated:');
   console.log(client);
+} else if (cmd === 'note') {
+  const [token, noteText, ...flagArgs] = rest;
+  const client = getClient(token);
+  if (!client) {
+    console.error(`No client found for token "${token}"`);
+    process.exit(1);
+  }
+  if (!noteText) {
+    console.error('Usage: node scripts/client-status.js note <token> "Note text" [--date YYYY-MM-DD] [--name "Andrew"]');
+    process.exit(1);
+  }
+  const flags = parseFlags(flagArgs);
+  const record = saveClientNote(token, {
+    name: flags.name || 'Dainty Trading',
+    note: noteText,
+    targetDate: flags.date || null,
+    author: 'studio',
+  });
+  console.log('Note added:');
+  console.log(record);
 } else if (cmd === 'show') {
   const [token] = rest;
   const client = getClient(token);
@@ -69,5 +92,6 @@ if (cmd === 'new') {
   console.log('Usage:');
   console.log('  node scripts/client-status.js new "<Client name>" "<Project name>"');
   console.log('  node scripts/client-status.js update <token> --status "..." --phase "..." --next "..." --notes "..." --notify-email "..."');
+  console.log('  node scripts/client-status.js note <token> "Note text" [--date YYYY-MM-DD] [--name "Andrew"]');
   console.log('  node scripts/client-status.js show <token>');
 }

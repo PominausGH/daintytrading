@@ -41,13 +41,14 @@ function createClient({ name, project, status, phase, nextMilestone, notes }) {
   return record;
 }
 
-function saveClientNote(token, { name, note, targetDate }) {
+function saveClientNote(token, { name, note, targetDate, author }) {
   fs.mkdirSync(DATA_DIR, { recursive: true });
   const record = {
     token,
     name,
     note,
     targetDate: targetDate || null,
+    author: author || 'client',
     submittedAt: new Date().toISOString(),
   };
   fs.appendFileSync(NOTES_FILE, JSON.stringify(record) + '\n');
