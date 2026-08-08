@@ -81,22 +81,27 @@ router.post('/:token/notes', noteLimiter, async (req, res) => {
 
   const notifyEmail = process.env.CONTACT_NOTIFICATION_EMAIL || 'hello@daintytrading.com';
   const flagPrefix = spamReason ? `[REVIEW · ${spamReason}] ` : '';
-  try {
-    await sendEmail({
-      to: notifyEmail,
+  const emailHtml = `
+    <h2 style="margin:0 0 16px;">New note — ${escapeHtml(client.project)}</h2>
+    <p><strong>From:</strong> ${escapeHtml(data.name)}</p>
+    ${data.targetDate ? `<p><strong>Target date:</strong> ${escapeHtml(data.targetDate)}</p>` : ''}
+    <p style="white-space:pre-wrap;background:#f8fafc;padding:12px 16px;border-radius:6px;">${escapeHtml(data.note)}</p>
+    <hr style="margin:16px 0;border:none;border-top:1px solid #e2e8f0;"/>
+    <p style="font-size:12px;color:#94a3b8;">Status page: https://daintytrading.com/status.html?token=${req.params.token}</p>
+  `;
+  // Notify recipients in parallel — the default studio inbox, plus a
+  // per-client extra recipient (e.g. Darren's andrew@eklawyers.com.au) when set.
+  const recipients = [notifyEmail, ...(client.notifyEmail ? [client.notifyEmail] : [])];
+  await Promise.all(recipients.map(async (to) => {
+    const result = await sendEmail({
+      to,
       subject: `${flagPrefix}${client.clientName} left a note on their project status page`,
-      html: `
-        <h2 style="margin:0 0 16px;">New note — ${escapeHtml(client.project)}</h2>
-        <p><strong>From:</strong> ${escapeHtml(data.name)}</p>
-        ${data.targetDate ? `<p><strong>Target date:</strong> ${escapeHtml(data.targetDate)}</p>` : ''}
-        <p style="white-space:pre-wrap;background:#f8fafc;padding:12px 16px;border-radius:6px;">${escapeHtml(data.note)}</p>
-        <hr style="margin:16px 0;border:none;border-top:1px solid #e2e8f0;"/>
-        <p style="font-size:12px;color:#94a3b8;">Status page: https://daintytrading.com/status.html?token=${req.params.token}</p>
-      `,
+      html: emailHtml,
     });
-  } catch (err) {
-    console.error('status route error: notification email failed:', err.message);
-  }
+    if (!result.success) {
+      console.error(`status route error: notification email to ${to} failed:`, result.error);
+    }
+  }));
 
   res.status(201).json({ success: true });
 });

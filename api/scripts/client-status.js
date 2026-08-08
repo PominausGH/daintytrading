@@ -7,6 +7,7 @@
  *
  * Update an existing one by token:
  *   node scripts/client-status.js update <token> --status "In progress" --phase "Building the quote calculator" --next "Demo Friday"
+ *   node scripts/client-status.js update <token> --notify-email "someone@example.com"  (extra recipient for note notifications)
  *
  * Read one:
  *   node scripts/client-status.js show <token>
@@ -50,6 +51,7 @@ if (cmd === 'new') {
   if (flags.phase) client.phase = flags.phase;
   if (flags.next) client.nextMilestone = flags.next;
   if (flags.notes) client.notes = flags.notes;
+  if (flags['notify-email']) client.notifyEmail = flags['notify-email'];
   client.updatedAt = new Date().toISOString();
   const file = path.join(process.env.DATA_DIR, 'clients', `${token}.json`);
   fs.writeFileSync(file, JSON.stringify(client, null, 2));
@@ -66,6 +68,6 @@ if (cmd === 'new') {
 } else {
   console.log('Usage:');
   console.log('  node scripts/client-status.js new "<Client name>" "<Project name>"');
-  console.log('  node scripts/client-status.js update <token> --status "..." --phase "..." --next "..." --notes "..."');
+  console.log('  node scripts/client-status.js update <token> --status "..." --phase "..." --next "..." --notes "..." --notify-email "..."');
   console.log('  node scripts/client-status.js show <token>');
 }
