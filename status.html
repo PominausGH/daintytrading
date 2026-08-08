@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Project Status — Dainty Trading</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#0a0c10" />
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="apple-mobile-web-app-title" content="Dainty Trading" />
+  <link rel="stylesheet" href="/styles.css" />
+
+  <style>
+    .form-grid { display: grid; gap: 16px; max-width: 640px; }
+    .form-grid label { display: block; font-size: 14px; color: var(--text-dim); margin-bottom: 6px; }
+    .form-grid input, .form-grid textarea {
+      width: 100%; padding: 12px 14px; border-radius: 10px;
+      background: var(--bg-elev); border: 1px solid var(--border); color: var(--text);
+      font: inherit;
+    }
+    .form-grid input:focus, .form-grid textarea:focus {
+      outline: none; border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(124,92,255,0.18);
+    }
+    .form-grid textarea { min-height: 100px; resize: vertical; }
+    .form-grid button { justify-self: start; }
+
+    .status-card {
+      max-width: 640px; padding: 24px 26px; margin-bottom: 40px;
+      border: 1px solid var(--border); border-radius: var(--radius);
+      background: var(--bg-card);
+    }
+    .status-card .status-pill {
+      display: inline-block; padding: 5px 12px; border-radius: 999px;
+      font-size: 12.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em;
+      background: var(--accent-soft); color: var(--accent-text); border: 1px solid var(--border-strong);
+      margin-bottom: 14px;
+    }
+    .status-card .label-row { display: flex; justify-content: space-between; padding: 8px 0; border-top: 1px solid var(--border); font-size: 14px; }
+    .status-card .label-row:first-of-type { border-top: none; }
+    .status-card .label-row span:first-child { color: var(--text-muted); }
+
+    .notes-list { max-width: 640px; margin: 0 0 40px; padding: 0; list-style: none; }
+    .notes-list li { padding: 14px 0; border-top: 1px solid var(--border); }
+    .notes-list li:first-child { border-top: none; }
+    .notes-list .note-meta { font-size: 12.5px; color: var(--text-muted); margin-bottom: 4px; }
+    .notes-list .note-text { font-size: 14.5px; color: var(--text-dim); white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"><img src="/brand-mark.png" width="28" height="28" alt="" loading="lazy"/></span> Dainty Trading</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; Project status</div>
+        <h1 id="page-title">Project status</h1>
+        <p class="lede" id="page-lede">Loading&hellip;</p>
+      </div>
+    </section>
+
+    <div class="container">
+      <div id="status-content" style="display:none;">
+        <div class="status-card" id="status-card"></div>
+
+        <h2 style="max-width:640px;">Timeline &amp; notes</h2>
+        <p class="lede" style="max-width:640px;font-size:15px;">Add a note any time &mdash; a question, a deadline you're working to, feedback on the last update. It comes straight to us.</p>
+
+        <form class="form-grid" id="note-form" novalidate style="margin-bottom:32px;">
+          <div>
+            <label for="name">Your name</label>
+            <input id="name" name="name" type="text" required autocomplete="name" />
+          </div>
+          <div>
+            <label for="note">Note</label>
+            <textarea id="note" name="note" required placeholder="Anything we should know — a deadline, a question, feedback."></textarea>
+          </div>
+          <div style="max-width:220px;">
+            <label for="targetDate">Target date (optional)</label>
+            <input id="targetDate" name="targetDate" type="date" />
+          </div>
+
+          <!-- Honeypot -->
+          <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">
+            <label for="dt_website">Work phone</label>
+            <input type="text" id="dt_website" name="dt_website" tabindex="-1" autocomplete="off" />
+          </div>
+          <input type="hidden" id="dt_form_loaded_at" name="dt_form_loaded_at" />
+
+          <button type="submit" id="note-submit" class="btn btn-primary">Add note</button>
+          <p id="form-error" class="muted" style="font-size:13px; margin:0; color:#f87171; display:none;"></p>
+        </form>
+
+        <ul class="notes-list" id="notes-list"></ul>
+      </div>
+
+      <div id="status-error" style="display:none; padding:60px 0; text-align:center;">
+        <p class="muted">This link isn&rsquo;t valid, or the project isn&rsquo;t set up yet. If you think that&rsquo;s wrong, <a href="/contact.html">get in touch</a>.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2026 Dainty Trading · ABN 65 366 917 788 · All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script defer src="/js/status-page.js"></script>
+</body>
+</html>
