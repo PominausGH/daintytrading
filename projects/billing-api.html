@@ -35,7 +35,7 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
       {"@type":"ListItem","position":1,"name":"Home","item":"https://daintytrading.com/"},
-      {"@type":"ListItem","position":2,"name":"Projects","item":"https://daintytrading.com/#projects"},
+      {"@type":"ListItem","position":2,"name":"Projects","item":"https://daintytrading.com/work.html"},
       {"@type":"ListItem","position":3,"name":"Billing API"}
     ]
   }
@@ -46,19 +46,21 @@
   <header class="site-header">
     <div class="container nav">
       <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"><img src="/brand-mark.png" width="28" height="28" alt="" loading="lazy"/></span> Dainty Trading</a>
-      <nav class="nav-links" aria-label="Primary">
-        <a href="/#projects">Projects</a><a href="/services.html">Services</a>
-        <a href="/services/seo-geo-optimization.html">SEO/GEO</a><a href="/about.html">About</a>
+      <nav class="nav-links" aria-label="Primary" id="main-nav">
+        <a href="/work.html">Projects</a><a href="/services.html">Services</a>
+        <a href="/services/seo-geo-optimization.html">SEO/GEO</a><a href="/blog.html">Blog</a>
+        <a href="/about.html">About</a>
         <a href="/contact.html">Contact</a>
         <a href="/contact.html" class="nav-cta">Start a project</a>
       </nav>
+      <button class="nav-toggle" aria-label="Toggle navigation">&#9776;</button>
     </div>
   </header>
 
   <main id="main">
     <section class="detail-hero">
       <div class="container">
-        <div class="crumbs"><a href="/">Home</a> / <a href="/#projects">Projects</a> / Billing API</div>
+        <div class="crumbs"><a href="/">Home</a> / <a href="/work.html">Projects</a> / Billing API</div>
         <h1>Billing API</h1>
         <p class="lede">A single billing service backing the whole portfolio. Stripe, subscriptions, metering, refunds, dunning, lifecycle email through Brevo &mdash; every new product gets payments wired in on the first day, not the third sprint.</p>
         <div class="meta-row">

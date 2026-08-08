@@ -528,7 +528,8 @@ section { padding: 84px 0; }
   grid-template-columns: repeat(3, 1fr);
   gap: 22px;
 }
-@media (max-width: 920px) { .service-grid { grid-template-columns: 1fr; } }
+.service-grid-2col { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 920px) { .service-grid, .service-grid-2col { grid-template-columns: 1fr; } }
 .service-card {
   padding: 28px;
   border-radius: var(--radius);
