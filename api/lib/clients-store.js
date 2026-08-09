@@ -44,6 +44,7 @@ function createClient({ name, project, status, phase, nextMilestone, notes }) {
 function saveClientNote(token, { name, note, targetDate, author }) {
   fs.mkdirSync(DATA_DIR, { recursive: true });
   const record = {
+    id: crypto.randomBytes(4).toString('hex'),
     token,
     name,
     note,
@@ -55,17 +56,55 @@ function saveClientNote(token, { name, note, targetDate, author }) {
   return record;
 }
 
-function listClientNotes(token) {
+// Reads every note record, backfilling an id onto any older record that
+// predates ids being added — self-healing so callers never see a note
+// they can't address for edit/delete.
+function readAllNotes() {
   if (!fs.existsSync(NOTES_FILE)) return [];
-  return fs.readFileSync(NOTES_FILE, 'utf8')
+  const records = fs.readFileSync(NOTES_FILE, 'utf8')
     .split('\n')
     .filter(Boolean)
     .map((line) => {
       try { return JSON.parse(line); } catch { return null; }
     })
-    .filter(Boolean)
+    .filter(Boolean);
+
+  let backfilled = false;
+  records.forEach((r) => {
+    if (!r.id) {
+      r.id = crypto.randomBytes(4).toString('hex');
+      backfilled = true;
+    }
+  });
+  if (backfilled) {
+    fs.writeFileSync(NOTES_FILE, records.map((r) => JSON.stringify(r)).join('\n') + '\n');
+  }
+  return records;
+}
+
+function listClientNotes(token) {
+  return readAllNotes()
     .filter((r) => r.token === token)
     .sort((a, b) => new Date(b.submittedAt) - new Date(a.submittedAt));
 }
 
-module.exports = { getClient, createClient, saveClientNote, listClientNotes, TOKEN_RE };
+function updateClientNote(token, noteId, { note, targetDate }) {
+  const records = readAllNotes();
+  const record = records.find((r) => r.token === token && r.id === noteId);
+  if (!record) return null;
+  if (note != null) record.note = note;
+  if (targetDate !== undefined) record.targetDate = targetDate || null;
+  record.editedAt = new Date().toISOString();
+  fs.writeFileSync(NOTES_FILE, records.map((r) => JSON.stringify(r)).join('\n') + '\n');
+  return record;
+}
+
+function deleteClientNote(token, noteId) {
+  const records = readAllNotes();
+  const remaining = records.filter((r) => !(r.token === token && r.id === noteId));
+  if (remaining.length === records.length) return false;
+  fs.writeFileSync(NOTES_FILE, remaining.length ? remaining.map((r) => JSON.stringify(r)).join('\n') + '\n' : '');
+  return true;
+}
+
+module.exports = { getClient, createClient, saveClientNote, listClientNotes, updateClientNote, deleteClientNote, TOKEN_RE };
