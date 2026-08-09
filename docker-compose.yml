@@ -23,6 +23,7 @@ services:
       - TZ=Australia/Sydney
     volumes:
       - ./api/data:/app/data
+      - ../customer-web_check/reports:/app/prospects-reports:ro
     ports:
       - "127.0.0.1:3013:3001"
     mem_limit: 128m

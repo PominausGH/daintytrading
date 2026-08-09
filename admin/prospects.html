@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Prospects — Dainty Trading Admin</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#0a0c10" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    .admin-wrap { max-width: 1000px; margin: 0 auto; padding: 40px 24px 80px; }
+    .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+    .run-picker { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+    .run-picker label { font-size: 13px; color: var(--text-dim); }
+    .run-picker select {
+      padding: 8px 12px; border-radius: 10px; background: var(--bg-elev); border: 1px solid var(--border);
+      color: var(--text); font: inherit;
+    }
+    .prospect-table { width: 100%; border-collapse: collapse; margin-bottom: 32px; }
+    .prospect-table th, .prospect-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); font-size: 13.5px; }
+    .prospect-table th { color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.03em; }
+    .prospect-table tr { cursor: pointer; }
+    .prospect-table tr:hover td { background: var(--bg-elev); }
+    .prospect-table tr.selected td { background: var(--accent-soft); }
+    .prospect-table .biz { font-weight: 600; }
+    .prospect-table .url { color: var(--text-muted); font-size: 12px; }
+    .status-pill {
+      display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600;
+      background: var(--accent-soft); color: var(--accent-text); border: 1px solid var(--border-strong);
+    }
+    .status-pill.error { background: rgba(248,113,113,0.12); color: #f87171; border-color: rgba(248,113,113,0.3); }
+    .sent-pill {
+      display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 600;
+      background: rgba(74,222,128,0.12); color: #4ade80; border: 1px solid rgba(74,222,128,0.3);
+    }
+    .card { padding: 22px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg-card); margin-bottom: 32px; }
+    .card label { display: block; font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }
+    .card input, .card textarea {
+      width: 100%; padding: 10px 12px; border-radius: 10px; margin-bottom: 14px;
+      background: var(--bg-elev); border: 1px solid var(--border); color: var(--text); font: inherit;
+    }
+    .card textarea { min-height: 220px; font-family: inherit; white-space: pre-wrap; }
+    .draft-meta { font-size: 12.5px; color: var(--text-muted); margin-bottom: 14px; }
+    .already-sent-note { font-size: 13px; color: #4ade80; margin-bottom: 14px; }
+  </style>
+</head>
+<body>
+  <div class="admin-wrap">
+    <div class="admin-header">
+      <h1 style="font-size:22px;margin:0;">Prospects</h1>
+      <button class="btn btn-ghost" id="logout-btn">Log out</button>
+    </div>
+
+    <div class="run-picker">
+      <label for="run-select">Batch run</label>
+      <select id="run-select"></select>
+    </div>
+    <p id="no-runs" class="muted" style="display:none;">No prospect batch runs found under the mounted reports directory.</p>
+
+    <table class="prospect-table" id="prospect-table" style="display:none;">
+      <thead>
+        <tr><th>Business / URL</th><th>Score</th><th>Findings</th><th>High sev.</th><th>Status</th><th></th></tr>
+      </thead>
+      <tbody id="prospect-table-body"></tbody>
+    </table>
+    <p id="empty-state" class="muted" style="display:none;">No prospects in this run.</p>
+
+    <div class="card" id="draft-card" style="display:none;">
+      <h2 style="font-size:15px;margin:0 0 4px;" id="draft-title">Draft outreach email</h2>
+      <p class="draft-meta" id="draft-meta"></p>
+      <p class="already-sent-note" id="already-sent-note" style="display:none;"></p>
+      <form id="send-form" novalidate>
+        <label for="to">To</label>
+        <input id="to" name="to" type="email" placeholder="owner@theirsite.com.au" required />
+        <label for="subject">Subject</label>
+        <input id="subject" name="subject" type="text" required />
+        <label for="body">Body</label>
+        <textarea id="body" name="body" required></textarea>
+        <button type="submit" id="send-submit" class="btn btn-primary">Send</button>
+        <button type="button" id="reload-draft-btn" class="btn btn-ghost">Regenerate draft</button>
+        <p id="send-error" class="muted" style="font-size:13px;color:#f87171;display:none;margin-top:12px;"></p>
+        <p id="send-success" class="muted" style="font-size:13px;color:#4ade80;display:none;margin-top:12px;"></p>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/admin-common.js"></script>
+  <script src="/js/admin-prospects.js"></script>
+</body>
+</html>
