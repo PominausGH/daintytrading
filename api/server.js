@@ -5,6 +5,7 @@ const rateLimit = require('express-rate-limit');
 const contactRoutes = require('./routes/contact');
 const reviewsRoutes = require('./routes/reviews');
 const statusRoutes = require('./routes/status');
+const adminRoutes = require('./routes/admin');
 const { startSuppressionMonitor } = require('./lib/suppression-monitor');
 
 const app = express();
@@ -24,6 +25,7 @@ app.use('/api/', rateLimit({
 app.use('/api/contact', contactRoutes);
 app.use('/api/reviews', reviewsRoutes);
 app.use('/api/status', statusRoutes);
+app.use('/api/admin', adminRoutes);
 
 app.get('/api/health', (_req, res) => res.json({ ok: true }));
 

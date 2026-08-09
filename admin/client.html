@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Client — Dainty Trading Admin</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#0a0c10" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    .admin-wrap { max-width: 720px; margin: 0 auto; padding: 40px 24px 80px; }
+    .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .admin-header a { color: var(--text-dim); font-size: 13px; }
+    .share-link { display: flex; gap: 8px; align-items: center; margin: 6px 0 32px; }
+    .share-link input {
+      flex: 1; padding: 8px 12px; border-radius: 8px; font-size: 13px;
+      background: var(--bg-elev); border: 1px solid var(--border); color: var(--text-dim); font-family: var(--font-mono);
+    }
+    .card { padding: 22px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg-card); margin-bottom: 32px; }
+    .card label { display: block; font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }
+    .card input, .card textarea, .card select {
+      width: 100%; padding: 10px 12px; border-radius: 10px; margin-bottom: 14px;
+      background: var(--bg-elev); border: 1px solid var(--border); color: var(--text); font: inherit;
+    }
+    .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+    @media (max-width: 560px) { .card-grid { grid-template-columns: 1fr; } }
+
+    .notes-list { list-style: none; margin: 0; padding: 0; }
+    .notes-list li { padding: 14px 0; border-top: 1px solid var(--border); }
+    .notes-list li:first-child { border-top: none; }
+    .note-meta { font-size: 12.5px; color: var(--text-muted); margin-bottom: 4px; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+    .note-text { font-size: 14.5px; color: var(--text-dim); white-space: pre-wrap; margin-bottom: 6px; }
+    .note-badge {
+      display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600;
+      background: var(--accent-soft); color: var(--accent-text); border: 1px solid var(--border-strong);
+    }
+    .note-actions button { font-size: 12px; padding: 3px 10px; }
+    .note-edit-form { display: none; margin-top: 8px; }
+    .note-edit-form textarea { width: 100%; min-height: 60px; margin-bottom: 8px; padding: 8px 10px; border-radius: 8px; background: var(--bg-elev); border: 1px solid var(--border); color: var(--text); font: inherit; }
+  </style>
+</head>
+<body>
+  <div class="admin-wrap">
+    <div class="admin-header">
+      <a href="/admin/index.html">&larr; All clients</a>
+      <button class="btn btn-ghost" id="logout-btn">Log out</button>
+    </div>
+    <h1 id="page-title" style="font-size:22px;margin:18px 0 4px;">Loading&hellip;</h1>
+    <div class="share-link">
+      <input id="share-url" readonly />
+      <button class="btn btn-ghost" id="copy-link-btn" type="button">Copy</button>
+    </div>
+
+    <div class="card">
+      <h2 style="font-size:15px;margin:0 0 16px;">Status</h2>
+      <form id="status-form" novalidate>
+        <div class="card-grid">
+          <div>
+            <label for="status">Status</label>
+            <input id="status" name="status" type="text" placeholder="Scoping / In progress / Live" />
+          </div>
+          <div>
+            <label for="notifyEmail">Extra notify email (optional)</label>
+            <input id="notifyEmail" name="notifyEmail" type="email" placeholder="someone@example.com" />
+          </div>
+        </div>
+        <label for="phase">Current phase</label>
+        <input id="phase" name="phase" type="text" />
+        <label for="nextMilestone">Next milestone</label>
+        <input id="nextMilestone" name="nextMilestone" type="text" />
+        <button type="submit" id="status-submit" class="btn btn-primary">Save status</button>
+        <p id="status-error" class="muted" style="font-size:13px;color:#f87171;display:none;margin-top:12px;"></p>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2 style="font-size:15px;margin:0 0 16px;">Leave a note</h2>
+      <form id="note-form" novalidate>
+        <textarea id="note-text" placeholder="Context, a question, a blocker — shows up on their timeline too." style="min-height:80px;" required></textarea>
+        <label for="note-date" style="max-width:200px;">Target date (optional)</label>
+        <input id="note-date" type="date" style="max-width:200px;" />
+        <button type="submit" id="note-submit" class="btn btn-primary">Add note</button>
+        <p id="note-error" class="muted" style="font-size:13px;color:#f87171;display:none;margin-top:12px;"></p>
+      </form>
+    </div>
+
+    <h2 style="font-size:16px;margin:0 0 16px;">Timeline</h2>
+    <ul class="notes-list" id="notes-list"></ul>
+  </div>
+
+  <script src="/js/admin-common.js"></script>
+  <script src="/js/admin-client.js"></script>
+</body>
+</html>

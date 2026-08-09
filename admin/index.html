@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Clients — Dainty Trading Admin</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#0a0c10" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    .admin-wrap { max-width: 900px; margin: 0 auto; padding: 40px 24px 80px; }
+    .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+    .client-table { width: 100%; border-collapse: collapse; margin-bottom: 40px; }
+    .client-table th, .client-table td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--border); font-size: 14px; }
+    .client-table th { color: var(--text-muted); font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.03em; }
+    .client-table tr:hover td { background: var(--bg-elev); }
+    .client-table a { color: var(--text); }
+    .status-pill {
+      display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600;
+      background: var(--accent-soft); color: var(--accent-text); border: 1px solid var(--border-strong);
+    }
+    .new-client-card { padding: 22px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg-card); max-width: 420px; }
+    .new-client-card label { display: block; font-size: 14px; color: var(--text-dim); margin-bottom: 6px; }
+    .new-client-card input {
+      width: 100%; padding: 10px 12px; border-radius: 10px; margin-bottom: 14px;
+      background: var(--bg-elev); border: 1px solid var(--border); color: var(--text); font: inherit;
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-wrap">
+    <div class="admin-header">
+      <h1 style="font-size:22px;margin:0;">Clients</h1>
+      <button class="btn btn-ghost" id="logout-btn">Log out</button>
+    </div>
+
+    <table class="client-table" id="client-table" style="display:none;">
+      <thead>
+        <tr><th>Client</th><th>Project</th><th>Status</th><th>Last updated</th></tr>
+      </thead>
+      <tbody id="client-table-body"></tbody>
+    </table>
+    <p id="empty-state" class="muted" style="display:none;">No clients yet — add one below.</p>
+
+    <h2 style="font-size:16px;margin:0 0 16px;">Add a client</h2>
+    <div class="new-client-card">
+      <form id="new-client-form" novalidate>
+        <label for="name">Client name</label>
+        <input id="name" name="name" type="text" required />
+        <label for="project">Project</label>
+        <input id="project" name="project" type="text" required />
+        <button type="submit" id="new-client-submit" class="btn btn-primary">Create</button>
+        <p id="form-error" class="muted" style="font-size:13px;color:#f87171;display:none;margin-top:12px;"></p>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/admin-common.js"></script>
+  <script src="/js/admin-dashboard.js"></script>
+</body>
+</html>

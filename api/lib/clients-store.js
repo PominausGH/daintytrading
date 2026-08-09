@@ -23,6 +23,21 @@ function getClient(token) {
   }
 }
 
+function listAllClients() {
+  if (!fs.existsSync(CLIENTS_DIR)) return [];
+  return fs.readdirSync(CLIENTS_DIR)
+    .filter((f) => f.endsWith('.json'))
+    .map((f) => {
+      try {
+        return JSON.parse(fs.readFileSync(path.join(CLIENTS_DIR, f), 'utf8'));
+      } catch {
+        return null;
+      }
+    })
+    .filter(Boolean)
+    .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+}
+
 function createClient({ name, project, status, phase, nextMilestone, notes }) {
   fs.mkdirSync(CLIENTS_DIR, { recursive: true });
   const token = crypto.randomBytes(9).toString('base64url').toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 12);
@@ -39,6 +54,18 @@ function createClient({ name, project, status, phase, nextMilestone, notes }) {
   };
   fs.writeFileSync(clientPath(token), JSON.stringify(record, null, 2));
   return record;
+}
+
+function updateClient(token, fields) {
+  const client = getClient(token);
+  if (!client) return null;
+  const editable = ['status', 'phase', 'nextMilestone', 'notes', 'notifyEmail', 'clientName', 'project'];
+  editable.forEach((key) => {
+    if (fields[key] !== undefined) client[key] = fields[key];
+  });
+  client.updatedAt = new Date().toISOString();
+  fs.writeFileSync(clientPath(token), JSON.stringify(client, null, 2));
+  return client;
 }
 
 function saveClientNote(token, { name, note, targetDate, author }) {
@@ -107,4 +134,4 @@ function deleteClientNote(token, noteId) {
   return true;
 }
 
-module.exports = { getClient, createClient, saveClientNote, listClientNotes, updateClientNote, deleteClientNote, TOKEN_RE };
+module.exports = { getClient, listAllClients, createClient, updateClient, saveClientNote, listClientNotes, updateClientNote, deleteClientNote, TOKEN_RE };
