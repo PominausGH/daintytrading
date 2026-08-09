@@ -837,3 +837,28 @@ code, kbd {
 }
 .footer-social a:hover { color: var(--text); text-decoration: none; }
 
+/* Mobile reading-copy sizing — body/description text sat at 13.5-14.5px with
+   no mobile-specific increase, and html has -webkit-text-size-adjust: 100%
+   (line 41) which blocks iOS's own small-text boost, so it read as genuinely
+   small on a phone. Bumps the actual reading copy; leaves uppercase/
+   letter-spaced labels, badges, and tags alone — those are small by design. */
+@media (max-width: 640px) {
+  .project-card p,
+  .service-card p,
+  .for-you-card p,
+  .flow-step p,
+  .blog-preview-card p,
+  .cast-card .cast-why {
+    font-size: 15.5px;
+    line-height: 1.6;
+  }
+  .site-footer,
+  .footer-col a,
+  .sidecard .label-row {
+    font-size: 15px;
+  }
+  .nav-links.nav-open a {
+    font-size: 16px;
+  }
+}
+
