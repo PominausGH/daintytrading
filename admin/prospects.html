@@ -11,6 +11,9 @@
   <style>
     .admin-wrap { max-width: 1000px; margin: 0 auto; padding: 40px 24px 80px; }
     .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+    .admin-nav { margin-bottom: 6px; }
+    .admin-nav a { color: var(--text-dim); font-size: 13px; margin-right: 14px; }
+    .admin-nav a.current { color: var(--text); font-weight: 600; }
     .run-picker { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
     .run-picker label { font-size: 13px; color: var(--text-dim); }
     .run-picker select {
@@ -48,7 +51,10 @@
 <body>
   <div class="admin-wrap">
     <div class="admin-header">
-      <h1 style="font-size:22px;margin:0;">Prospects</h1>
+      <div>
+        <nav class="admin-nav"><a href="/admin/index.html">Clients</a><a href="/admin/prospects.html" class="current">Prospects</a></nav>
+        <h1 style="font-size:22px;margin:0;">Prospects</h1>
+      </div>
       <button class="btn btn-ghost" id="logout-btn">Log out</button>
     </div>
 

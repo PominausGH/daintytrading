@@ -11,6 +11,9 @@
   <style>
     .admin-wrap { max-width: 900px; margin: 0 auto; padding: 40px 24px 80px; }
     .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+    .admin-nav { margin-bottom: 6px; }
+    .admin-nav a { color: var(--text-dim); font-size: 13px; margin-right: 14px; }
+    .admin-nav a.current { color: var(--text); font-weight: 600; }
     .client-table { width: 100%; border-collapse: collapse; margin-bottom: 40px; }
     .client-table th, .client-table td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--border); font-size: 14px; }
     .client-table th { color: var(--text-muted); font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.03em; }
@@ -31,7 +34,10 @@
 <body>
   <div class="admin-wrap">
     <div class="admin-header">
-      <h1 style="font-size:22px;margin:0;">Clients</h1>
+      <div>
+        <nav class="admin-nav"><a href="/admin/index.html" class="current">Clients</a><a href="/admin/prospects.html">Prospects</a></nav>
+        <h1 style="font-size:22px;margin:0;">Clients</h1>
+      </div>
       <button class="btn btn-ghost" id="logout-btn">Log out</button>
     </div>
 
