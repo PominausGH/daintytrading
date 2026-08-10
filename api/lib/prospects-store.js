@@ -228,8 +228,11 @@ function cleanSiteUrl(url) {
 function rephraseFinding(message) {
   if (!message || typeof message !== 'string') return '';
   let text = message.trim();
-  // Drop a trailing " — aside" / " - aside" clause.
-  text = text.replace(/\s+[—–-]\s+[^—–-]+$/, '');
+  // Drop a trailing " — aside" clause. Only em/en dash count as the separator here —
+  // a plain ASCII hyphen is excluded on purpose, since it shows up constantly inside
+  // ordinary compound words/headers (e.g. "X-Frame-Options", "frame-ancestors") and
+  // would otherwise wrongly break the match or truncate mid-word.
+  text = text.replace(/\s+[—–]\s+[^—–]+$/, '');
   // Drop a trailing parenthetical.
   text = text.replace(/\s*\([^)]*\)\s*$/, '');
   // Drop a trailing bare URL (optionally backtick-wrapped, optionally after a colon).
