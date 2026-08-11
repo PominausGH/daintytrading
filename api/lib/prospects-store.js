@@ -255,8 +255,29 @@ function buildDraft(run, slug) {
   const label = businessName || cleanSiteUrl(data.site_url);
 
   const findings = Array.isArray(data.findings) ? data.findings : [];
-  const f1 = findings[0] ? rephraseFinding(findings[0].message) : '';
-  const f2 = findings[1] ? rephraseFinding(findings[1].message) : '';
+
+  // A recurring check (e.g. the same unsubstantiated claim on every product page)
+  // produces one finding per occurrence with identical .message text — pulling the
+  // top 2 by severity alone can grab the same issue twice from two different pages.
+  // Dedupe by message first, so "top 2" means 2 distinct issues, not 2 copies of one.
+  const distinct = [];
+  const seenMessages = new Set();
+  for (const f of findings) {
+    if (seenMessages.has(f.message)) continue;
+    seenMessages.add(f.message);
+    distinct.push({ message: f.message, count: findings.filter((x) => x.message === f.message).length });
+  }
+
+  // When the same issue recurs across many pages, say so — "appears on N pages" makes
+  // a single real point land harder than silently repeating it, and is more honest
+  // than a single finding that only shows one of its N examples.
+  function describe(d) {
+    const text = rephraseFinding(d.message);
+    return d.count > 1 ? `${text} (found on ${d.count} pages)` : text;
+  }
+
+  const f1 = distinct[0] ? describe(distinct[0]) : '';
+  const f2 = distinct[1] ? describe(distinct[1]) : '';
 
   let findingsSentence;
   if (f1 && f2) {
