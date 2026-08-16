@@ -10,6 +10,7 @@ const prospectsRoutes = require('./routes/prospects');
 const { startSuppressionMonitor } = require('./lib/suppression-monitor');
 
 const app = express();
+app.disable('x-powered-by');
 app.set('trust proxy', 1);
 const PORT = process.env.PORT || 3001;
 
