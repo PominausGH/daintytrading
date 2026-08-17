@@ -1,0 +1,12 @@
+- generic [ref=e2]:
+  - separator [ref=e3]
+  - iframe [ref=e8]:
+    - generic [ref=f1e2]:
+      - generic [ref=f1e3]:
+        - checkbox "I'm not a robot" [ref=f1e7]
+        - generic [ref=f1e9]: I'm not a robot
+      - generic [ref=f1e12]: reCAPTCHA
+  - separator [ref=e9]
+  - generic [ref=e10]:
+    - text: About this page This network is blocked due to unaddressed abuse complaints about malicious behavior. This page checks to see if it's really a human sending the requests and not a robot coming from this network.
+    - generic [ref=e11]: "IP address: 2a02:4780:12:af6c::1Time: 2026-08-17T03:39:39ZURL: https://www.google.com/search?q=daintytrading&stick=H4sIAAAAAAAA_-NgU1I1qLAwMUs0tjA3NU1KtTQ1SrG0MqhISrUwMzYzMUm1NLBINEtOW8TKm5KYmVdSWVKUmJKZlw4ASjsSojkAAAA&hl=en&mat=CfRd8lnJ3G5pElYBa0lj_yW8BF7Hg3F3yZSv4_SS7h0e1okGnoEt40-iQQZg4kEvI1FbSsrSNOju0k5p2HudW44lBwFBX_yaXxrg_l_HrlZuY-hbWKg7FWAG27zrU2ZshA&authuser=0"
