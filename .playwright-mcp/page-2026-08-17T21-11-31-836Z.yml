@@ -1,0 +1,309 @@
+- generic [active] [ref=f14e1]:
+  - link "Skip to content" [ref=f14e2] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=f14e3]:
+    - generic [ref=f14e4]:
+      - link "Dainty Trading" [ref=f14e5] [cursor=pointer]:
+        - /url: /
+      - navigation "Primary" [ref=f14e7]:
+        - link "Projects" [ref=f14e8] [cursor=pointer]:
+          - /url: /work.html
+        - link "Services" [ref=f14e9] [cursor=pointer]:
+          - /url: /services.html
+        - link "SEO/GEO" [ref=f14e10] [cursor=pointer]:
+          - /url: /services/seo-geo-optimization.html
+        - link "Blog" [ref=f14e11] [cursor=pointer]:
+          - /url: /blog.html
+        - link "About" [ref=f14e12] [cursor=pointer]:
+          - /url: /about.html
+        - link "Contact" [ref=f14e13] [cursor=pointer]:
+          - /url: /contact.html
+        - link "Start a project" [ref=f14e14] [cursor=pointer]:
+          - /url: /contact.html
+  - main [ref=f14e15]:
+    - generic [ref=f14e19]:
+      - generic [ref=f14e20]: AI Automation Studio · 37 Products
+      - heading "We ship AI software that earns its keep." [level=1] [ref=f14e21]
+      - paragraph [ref=f14e22]: For SaaS founders and operators who need AI in production — not in a slide deck. We’ve built 37 products ourselves — email triage, AI tutors, content engines, CRM tools — so your project gets proven infrastructure from day one. First working demo in 1–2 weeks.
+      - generic [ref=f14e23]:
+        - link "Start a project →" [ref=f14e24] [cursor=pointer]:
+          - /url: /contact.html
+        - link "See what we’ve built" [ref=f14e25] [cursor=pointer]:
+          - /url: "#featured-work"
+      - generic [ref=f14e26]:
+        - generic [ref=f14e27]: ✓ No retainer
+        - generic [ref=f14e28]: ✓ Demo in 2 weeks
+        - generic [ref=f14e29]: ✓ Scoped in 48 hours
+    - generic [ref=f14e31]:
+      - paragraph [ref=f14e32]: This is for you if…
+      - generic [ref=f14e33]:
+        - generic [ref=f14e34]:
+          - generic [ref=f14e35]: ✓
+          - generic [ref=f14e36]:
+            - strong [ref=f14e37]: You’re a SaaS founder
+            - paragraph [ref=f14e38]: You have a workflow that still runs on people, not software — and you want to change that without a six-month engineering project.
+        - generic [ref=f14e39]:
+          - generic [ref=f14e40]: ✓
+          - generic [ref=f14e41]:
+            - strong [ref=f14e42]: You’re a CTO or technical lead
+            - paragraph [ref=f14e43]: You know where AI could help but don’t have the team to build the eval pipeline, prompt ops, and infrastructure that make it reliable.
+        - generic [ref=f14e44]:
+          - generic [ref=f14e45]: ✓
+          - generic [ref=f14e46]:
+            - strong [ref=f14e47]: You’ve done the research
+            - paragraph [ref=f14e48]: You know what an LLM is. You know the business case. You need a team that’s actually shipped it in production — not just demo’d it.
+    - generic [ref=f14e51]:
+      - generic [ref=f14e52]:
+        - generic [ref=f14e53]: "37"
+        - generic [ref=f14e54]: Products shipped & in-flight
+      - generic [ref=f14e55]:
+        - generic [ref=f14e56]: "24"
+        - generic [ref=f14e57]: LLM-powered apps
+      - generic [ref=f14e58]:
+        - generic [ref=f14e59]: "5"
+        - generic [ref=f14e60]: Verticals served
+      - generic [ref=f14e61]:
+        - generic [ref=f14e62]: 100%
+        - generic [ref=f14e63]: Built & operated in-house
+    - generic [ref=f14e65]:
+      - generic [ref=f14e66]:
+        - heading "Why Dainty Trading" [level=2] [ref=f14e67]
+        - paragraph [ref=f14e68]: Most AI agencies spend eight weeks writing a deck. We spend it writing code.
+      - generic [ref=f14e69]:
+        - generic [ref=f14e70]:
+          - generic [ref=f14e71]: "01"
+          - heading "Proof of work, not pitch decks" [level=3] [ref=f14e72]
+          - paragraph [ref=f14e73]: We have 37 products — 17 live and paying — you can click on right now. Every project page shows the real stack, the build timeline, and what broke. That’s the portfolio. Judge us on it.
+        - generic [ref=f14e74]:
+          - generic [ref=f14e75]: "02"
+          - heading "Speed that’s earned, not promised" [level=3] [ref=f14e76]
+          - paragraph [ref=f14e77]: First working demo in 1–2 weeks. First paying customer in 4–8 weeks. We move fast because we’ve already built the boring parts — billing, auth, LLM routing, observability — and reuse them across every project.
+        - generic [ref=f14e78]:
+          - generic [ref=f14e79]: "03"
+          - heading "Proven plumbing, not glued-together demos" [level=3] [ref=f14e80]
+          - paragraph [ref=f14e81]: "We’ve already built the layer most AI projects trip over — routing, billing, observability, evals. Every client gets it on day one, because we run it for our own products first. Stack: Claude · LiteLLM · n8n · FastAPI · Postgres"
+        - generic [ref=f14e82]:
+          - generic [ref=f14e83]: "04"
+          - heading "We align on P&L, not feature lists" [level=3] [ref=f14e84]
+          - paragraph [ref=f14e85]: AI that doesn’t reduce headcount, cut support tickets, or generate revenue isn’t AI — it’s a line item. We build to measurable outcomes and tell you what success looks like before we start.
+    - generic [ref=f14e87]:
+      - generic [ref=f14e88]:
+        - heading "How an engagement works" [level=2] [ref=f14e89]
+        - paragraph [ref=f14e90]: Hard deadlines at every stage. No discovery phase that lasts longer than the build.
+      - generic [ref=f14e91]:
+        - generic [ref=f14e92]:
+          - generic [ref=f14e93]: Day 1
+          - heading "Brief received" [level=3] [ref=f14e94]
+          - paragraph [ref=f14e95]: Fill in the contact form. We reply with our read on the project and any clarifying questions — same business day.
+        - generic [ref=f14e96]:
+          - generic [ref=f14e97]: Week 1
+          - heading "Scope agreed" [level=3] [ref=f14e98]
+          - paragraph [ref=f14e99]: "If it’s a fit, we send a one-page scope for the first sprint: fixed price, hard end date, and exactly what you’ll have at the end of it."
+        - generic [ref=f14e100]:
+          - generic [ref=f14e101]: Week 2
+          - heading "First demo live" [level=3] [ref=f14e102]
+          - paragraph [ref=f14e103]: A working slice of your product, deployed somewhere you can use it. Not a mockup, not a Figma — running software.
+      - paragraph [ref=f14e104]:
+        - link "Start a project →" [ref=f14e105] [cursor=pointer]:
+          - /url: /contact.html
+    - generic [ref=f14e107]:
+      - generic [ref=f14e108]:
+        - heading "A few of the 37" [level=2] [ref=f14e109]
+        - paragraph [ref=f14e110]:
+          - text: Four live products with real usage behind them.
+          - link "See the full portfolio →" [ref=f14e111] [cursor=pointer]:
+            - /url: /work.html
+      - generic [ref=f14e112]:
+        - link "AI · Education BrightPath Personalised K-12 online school with an AI tutor named Pax, gamified rewards, and progress tracking that actually nudges kids. AI tutor in production · K–12 students on-platform daily Read the story →" [ref=f14e113] [cursor=pointer]:
+          - /url: /projects/brightpath.html
+          - generic [ref=f14e114]: AI · Education
+          - heading "BrightPath" [level=3] [ref=f14e115]
+          - paragraph [ref=f14e116]: Personalised K-12 online school with an AI tutor named Pax, gamified rewards, and progress tracking that actually nudges kids.
+          - generic [ref=f14e117]: AI tutor in production · K–12 students on-platform daily
+          - generic [ref=f14e118]: Read the story →
+        - link "AI · Productivity Email Triage Claude-powered email categorizer that scores priority, drafts replies, and runs across multiple Gmail and Outlook accounts. 200+ emails processed daily · Runs across Gmail & Outlook Read the story →" [ref=f14e119] [cursor=pointer]:
+          - /url: /projects/emailtriage.html
+          - generic [ref=f14e120]: AI · Productivity
+          - heading "Email Triage" [level=3] [ref=f14e121]
+          - paragraph [ref=f14e122]: Claude-powered email categorizer that scores priority, drafts replies, and runs across multiple Gmail and Outlook accounts.
+          - generic [ref=f14e123]: 200+ emails processed daily · Runs across Gmail & Outlook
+          - generic [ref=f14e124]: Read the story →
+        - 'link "AI · Content Ghost Writer End-to-end content engine: detects trending topics, writes 1,500-word articles, runs 6-layer quality checks, and auto-publishes to LinkedIn and Medium. 3 articles/week published · No human writer in the loop Read the story →" [ref=f14e125] [cursor=pointer]':
+          - /url: /projects/ghost-writer.html
+          - generic [ref=f14e126]: AI · Content
+          - heading "Ghost Writer" [level=3] [ref=f14e127]
+          - paragraph [ref=f14e128]: "End-to-end content engine: detects trending topics, writes 1,500-word articles, runs 6-layer quality checks, and auto-publishes to LinkedIn and Medium."
+          - generic [ref=f14e129]: 3 articles/week published · No human writer in the loop
+          - generic [ref=f14e130]: Read the story →
+        - link "Finance · Automation Solar Loan Reconciler Built for a financial company. Collects Mon–Fri solar loan transaction CSVs, matches them against the weekly Loan Payout Report, flags any gaps, and emails a clean HTML report to the loans team every Friday. Zero missed loans since go-live · Fully automated every Friday Read the story →" [ref=f14e131] [cursor=pointer]:
+          - /url: /projects/solar-loan-reconciler.html
+          - generic [ref=f14e132]: Finance · Automation
+          - heading "Solar Loan Reconciler" [level=3] [ref=f14e133]
+          - paragraph [ref=f14e134]: Built for a financial company. Collects Mon–Fri solar loan transaction CSVs, matches them against the weekly Loan Payout Report, flags any gaps, and emails a clean HTML report to the loans team every Friday.
+          - generic [ref=f14e135]: Zero missed loans since go-live · Fully automated every Friday
+          - generic [ref=f14e136]: Read the story →
+      - paragraph [ref=f14e137]:
+        - link "See all 17 live products & the full portfolio →" [ref=f14e138] [cursor=pointer]:
+          - /url: /work.html
+    - generic [ref=f14e140]:
+      - generic [ref=f14e141]:
+        - heading "AI Development Services" [level=2] [ref=f14e142]
+        - paragraph [ref=f14e143]: We don’t do AI demos. We ship AI features that show up in your P&L. Four things, done well.
+      - generic [ref=f14e144]:
+        - generic [ref=f14e145]:
+          - generic [ref=f14e146]: "01"
+          - heading [level=3] [ref=f14e147]:
+            - link "AI product builds" [ref=f14e148] [cursor=pointer]:
+              - /url: /services/ai-product-builds.html
+          - paragraph [ref=f14e149]: Full-stack delivery. We take an idea — yours or ours — and ship a paying product. Backend, frontend, mobile, billing, observability, and the LLM glue that makes it real.
+        - generic [ref=f14e150]:
+          - generic [ref=f14e151]: "02"
+          - heading [level=3] [ref=f14e152]:
+            - link "Automation retrofits" [ref=f14e153] [cursor=pointer]:
+              - /url: /services/ai-automation-retrofit.html
+          - paragraph [ref=f14e154]: Already have a SaaS or internal tool? We bolt in AI where it earns its keep — email triage, support deflection, content generation, structured extraction — without rewriting the world.
+        - generic [ref=f14e155]:
+          - generic [ref=f14e156]: "03"
+          - heading [level=3] [ref=f14e157]:
+            - link "AI infrastructure" [ref=f14e158] [cursor=pointer]:
+              - /url: /services/ai-infrastructure.html
+          - paragraph [ref=f14e159]: LLM gateways, prompt versioning, evals, queue workers, billing plumbing, observability. The unsexy layer that decides whether your AI feature stays up at 3am.
+        - generic [ref=f14e160]:
+          - generic [ref=f14e161]: "04"
+          - heading [level=3] [ref=f14e162]:
+            - link "SEO & GEO optimization" [ref=f14e163] [cursor=pointer]:
+              - /url: /services/seo-geo-optimization.html
+          - paragraph [ref=f14e164]: Get found by Google and by AI answer engines. We audit and fix meta tags, schema markup, llms.txt, and AI-crawler access — shipped directly to your codebase, not a PDF. Free audit, Setup from $2,900 AUD — not the $5k–$15k-plus retainer agencies typically quote for the same audit-and-fix scope.
+    - generic [ref=f14e166]:
+      - generic [ref=f14e167]:
+        - heading "How we work" [level=2] [ref=f14e168]
+        - paragraph [ref=f14e169]: No retainers, no long SoWs to sign. Three steps from brief to paying customers.
+      - generic [ref=f14e170]:
+        - generic [ref=f14e171]:
+          - generic [ref=f14e172]: "01"
+          - heading "Brief → scope in 48 hours" [level=3] [ref=f14e173]
+          - paragraph [ref=f14e174]: "Tell us the workflow or product in two paragraphs. We come back with a realistic scope: what ships in sprint one, what the stack looks like, and what it costs. No proposal theatre."
+        - generic [ref=f14e175]:
+          - generic [ref=f14e176]: "02"
+          - heading "Sprint one → demo in 1–2 weeks" [level=3] [ref=f14e177]
+          - paragraph [ref=f14e178]: We don’t start with architecture reviews. We ship the smallest thing that proves the idea works, put it in front of a real user, and let you decide whether to continue. One working feature. Deployed. Clickable.
+        - generic [ref=f14e179]:
+          - generic [ref=f14e180]: "03"
+          - heading "Iterate to a product → weeks 3–8" [level=3] [ref=f14e181]
+          - paragraph [ref=f14e182]: Each sprint adds one feature that earns its keep. Daily written updates. Weekly live demo. You own the roadmap; we own the execution. By week eight, you have paying customers or we’ve told you why.
+    - generic [ref=f14e184]:
+      - generic [ref=f14e185]:
+        - heading "Frequently asked questions" [level=2] [ref=f14e186]
+        - paragraph [ref=f14e187]: Short answers to what people ask before booking a call.
+      - generic [ref=f14e188]:
+        - group [ref=f14e189]:
+          - generic "What is Dainty Trading? –" [ref=f14e190] [cursor=pointer]
+          - paragraph [ref=f14e191]: Dainty Trading is an AI automation studio. We design, build, and operate production AI software — 37 products covering email, content, education, knowledge management, marketing automation, scheduling, billing, and SaaS infrastructure. Some are shipped and live; others are in final testing or active development. Each project page is honest about which.
+        - group [ref=f14e192]:
+          - generic "What kind of AI projects do you take on? +" [ref=f14e193] [cursor=pointer]
+        - group [ref=f14e194]:
+          - generic "What stack do you build on? +" [ref=f14e195] [cursor=pointer]
+        - group [ref=f14e196]:
+          - generic "Do you only build with Claude? +" [ref=f14e197] [cursor=pointer]
+        - group [ref=f14e198]:
+          - generic "How fast can you ship? +" [ref=f14e199] [cursor=pointer]
+        - group [ref=f14e200]:
+          - generic "Where are you based? +" [ref=f14e201] [cursor=pointer]
+        - group [ref=f14e202]:
+          - generic "How do I start? +" [ref=f14e203] [cursor=pointer]
+      - generic [ref=f14e204]:
+        - heading "Have an AI idea you want shipped?" [level=2] [ref=f14e205]
+        - paragraph [ref=f14e206]: We pick a small number of client engagements each quarter. If you’ve got something concrete, let’s talk.
+        - link "Start a project →" [ref=f14e207] [cursor=pointer]:
+          - /url: /contact.html
+    - generic [ref=f14e209]:
+      - generic [ref=f14e210]:
+        - heading "From the blog" [level=2] [ref=f14e211]
+        - paragraph [ref=f14e212]: How we think about building AI in production.
+      - generic [ref=f14e213]:
+        - link "Process How long does it take to build a production AI agent? The demo takes a week. The gap to reliable production is evaluation pipelines, fallback handling, and edge cases — here’s the honest timeline. Read →" [ref=f14e214] [cursor=pointer]:
+          - /url: /blog/how-long-to-build-production-ai-agent.html
+          - generic [ref=f14e215]: Process
+          - heading "How long does it take to build a production AI agent?" [level=3] [ref=f14e216]
+          - paragraph [ref=f14e217]: The demo takes a week. The gap to reliable production is evaluation pipelines, fallback handling, and edge cases — here’s the honest timeline.
+          - generic [ref=f14e218]: Read →
+        - 'link "Engineering Rules Still Win: When Not to Use an LLM LLMs aren’t a silver bullet. Our decision tree for when deterministic rules outperform AI models — and when to use both. Read →" [ref=f14e219] [cursor=pointer]':
+          - /url: /blog/rules-still-win-when-not-to-use-llm.html
+          - generic [ref=f14e220]: Engineering
+          - 'heading "Rules Still Win: When Not to Use an LLM" [level=3] [ref=f14e221]'
+          - paragraph [ref=f14e222]: LLMs aren’t a silver bullet. Our decision tree for when deterministic rules outperform AI models — and when to use both.
+          - generic [ref=f14e223]: Read →
+        - 'link "Cost Token Cost Optimization: Where the Savings Actually Are The highest-ROI strategies for reducing LLM costs in production: prompt caching, model routing, context trimming, and output constraints. Read →" [ref=f14e224] [cursor=pointer]':
+          - /url: /blog/token-cost-optimization-savings.html
+          - generic [ref=f14e225]: Cost
+          - 'heading "Token Cost Optimization: Where the Savings Actually Are" [level=3] [ref=f14e226]'
+          - paragraph [ref=f14e227]: "The highest-ROI strategies for reducing LLM costs in production: prompt caching, model routing, context trimming, and output constraints."
+          - generic [ref=f14e228]: Read →
+      - paragraph [ref=f14e229]:
+        - link "View all posts →" [ref=f14e230] [cursor=pointer]:
+          - /url: /blog.html
+    - generic [ref=f14e232]:
+      - heading "What users say" [level=2] [ref=f14e233]
+      - figure [ref=f14e235]:
+        - blockquote [ref=f14e236]: “SATs week and we have been using BrightPath for about 2 weeks now. Ethan just learnt long division, in the space of a day and actually enjoyed the lessons. He asked me why didn’t school teach me this way — the step-by-step guides at the start help so much. Thanks for the help BrightPath team, keep up the good work.”
+        - generic [ref=f14e237]:
+          - text: ★★★★★
+          - strong [ref=f14e238]: Neil C
+          - text: · Parent of an 11-year-old · 2-week follow-up ·
+          - link "BrightPath" [ref=f14e239] [cursor=pointer]:
+            - /url: https://brightpath.school
+  - contentinfo [ref=f14e240]:
+    - generic [ref=f14e241]:
+      - generic [ref=f14e242]:
+        - generic [ref=f14e243]:
+          - link "Dainty Trading" [ref=f14e244] [cursor=pointer]:
+            - /url: /
+          - paragraph [ref=f14e246]: AI automation studio. We build production AI software for ourselves and selected clients.
+        - generic [ref=f14e247]:
+          - heading "Studio" [level=3] [ref=f14e248]
+          - link "About" [ref=f14e249] [cursor=pointer]:
+            - /url: /about.html
+          - link "Services" [ref=f14e250] [cursor=pointer]:
+            - /url: /services.html
+          - link "SEO/GEO" [ref=f14e251] [cursor=pointer]:
+            - /url: /services/seo-geo-optimization.html
+          - link "Blog" [ref=f14e252] [cursor=pointer]:
+            - /url: /blog.html
+          - link "Contact" [ref=f14e253] [cursor=pointer]:
+            - /url: /contact.html
+          - link "Leave a review" [ref=f14e254] [cursor=pointer]:
+            - /url: /review.html
+        - generic [ref=f14e255]:
+          - heading "Featured projects" [level=3] [ref=f14e256]
+          - link "Email Triage" [ref=f14e257] [cursor=pointer]:
+            - /url: /projects/emailtriage.html
+          - link "Ghost Writer" [ref=f14e258] [cursor=pointer]:
+            - /url: /projects/ghost-writer.html
+          - link "ConvoForge" [ref=f14e259] [cursor=pointer]:
+            - /url: /projects/convoforge.html
+          - link "BrightPath" [ref=f14e260] [cursor=pointer]:
+            - /url: /projects/brightpath.html
+        - generic [ref=f14e261]:
+          - heading "Resources" [level=3] [ref=f14e262]
+          - link "Sitemap" [ref=f14e263] [cursor=pointer]:
+            - /url: /sitemap.xml
+          - link "llms.txt" [ref=f14e264] [cursor=pointer]:
+            - /url: /llms.txt
+          - link "robots.txt" [ref=f14e265] [cursor=pointer]:
+            - /url: /robots.txt
+          - link "Privacy policy" [ref=f14e266] [cursor=pointer]:
+            - /url: /privacy.html
+          - link "Terms of service" [ref=f14e267] [cursor=pointer]:
+            - /url: /terms.html
+          - link "Australia" [ref=f14e268] [cursor=pointer]:
+            - /url: /australia.html
+          - link "USA" [ref=f14e269] [cursor=pointer]:
+            - /url: /usa.html
+          - link "UK" [ref=f14e270] [cursor=pointer]:
+            - /url: /uk.html
+      - generic [ref=f14e271]:
+        - generic [ref=f14e272]: © 2026 Dainty Trading · ABN 65 366 917 788 · All rights reserved.
+        - generic [ref=f14e273]:
+          - text: "Phone:"
+          - button "show" [ref=f14e274] [cursor=pointer]
+          - text: · Built in Australia.

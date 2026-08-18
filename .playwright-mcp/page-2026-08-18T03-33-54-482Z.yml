@@ -1,0 +1,25 @@
+- generic [ref=f18e2]:
+  - main [ref=f18e3]:
+    - heading "Andrew Dainty" [level=1] [ref=f18e7]
+    - generic [ref=f18e8]:
+      - link [ref=f18e9] [cursor=pointer]:
+        - /url: /andrewdainty/daintytrading
+        - generic [ref=f18e11]:
+          - heading "Dainty Trading AI Software Development" [level=2] [ref=f18e13]
+          - generic [ref=f18e14]:
+            - paragraph [ref=f18e16]: Dainty Trading is an Australian AI development studio. We build production AI software — LLM-powered products, AI features for existing SaaS, and the infrastructure to keep it all running. You can book a meeting to go over your project details.
+            - list [ref=f18e17]:
+              - listitem [ref=f18e18]:
+                - generic [ref=f18e19]: 15m
+              - listitem [ref=f18e21]:
+                - generic [ref=f18e22]: 30m
+      - link [ref=f18e24] [cursor=pointer]:
+        - /url: /andrewdainty/blackwall-labs
+        - generic [ref=f18e26]:
+          - heading "Blackwall Labs — Diagnostic Call" [level=2] [ref=f18e28]
+          - generic [ref=f18e29]:
+            - paragraph [ref=f18e31]: A direct conversation about where AI agents could actually help your business — and where they can't. We'll walk through your current workflows and talk through what's realistic to automate. You'll leave knowing whether a Diagnostic (AU$4,500 fixed, 1–2 weeks) makes sense for you — no pitch deck, no obligation to continue.
+            - list [ref=f18e32]:
+              - listitem [ref=f18e33]:
+                - generic [ref=f18e34]: 20m
+  - region "Notifications alt+T"

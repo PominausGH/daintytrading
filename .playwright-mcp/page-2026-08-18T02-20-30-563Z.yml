@@ -1,0 +1,86 @@
+- generic "Google Maps" [ref=f15e2]:
+  - generic [ref=f15e3]:
+    - application [ref=f15e8]
+    - generic [ref=f15e11]:
+      - main "daintytrading" [ref=f15e17]:
+        - generic [ref=f15e18]:
+          - generic [ref=f15e19]:
+            - button "Photo of daintytrading" [active] [ref=f15e21] [cursor=pointer]
+            - button "See photos" [ref=f15e22] [cursor=pointer]:
+              - generic [ref=f15e23]: 
+          - generic [ref=f15e27]:
+            - heading "daintytrading" [level=1] [ref=f15e29]
+            - button "Software company" [ref=f15e35]
+          - region "Actions for daintytrading" [ref=f15e38]:
+            - button "Save" [ref=f15e40] [cursor=pointer]:
+              - generic [ref=f15e41]: 
+            - button "Send to phone" [ref=f15e45] [cursor=pointer]:
+              - generic [ref=f15e46]: 
+            - button "Share" [ref=f15e50] [cursor=pointer]:
+              - generic [ref=f15e51]: 
+          - region "Information for daintytrading" [ref=f15e56]:
+            - button "Hours Open 24 hours Show open hours for the week" [ref=f15e58] [cursor=pointer]:
+              - img "Hours" [ref=f15e59]: 
+              - generic [ref=f15e61]:
+                - generic [ref=f15e62]: Open 24 hours
+                - img "Show open hours for the week" [ref=f15e64]: 
+            - generic [ref=f15e65]:
+              - link "daintytrading.com" [ref=f15e66] [cursor=pointer]:
+                - /url: https://cal.daintytrading.com/
+                - generic [ref=f15e67]:
+                  - generic [ref=f15e68]: 
+                  - generic [ref=f15e70]: daintytrading.com
+              - link "Open booking link" [ref=f15e74] [cursor=pointer]:
+                - /url: https://cal.daintytrading.com/
+                - generic [ref=f15e75]: 
+            - generic [ref=f15e77]:
+              - 'link "Website: daintytrading.com" [ref=f15e78] [cursor=pointer]':
+                - /url: https://daintytrading.com/
+                - generic [ref=f15e79]:
+                  - generic [ref=f15e80]: 
+                  - generic [ref=f15e82]: daintytrading.com
+              - generic [ref=f15e84]:
+                - link "Open website" [ref=f15e86] [cursor=pointer]:
+                  - /url: https://daintytrading.com/
+                  - generic [ref=f15e87]: 
+                - button "Copy website" [ref=f15e90] [cursor=pointer]:
+                  - generic [ref=f15e91]: 
+            - generic [ref=f15e93]:
+              - 'button "Phone: +61 485 013 007" [ref=f15e94] [cursor=pointer]':
+                - generic [ref=f15e95]:
+                  - generic [ref=f15e96]: 
+                  - generic [ref=f15e98]: +61 485 013 007
+              - generic [ref=f15e100]:
+                - button "Copy phone number" [ref=f15e102] [cursor=pointer]:
+                  - generic [ref=f15e103]: 
+                - link "Call phone number" [ref=f15e106] [cursor=pointer]:
+                  - /url: tel:+61485013007
+                  - generic [ref=f15e107]: 
+          - button "Suggest an edit" [ref=f15e112] [cursor=pointer]:
+            - generic [ref=f15e113]:
+              - generic [ref=f15e114]: 
+              - generic [ref=f15e115]: Suggest an edit
+          - generic [ref=f15e118]:
+            - heading "Add missing information" [level=2] [ref=f15e119]
+            - button "More info" [ref=f15e120] [cursor=pointer]:
+              - generic [ref=f15e121]: 
+          - button "Add a photo" [ref=f15e123]:
+            - generic [ref=f15e124]:
+              - generic [ref=f15e125]: 
+              - generic [ref=f15e126]: Add a photo
+          - button "Write a review" [ref=f15e132] [cursor=pointer]:
+            - generic [ref=f15e133]:
+              - generic [ref=f15e134]: 
+              - generic [ref=f15e135]: Write a review
+          - link "About this data" [ref=f15e140] [cursor=pointer]:
+            - /url: https://support.google.com/local-listings?p=how_google_sources&authuser=0&hl=en
+          - generic [ref=f15e145]:
+            - generic [ref=f15e146]: 
+            - generic [ref=f15e148]:
+              - text: You're seeing a limited view of Google Maps.
+              - button "Learn more about limited view" [ref=f15e149] [cursor=pointer]: Learn more
+          - heading "Get the most out of Google Maps Sign in" [level=2] [ref=f15e153]:
+            - generic [ref=f15e154]: Get the most out of Google Maps
+            - button "Sign in" [ref=f15e157] [cursor=pointer]
+      - button "Collapse side panel" [ref=f15e161] [cursor=pointer]:
+        - generic [ref=f15e162]: 

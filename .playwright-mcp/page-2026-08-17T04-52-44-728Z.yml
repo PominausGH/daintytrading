@@ -1,0 +1,66 @@
+- generic [active] [ref=f11e1]:
+  - navigation [ref=f11e2]:
+    - generic [ref=f11e4]:
+      - link "BizPage" [ref=f11e5] [cursor=pointer]:
+        - /url: /
+      - generic [ref=f11e10]:
+        - button "Toggle dark mode" [ref=f11e11] [cursor=pointer]
+        - link "Blog" [ref=f11e14] [cursor=pointer]:
+          - /url: /blog
+        - link "Login" [ref=f11e16] [cursor=pointer]:
+          - /url: /auth/login
+  - main [ref=f11e17]:
+    - generic [ref=f11e19]:
+      - generic [ref=f11e20]:
+        - heading "Claim your business" [level=1] [ref=f11e21]
+        - paragraph [ref=f11e22]: Find your listing on Google, verify it's yours, and get your free website today.
+      - generic [ref=f11e24]:
+        - generic [ref=f11e25]:
+          - generic [ref=f11e26]: Business name
+          - textbox "Business name" [ref=f11e27]:
+            - /placeholder: e.g. Ironbridge Plumbing & Gas
+        - generic [ref=f11e28]:
+          - generic [ref=f11e29]: Suburb / city
+          - textbox "Suburb / city" [ref=f11e30]:
+            - /placeholder: e.g. Newstead
+        - generic [ref=f11e31]:
+          - generic [ref=f11e32]: Country
+          - combobox "Country" [ref=f11e33]:
+            - option "🇦🇺 Australia" [selected]
+            - option "🇬🇧 United Kingdom"
+        - button "Find my business" [ref=f11e34] [cursor=pointer]
+  - contentinfo [ref=f11e35]:
+    - generic [ref=f11e36]:
+      - generic [ref=f11e37]:
+        - generic [ref=f11e38]:
+          - link "BizPage Builder" [ref=f11e39] [cursor=pointer]:
+            - /url: /
+          - paragraph [ref=f11e44]: We build free, professional websites for local businesses in Australia and the UK using your Google Maps data.
+        - generic [ref=f11e45]:
+          - paragraph [ref=f11e46]: Legal
+          - list [ref=f11e47]:
+            - listitem [ref=f11e48]:
+              - link "Terms of Service" [ref=f11e49] [cursor=pointer]:
+                - /url: /terms
+            - listitem [ref=f11e50]:
+              - link "Privacy Policy" [ref=f11e51] [cursor=pointer]:
+                - /url: /privacy
+            - listitem [ref=f11e52]:
+              - link "Google ToS" [ref=f11e53] [cursor=pointer]:
+                - /url: https://cloud.google.com/maps-platform/terms
+        - generic [ref=f11e54]:
+          - paragraph [ref=f11e55]: Contact
+          - list [ref=f11e56]:
+            - listitem [ref=f11e57]:
+              - link "Get in touch" [ref=f11e58] [cursor=pointer]:
+                - /url: /contact
+            - listitem [ref=f11e59]:
+              - button "Email us" [ref=f11e60] [cursor=pointer]
+        - generic [ref=f11e61]:
+          - paragraph [ref=f11e62]: Data
+          - paragraph [ref=f11e63]: Business data retrieved in real-time via official Google Maps Platform APIs. Not stored without consent.
+      - generic [ref=f11e64]:
+        - text: © 2026 BizPage Builder. Built with the Google Maps Platform. Built by
+        - link "Dainty Trading" [ref=f11e65] [cursor=pointer]:
+          - /url: https://daintytrading.com
+        - text: .
