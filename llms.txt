@@ -32,7 +32,7 @@
 - [AutoArchive](https://daintytrading.com/projects/autoarchive.html) — live at **autoarchivemail.com**. Personal email archive and search. Static HTML + Node + SQLite + Brevo.
 - [TimerForge](https://daintytrading.com/projects/timerforge.html) — live at **timerforge.app**. Cross-platform countdown timer. PyQt6 desktop apps + Node web SaaS, Stripe-billed.
 - [Email Cleanup](https://daintytrading.com/projects/emailcleanup.html) — live at **emailcleanup.daintytrading.com**. FastAPI service for bulk email validation and disposable-provider detection.
-- [ConvoForge](https://daintytrading.com/projects/convoforge.html) — live at **convoforge.signalreads.com**. Multimodal communication coach. Speech analysis, body language detection, AI avatar roleplay, real-time meeting overlay.
+- [ConvoForge](https://daintytrading.com/projects/convoforge.html) — live at **convoforge.app**. Multimodal communication coach. Speech analysis, body language detection, AI avatar roleplay, real-time meeting overlay.
 - [Solar Loan Reconciler](https://daintytrading.com/projects/solar-loan-reconciler.html) — live, built for a financial company. Collects Mon–Fri solar loan transaction CSVs, matches them against the weekly Loan Payout Report, flags gaps, and emails a clean HTML report to the loans team every Friday.
 - [Nudgle](https://daintytrading.com/projects/skeddy.html) — live at **nudgle.app**. Telegram reminder bot with Claude-powered natural-language scheduling.
 - [Marketing OS](https://daintytrading.com/projects/marketing-os.html) — live, internal use only (no public domain). Marketing operations platform: campaigns, briefs, Puppeteer-based SEO/a11y audits, AI-assisted brief queue.
