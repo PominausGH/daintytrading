@@ -1,0 +1,121 @@
+- generic "Google Maps" [ref=e2]:
+  - generic [ref=e3]:
+    - application "Map · Use arrow keys to pan the map. · Get details about a place by pressing its corresponding number key." [ref=e176]
+    - search [ref=e181]:
+      - button "Menu" [ref=e183] [cursor=pointer]:
+        - generic [ref=e184]: 
+      - generic [ref=e185]:
+        - combobox [ref=e187]: daintytrading
+        - button "Search" [ref=e189] [cursor=pointer]:
+          - generic [ref=e190]: 
+        - button "Close" [ref=e192] [cursor=pointer]:
+          - generic [ref=e193]: 
+    - generic [ref=e11]:
+      - main "daintytrading" [ref=e20]:
+        - generic [active] [ref=e21]:
+          - generic [ref=e22]:
+            - button "Photo of daintytrading" [ref=e24] [cursor=pointer]
+            - button "See photos" [ref=e25] [cursor=pointer]:
+              - generic [ref=e26]: 
+          - generic [ref=e30]:
+            - heading "daintytrading" [level=1] [ref=e32]
+            - generic [ref=e34]:
+              - generic [ref=e37]:
+                - text: "5.0"
+                - img "5.0 stars" [ref=e38]
+              - button "Software company" [ref=e47]
+          - region "Actions for daintytrading" [ref=e50]:
+            - button "Save" [ref=e52] [cursor=pointer]:
+              - generic [ref=e53]: 
+            - button "Send to phone" [ref=e57] [cursor=pointer]:
+              - generic [ref=e58]: 
+            - button "Share" [ref=e62] [cursor=pointer]:
+              - generic [ref=e63]: 
+          - region "Information for daintytrading" [ref=e68]:
+            - button "Hours Open 24 hours Show open hours for the week" [ref=e70] [cursor=pointer]:
+              - img "Hours" [ref=e71]: 
+              - generic [ref=e73]:
+                - generic [ref=e74]: Open 24 hours
+                - img "Show open hours for the week" [ref=e76]: 
+            - generic [ref=e77]:
+              - link "daintytrading.com" [ref=e78] [cursor=pointer]:
+                - /url: https://cal.daintytrading.com/andrewdainty
+                - generic [ref=e79]:
+                  - generic [ref=e80]: 
+                  - generic [ref=e82]: daintytrading.com
+              - link "Open booking link" [ref=e86] [cursor=pointer]:
+                - /url: https://cal.daintytrading.com/andrewdainty
+                - generic [ref=e87]: 
+            - generic [ref=e89]:
+              - 'link "Website: daintytrading.com" [ref=e90] [cursor=pointer]':
+                - /url: https://daintytrading.com/
+                - generic [ref=e91]:
+                  - generic [ref=e92]: 
+                  - generic [ref=e94]: daintytrading.com
+              - generic [ref=e96]:
+                - link "Open website" [ref=e98] [cursor=pointer]:
+                  - /url: https://daintytrading.com/
+                  - generic [ref=e99]: 
+                - button "Copy website" [ref=e102] [cursor=pointer]:
+                  - generic [ref=e103]: 
+            - generic [ref=e105]:
+              - 'button "Phone: +61 485 013 007" [ref=e106] [cursor=pointer]':
+                - generic [ref=e107]:
+                  - generic [ref=e108]: 
+                  - generic [ref=e110]: +61 485 013 007
+              - generic [ref=e112]:
+                - button "Copy phone number" [ref=e114] [cursor=pointer]:
+                  - generic [ref=e115]: 
+                - link "Call phone number" [ref=e118] [cursor=pointer]:
+                  - /url: tel:+61485013007
+                  - generic [ref=e119]: 
+          - button "Suggest an edit" [ref=e124] [cursor=pointer]:
+            - generic [ref=e125]:
+              - generic [ref=e126]: 
+              - generic [ref=e127]: Suggest an edit
+          - generic [ref=e130]:
+            - heading "Add missing information" [level=2] [ref=e131]
+            - button "More info" [ref=e132] [cursor=pointer]:
+              - generic [ref=e133]: 
+          - button "Add a photo" [ref=e135]:
+            - generic [ref=e136]:
+              - generic [ref=e137]: 
+              - generic [ref=e138]: Add a photo
+          - button "Write a review" [ref=e144] [cursor=pointer]:
+            - generic [ref=e145]:
+              - generic [ref=e146]: 
+              - generic [ref=e147]: Write a review
+          - link "About this data" [ref=e152] [cursor=pointer]:
+            - /url: https://support.google.com/local-listings?p=how_google_sources&authuser=0&hl=en
+          - generic [ref=e157]:
+            - generic [ref=e158]: 
+            - generic [ref=e160]:
+              - text: You're seeing a limited view of Google Maps.
+              - button "Learn more about limited view" [ref=e161] [cursor=pointer]: Learn more
+          - heading "Get the most out of Google Maps Sign in" [level=2] [ref=e165]:
+            - generic [ref=e166]: Get the most out of Google Maps
+            - button "Sign in" [ref=e169] [cursor=pointer]
+      - button "Collapse side panel" [ref=e173] [cursor=pointer]:
+        - generic [ref=e174]: 
+    - generic [ref=e198]:
+      - button "Google apps" [ref=e202] [cursor=pointer]
+      - link "Sign in" [ref=e206] [cursor=pointer]:
+        - /url: https://accounts.google.com/ServiceLogin?hl=en&passive=true&continue=https%3A%2F%2Fwww.google.com%2Fmaps%2Fplace%2Fdaintytrading%2F%409.3741102%2C142.1078415%2C2z%2Fdata%3D!3m1!4b1!4m6!3m5!1s0x846a38755be952d9%3A0xbe863644e908a6cf!8m2!3d9.3741102!4d142.1078416!16s%252Fg%252F11ntdgg_kf%3Fved%3D1t%253A314688&service=local&ec=GAZAcQ
+    - generic [ref=e207]:
+      - generic:
+        - button "Show Your Location" [ref=e210] [cursor=pointer]:
+          - generic [ref=e212]: 
+        - generic [ref=e214] [cursor=pointer]:
+          - button "Zoom in" [ref=e215]:
+            - generic [ref=e217]: 
+          - button "Zoom out" [disabled] [ref=e218]:
+            - generic [ref=e220]: 
+      - button "Browse Street View images" [ref=e226]
+    - generic [ref=e233]:
+      - contentinfo [ref=e236]:
+        - text: Map data ©2026
+        - button "India" [ref=e237] [cursor=pointer]
+        - button "Terms" [ref=e238] [cursor=pointer]
+        - button "Privacy" [ref=e239] [cursor=pointer]
+        - button "Send Product Feedback" [ref=e240] [cursor=pointer]
+      - button "2000 km" [ref=e242] [cursor=pointer]

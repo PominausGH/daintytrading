@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Why Most AI Agent Projects Never Make It Past the Demo &mdash; Dainty Trading</title>
+  <meta name="description" content="The gap between an AI agent demo and a shipped product isn't the model — it's evals, failure handling, and the edge cases real users find in week one." />
+  <link rel="canonical" href="https://daintytrading.com/blog/ai-agent-demo-to-production-gap.html" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0c10" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Why Most AI Agent Projects Never Make It Past the Demo" />
+  <meta property="og:description" content="The gap between an AI agent demo and a shipped product isn't the model — it's evals, failure handling, and the edge cases real users find in week one." />
+  <meta property="og:url" content="https://daintytrading.com/blog/ai-agent-demo-to-production-gap.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Why Most AI Agent Projects Never Make It Past the Demo",
+    "description": "The gap between an AI agent demo and a shipped product isn't the model — it's evals, failure handling, and the edge cases real users find in week one.",
+    "url": "https://daintytrading.com/blog/ai-agent-demo-to-production-gap.html",
+    "datePublished": "2026-08-20",
+    "dateModified": "2026-08-20",
+    "author": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "publisher": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "mainEntityOfPage": "https://daintytrading.com/blog/ai-agent-demo-to-production-gap.html"
+  }
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a>
+        <a href="/services.html">Services</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/blog.html">Blog</a> &nbsp;/&nbsp; AI · Engineering</div>
+        <h1>Why Most AI Agent Projects Never Make It Past the Demo</h1>
+        <p class="lede">The gap between an AI agent demo and a shipped product isn't the model — it's evals, failure handling, and the edge cases real users find in week one.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Topic</strong>&nbsp; AI · Engineering</span>
+          <span class="chip"><strong>Published</strong>&nbsp; 20 August 2026</span>
+          <span class="chip"><strong>Read time</strong>&nbsp; 4 min</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <p>Most AI agent demos take a weekend to build. Most AI agents that survive contact with real users take three to six months longer than that to ship — and the majority of projects never close that gap. They stall in an internal Slack channel as "the thing we showed leadership," get quietly deprioritized, or ship and get turned off after the first bad week. The reason isn't the model. It's that a demo only has to work once, in front of a friendly audience, on inputs you chose. A shipped agent has to work on the thousandth input, chosen by someone who doesn't care how it works and has no patience for it failing.</p>
+
+<h2>The common wrong approach</h2>
+<p>Most teams build the happy path first and call it the product. The LLM gets a clean prompt, calls a tool, gets a well-formed response back, and produces a good answer. Three or four scripted examples later, everyone in the room is convinced. What doesn't happen in that room: someone pastes in a wall of unformatted text, a tool call times out, the API returns a rate-limit error mid-conversation, or the model decides to call a tool with an argument that doesn't match the schema. None of that shows up in a demo, because demos are curated by definition.</p>
+<p>The failure mode is almost always silent. The agent doesn't crash — it produces a confident, wrong answer, or it hangs, or it loops. Nobody notices until a user does, and by then the team has already told stakeholders it's "basically done."</p>
+
+<h2>The better approach</h2>
+<p>We treat the agent as a distributed system with an unreliable component in the middle, because that's what it is. On <strong>Email Triage</strong>, one of our internal tools that classifies and routes inbound support email, the actual build time split roughly 20% on the core classification prompt and 80% on everything around it.</p>
+<p>Concretely, that means: every tool call is validated against a strict JSON schema before it executes, not after — malformed arguments get rejected and retried with a corrective message rather than passed through. Every external call (model API, tool, database) has a timeout and a bounded retry with backoff, because rate limits and transient failures aren't edge cases, they're Tuesday. We run requests through a gateway (we've used LiteLLM and Portkey depending on the client) so a provider outage or a rate-limit wall doesn't take the whole system down — it fails over or queues instead of erroring out to the user.</p>
+<p>The part teams skip entirely is the eval set. Before we call anything production-ready, we build a corpus of real or realistic inputs — pulled from actual user data where possible, adversarially written where not — and run the agent against it on every change. Not five examples. Fifty to a few hundred, covering malformed input, ambiguous requests, and cases where the correct behavior is to say "I don't know" rather than guess. On <strong>CV Matcher</strong>, our resume-screening agent, the eval set is what caught the model confidently matching candidates against the wrong job requisition when two postings had similar titles — something no demo would ever surface, because nobody demos with confusing data on purpose.</p>
+<p>Finally, every agent gets a defined failure path: a human review queue, a "hand off to a person" branch, or a hard stop with a clear error — never a silent best-effort answer on a low-confidence output.</p>
+
+<h2>Where this breaks</h2>
+<p>This is real overhead, and for some projects it's not worth paying yet. A single-user internal tool with low stakes and a forgiving audience doesn't need a hundred-example eval harness before its first real use — it needs someone watching the logs for a week. Building the full guardrail stack before you have any real usage data is its own trap: you end up hardening against failure modes you invented instead of the ones that actually occur. The honest line is stakes and reversibility. An agent that drafts an email for a human to approve can ship rough. An agent that sends the email, deletes a record, or moves money needs the eval set and the fallback path before it touches a real user, not after.</p>
+
+<h2>Practical next step</h2>
+<p>Take your current demo and run it against twenty inputs you didn't write yourself — pull them from support tickets, ask a colleague to try to break it, or grab real (anonymized) user data if you have it. Log every failure, even the ones that seem minor. That list is your first eval set and your actual roadmap to shipping, and it will look nothing like your demo script. If you want a second pair of eyes on where your agent is likely to fail before your users find out, <a href="https://daintytrading.com/contact.html">start a project</a> with us.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>About this post</h4>
+          <div class="label-row"><span>Published</span><span>20 August 2026</span></div>
+          <div class="label-row"><span>Topic</span><span>AI · Engineering</span></div>
+          <div class="label-row"><span>Read time</span><span>4 min</span></div>
+          <div class="label-row"><span>Author</span><span>Dainty Trading</span></div>
+          <a class="btn btn-primary" href="https://daintytrading.com/contact.html">Start a project &rarr;</a>
+          <a class="btn btn-ghost" href="/services.html">See our services</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Blog navigation">
+        <a href="/blog.html"><div class="lbl">&larr; Back</div><div class="ttl">All posts</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="/" class="brand" style="margin-bottom:14px;">
+            <span class="brand-mark" aria-hidden="true"></span>
+            Dainty Trading
+          </a>
+          <p class="muted" style="font-size:13.5px; max-width:360px;">
+            AI automation studio. We build production AI software for ourselves and selected clients.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Studio</h4>
+          <a href="/about.html">About</a>
+          <a href="/services.html">Services</a>
+          <a href="/blog.html">Blog</a>
+          <a href="/contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Featured projects</h4>
+          <a href="/projects/emailtriage.html">Email Triage</a>
+          <a href="/projects/ghost-writer.html">Ghost Writer</a>
+          <a href="/projects/convoforge.html">ConvoForge</a>
+          <a href="/projects/brightpath.html">BrightPath</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="/sitemap.xml">Sitemap</a>
+          <a href="/llms.txt">llms.txt</a>
+          <a href="/robots.txt">robots.txt</a>
+          <a href="/privacy.html">Privacy policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Dainty Trading. All rights reserved.</span>
+        <span>Built in Australia.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

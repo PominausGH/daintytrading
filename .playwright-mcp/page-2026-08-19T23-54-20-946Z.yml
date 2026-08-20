@@ -1,0 +1,12 @@
+- generic [ref=f2e2]:
+  - separator [ref=f2e3]
+  - iframe [ref=f2e8]:
+    - generic [ref=f3e2]:
+      - generic [ref=f3e3]:
+        - checkbox "I'm not a robot" [ref=f3e7]
+        - generic [ref=f3e9]: I'm not a robot
+      - generic [ref=f3e12]: reCAPTCHA
+  - separator [ref=f2e9]
+  - generic [ref=f2e10]:
+    - text: About this page This network is blocked due to unaddressed abuse complaints about malicious behavior. This page checks to see if it's really a human sending the requests and not a robot coming from this network.
+    - generic [ref=f2e11]: "IP address: 2a02:4780:12:af6c::1Time: 2026-08-19T23:54:20ZURL: https://www.google.com/search?q=daintytrading+reviews"
