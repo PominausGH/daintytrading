@@ -34,12 +34,14 @@
 - [Email Cleanup](https://daintytrading.com/projects/emailcleanup.html) — live at **emailcleanup.daintytrading.com**. FastAPI service for bulk email validation and disposable-provider detection.
 - [ConvoForge](https://daintytrading.com/projects/convoforge.html) — live at **convoforge.signalreads.com**. Multimodal communication coach. Speech analysis, body language detection, AI avatar roleplay, real-time meeting overlay.
 - [Solar Loan Reconciler](https://daintytrading.com/projects/solar-loan-reconciler.html) — live, built for a financial company. Collects Mon–Fri solar loan transaction CSVs, matches them against the weekly Loan Payout Report, flags gaps, and emails a clean HTML report to the loans team every Friday.
+- [Nudgle](https://daintytrading.com/projects/skeddy.html) — live at **nudgle.app**. Telegram reminder bot with Claude-powered natural-language scheduling.
+- [Marketing OS](https://daintytrading.com/projects/marketing-os.html) — live, internal use only (no public domain). Marketing operations platform: campaigns, briefs, Puppeteer-based SEO/a11y audits, AI-assisted brief queue.
+- [Post Reel](https://daintytrading.com/projects/postreel.html) — live. Social media scheduler with an AI video studio built in. Give it a URL, it crawls the site, writes a script, synthesises a voiceover, and produces a finished short-form video — scheduled across 12 platforms automatically.
+- [Billing API](https://daintytrading.com/projects/billing-api.html) — live, internal API only (no public domain). Shared billing service across the portfolio. Fastify on Postgres, Stripe + Brevo, full subscription state machine.
 
 ## In final testing (pre-launch)
 
 - [Meditation](https://daintytrading.com/projects/meditation.html) — at **meditation.daintytrading.com**. Subscription meditation script library. 7-day free trial, Stripe billing.
-- [Nudgle](https://daintytrading.com/projects/skeddy.html) — at **nudgle.app**. Telegram reminder bot with Claude-powered natural-language scheduling.
-- [Marketing OS](https://daintytrading.com/projects/marketing-os.html) — internal use only (no public domain). Marketing operations platform: campaigns, briefs, Puppeteer-based SEO/a11y audits, AI-assisted brief queue.
 - [ChatVault](https://daintytrading.com/projects/chatvault.html) — pre-launch. One searchable archive of every conversation across Claude, ChatGPT, Gemini, Grok, and Perplexity. Postgres + pgvector with re-ranking via Claude.
 - [Tax Prep](https://daintytrading.com/projects/tax-prep.html) — pre-launch. Drop-zone for receipts, statements, and slips throughout the year; Claude classifies and tags; year-end export gives your accountant a structured handover.
 - [Second Brain](https://daintytrading.com/projects/second-brain.html) — pre-launch (no public domain yet). Telegram-native note-taking. Forward voice/photo/link/text and Claude organises, tags, and surfaces it back via semantic recall (Postgres + pgvector).
@@ -47,8 +49,6 @@
 - [Auto-Claude](https://daintytrading.com/projects/auto-claude.html) — pre-launch. Autonomous multi-agent coding framework. Plans, builds, runs tests, iterates. Stack: Python/FastAPI, Electron, React, Anthropic Claude SDK.
 - [FakeCall](https://daintytrading.com/projects/fakecall.html) — pre-launch. Native iOS/Android app that schedules believable incoming calls with a Claude-driven AI persona on the other end. Stack: Swift/SwiftUI, Kotlin/Jetpack Compose, CallKit.
 - [StoryPulse](https://daintytrading.com/projects/storypulse.html) — in final testing. Instagram growth automation SaaS. Automated story views, AI captions, multi-account campaigns, anti-detection layer (per-account proxy rotation + human-behaviour mimicry), tiered Stripe plans. Stack: Next.js, Postgres + Prisma, BullMQ, iProyal proxies.
-- [Post Reel](https://daintytrading.com/projects/postreel.html) — in final testing. Social media scheduler with an AI video studio built in. Give it a URL, it crawls the site, writes a script, synthesises a voiceover, and produces a finished short-form video — scheduled across 12 platforms automatically.
-- [Billing API](https://daintytrading.com/projects/billing-api.html) — internal API only (no public domain). Shared billing service across the portfolio. Fastify on Postgres, Stripe + Brevo, full subscription state machine.
 
 ## In active development
 
