@@ -38,7 +38,9 @@ const CLIENTS = [
   {
     token: 'gkrkdzenl94u',
     name: 'Craig',
-    repo: '/opt/docker/tradepriceshutters',
+    // No git repo on this box, so there are no commits to draft from — the
+    // audit findings delta is the whole input for this client.
+    repo: null,
     auditDomain: 'tradepriceshutters.com.au',
   },
 ];
