@@ -38,8 +38,8 @@ const CLIENTS = [
   {
     token: 'gkrkdzenl94u',
     name: 'Craig',
-    repo: null,
-    auditDomain: 'www.shuttersmith.com.au',
+    repo: '/opt/docker/tradepriceshutters',
+    auditDomain: 'tradepriceshutters.com.au',
   },
 ];
 
