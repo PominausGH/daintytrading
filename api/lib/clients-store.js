@@ -134,4 +134,101 @@ function deleteClientNote(token, noteId) {
   return true;
 }
 
-module.exports = { getClient, listAllClients, createClient, updateClient, saveClientNote, listClientNotes, updateClientNote, deleteClientNote, TOKEN_RE };
+/**
+ * Client action checklist — the things only the client can do.
+ *
+ * Every action has THREE states, not two, because a tick is a claim and not
+ * proof:
+ *
+ *   open      claimedDone=false, verifiedFixed=false  — outstanding
+ *   claimed   claimedDone=true,  verifiedFixed=false  — they say it's done,
+ *                                                       the audit hasn't seen
+ *                                                       it yet
+ *   verified  verifiedFixed=true                      — the next site audit
+ *                                                       independently confirmed
+ *
+ * The distinction is not pedantry. Google Business Profile edits take days to
+ * propagate, and a client can genuinely believe they've done something they
+ * haven't (or did it in the wrong place). Collapsing claim and proof into one
+ * checkbox would silently close real findings, which is the failure this whole
+ * pipeline exists to avoid. The site audit stays the source of truth; the
+ * checkbox only records what the client told us and when.
+ */
+const ACTION_ID_RE = /^[a-z0-9][a-z0-9-]{0,63}$/;
+
+function toggleClientAction(token, actionId, done, by) {
+  if (!ACTION_ID_RE.test(String(actionId || ''))) return null;
+  const client = getClient(token);
+  if (!client || !Array.isArray(client.actions)) return null;
+
+  const action = client.actions.find((a) => a.id === actionId);
+  if (!action) return null;
+
+  // A verified item is settled by evidence; don't let a click reopen it.
+  if (action.verifiedFixed) return action;
+
+  action.claimedDone = !!done;
+  action.claimedAt = done ? new Date().toISOString() : null;
+  action.claimedBy = done ? String(by || '').slice(0, 80) || null : null;
+
+  client.updatedAt = new Date().toISOString();
+  fs.writeFileSync(clientPath(token), JSON.stringify(client, null, 2));
+  return action;
+}
+
+/**
+ * Reconcile a client's checklist against the audit.
+ *
+ * `openItems` is [{id, text}] — the currently-open, client-owned findings.
+ * That list decides WHAT is required. This function never invents or removes
+ * a requirement on its own; it only carries the client's own ticks forward.
+ *
+ * An action that has dropped out of openItems is one the audit no longer
+ * sees, so it becomes verified rather than being deleted — the checklist
+ * doubles as the record of what they actually got done.
+ */
+function syncClientActions(token, openItems) {
+  const client = getClient(token);
+  if (!client) return null;
+
+  const existing = Array.isArray(client.actions) ? client.actions : [];
+  const byId = new Map(existing.map((a) => [a.id, a]));
+  const openIds = new Set(openItems.map((i) => i.id));
+  const now = new Date().toISOString();
+
+  const next = openItems
+    .filter((i) => ACTION_ID_RE.test(String(i.id || '')))
+    .map((i) => {
+      const prev = byId.get(i.id);
+      return {
+        id: i.id,
+        text: i.text,
+        // Preserve the client's tick across syncs — re-running the audit must
+        // never silently un-tick something they told us they'd done.
+        claimedDone: prev ? !!prev.claimedDone : false,
+        claimedAt: prev ? prev.claimedAt || null : null,
+        claimedBy: prev ? prev.claimedBy || null : null,
+        verifiedFixed: false,
+        verifiedAt: null,
+        addedAt: prev ? prev.addedAt || now : now,
+      };
+    });
+
+  // Anything previously tracked that the audit no longer reports as open.
+  existing
+    .filter((a) => !openIds.has(a.id))
+    .forEach((a) => {
+      next.push({
+        ...a,
+        verifiedFixed: true,
+        verifiedAt: a.verifiedAt || now,
+      });
+    });
+
+  client.actions = next;
+  client.updatedAt = now;
+  fs.writeFileSync(clientPath(token), JSON.stringify(client, null, 2));
+  return next;
+}
+
+module.exports = { getClient, listAllClients, createClient, updateClient, saveClientNote, listClientNotes, updateClientNote, deleteClientNote, toggleClientAction, syncClientActions, TOKEN_RE };

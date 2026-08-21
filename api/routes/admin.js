@@ -48,6 +48,32 @@ router.get('/clients', (req, res) => {
   res.json({ clients: listAllClients() });
 });
 
+/**
+ * Project overview. Entirely derived — see scripts/collect-overview.js, which
+ * runs on the HOST (the audits directory is deliberately not mounted into this
+ * container) and writes the digest into the data dir. This route only serves
+ * that file, so there is nothing to maintain by hand and nothing that can
+ * drift out of step with reality.
+ *
+ * A missing file means the collector hasn't run yet. Say so, rather than
+ * returning an empty board that reads as "you have no projects".
+ */
+router.get('/overview', (req, res) => {
+  const fs = require('fs');
+  const path = require('path');
+  const file = path.join(process.env.DATA_DIR || path.join(__dirname, '..', 'data'), 'project-overview.json');
+  let payload;
+  try {
+    payload = JSON.parse(fs.readFileSync(file, 'utf8'));
+  } catch (e) {
+    return res.status(503).json({
+      error: 'Overview not generated yet',
+      hint: 'Run scripts/collect-overview.js on the host (not inside the container).',
+    });
+  }
+  res.json(payload);
+});
+
 router.get('/clients/:token', (req, res) => {
   const client = getClient(req.params.token);
   if (!client) return res.status(404).json({ error: 'Not found' });

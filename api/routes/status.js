@@ -1,7 +1,7 @@
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const { sendEmail } = require('../lib/email');
-const { getClient, saveClientNote, listClientNotes } = require('../lib/clients-store');
+const { getClient, saveClientNote, listClientNotes, toggleClientAction } = require('../lib/clients-store');
 const { spamCheck, sanitize, escapeHtml } = require('../lib/security');
 
 const router = express.Router();
@@ -39,6 +39,51 @@ router.get('/:token', readLimiter, (req, res) => {
     nextMilestone: client.nextMilestone,
     updatedAt: client.updatedAt,
     notes,
+    actions: (client.actions || []).map((a) => ({
+      id: a.id,
+      text: a.text,
+      claimedDone: !!a.claimedDone,
+      claimedAt: a.claimedAt || null,
+      claimedBy: a.claimedBy || null,
+      verifiedFixed: !!a.verifiedFixed,
+      verifiedAt: a.verifiedAt || null,
+    })),
+  });
+});
+
+// Ticking a box is a CLAIM, not proof — see clients-store.js. It records what
+// the client told us; the next site audit decides whether it's actually done.
+const actionLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000,
+  max: 60,
+  message: { error: 'Too many updates. Please try again later.' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+router.post('/:token/actions/:actionId', actionLimiter, (req, res) => {
+  const client = getClient(req.params.token);
+  if (!client) return res.status(404).json({ error: 'Not found' });
+
+  const { done, by } = req.body || {};
+  if (typeof done !== 'boolean') {
+    return res.status(400).json({ error: 'done must be true or false' });
+  }
+
+  const action = toggleClientAction(req.params.token, req.params.actionId, done, sanitize(by || ''));
+  if (!action) return res.status(404).json({ error: 'No such item' });
+
+  res.json({
+    success: true,
+    action: {
+      id: action.id,
+      text: action.text,
+      claimedDone: !!action.claimedDone,
+      claimedAt: action.claimedAt || null,
+      claimedBy: action.claimedBy || null,
+      verifiedFixed: !!action.verifiedFixed,
+      verifiedAt: action.verifiedAt || null,
+    },
   });
 });
 

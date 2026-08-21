@@ -34,6 +34,97 @@ function renderNotes(notes) {
   }).join('');
 }
 
+/**
+ * Three states, deliberately distinct (see clients-store.js):
+ *   verified — the audit independently confirmed it. Locked; not a checkbox.
+ *   claimed  — they ticked it, we haven't confirmed yet. Still tickable, so a
+ *              mis-tick can be undone.
+ *   open     — outstanding.
+ *
+ * "Checking" is never shown as "done": some of these (Google Business Profile
+ * edits especially) take days to show up, and telling someone a job is
+ * complete before it's confirmed is how a checklist stops being trusted.
+ */
+function renderActions(actions) {
+  var section = document.getElementById('actions-section');
+  var list = document.getElementById('actions-list');
+  if (!actions || !actions.length) {
+    section.style.display = 'none';
+    return;
+  }
+  section.style.display = 'block';
+
+  // Outstanding first — the point of the list is what's left to do.
+  var sorted = actions.slice().sort(function (a, b) {
+    var rank = function (x) { return x.verifiedFixed ? 2 : x.claimedDone ? 1 : 0; };
+    return rank(a) - rank(b);
+  });
+
+  list.innerHTML = sorted.map(function (a) {
+    var state = a.verifiedFixed ? 'verified' : a.claimedDone ? 'claimed' : 'open';
+    var note =
+      state === 'verified'
+        ? '<span class="action-state action-state-verified">Confirmed done' + (a.verifiedAt ? ' &middot; ' + formatDate(a.verifiedAt) : '') + '</span>'
+        : state === 'claimed'
+          ? '<span class="action-state action-state-claimed">You marked this done' + (a.claimedAt ? ' &middot; ' + formatDate(a.claimedAt) : '') + ' &mdash; we&rsquo;ll confirm at the next check</span>'
+          : '';
+
+    return (
+      '<li class="action-item action-' + state + '">' +
+      '<label>' +
+      '<input type="checkbox" data-action-id="' + escapeHtml(a.id) + '"' +
+      (a.claimedDone || a.verifiedFixed ? ' checked' : '') +
+      (a.verifiedFixed ? ' disabled' : '') +
+      ' />' +
+      '<span class="action-text">' + escapeHtml(a.text) + '</span>' +
+      '</label>' +
+      note +
+      '</li>'
+    );
+  }).join('');
+}
+
+function wireActions() {
+  var list = document.getElementById('actions-list');
+  var errEl = document.getElementById('actions-error');
+  if (!list) return;
+
+  list.addEventListener('change', function (e) {
+    var box = e.target;
+    if (!box || box.type !== 'checkbox') return;
+    var id = box.getAttribute('data-action-id');
+    if (!id) return;
+
+    var desired = box.checked;
+    box.disabled = true;
+    errEl.style.display = 'none';
+
+    fetch('/api/status/' + encodeURIComponent(token) + '/actions/' + encodeURIComponent(id), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ done: desired }),
+    })
+      .then(function (r) {
+        if (!r.ok) throw new Error('save failed');
+        return r.json();
+      })
+      .then(function () {
+        return fetch('/api/status/' + encodeURIComponent(token)).then(function (r) { return r.json(); });
+      })
+      .then(function (data) {
+        renderActions(data.actions || []);
+      })
+      .catch(function () {
+        // Put the box back where it was rather than leaving the page showing
+        // a state the server never accepted.
+        box.checked = !desired;
+        box.disabled = false;
+        errEl.textContent = 'Couldn’t save that just now. Please try again.';
+        errEl.style.display = 'block';
+      });
+  });
+}
+
 function renderStatus(data) {
   document.getElementById('page-title').textContent = data.project;
   document.getElementById('page-lede').textContent = 'Status page for ' + data.clientName + '.';
@@ -45,6 +136,7 @@ function renderStatus(data) {
     (data.nextMilestone ? '<div class="label-row"><span>Next milestone</span><span>' + escapeHtml(data.nextMilestone) + '</span></div>' : '') +
     (data.updatedAt ? '<div class="label-row"><span>Last updated</span><span>' + formatDate(data.updatedAt) + '</span></div>' : '');
 
+  renderActions(data.actions || []);
   renderNotes(data.notes || []);
   document.getElementById('status-content').style.display = 'block';
 }
@@ -59,6 +151,8 @@ if (!token) {
     })
     .then(renderStatus)
     .catch(showError);
+
+  wireActions();
 
   document.getElementById('dt_form_loaded_at').value = String(Date.now());
 

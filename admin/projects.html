@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Projects — Dainty Trading Admin</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#0a0c10" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/styles.css?v=20260809" />
+  <style>
+    .admin-wrap { max-width: 1180px; margin: 0 auto; padding: 40px 24px 80px; }
+    .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .admin-nav { margin-bottom: 6px; }
+    .admin-nav a { color: var(--text-dim); font-size: 13px; margin-right: 14px; }
+    .admin-nav a.current { color: var(--text); font-weight: 600; }
+
+    .derived-note { font-size: 12.5px; color: var(--text-muted); margin: 0 0 26px; max-width: 720px; }
+
+    .tiles { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 28px; }
+    .tile { flex: 1 1 150px; padding: 14px 16px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg-card); }
+    .tile .n { font-size: 24px; font-weight: 700; color: var(--text); line-height: 1.1; }
+    .tile .k { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.03em; margin-top: 4px; }
+    .tile.alert .n { color: #f87171; }
+    .tile.warn .n { color: #fbbf24; }
+
+    .p-table { width: 100%; border-collapse: collapse; }
+    .p-table th, .p-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); font-size: 13.5px; vertical-align: top; }
+    .p-table th { color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.03em; white-space: nowrap; }
+    .p-table tr:hover td { background: var(--bg-elev); }
+    .p-domain { color: var(--text); font-weight: 600; }
+    .p-sub { display: block; font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+    .pill { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11.5px; font-weight: 600; border: 1px solid var(--border-strong); }
+    .pill-client { background: rgba(124,92,255,0.12); color: var(--accent-text); }
+    .pill-own { background: var(--bg-elev); color: var(--text-muted); }
+    .pill-down { background: rgba(248,113,113,0.12); color: #f87171; }
+    .pill-stale { background: rgba(251,191,36,0.12); color: #fbbf24; }
+
+    .sev { font-size: 12.5px; color: var(--text-dim); white-space: nowrap; }
+    .sev b { color: var(--text); }
+    .sev .crit { color: #f87171; }
+    .sev .high { color: #fb923c; }
+    .num-blocked { color: #fbbf24; font-weight: 600; }
+    .muted-cell { color: var(--text-muted); }
+    .table-scroll { overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <div class="admin-wrap">
+    <div class="admin-header">
+      <div>
+        <nav class="admin-nav">
+          <a href="/admin/index.html">Clients</a>
+          <a href="/admin/projects.html" class="current">Projects</a>
+          <a href="/admin/prospects.html">Prospects</a>
+        </nav>
+        <h1 style="font-size:22px;margin:0;">Projects</h1>
+      </div>
+      <button class="btn btn-ghost" id="logout-btn">Log out</button>
+    </div>
+
+    <p class="derived-note" id="derived-note">Loading&hellip;</p>
+
+    <div class="tiles" id="tiles" style="display:none;"></div>
+
+    <div class="table-scroll">
+      <table class="p-table" id="p-table" style="display:none;">
+        <thead>
+          <tr>
+            <th>Site</th>
+            <th>Up</th>
+            <th>Last audit</th>
+            <th>Open findings</th>
+            <th>Needs client</th>
+            <th>Checklist</th>
+            <th>Last real commit</th>
+          </tr>
+        </thead>
+        <tbody id="p-body"></tbody>
+      </table>
+    </div>
+
+    <p id="p-error" class="muted" style="display:none; color:#f87171; font-size:14px;"></p>
+  </div>
+
+  <script defer src="/js/admin-common.js?v=20260809"></script>
+  <script defer src="/js/admin-projects.js?v=20260821"></script>
+</body>
+</html>

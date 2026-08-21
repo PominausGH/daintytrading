@@ -45,6 +45,19 @@
     .status-card .label-row:first-of-type { border-top: none; }
     .status-card .label-row span:first-child { color: var(--text-muted); }
 
+    .actions-list { max-width: 640px; margin: 16px 0 0; padding: 0; list-style: none; }
+    .actions-list li { padding: 14px 0; border-top: 1px solid var(--border); }
+    .actions-list li:first-child { border-top: none; }
+    .actions-list label { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; }
+    .actions-list input[type="checkbox"] { margin-top: 3px; flex: 0 0 auto; width: 16px; height: 16px; accent-color: var(--accent); cursor: pointer; }
+    .actions-list input[type="checkbox"]:disabled { cursor: default; }
+    .actions-list .action-text { font-size: 14.5px; color: var(--text-dim); }
+    .actions-list .action-state { display: block; font-size: 12.5px; margin: 4px 0 0 26px; }
+    .action-state-claimed { color: var(--text-muted); }
+    .action-state-verified { color: #4ade80; }
+    /* Struck through only once independently confirmed — a claim alone must
+       not read as finished. */
+    .action-verified .action-text { text-decoration: line-through; color: var(--text-muted); }
     .notes-list { max-width: 640px; margin: 0 0 40px; padding: 0; list-style: none; }
     .notes-list li { padding: 14px 0; border-top: 1px solid var(--border); }
     .notes-list li:first-child { border-top: none; }
@@ -77,6 +90,16 @@
     <div class="container">
       <div id="status-content" style="display:none;">
         <div class="status-card" id="status-card"></div>
+
+        <section id="actions-section" style="display:none; margin-bottom:40px;">
+          <h2 style="max-width:640px;">Over to you</h2>
+          <p class="muted" style="max-width:640px; font-size:14px;">
+            These are the things only you can do &mdash; we can&rsquo;t do them on your behalf.
+            Tick one off once you&rsquo;ve done it and we&rsquo;ll confirm it at the next check.
+          </p>
+          <ul class="actions-list" id="actions-list"></ul>
+          <p id="actions-error" class="muted" style="font-size:13px; color:#f87171; display:none;"></p>
+        </section>
 
         <h2 style="max-width:640px;">Timeline &amp; notes</h2>
         <p class="lede" style="max-width:640px;font-size:15px;">Add a note any time &mdash; a question, a deadline you're working to, feedback on the last update. It comes straight to us.</p>
