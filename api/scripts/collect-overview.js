@@ -75,6 +75,7 @@ const SECONDBRAIN_PROJECTS = {
   'voxtty.com': ['Voxtty'],
   'tradepriceshutters.com.au': ['Trade Price Shutters'],
   'www.eklawyers.com.au': ['EK Lawyers Website'],
+  'lawyer.subscriptionincinerator.app': ['EK Lawyers Website'],
   'signalreads.com': ['Ghostwriter Project'],
 };
 
@@ -246,7 +247,14 @@ function main() {
       clients: projects.filter((p) => p.kind === 'client').length,
       neverAudited: projects.filter((p) => !p.lastAudited).length,
       blockedOnClient: projects.reduce((n, p) => n + (p.findings ? p.findings.blockedOnClient : 0), 0),
-      secondBrainOpen: projects.reduce((n, p) => n + (p.secondbrain ? p.secondbrain.open : 0), 0),
+      // Counted from the distinct sb_projects names, not summed per domain
+      // row: two domains (e.g. the lawyer pitch mirror and the live client
+      // site) can share one underlying project, and summing rows would
+      // double-count its open tasks.
+      secondBrainOpen: secondBrainTasks
+        ? Array.from(new Set(Object.values(SECONDBRAIN_PROJECTS).flat()))
+            .reduce((n, name) => n + (secondBrainTasks[name] || []).length, 0)
+        : 0,
     },
     projects,
   };
