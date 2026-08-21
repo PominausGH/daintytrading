@@ -75,6 +75,7 @@ const SECONDBRAIN_PROJECTS = {
   'voxtty.com': ['Voxtty'],
   'tradepriceshutters.com.au': ['Trade Price Shutters'],
   'www.eklawyers.com.au': ['EK Lawyers Website'],
+  'signalreads.com': ['Ghostwriter Project'],
 };
 
 function safeJson(file, fallback) {
