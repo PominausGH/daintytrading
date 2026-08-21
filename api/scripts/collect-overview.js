@@ -65,6 +65,7 @@ const SECONDBRAIN_PROJECTS = {
   'siteready.uk': ['Bizpage Project Update'],
   'daintytrading.com': ['Dainty Trading'],
   'convoforge.app': ['Convo_Forge'],
+  'cvmatcher.work': ['CV Enhancement'],
   'autoarchivemail.com': ['Auto Archive Email'],
   'email-triage.app': ['Automated Email Triage Project'],
   'brightpath.school': ['BrightPath', 'Bright Path Project'],
