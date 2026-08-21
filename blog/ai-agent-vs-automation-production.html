@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Agent or Automation? Choose Wisely for Production. &mdash; Dainty Trading</title>
+  <meta name="description" content="Most businesses asking for 'AI agents' actually need deterministic automation, which is cheaper, more reliable, and easier to debug for production systems." />
+  <link rel="canonical" href="https://daintytrading.com/blog/ai-agent-vs-automation-production.html" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0c10" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="AI Agent or Automation? Choose Wisely for Production." />
+  <meta property="og:description" content="Most businesses asking for 'AI agents' actually need deterministic automation, which is cheaper, more reliable, and easier to debug for production systems." />
+  <meta property="og:url" content="https://daintytrading.com/blog/ai-agent-vs-automation-production.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "AI Agent or Automation? Choose Wisely for Production.",
+    "description": "Most businesses asking for 'AI agents' actually need deterministic automation, which is cheaper, more reliable, and easier to debug for production systems.",
+    "url": "https://daintytrading.com/blog/ai-agent-vs-automation-production.html",
+    "datePublished": "2026-08-22",
+    "dateModified": "2026-08-22",
+    "author": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "publisher": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "mainEntityOfPage": "https://daintytrading.com/blog/ai-agent-vs-automation-production.html"
+  }
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a>
+        <a href="/services.html">Services</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/blog.html">Blog</a> &nbsp;/&nbsp; AI · Engineering</div>
+        <h1>AI Agent or Automation? Choose Wisely for Production.</h1>
+        <p class="lede">Most businesses asking for 'AI agents' actually need deterministic automation, which is cheaper, more reliable, and easier to debug for production systems.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Topic</strong>&nbsp; AI · Engineering</span>
+          <span class="chip"><strong>Published</strong>&nbsp; 22 August 2026</span>
+          <span class="chip"><strong>Read time</strong>&nbsp; 5 min</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <p>The client asks for an 'AI agent' to handle customer support or process documents. They envision a system that thinks, adapts, and solves problems autonomously. What they usually <em>need</em> is robust, deterministic automation. We’ve seen this pattern repeatedly, from early startups to scale-ups with millions in revenue. Building a true AI agent is expensive, slow, and operationally complex. For most business problems, a well-engineered automation pipeline, enhanced with targeted LLM calls, delivers 90% of the value at 20% of the cost and risk. Don't chase the agent hype when a simpler, more reliable solution is staring you in the face.</p>
+
+<h2>The Common Wrong Approach</h2>
+<p>Many teams, excited by agentic demos, jump straight into building systems where a large language model orchestrates an entire workflow. They set up recursive prompts, give the LLM access to tools, and expect it to 'figure things out.' This seems rational. The LLM is intelligent, so why not let it drive? The problem is that LLMs are excellent at generation and pattern matching, but terrible at consistent, deterministic decision-making required for most business logic. We’ve debugged these systems for clients. An LLM might decide to call an API with malformed JSON, or skip a crucial step, or get stuck in an infinite loop. The <code>max_iterations</code> parameter becomes a band-aid, not a solution. Debugging a non-deterministic failure in a multi-step LLM-driven loop is a nightmare. You can't just <code>console.log</code> your way out of a hallucination.</p>
+
+<h2>The Better Approach</h2>
+<p>Instead, we build robust, deterministic automation pipelines where LLMs are powerful, but tightly controlled, components. Think of it as a series of well-defined functions, orchestrated by traditional code – Python, Go, Node.js, whatever your team is proficient in. Each step has clear inputs, outputs, and explicit error handling. When an LLM is needed, it's called for a <em>specific, constrained task</em>: extracting entities from unstructured text, summarizing content for a human review, classifying intent from a user message, or generating a draft response. We rely heavily on structured output, typically using Pydantic or similar schema validation to ensure the LLM returns data our downstream systems can reliably consume. If the LLM output doesn't conform to the expected schema, we don't just proceed; we retry with a revised prompt, or we log it for human review and trigger a fallback.</p>
+<p>This isn't just theory; it's how we built production systems like AutoArchive Mail and CV Matcher. For AutoArchive Mail, an LLM classifies email content, but the decision to archive or flag is made by deterministic rules based on that classification, not by the LLM itself. For CV Matcher, the LLM extracts skills and experience from a resume, but the actual matching logic is a traditional algorithm comparing structured data. This approach makes debugging tractable. If something breaks, you know exactly which step failed and why. You can inspect the inputs and outputs of each function call, including the LLM's prompts and responses. We frequently wrap our LLM calls in an internal gateway service (using tools like LiteLLM or a custom abstraction) to handle retries, rate limiting, and model versioning, adding another layer of control and resilience. This setup gives you the power of AI without the operational chaos of a fully autonomous agent. It’s the difference between a reliable machine and a brilliant but unpredictable intern.</p>
+
+<h2>Where This Breaks</h2>
+<p>This deterministic approach isn't a silver bullet. It adds upfront design complexity. You need to explicitly define each step, its inputs, and its outputs. If your problem domain is genuinely open-ended, where the 'rules' for decision-making are constantly evolving or impossible to codify, then a truly agentic system might be warranted. Think complex research tasks where the LLM needs to dynamically explore information, formulate hypotheses, and adapt its strategy based on new findings – tasks where the 'correct' next step isn't predictable. However, most business applications aren't this dynamic. Your 'AI agent' for customer support, for example, will likely follow a finite set of playbooks, even if the phrasing varies. Trying to force a deterministic pipeline onto a problem that <em>truly</em> requires emergent, adaptive behavior will lead to an overly complex state machine that constantly needs updating. We’ve found these problems are rare in production settings, especially when considering the operational overhead. For the vast majority of cases, the complexity of a full agent isn't worth the marginal gain over a well-designed, LLM-enhanced pipeline.</p>
+
+<h2>Practical Next Step</h2>
+<p>If you're considering an 'AI agent,' take this practical step: grab a whiteboard or a diagramming tool. Map out the entire workflow as a series of distinct, deterministic steps. For each step, define its explicit input and output. Identify where an LLM is truly indispensable – is it for classification, extraction, summarization, or generation? For every other decision point, ask yourself if a simple <code>if/else</code> statement, a database lookup, or a call to an existing API could achieve the same outcome more reliably. If you're already running an agentic system, pick one problematic loop. Refactor it into a sequence of explicit functions, using Pydantic for structured LLM outputs. You'll quickly see the gains in debuggability and reliability. If you need a partner to help untangle complex AI requirements and build robust production systems, we're here. <a href="https://daintytrading.com/contact.html">Start a project</a> with Dainty Trading and let's build something that actually ships and stays shipped.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>About this post</h4>
+          <div class="label-row"><span>Published</span><span>22 August 2026</span></div>
+          <div class="label-row"><span>Topic</span><span>AI · Engineering</span></div>
+          <div class="label-row"><span>Read time</span><span>5 min</span></div>
+          <div class="label-row"><span>Author</span><span>Dainty Trading</span></div>
+          <a class="btn btn-primary" href="https://daintytrading.com/contact.html">Start a project &rarr;</a>
+          <a class="btn btn-ghost" href="/services.html">See our services</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Blog navigation">
+        <a href="/blog.html"><div class="lbl">&larr; Back</div><div class="ttl">All posts</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="/" class="brand" style="margin-bottom:14px;">
+            <span class="brand-mark" aria-hidden="true"></span>
+            Dainty Trading
+          </a>
+          <p class="muted" style="font-size:13.5px; max-width:360px;">
+            AI automation studio. We build production AI software for ourselves and selected clients.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Studio</h4>
+          <a href="/about.html">About</a>
+          <a href="/services.html">Services</a>
+          <a href="/blog.html">Blog</a>
+          <a href="/contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Featured projects</h4>
+          <a href="/projects/emailtriage.html">Email Triage</a>
+          <a href="/projects/ghost-writer.html">Ghost Writer</a>
+          <a href="/projects/convoforge.html">ConvoForge</a>
+          <a href="/projects/brightpath.html">BrightPath</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="/sitemap.xml">Sitemap</a>
+          <a href="/llms.txt">llms.txt</a>
+          <a href="/robots.txt">robots.txt</a>
+          <a href="/privacy.html">Privacy policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Dainty Trading. All rights reserved.</span>
+        <span>Built in Australia.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
