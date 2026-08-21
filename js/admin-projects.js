@@ -1,8 +1,9 @@
 /**
  * Read-only project board. Every value comes from collect-overview.js, which
- * derives it from the audit rotation, uptime checks, git and the client
- * portal. Nothing on this page is editable on purpose: a board you have to
- * update by hand goes stale, and a stale board is worse than none.
+ * derives it from the audit rotation, uptime checks, git, the client portal
+ * and the SecondBrain todo db. Nothing on this page is editable on purpose:
+ * a board you have to update by hand goes stale, and a stale board is worse
+ * than none.
  */
 var STALE_AUDIT_DAYS = 8; // rotation is every 5 — 8 means it genuinely missed a turn
 
@@ -43,11 +44,19 @@ function checklistCell(c) {
   return '<span class="sev">' + parts.join(', ') + '</span>';
 }
 
+function secondBrainCell(sb) {
+  if (!sb) return '<span class="muted-cell">not tracked</span>';
+  if (!sb.open) return '<span class="muted-cell">none open</span>';
+  return '<span class="sev"><b>' + sb.open + '</b> open' +
+    (sb.top ? '<span class="p-sub">' + adminEscapeHtml(sb.top) + '</span>' : '') + '</span>';
+}
+
 function render(data) {
   document.getElementById('derived-note').innerHTML =
-    'Every figure below is derived from the audit rotation, hourly uptime checks, git history and the client portal — nothing here is entered by hand. Generated ' +
+    'Every figure below is derived from the audit rotation, hourly uptime checks, git history, the client portal and SecondBrain — nothing here is entered by hand. Generated ' +
     adminEscapeHtml(adminFormatDate(data.generatedAt)) + '.' +
-    (data.dbReachable ? '' : ' <strong style="color:#f87171;">Postgres was unreachable when this ran, so own-site rows may be missing.</strong>');
+    (data.dbReachable ? '' : ' <strong style="color:#f87171;">Postgres was unreachable when this ran, so own-site rows may be missing.</strong>') +
+    (data.secondBrainReachable === false ? ' <strong style="color:#f87171;">SecondBrain was unreachable when this ran, so todo counts may be stale.</strong>' : '');
 
   var c = data.counts || {};
   document.getElementById('tiles').innerHTML = [
@@ -55,6 +64,7 @@ function render(data) {
     '<div class="tile"><div class="n">' + (c.clients || 0) + '</div><div class="k">Client sites</div></div>',
     '<div class="tile' + (c.blockedOnClient ? ' warn' : '') + '"><div class="n">' + (c.blockedOnClient || 0) + '</div><div class="k">Waiting on a client</div></div>',
     '<div class="tile' + (c.neverAudited ? ' warn' : '') + '"><div class="n">' + (c.neverAudited || 0) + '</div><div class="k">Never audited</div></div>',
+    '<div class="tile' + (c.secondBrainOpen ? ' warn' : '') + '"><div class="n">' + (c.secondBrainOpen || 0) + '</div><div class="k">SecondBrain todos open</div></div>',
   ].join('');
   document.getElementById('tiles').style.display = 'flex';
 
@@ -100,6 +110,7 @@ function render(data) {
           ? '<span class="num-blocked">' + p.findings.blockedOnClient + '</span>'
           : '<span class="muted-cell">0</span>') + '</td>' +
       '<td>' + checklistCell(p.checklist) + '</td>' +
+      '<td>' + secondBrainCell(p.secondbrain) + '</td>' +
       '<td>' + code + '</td>' +
       '</tr>';
   }).join('');
