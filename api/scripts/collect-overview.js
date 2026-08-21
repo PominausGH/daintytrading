@@ -77,6 +77,11 @@ const SECONDBRAIN_PROJECTS = {
   'www.eklawyers.com.au': ['EK Lawyers Website'],
   'lawyer.subscriptionincinerator.app': ['EK Lawyers Website'],
   'signalreads.com': ['Ghostwriter Project'],
+  // Not Shuttersmith-specific — this is the general productised SEO/GEO
+  // service (Shuttersmith is just its first client) — so open counts here
+  // may include work that isn't really about this site. Accepted knowingly;
+  // see the secondbrain-admin-integration memory for the verification trail.
+  'www.shuttersmith.com.au': ['SEO/GEO'],
 };
 
 function safeJson(file, fallback) {
