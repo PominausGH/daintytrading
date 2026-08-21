@@ -39,7 +39,7 @@ const CLIENTS = [
     token: 'gkrkdzenl94u',
     name: 'Craig',
     repo: null,
-    auditDomain: 'shuttersmith.com.au',
+    auditDomain: 'www.shuttersmith.com.au',
   },
 ];
 
