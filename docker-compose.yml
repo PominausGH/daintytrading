@@ -8,6 +8,22 @@ services:
     volumes:
       - ./:/usr/share/nginx/html:ro
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    # The repo root is the web root, so everything in it is public BY DEFAULT
+    # and stays private only while an nginx deny rule remembers it. That is a
+    # blocklist, and it already failed once: the *.js static rule matched the
+    # API's own source and served /api/lib/auth.js to the internet.
+    #
+    # Mask the private directories with empty tmpfs so they are not merely
+    # denied but ABSENT inside this container. A future config change cannot
+    # expose a file that isn't there. The deny rules stay as the second layer.
+    #
+    # /api/ still proxies to the api service: proxying never touches this
+    # filesystem, so masking the directory costs nothing.
+    tmpfs:
+      - /usr/share/nginx/html/api
+      - /usr/share/nginx/html/.git
+      - /usr/share/nginx/html/scripts
+      - /usr/share/nginx/html/prompts
     depends_on:
       api:
         condition: service_started
