@@ -1,20 +1,28 @@
 #!/usr/bin/env node
 /**
- * Drafts a client-facing update note from real commits in a client's repo
- * since the last run, using AIOS to turn commit messages into plain
- * language. Draft-only: emails the proposed note for review, never posts
- * it — posting is `node scripts/client-status.js note <token> "..."`, run
- * by hand once approved.
+ * Drafts client-facing updates from real evidence, using AIOS to turn
+ * technical records into plain language. Draft-only: emails the proposals for
+ * review, never posts them.
  *
- * Draws on two sources, either of which may be empty:
- *   1. new commits in a repo we hold for the client;
- *   2. audit findings CLOSED since the last note, from the site-audit
- *      rotation's findings.json.
+ * Produces TWO separate drafts per client, deliberately never merged:
  *
- * Source 2 is what makes SEO/GEO retainers reportable: that work lands on
- * someone else's hosting, so there are no commits and the audit trail is the
- * only record it happened. Only *fixed* findings are drafted from — see
- * getFixedFindings() for why open ones are withheld.
+ *   1. WORK COMPLETED  -> post as a timeline note (accumulates; it is a log)
+ *      `client-status.js note <token> "..."`
+ *      Sources: new commits in a repo we hold, plus findings closed since the
+ *      last note.
+ *
+ *   2. REQUIRED TO COMPLETE -> set as the next milestone (replaces; it is a
+ *      standing state, not an event)
+ *      `client-status.js update <token> --next "..."`
+ *      Source: open findings marked `"owner": "client"`.
+ *
+ * Blending the two is what makes a progress update feel evasive — it buries
+ * what is still being waited on inside a list of achievements. They are also
+ * posted by separate commands so either can be sent without the other.
+ *
+ * The findings sources are what make an SEO/GEO retainer reportable at all:
+ * that work lands on someone else's hosting, so there are no commits and the
+ * audit trail is the only record it happened.
  */
 const path = require('path');
 const fs = require('fs');
@@ -69,58 +77,102 @@ function lastNoteDateFile(token) {
 }
 
 /**
- * SEO/GEO work usually lands as changes to someone else's site, so there are
- * no commits to draft from — the audit trail is the only record that it
- * happened. Returns the findings CLOSED since `since`, plus the current open
- * count.
+ * Splits a domain's findings into the two client-facing halves, plus a count
+ * of what is withheld.
  *
- * Deliberately returns only FIXED findings for the note. Open findings name
- * live weaknesses on the client's site (missing headers, stale plugin
- * versions, reachable paths); "here is what is still wrong with you" is not
- * something to draft into a client-facing update, and definitely not
- * something to have an LLM paraphrase unsupervised. openCount is a bare
- * number, included in the review email for Andrew's context only — it is not
- * given to the drafter.
+ * The split is by `owner`, which the site-audit skill sets per finding:
+ *
+ *   completed — closed since `since`, ours or theirs. A log, so date-filtered.
+ *   needed    — open AND `owner: "client"`. A standing state, so NOT
+ *               date-filtered: an item stays listed until they actually do it.
+ *   withheld  — open and anything else. Never sent.
+ *
+ * Withholding open items we own is the important rule. They are our backlog,
+ * and they frequently describe live weaknesses on the client's site (missing
+ * headers, stale plugin versions, reachable paths) — not something to mail
+ * out, and not something to have an LLM paraphrase unsupervised. A finding
+ * with no `owner` at all falls in here too: unlabelled must err toward
+ * withholding rather than over-disclosing, which also makes the field safe to
+ * roll out gradually across existing findings.json files.
  */
-function getFixedFindings(auditDomain, since) {
+function getFindings(auditDomain, since) {
+  const empty = { completed: [], needed: [], withheldCount: 0 };
   const file = path.join(AUDITS_DIR, auditDomain, 'findings.json');
-  if (!auditDomain || !fs.existsSync(file)) return { fixed: [], openCount: null };
+  if (!auditDomain || !fs.existsSync(file)) return empty;
 
   let parsed;
   try {
     parsed = JSON.parse(fs.readFileSync(file, 'utf8'));
   } catch (err) {
     console.log(`[${auditDomain}] findings.json unreadable (${err.message}) — treating as no findings`);
-    return { fixed: [], openCount: null };
+    return empty;
   }
 
   const findings = Array.isArray(parsed) ? parsed : parsed.findings || [];
-  const fixed = findings
+  const title = (f) => f.title || f.id;
+
+  // Work completed: anything closed since the last note, ours or theirs.
+  const completed = findings
     .filter((f) => f.status === 'fixed' && f.fixedDate && (!since || f.fixedDate > since))
-    .map((f) => f.title || f.id)
+    .map(title)
     .filter(Boolean);
-  const openCount = findings.filter((f) => f.status === 'open').length;
-  return { fixed, openCount };
+
+  // Required to complete: open items only the client can action. Not
+  // date-filtered — this is a current standing list, not a log, so an item
+  // stays on it until they actually do it.
+  const needed = findings
+    .filter((f) => f.status === 'open' && f.owner === 'client')
+    .map(title)
+    .filter(Boolean);
+
+  // Open items owned by us are never sent. They are our backlog, and they
+  // often describe live weaknesses on the client's site. A finding with no
+  // owner counts here too: missing means unlabelled, and unlabelled must
+  // err toward withholding.
+  const withheldCount = findings.filter((f) => f.status === 'open' && f.owner !== 'client').length;
+
+  return { completed, needed, withheldCount };
 }
 
-async function draftNote(clientName, commitSubjects, fixedFindings) {
-  const systemPrompt = `You draft short client-facing project update notes for a web development studio. You are given two kinds of raw input, either of which may be empty: git commit messages (technical, written for developers), and titles of website issues that have now been FIXED (written for a technical audit report). Write ONE short note (2-4 sentences, plain English, no jargon, no commit-speak) summarizing what was actually done from the client's perspective.
+// Shared voice rules. Modelled on the Shuttersmith report Craig actually got
+// (deliverables/craig-report.md): plain English, no jargon, and the two halves
+// kept strictly apart — "what we've already done" vs "what needs you".
+const VOICE = `You write for a web development studio, addressing a non-technical business owner directly as "you". Plain English, no jargon, no commit-speak. Do not mention "commits", "git", file names, or "audit findings". Do not invent anything not implied by the input — if the input is too vague to say anything meaningful, say so instead of guessing. Never name a specific vulnerability, software version, plugin, server technology, or file path: this text may be forwarded onward.`;
 
-Rules:
-- Do not mention "commits", "git", file names, or "audit findings".
-- Do not invent anything not implied by the input. If the input is too vague to say anything meaningful, say so instead of guessing.
-- Describe fixed issues as improvements in plain outcome terms (e.g. "your site now loads correctly for Google's crawler"). Never name a specific vulnerability, software version, plugin, server technology, or file path — this note goes to a non-technical business owner and may be forwarded onward.
-- Never imply work is finished or ongoing beyond what the input shows.
-Output ONLY the note text, no preamble, no quotes around it.`;
+/** Half one: work completed. Becomes a timeline note — a permanent log entry. */
+async function draftCompleted(clientName, commitSubjects, completedFindings) {
+  const systemPrompt = `${VOICE}
+
+Write ONE short paragraph (2-4 sentences) headed by nothing, summarising WORK ALREADY COMPLETED since the last update, from the client's perspective. Describe fixed issues as improvements in plain outcome terms (e.g. "your site now loads correctly for Google's crawler"). Only describe what the input shows — never imply anything is still in progress or still to come; a separate message covers that. Output ONLY the paragraph, no preamble, no quotes around it.`;
 
   const parts = [`Client: ${clientName}`];
   if (commitSubjects.length) {
-    parts.push(`Recent commit messages:\n${commitSubjects.map((s) => `- ${s}`).join('\n')}`);
+    parts.push(`Development work done:\n${commitSubjects.map((s) => `- ${s}`).join('\n')}`);
   }
-  if (fixedFindings.length) {
-    parts.push(`Website issues resolved since the last update:\n${fixedFindings.map((s) => `- ${s}`).join('\n')}`);
+  if (completedFindings.length) {
+    parts.push(`Website issues resolved:\n${completedFindings.map((s) => `- ${s}`).join('\n')}`);
   }
-  const userContent = parts.join('\n\n');
+  return aiosDraft(systemPrompt, parts.join('\n\n'));
+}
+
+/**
+ * Half two: what is required to complete the work — and specifically the
+ * things only the CLIENT can do. Becomes the portal's nextMilestone, which
+ * replaces rather than accumulates, because this is a standing state ("still
+ * waiting on you for X"), not a log of events.
+ */
+async function draftNeeded(clientName, neededFindings) {
+  const systemPrompt = `${VOICE}
+
+Write a SHORT list of what you still need FROM THE CLIENT to finish the work — only things the client themselves must do or decide, because you cannot do them for them. Lead with one short sentence, then one line per item, each naming the action plainly. Keep it to the items given; do not pad, and do not include anything you could do yourself. Output ONLY that text, no preamble, no quotes around it.`;
+
+  const userContent = `Client: ${clientName}\n\nOutstanding items only the client can action:\n${neededFindings
+    .map((s) => `- ${s}`)
+    .join('\n')}`;
+  return aiosDraft(systemPrompt, userContent);
+}
+
+async function aiosDraft(systemPrompt, userContent) {
 
   const res = await fetch(`${AIOS_URL}/query`, {
     method: 'POST',
@@ -155,25 +207,56 @@ Output ONLY the note text, no preamble, no quotes around it.`;
   return message.trim();
 }
 
-async function sendReviewEmail(client, note, commitSubjects, fixedFindings, openCount) {
+/**
+ * The two drafts are presented — and posted — separately, never merged into
+ * one message. "Work completed" is a log entry and accumulates on the
+ * timeline; "required to complete work" is a standing state and replaces the
+ * previous one. Blending them produces the thing clients hate: a progress
+ * update that quietly buries what is still being waited on.
+ */
+async function sendReviewEmail(client, drafts, sources) {
   const escape = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const shellQuote = (s) => s.replace(/'/g, `'\\''`);
+  const block = (s) =>
+    `<blockquote style="border-left:3px solid #ccc;padding-left:12px;color:#333;white-space:pre-wrap;">${escape(s)}</blockquote>`;
+  const cmd = (s) => `<pre style="background:#f5f5f5;padding:10px;white-space:pre-wrap;">${escape(s)}</pre>`;
+
   const body = [
     `<h2>Draft client update — ${escape(client.name)}</h2>`,
-    `<p><strong>Proposed note:</strong></p>`,
-    `<blockquote style="border-left:3px solid #ccc;padding-left:12px;color:#333;">${escape(note)}</blockquote>`,
-    commitSubjects.length
-      ? `<p>Based on these recent commits:</p><ul>${commitSubjects.map((s) => `<li>${escape(s)}</li>`).join('')}</ul>`
+
+    drafts.completed
+      ? [
+          `<h3>1. Work completed &mdash; post as a timeline note</h3>`,
+          block(drafts.completed),
+          sources.commits.length
+            ? `<p style="font-size:13px;">From this development work:</p><ul style="font-size:13px;">${sources.commits.map((s) => `<li>${escape(s)}</li>`).join('')}</ul>`
+            : '',
+          sources.completed.length
+            ? `<p style="font-size:13px;">And these issues resolved:</p><ul style="font-size:13px;">${sources.completed.map((s) => `<li>${escape(s)}</li>`).join('')}</ul>`
+            : '',
+          cmd(`node scripts/client-status.js note ${client.token} '${shellQuote(drafts.completed)}'`),
+        ].join('\n')
+      : `<h3>1. Work completed</h3><p style="color:#666;">Nothing completed since the last update.</p>`,
+
+    `<hr/>`,
+
+    drafts.needed
+      ? [
+          `<h3>2. Required to complete the work &mdash; set as the next milestone</h3>`,
+          block(drafts.needed),
+          `<p style="font-size:13px;">From these open items only ${escape(client.name)} can action:</p><ul style="font-size:13px;">${sources.needed.map((s) => `<li>${escape(s)}</li>`).join('')}</ul>`,
+          cmd(`node scripts/client-status.js update ${client.token} --next '${shellQuote(drafts.needed)}'`),
+        ].join('\n')
+      : `<h3>2. Required to complete the work</h3><p style="color:#666;">Nothing currently outstanding on ${escape(client.name)}'s side.</p>`,
+
+    sources.withheldCount
+      ? `<hr/><p style="color:#666;font-size:12px;">${sources.withheldCount} open finding(s) on ${escape(client.auditDomain || '')} are ours to fix, or unlabelled. Withheld from both drafts by design — read the report on the server.</p>`
       : '',
-    fixedFindings.length
-      ? `<p>And these audit findings resolved since the last update:</p><ul>${fixedFindings.map((s) => `<li>${escape(s)}</li>`).join('')}</ul>`
-      : '',
-    openCount !== null
-      ? `<p style="color:#666;font-size:12px;">${openCount} finding(s) still open on ${escape(client.auditDomain || '')} — deliberately not given to the drafter and not in the note. Read the report on the server.</p>`
-      : '',
-    `<p>To post it as-is:</p>`,
-    `<pre style="background:#f5f5f5;padding:10px;">node scripts/client-status.js note ${client.token} "${escape(note).replace(/"/g, '\\"')}"</pre>`,
-    `<p style="color:#666;font-size:12px;">Not posted automatically — this is a draft for review.</p>`,
-  ].join('\n');
+
+    `<p style="color:#666;font-size:12px;">Neither is posted automatically. Both are drafts for review, and they are posted by separate commands on purpose.</p>`,
+  ]
+    .filter(Boolean)
+    .join('\n');
 
   const apiKeyLine = fs
     .readFileSync('/opt/docker/dainty/api/.env', 'utf8')
@@ -210,10 +293,11 @@ async function main() {
     const lastNoteDate = fs.existsSync(noteDateFile)
       ? fs.readFileSync(noteDateFile, 'utf8').trim()
       : null;
-    const { fixed, openCount } = getFixedFindings(client.auditDomain, lastNoteDate);
+    const { completed, needed, withheldCount } = getFindings(client.auditDomain, lastNoteDate);
 
-    if (commits.length === 0 && fixed.length === 0) {
-      console.log(`[${client.name}] nothing substantive since last check (no commits, no findings closed)`);
+    const hasCompleted = commits.length > 0 || completed.length > 0;
+    if (!hasCompleted && needed.length === 0) {
+      console.log(`[${client.name}] nothing to report (no work completed, nothing outstanding on their side)`);
       // Still advance the commit pointer past autosync-only churn, so those
       // commits aren't re-examined every run.
       if (hasRepo && headHash) {
@@ -224,10 +308,17 @@ async function main() {
     }
 
     console.log(
-      `[${client.name}] ${commits.length} commit(s) + ${fixed.length} finding(s) closed since last check, drafting note`
+      `[${client.name}] ${commits.length} commit(s), ${completed.length} resolved, ${needed.length} awaiting them — drafting`
     );
-    const note = await draftNote(client.name, commits, fixed);
-    await sendReviewEmail(client, note, commits, fixed, openCount);
+
+    // Drafted independently so one can be empty without weakening the other:
+    // a month of work with nothing outstanding still produces a completed
+    // note, and a month blocked on the client still produces a clear ask.
+    const drafts = {
+      completed: hasCompleted ? await draftCompleted(client.name, commits, completed) : null,
+      needed: needed.length ? await draftNeeded(client.name, needed) : null,
+    };
+    await sendReviewEmail(client, drafts, { commits, completed, needed, withheldCount });
     console.log(`[${client.name}] draft emailed for review`);
 
     fs.mkdirSync(path.dirname(stateFile), { recursive: true });
