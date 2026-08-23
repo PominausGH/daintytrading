@@ -862,3 +862,65 @@ code, kbd {
   }
 }
 
+/* Homepage inline-style extraction (CSP hardening — drop style-src
+   'unsafe-inline'). Grouped by the section each class belongs to. */
+.mt-24 { margin-top: 24px; }
+.mt-32 { margin-top: 32px; }
+.mt-36 { margin-top: 36px; }
+.link-inherit { color: inherit; }
+.link-dim-sm { font-size: 14px; color: var(--text-dim); }
+
+.trust-badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+.trust-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--text-dim);
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 5px 12px;
+}
+.stack-note { font-size: 12px; color: var(--text-muted); }
+
+.testimonials-section { padding: 72px 0; }
+.testimonials-title { text-align: center; margin-bottom: 24px; font-size: 1.35rem; }
+.testimonials-narrow { max-width: 680px; margin: 0 auto; }
+.testimonials-narrow--spaced { margin-bottom: 24px; }
+.gbp-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  text-decoration: none;
+  padding: 24px 28px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+}
+.gbp-logo { border-radius: 8px; flex-shrink: 0; }
+.gbp-rating-row { display: flex; align-items: baseline; gap: 10px; }
+.gbp-score {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.gbp-stars { color: var(--accent-2); font-size: 18px; }
+.gbp-label { font-size: 13px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+.testimonial-card { margin: 0; background: var(--bg-elev); border: 1px solid var(--border); border-radius: 14px; padding: 32px; }
+.testimonial-quote { margin: 0 0 20px; font-size: 16px; line-height: 1.75; color: var(--text); }
+.testimonial-caption { font-size: 13px; color: var(--text-dim); }
+.testimonial-stars { color: var(--accent-2); }
+.testimonial-name { color: var(--text); }
+.link-dim { color: var(--text-dim); }
+
+.footer-brand { margin-bottom: 14px; }
+.footer-tagline { font-size: 13.5px; max-width: 360px; }
+.footer-linkedin { font-size: 13.5px; }
+
