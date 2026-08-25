@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Edwards Kirby Lawyers — Website Rebuild &amp; Client Portal | Dainty Trading</title>
+  <meta name="description" content="Dainty Trading rebuilt Edwards Kirby Lawyers' website from the ground up and shipped a secure client portal alongside it — JWT + MFA, encrypted document storage, and SEO/GEO built in from day one." />
+  <link rel="canonical" href="https://daintytrading.com/projects/edwards-kirby-lawyers.html" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Edwards Kirby Lawyers — Website Rebuild &amp; Client Portal" />
+  <meta property="og:description" content="A firm whose website hadn't kept pace with its practice, and a client portal to go with it — JWT + MFA, encrypted docs, SEO/GEO from the ground up." />
+  <meta property="og:url" content="https://daintytrading.com/projects/edwards-kirby-lawyers.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Dainty Trading — AI Automation Studio" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.jpg" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="apple-mobile-web-app-title" content="Dainty Trading" />
+  <link rel="stylesheet" href="/styles.css?v=20260809" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"CreativeWork","name":"Edwards Kirby Lawyers website rebuild","about":"Website rebuild and secure client portal for a Sydney insolvency and business law firm.","url":"https://daintytrading.com/projects/edwards-kirby-lawyers.html","creator":{"@type":"Organization","name":"Dainty Trading"}}
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://daintytrading.com/"},
+      {"@type":"ListItem","position":2,"name":"Projects","item":"https://daintytrading.com/work.html"},
+      {"@type":"ListItem","position":3,"name":"Edwards Kirby Lawyers"}
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"><img src="/brand-mark.png" width="28" height="28" alt="" loading="lazy"/></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary" id="main-nav">
+        <a href="/work.html">Projects</a><a href="/services.html">Services</a>
+        <a href="/services/seo-geo-optimization.html">SEO/GEO</a><a href="/blog.html">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+      <button class="nav-toggle" aria-label="Toggle navigation">&#9776;</button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> / <a href="/work.html">Projects</a> / Edwards Kirby Lawyers</div>
+        <h1>Edwards Kirby Lawyers</h1>
+        <p class="lede">A Sydney insolvency and business law firm was running on a website that hadn&rsquo;t been touched in years &mdash; and had no way for clients to deal with them securely once a matter was actually underway. We rebuilt both: the public site, and a real client portal behind it.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Client</strong>&nbsp; Edwards Kirby Lawyers (EK Lawyers)</span>
+          <span class="chip"><strong>Stack</strong>&nbsp; Next.js · Postgres</span>
+          <span class="chip"><strong>Category</strong>&nbsp; Legal · Professional services</span>
+          <span class="chip"><strong>Status</strong>&nbsp; About to go live</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <h2>The problem</h2>
+          <p>The old EK Lawyers site was old in the way that actually costs a law firm business: it didn&rsquo;t reflect the practice as it exists today, it gave search engines nothing structured to work with, and there was no secure channel for a client to exchange documents once they were mid-matter &mdash; everything ran over email. For an insolvency and business law practice, that&rsquo;s not a cosmetic problem.</p>
+
+          <h2>What we built</h2>
+          <p>A full rebuild of the public site &mdash; home, services by practice area, about, team, insights, results, and contact &mdash; alongside legal boilerplate that actually needed a proper pass (privacy, terms, disclaimer). But the site was the smaller half of the job.</p>
+          <p>The bigger piece is a secure client portal that sits behind it: JWT authentication with MFA, role-based access control, encrypted document storage, ClamAV malware scanning on every file a client uploads, and a full audit log. That&rsquo;s not a brochure feature &mdash; it&rsquo;s a piece of software a firm&rsquo;s clients actually log into and rely on while a matter is live.</p>
+
+          <h2>SEO/GEO, built in from day one</h2>
+          <p>Every page shipped with real metadata and OG images, a proper <code>sitemap.xml</code> and <code>robots.txt</code>, and an <code>llms.txt</code> so AI assistants can read the firm&rsquo;s services cleanly rather than guessing. Structured data covers both <code>LegalService</code> and <code>FAQPage</code> schema &mdash; the goal is that when someone asks Google, or asks ChatGPT or Perplexity, &ldquo;who handles insolvency in Sydney,&rdquo; EK Lawyers shows up with the right answer already attached.</p>
+
+          <h2>Where we are</h2>
+          <p>The rebuild is complete and about to go live at <a href="https://www.eklawyers.com.au" target="_blank" rel="noopener">eklawyers.com.au</a>, replacing the old site outright.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>Project facts</h4>
+          <div class="label-row"><span>Client</span><span>Edwards Kirby Lawyers</span></div>
+          <div class="label-row"><span>Industry</span><span>Insolvency &amp; business law</span></div>
+          <div class="label-row"><span>Location</span><span>Sydney, NSW</span></div>
+          <div class="label-row"><span>Portal</span><span>JWT + MFA · RBAC</span></div>
+          <div class="label-row"><span>Documents</span><span>Encrypted · AV-scanned</span></div>
+          <div class="label-row"><span>SEO/GEO</span><span>Structured data + llms.txt</span></div>
+          <a class="btn btn-ghost" href="/contact.html">Build something similar</a>
+        </aside>
+      </div>
+
+      <div class="cta-banner" style="margin:48px 0 0;">
+        <h2>Need a site that works for your clients, not just your marketing?</h2>
+        <p>We scope projects in 48&nbsp;hours and ship a first demo in 1&ndash;2&nbsp;weeks. Tell us what you need.</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+          <a class="btn btn-primary" href="/contact.html">Start a project &rarr;</a>
+          <a class="btn btn-ghost" href="/services.html">See how we work</a>
+        </div>
+      </div>
+
+      <nav class="next-prev" aria-label="Project navigation">
+        <a href="/projects/shuttersmith.html"><div class="lbl">← Previous</div><div class="ttl">Shuttersmith</div></a>
+        <a href="/work.html" style="text-align:right;"><div class="lbl">Next →</div><div class="ttl">All projects</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="/" class="brand" style="margin-bottom:14px;">
+            <span class="brand-mark" aria-hidden="true"><img src="/brand-mark.png" width="28" height="28" alt="" loading="lazy"/></span>
+            Dainty Trading
+          </a>
+          <p class="muted" style="font-size:13.5px; max-width:360px;">
+            AI automation studio. We build production AI software for ourselves and selected clients.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h3>Studio</h3>
+          <a href="/about.html">About</a>
+          <a href="/services.html">Services</a>
+        <a href="/services/seo-geo-optimization.html">SEO/GEO</a>
+          <a href="/blog.html">Blog</a>
+          <a href="/contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h3>Featured projects</h3>
+          <a href="/projects/emailtriage.html">Email Triage</a>
+          <a href="/projects/ghost-writer.html">Ghost Writer</a>
+          <a href="/projects/convoforge.html">ConvoForge</a>
+          <a href="/projects/brightpath.html">BrightPath</a>
+        </div>
+        <div class="footer-col">
+          <h3>Resources</h3>
+          <a href="/sitemap.xml">Sitemap</a>
+          <a href="/llms.txt">llms.txt</a>
+          <a href="/robots.txt">robots.txt</a>
+          <a href="/privacy.html">Privacy policy</a>
+          <a href="/terms.html">Terms of service</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Dainty Trading · ABN 65 366 917 788 · All rights reserved.</span>
+        <span>Built in Australia.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
