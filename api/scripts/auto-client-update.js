@@ -216,10 +216,8 @@ async function aiosDraft(systemPrompt, userContent) {
  */
 async function sendReviewEmail(client, drafts, sources) {
   const escape = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  const shellQuote = (s) => s.replace(/'/g, `'\\''`);
   const block = (s) =>
     `<blockquote style="border-left:3px solid #ccc;padding-left:12px;color:#333;white-space:pre-wrap;">${escape(s)}</blockquote>`;
-  const cmd = (s) => `<pre style="background:#f5f5f5;padding:10px;white-space:pre-wrap;">${escape(s)}</pre>`;
 
   const body = [
     `<h2>Draft client update — ${escape(client.name)}</h2>`,
@@ -234,7 +232,6 @@ async function sendReviewEmail(client, drafts, sources) {
           sources.completed.length
             ? `<p style="font-size:13px;">And these issues resolved:</p><ul style="font-size:13px;">${sources.completed.map((s) => `<li>${escape(s)}</li>`).join('')}</ul>`
             : '',
-          cmd(`node scripts/client-status.js note ${client.token} '${shellQuote(drafts.completed)}'`),
         ].join('\n')
       : `<h3>1. Work completed</h3><p style="color:#666;">Nothing completed since the last update.</p>`,
 
@@ -245,7 +242,6 @@ async function sendReviewEmail(client, drafts, sources) {
           `<h3>2. Required to complete the work &mdash; set as the next milestone</h3>`,
           block(drafts.needed),
           `<p style="font-size:13px;">From these open items only ${escape(client.name)} can action:</p><ul style="font-size:13px;">${sources.needed.map((s) => `<li>${escape(s)}</li>`).join('')}</ul>`,
-          cmd(`node scripts/client-status.js update ${client.token} --next '${shellQuote(drafts.needed)}'`),
         ].join('\n')
       : `<h3>2. Required to complete the work</h3><p style="color:#666;">Nothing currently outstanding on ${escape(client.name)}'s side.</p>`,
 
@@ -253,7 +249,7 @@ async function sendReviewEmail(client, drafts, sources) {
       ? `<hr/><p style="color:#666;font-size:12px;">${sources.withheldCount} open finding(s) on ${escape(client.auditDomain || '')} are ours to fix, or unlabelled. Withheld from both drafts by design — read the report on the server.</p>`
       : '',
 
-    `<p style="color:#666;font-size:12px;">Neither is posted automatically. Both are drafts for review, and they are posted by separate commands on purpose.</p>`,
+    `<p style="color:#666;font-size:12px;">Neither is posted automatically — both are drafts for review. Post with: node scripts/client-status.js note ${escape(client.token)} '...' (work completed) or node scripts/client-status.js update ${escape(client.token)} --next '...' (required next).</p>`,
   ]
     .filter(Boolean)
     .join('\n');
