@@ -914,6 +914,7 @@ code, kbd {
 .gbp-label { font-size: 13px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
 
 .testimonial-card { margin: 0; background: var(--bg-elev); border: 1px solid var(--border); border-radius: 14px; padding: 32px; }
+.testimonial-card + .testimonial-card { margin-top: 20px; }
 .testimonial-quote { margin: 0 0 20px; font-size: 16px; line-height: 1.75; color: var(--text); }
 .testimonial-caption { font-size: 13px; color: var(--text-dim); }
 .testimonial-stars { color: var(--accent-2); }
