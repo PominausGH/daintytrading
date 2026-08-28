@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Your AI Feature Launch Was The Cheap Part &mdash; Dainty Trading</title>
+  <meta name="description" content="Model deprecations, prompt drift, and pricing shifts mean AI features keep costing money after launch — most quotes never account for it." />
+  <link rel="canonical" href="https://daintytrading.com/blog/ai-feature-maintenance-cost-after-launch.html" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0c10" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Your AI Feature Launch Was The Cheap Part" />
+  <meta property="og:description" content="Model deprecations, prompt drift, and pricing shifts mean AI features keep costing money after launch — most quotes never account for it." />
+  <meta property="og:url" content="https://daintytrading.com/blog/ai-feature-maintenance-cost-after-launch.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Your AI Feature Launch Was The Cheap Part",
+    "description": "Model deprecations, prompt drift, and pricing shifts mean AI features keep costing money after launch — most quotes never account for it.",
+    "url": "https://daintytrading.com/blog/ai-feature-maintenance-cost-after-launch.html",
+    "datePublished": "2026-08-28",
+    "dateModified": "2026-08-28",
+    "author": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "publisher": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "mainEntityOfPage": "https://daintytrading.com/blog/ai-feature-maintenance-cost-after-launch.html"
+  }
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a>
+        <a href="/services.html">Services</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/blog.html">Blog</a> &nbsp;/&nbsp; Business</div>
+        <h1>Your AI Feature Launch Was The Cheap Part</h1>
+        <p class="lede">Model deprecations, prompt drift, and pricing shifts mean AI features keep costing money after launch — most quotes never account for it.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Topic</strong>&nbsp; Business</span>
+          <span class="chip"><strong>Published</strong>&nbsp; 28 August 2026</span>
+          <span class="chip"><strong>Read time</strong>&nbsp; 5 min</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <p>The invoice for an AI feature doesn't end at launch. It ends when the vendor deprecates the model you built on, when a silent system prompt change on their end shifts your outputs, or when a pricing update quietly doubles your inference bill. Most project quotes treat AI features like any other software feature: fixed scope, fixed price, ship it, done. That assumption is wrong, and it's the single biggest source of budget surprises we see in AI work.</p>
+
+<p>Traditional software doesn't rot this way. A REST endpoint you wrote in 2022 still behaves the same way today unless you touch it. An AI feature is different because a third party — Anthropic, OpenAI, whoever — owns the component doing the actual reasoning, and they change it out from under you on their schedule, not yours.</p>
+
+<h2>The wrong approach: quote it like a normal feature</h2>
+
+<p>The common pattern looks like this: a team scopes an AI feature the same way they'd scope a CRUD form. They estimate the build, add a buffer for testing, quote a fixed price, and move on to the next project once it ships. The prompt gets hard-coded, the model name gets hard-coded, and nobody puts a line item on the invoice for "what happens when Anthropic deprecates this model in fourteen months."
+
+It seems reasonable because the feature works on launch day and for months afterward. Then a model gets deprecated, or a provider updates a model in place and outputs subtly shift — a classifier that used to return clean JSON starts wrapping it in prose, a summarizer starts hedging more. Nobody notices until a customer complains, and now it's an emergency fix instead of planned maintenance. The team that built it has moved on. The team fixing it is starting from zero context, at a worse hourly rate than if it had been planned.</p>
+
+<h2>The better approach: budget maintenance as a separate line item</h2>
+
+<p>We treat AI features as having two costs: the build, and the keep-it-working. The keep-it-working cost is smaller per month but it's not zero, and it doesn't stop.
+
+Concretely, that means a few things. First, pin model versions explicitly rather than pointing at a "latest" alias — you want deprecations to hit you as a scheduled decision, not a surprise 3am failure. Second, put a lightweight eval suite behind every AI feature: a few dozen real input/output pairs you can re-run against a new model version before you switch, so "does this still work" is a five-minute check instead of a guessing game. On <strong>Email Triage</strong>, that eval suite is what let us swap underlying models twice without a customer noticing. Third, route calls through a thin gateway instead of hard-coding provider SDK calls directly into business logic — LiteLLM or a custom wrapper, doesn't matter much which, as long as swapping providers or models is a config change and not a refactor.
+
+Pricing is the other half. Providers change per-token pricing, introduce new tiers, or deprecate cheaper models in favor of pricier defaults. On <strong>CV Matcher</strong> and <strong>BrightPath</strong>, we track cost-per-request as a monitored metric, the same way you'd monitor latency, because a provider price change can turn a profitable feature into a loss leader without a single line of your code changing. We budget a quarterly review — a couple of hours checking model deprecation notices, re-running evals, and checking whether a newer model is now cheaper and better than what's in production. That's the real maintenance cost: not a big number, but a recurring one, and it needs to live in the contract, not get discovered later.</p>
+
+<h2>Where this breaks</h2>
+
+<p>For a genuinely small, low-stakes feature — an internal tool three people use, a nice-to-have that nobody depends on — this much process is overkill. Building an eval suite and a gateway abstraction for a Slack bot that summarizes standup notes costs more than just fixing it manually twice a year when it breaks. The honest answer is that maintenance investment should scale with how much the business depends on the feature working correctly. <strong>Ghost Writer</strong> and <strong>AutoArchive Mail</strong> get different levels of rigor for exactly this reason — one touches customer-facing output, the other doesn't.
+
+The other place this breaks: if you're on a fixed-bid contract with no maintenance retainer, you genuinely can't afford to do any of this, and pretending otherwise just burns your margin. Say so up front instead of quietly eating the cost.</p>
+
+<h2>What to do this week</h2>
+
+<p>If you have an AI feature in production right now, go find out what model it's calling and whether that model has a deprecation date. Providers publish these — check them. If you don't have an eval set for that feature, write down ten real inputs and their expected outputs today; that's the seed of a suite that will save you hours the next time a model changes. And if you're scoping new AI work, put maintenance on the table as its own line item before you quote a price, not after something breaks. If you want a second opinion on what that ongoing cost should look like for your feature, <a href="https://daintytrading.com/contact.html">start a project</a> with us and we'll walk through it.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>About this post</h4>
+          <div class="label-row"><span>Published</span><span>28 August 2026</span></div>
+          <div class="label-row"><span>Topic</span><span>Business</span></div>
+          <div class="label-row"><span>Read time</span><span>5 min</span></div>
+          <div class="label-row"><span>Author</span><span>Dainty Trading</span></div>
+          <a class="btn btn-primary" href="https://daintytrading.com/contact.html">Start a project &rarr;</a>
+          <a class="btn btn-ghost" href="/services.html">See our services</a>
+        </aside>
+      </div>
+
+      <div style="margin-top:56px;padding-top:40px;border-top:1px solid rgba(128,128,128,.25)"><h3 style="font-size:1.1rem;font-weight:700;margin-bottom:20px">Related Articles</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px"><a href="https://daintytrading.com/blog/ai-automations-90-day-payback.html" style="display:block;padding:18px;border:1px solid rgba(128,128,128,.25);border-radius:12px;text-decoration:none;color:inherit"><span style="font-size:.75rem;font-weight:600;color:#e11d48;text-transform:uppercase;letter-spacing:.03em">Business</span><div style="font-weight:700;margin-top:6px;line-height:1.35">Which AI Automations Pay Back in 90 Days (And Which Don&#x27;t)</div></a><a href="https://daintytrading.com/blog/automate-the-boring-step-first.html" style="display:block;padding:18px;border:1px solid rgba(128,128,128,.25);border-radius:12px;text-decoration:none;color:inherit"><span style="font-size:.75rem;font-weight:600;color:#e11d48;text-transform:uppercase;letter-spacing:.03em">Process</span><div style="font-weight:700;margin-top:6px;line-height:1.35">Automate the Boring Step First, Not the Impressive One</div></a><a href="https://daintytrading.com/blog/zapier-n8n-vs-custom-code-decision-framework.html" style="display:block;padding:18px;border:1px solid rgba(128,128,128,.25);border-radius:12px;text-decoration:none;color:inherit"><span style="font-size:.75rem;font-weight:600;color:#e11d48;text-transform:uppercase;letter-spacing:.03em">Automation</span><div style="font-weight:700;margin-top:6px;line-height:1.35">Zapier vs Custom Code: A Real Decision Framework</div></a><a href="https://daintytrading.com/blog/prompt-versioning-saves-ai-projects.html" style="display:block;padding:18px;border:1px solid rgba(128,128,128,.25);border-radius:12px;text-decoration:none;color:inherit"><span style="font-size:.75rem;font-weight:600;color:#e11d48;text-transform:uppercase;letter-spacing:.03em">Process</span><div style="font-weight:700;margin-top:6px;line-height:1.35">Prompt Versioning: The Boring Practice That Saves AI Projects</div></a></div></div>
+
+      <nav class="next-prev" aria-label="Blog navigation">
+        <a href="/blog.html"><div class="lbl">&larr; Back</div><div class="ttl">All posts</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="/" class="brand" style="margin-bottom:14px;">
+            <span class="brand-mark" aria-hidden="true"></span>
+            Dainty Trading
+          </a>
+          <p class="muted" style="font-size:13.5px; max-width:360px;">
+            AI automation studio. We build production AI software for ourselves and selected clients.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Studio</h4>
+          <a href="/about.html">About</a>
+          <a href="/services.html">Services</a>
+          <a href="/blog.html">Blog</a>
+          <a href="/contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Featured projects</h4>
+          <a href="/projects/emailtriage.html">Email Triage</a>
+          <a href="/projects/ghost-writer.html">Ghost Writer</a>
+          <a href="/projects/convoforge.html">ConvoForge</a>
+          <a href="/projects/brightpath.html">BrightPath</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="/sitemap.xml">Sitemap</a>
+          <a href="/llms.txt">llms.txt</a>
+          <a href="/robots.txt">robots.txt</a>
+          <a href="/privacy.html">Privacy policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Dainty Trading. All rights reserved.</span>
+        <span>Built in Australia.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

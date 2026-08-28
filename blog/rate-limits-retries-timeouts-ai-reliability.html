@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rate Limits, Retries, Timeouts: What Makes AI Actually Reliable &mdash; Dainty Trading</title>
+  <meta name="description" content="A better model doesn't fix a flaky AI integration. Backoff, idempotency, and graceful degradation do — here's how we build them." />
+  <link rel="canonical" href="https://daintytrading.com/blog/rate-limits-retries-timeouts-ai-reliability.html" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0c10" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Rate Limits, Retries, Timeouts: What Makes AI Actually Reliable" />
+  <meta property="og:description" content="A better model doesn't fix a flaky AI integration. Backoff, idempotency, and graceful degradation do — here's how we build them." />
+  <meta property="og:url" content="https://daintytrading.com/blog/rate-limits-retries-timeouts-ai-reliability.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Rate Limits, Retries, Timeouts: What Makes AI Actually Reliable",
+    "description": "A better model doesn't fix a flaky AI integration. Backoff, idempotency, and graceful degradation do — here's how we build them.",
+    "url": "https://daintytrading.com/blog/rate-limits-retries-timeouts-ai-reliability.html",
+    "datePublished": "2026-08-28",
+    "dateModified": "2026-08-28",
+    "author": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "publisher": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "mainEntityOfPage": "https://daintytrading.com/blog/rate-limits-retries-timeouts-ai-reliability.html"
+  }
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a>
+        <a href="/services.html">Services</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/blog.html">Blog</a> &nbsp;/&nbsp; AI · Infrastructure</div>
+        <h1>Rate Limits, Retries, Timeouts: What Makes AI Actually Reliable</h1>
+        <p class="lede">A better model doesn't fix a flaky AI integration. Backoff, idempotency, and graceful degradation do — here's how we build them.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Topic</strong>&nbsp; AI · Infrastructure</span>
+          <span class="chip"><strong>Published</strong>&nbsp; 28 August 2026</span>
+          <span class="chip"><strong>Read time</strong>&nbsp; 5 min</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <p>Your AI feature works perfectly in the demo. Three weeks after launch, it's failing for 2% of users at random, support tickets are piling up, and nobody can reproduce the bug. That's not a model problem. It's a 429 you didn't handle, a request that hung for 90 seconds and got retried into a duplicate charge, or a timeout that took down an unrelated part of your app with it. The gap between a flaky AI integration and a reliable one is almost never the model. It's whether you built the boring plumbing around it.</p>
+
+<p>We've shipped enough production AI features — Email Triage, AutoArchive Mail, CV Matcher — to know that model choice gets 90% of the design discussion and causes maybe 10% of the incidents. The other 90% of incidents come from treating an LLM API call like a normal function call: assume it succeeds, assume it's fast, assume calling it twice is harmless.</p>
+
+<h2>The common wrong approach</h2>
+
+<p>Most teams start with a direct call to the provider SDK, wrapped in a try/catch that logs the error and shows the user a generic "something went wrong" message. It seems reasonable — you're shipping fast, the happy path works, and rate limits feel like an edge case you'll deal with later.</p>
+
+<p>Then traffic grows. You start hitting 429s during peak hours. Someone adds a naive retry loop: catch the error, wait one second, try again, up to three times. This works until it doesn't — a burst of 429s across concurrent requests all retry at the same one-second interval, which just recreates the burst that caused the rate limit in the first place. Meanwhile, a request that times out after 30 seconds gets retried, but the original request wasn't actually dead — it completes server-side a moment later, and now you've sent the email twice, charged the card twice, or written the summary to the database twice. The failure mode isn't "the API is down." It's "the API is slow or briefly overloaded, and our retry logic amplified that into a worse problem."</p>
+
+<h2>The better approach</h2>
+
+<p>Three things fix most of this, in order of impact.</p>
+
+<p><strong>Exponential backoff with jitter, not fixed intervals.</strong> When you get a 429 or a 5xx, wait an increasing amount of time before retrying — and randomize it. A concurrency of ten requests retrying at exactly the same interval just synchronizes the next failure. Jitter breaks that up. Anthropic's Python and TypeScript SDKs already do this by default with a configurable `maxRetries`, and it respects `retry-after` headers when the API sends them — check before you write your own, because most hand-rolled retry logic is worse than what's built in.</p>
+
+<p><strong>Idempotency keys on anything that has a side effect.</strong> If a retried request could send an email, write a record, or trigger a downstream action, generate a unique key per logical operation (not per HTTP attempt) and check it before executing. In Ghost Writer, every draft generation is keyed to a request ID stored before the API call goes out — if the call times out and we retry, we check whether that ID already produced output before writing anything new. This is a few lines of code and it eliminates an entire category of "why did the user get this twice" tickets.</p>
+
+<p><strong>Timeouts that are shorter than your patience, and a fallback for when they fire.</strong> Set an explicit timeout well under whatever your infrastructure's own limit is — if your load balancer kills connections at 60 seconds, don't let your LLM call run for 55 and leave no room to respond gracefully. When a timeout fires, don't just fail — degrade. Serve a cached response, fall back to a smaller/faster model, or queue the request and notify the user asynchronously instead of blocking. BrightPath does this for its summarization step: if the primary model call doesn't return in time, it falls back to a shorter-context, faster model rather than showing the user an error. Slightly worse output beats no output.</p>
+
+<h2>Where this breaks</h2>
+
+<p>This is real engineering effort, and for a low-traffic internal tool or a weekend prototype, it's probably overkill — a simple try/catch and a manual "try again" button will serve you fine. The complexity is worth it once you have real users depending on the feature working, not before. Idempotency in particular is easy to get wrong: if your key generation logic has a bug, you can silently swallow legitimate duplicate requests (two different users who happen to submit identical input) or fail to catch real duplicates because the key wasn't scoped tightly enough. Test this deliberately — don't assume it works because it compiled. And graceful degradation has a ceiling: if your fallback model produces meaningfully worse output, users notice, and "reliable but worse" isn't always better than "occasionally down."
+
+</p>
+
+<h2>Practical next step</h2>
+
+<p>Pull up your current AI integration and check three things this week: does your retry logic use backoff with jitter (or are you relying on the SDK default, which you should verify is actually enabled)? Do any of your AI-triggered actions have side effects without an idempotency check? And what happens to the user right now when a call times out — do they see an error, or does something reasonable happen instead? If you're not sure how to answer these for your own system, or want a second set of eyes on it, <a href="https://daintytrading.com/contact.html">start a project</a> with us and we'll look at it together.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>About this post</h4>
+          <div class="label-row"><span>Published</span><span>28 August 2026</span></div>
+          <div class="label-row"><span>Topic</span><span>AI · Infrastructure</span></div>
+          <div class="label-row"><span>Read time</span><span>5 min</span></div>
+          <div class="label-row"><span>Author</span><span>Dainty Trading</span></div>
+          <a class="btn btn-primary" href="https://daintytrading.com/contact.html">Start a project &rarr;</a>
+          <a class="btn btn-ghost" href="/services.html">See our services</a>
+        </aside>
+      </div>
+
+      <div style="margin-top:56px;padding-top:40px;border-top:1px solid rgba(128,128,128,.25)"><h3 style="font-size:1.1rem;font-weight:700;margin-bottom:20px">Related Articles</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px"><a href="https://daintytrading.com/blog/what-breaks-first-llm-production-pipeline.html" style="display:block;padding:18px;border:1px solid rgba(128,128,128,.25);border-radius:12px;text-decoration:none;color:inherit"><span style="font-size:.75rem;font-weight:600;color:#e11d48;text-transform:uppercase;letter-spacing:.03em">AI · Infrastructure</span><div style="font-weight:700;margin-top:6px;line-height:1.35">What Breaks First When You Put an LLM in Production</div></a><a href="https://daintytrading.com/blog/ai-feature-maintenance-cost-after-launch.html" style="display:block;padding:18px;border:1px solid rgba(128,128,128,.25);border-radius:12px;text-decoration:none;color:inherit"><span style="font-size:.75rem;font-weight:600;color:#e11d48;text-transform:uppercase;letter-spacing:.03em">Business</span><div style="font-weight:700;margin-top:6px;line-height:1.35">Your AI Feature Launch Was The Cheap Part</div></a><a href="https://daintytrading.com/blog/automate-the-boring-step-first.html" style="display:block;padding:18px;border:1px solid rgba(128,128,128,.25);border-radius:12px;text-decoration:none;color:inherit"><span style="font-size:.75rem;font-weight:600;color:#e11d48;text-transform:uppercase;letter-spacing:.03em">Process</span><div style="font-weight:700;margin-top:6px;line-height:1.35">Automate the Boring Step First, Not the Impressive One</div></a><a href="https://daintytrading.com/blog/zapier-n8n-vs-custom-code-decision-framework.html" style="display:block;padding:18px;border:1px solid rgba(128,128,128,.25);border-radius:12px;text-decoration:none;color:inherit"><span style="font-size:.75rem;font-weight:600;color:#e11d48;text-transform:uppercase;letter-spacing:.03em">Automation</span><div style="font-weight:700;margin-top:6px;line-height:1.35">Zapier vs Custom Code: A Real Decision Framework</div></a></div></div>
+
+      <nav class="next-prev" aria-label="Blog navigation">
+        <a href="/blog.html"><div class="lbl">&larr; Back</div><div class="ttl">All posts</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="/" class="brand" style="margin-bottom:14px;">
+            <span class="brand-mark" aria-hidden="true"></span>
+            Dainty Trading
+          </a>
+          <p class="muted" style="font-size:13.5px; max-width:360px;">
+            AI automation studio. We build production AI software for ourselves and selected clients.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Studio</h4>
+          <a href="/about.html">About</a>
+          <a href="/services.html">Services</a>
+          <a href="/blog.html">Blog</a>
+          <a href="/contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Featured projects</h4>
+          <a href="/projects/emailtriage.html">Email Triage</a>
+          <a href="/projects/ghost-writer.html">Ghost Writer</a>
+          <a href="/projects/convoforge.html">ConvoForge</a>
+          <a href="/projects/brightpath.html">BrightPath</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="/sitemap.xml">Sitemap</a>
+          <a href="/llms.txt">llms.txt</a>
+          <a href="/robots.txt">robots.txt</a>
+          <a href="/privacy.html">Privacy policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Dainty Trading. All rights reserved.</span>
+        <span>Built in Australia.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

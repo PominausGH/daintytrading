@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Prompt Versioning: The Boring Practice That Saves AI Projects &mdash; Dainty Trading</title>
+  <meta name="description" content="Untracked prompts cause silent quality regressions in production AI systems — here's the lightweight version-control discipline that prevents it." />
+  <link rel="canonical" href="https://daintytrading.com/blog/prompt-versioning-saves-ai-projects.html" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0c10" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Prompt Versioning: The Boring Practice That Saves AI Projects" />
+  <meta property="og:description" content="Untracked prompts cause silent quality regressions in production AI systems — here's the lightweight version-control discipline that prevents it." />
+  <meta property="og:url" content="https://daintytrading.com/blog/prompt-versioning-saves-ai-projects.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Prompt Versioning: The Boring Practice That Saves AI Projects",
+    "description": "Untracked prompts cause silent quality regressions in production AI systems — here's the lightweight version-control discipline that prevents it.",
+    "url": "https://daintytrading.com/blog/prompt-versioning-saves-ai-projects.html",
+    "datePublished": "2026-08-28",
+    "dateModified": "2026-08-28",
+    "author": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "publisher": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "mainEntityOfPage": "https://daintytrading.com/blog/prompt-versioning-saves-ai-projects.html"
+  }
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a>
+        <a href="/services.html">Services</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/blog.html">Blog</a> &nbsp;/&nbsp; Process</div>
+        <h1>Prompt Versioning: The Boring Practice That Saves AI Projects</h1>
+        <p class="lede">Untracked prompts cause silent quality regressions in production AI systems — here's the lightweight version-control discipline that prevents it.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Topic</strong>&nbsp; Process</span>
+          <span class="chip"><strong>Published</strong>&nbsp; 28 August 2026</span>
+          <span class="chip"><strong>Read time</strong>&nbsp; 4 min</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <p>Someone edits the system prompt directly in the OpenAI or Anthropic console to fix a bad response, hits save, and moves on. Two weeks later, output quality on an unrelated task drops 15% and nobody can explain why. Nobody can explain why because nobody can see what changed. The prompt lives in a dashboard, a Notion doc, or a string literal three environments removed from the code review that would have caught it. This is how most teams handle prompts, and it's why most teams eventually ship a quality regression they can't diagnose.</p>
+
+<h2>The common wrong approach</h2>
+<p>Most teams treat the prompt as config, not code. It sits in a database row, an admin panel, or a constant buried in a service file that nobody reviews with the same rigor as application logic. Someone with good intentions — a PM chasing a support ticket, an engineer debugging a one-off — tweaks the wording directly against production. It seems reasonable: prompts are just text, the fix is small, and going through a full PR cycle for a sentence change feels like overkill.</p>
+<p>It breaks the moment more than one person touches the prompt, or the moment you need to answer "what changed between the version that worked and the version that doesn't." We've seen this exact failure on Email Triage: a prompt edited to fix false positives on one email category silently broke classification accuracy on three others, and it took four days to find because nobody had a diff to look at — just a vague sense that "it used to work better."</p>
+
+<h2>The better approach</h2>
+<p>Prompts are code. Store them as code. At Dainty, every production prompt lives in the repo as a versioned file — usually a `.md` or `.txt` file with a clear name (`triage_classifier_v4.md`, not `prompt.txt`) — and changes go through the same PR review as everything else. That alone fixes 80% of the problem: you get a diff, a commit message, an author, and a timestamp for free.</p>
+<p>The other 20% is evaluation discipline. A prompt change without a way to measure its effect is just a guess with extra steps. We pair every prompt file with a small eval set — 20 to 50 representative inputs with expected outputs or scoring criteria — and run it before merging. On Ghost Writer, this is a script that replays saved customer inputs against both the old and new prompt version and diffs the outputs side by side. It doesn't need to be sophisticated. It needs to exist.</p>
+<p>Tag prompt versions the same way you'd tag a model version, because the two are coupled — a prompt tuned for Claude Opus 4.5 doesn't necessarily behave the same on a newer model, and vice versa. We log both together at inference time: <code>{prompt_version: "triage_v4", model: "claude-sonnet-5"}</code>. When a customer reports a bad output, you can reconstruct exactly what generated it, instead of guessing which of six recent changes is responsible.</p>
+<p>For teams running frequent prompt iteration, a lightweight prompt management layer (LangSmith, PromptLayer, or a homegrown table with version history) adds rollback and A/B comparison without much overhead. The tool matters less than the habit: nothing reaches production without a version number attached to it.</p>
+
+<h2>Where this breaks</h2>
+<p>For a two-person team shipping a single prompt that rarely changes, full PR review and a formal eval harness is more process than the problem deserves — a versioned file with a changelog comment at the top may be enough. The overhead becomes worth it once you have more than one person editing prompts, more than one environment, or a customer-facing feature where a regression has real cost. Eval sets also decay: if nobody updates them as the product changes, they give false confidence that a prompt still works when the underlying use case has moved on. Treat the eval set as a living artifact, not a one-time checkbox.</p>
+
+<h2>Practical next step</h2>
+<p>This week, find every prompt currently living outside your codebase — in a console, a database, a Slack thread someone copy-pasted from — and move it into a versioned file with a commit history. Don't rewrite the prompts yet. Just get them under version control so the next change produces a diff instead of a mystery. If you want help setting up the eval harness that makes prompt changes safe to ship quickly, <a href="https://daintytrading.com/contact.html">start a project</a> and we'll walk through what that looks like for your stack.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>About this post</h4>
+          <div class="label-row"><span>Published</span><span>28 August 2026</span></div>
+          <div class="label-row"><span>Topic</span><span>Process</span></div>
+          <div class="label-row"><span>Read time</span><span>4 min</span></div>
+          <div class="label-row"><span>Author</span><span>Dainty Trading</span></div>
+          <a class="btn btn-primary" href="https://daintytrading.com/contact.html">Start a project &rarr;</a>
+          <a class="btn btn-ghost" href="/services.html">See our services</a>
+        </aside>
+      </div>
+
+      <div style="margin-top:56px;padding-top:40px;border-top:1px solid rgba(128,128,128,.25)"><h3 style="font-size:1.1rem;font-weight:700;margin-bottom:20px">Related Articles</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px"><a href="https://daintytrading.com/blog/scope-ai-projects-avoid-blowout.html" style="display:block;padding:18px;border:1px solid rgba(128,128,128,.25);border-radius:12px;text-decoration:none;color:inherit"><span style="font-size:.75rem;font-weight:600;color:#e11d48;text-transform:uppercase;letter-spacing:.03em">Process</span><div style="font-weight:700;margin-top:6px;line-height:1.35">Stop AI Project Blowouts: Scope Right from Day One</div></a><a href="https://daintytrading.com/blog/ai-automations-90-day-payback.html" style="display:block;padding:18px;border:1px solid rgba(128,128,128,.25);border-radius:12px;text-decoration:none;color:inherit"><span style="font-size:.75rem;font-weight:600;color:#e11d48;text-transform:uppercase;letter-spacing:.03em">Business</span><div style="font-weight:700;margin-top:6px;line-height:1.35">Which AI Automations Pay Back in 90 Days (And Which Don&#x27;t)</div></a><a href="https://daintytrading.com/blog/what-breaks-first-llm-production-pipeline.html" style="display:block;padding:18px;border:1px solid rgba(128,128,128,.25);border-radius:12px;text-decoration:none;color:inherit"><span style="font-size:.75rem;font-weight:600;color:#e11d48;text-transform:uppercase;letter-spacing:.03em">AI · Infrastructure</span><div style="font-weight:700;margin-top:6px;line-height:1.35">What Breaks First When You Put an LLM in Production</div></a><a href="https://daintytrading.com/blog/ai-agent-vs-automation-production.html" style="display:block;padding:18px;border:1px solid rgba(128,128,128,.25);border-radius:12px;text-decoration:none;color:inherit"><span style="font-size:.75rem;font-weight:600;color:#e11d48;text-transform:uppercase;letter-spacing:.03em">AI · Engineering</span><div style="font-weight:700;margin-top:6px;line-height:1.35">AI Agent or Automation? Choose Wisely for Production.</div></a></div></div>
+
+      <nav class="next-prev" aria-label="Blog navigation">
+        <a href="/blog.html"><div class="lbl">&larr; Back</div><div class="ttl">All posts</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="/" class="brand" style="margin-bottom:14px;">
+            <span class="brand-mark" aria-hidden="true"></span>
+            Dainty Trading
+          </a>
+          <p class="muted" style="font-size:13.5px; max-width:360px;">
+            AI automation studio. We build production AI software for ourselves and selected clients.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Studio</h4>
+          <a href="/about.html">About</a>
+          <a href="/services.html">Services</a>
+          <a href="/blog.html">Blog</a>
+          <a href="/contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Featured projects</h4>
+          <a href="/projects/emailtriage.html">Email Triage</a>
+          <a href="/projects/ghost-writer.html">Ghost Writer</a>
+          <a href="/projects/convoforge.html">ConvoForge</a>
+          <a href="/projects/brightpath.html">BrightPath</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="/sitemap.xml">Sitemap</a>
+          <a href="/llms.txt">llms.txt</a>
+          <a href="/robots.txt">robots.txt</a>
+          <a href="/privacy.html">Privacy policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Dainty Trading. All rights reserved.</span>
+        <span>Built in Australia.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

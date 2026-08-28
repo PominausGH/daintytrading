@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Which AI Automations Pay Back in 90 Days (And Which Don't) &mdash; Dainty Trading</title>
+  <meta name="description" content="A pattern from real client work: narrow, high-volume automations pay for themselves fast — ambitious "AI agent" builds usually don't." />
+  <link rel="canonical" href="https://daintytrading.com/blog/ai-automations-90-day-payback.html" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0c10" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Which AI Automations Pay Back in 90 Days (And Which Don't)" />
+  <meta property="og:description" content="A pattern from real client work: narrow, high-volume automations pay for themselves fast — ambitious "AI agent" builds usually don't." />
+  <meta property="og:url" content="https://daintytrading.com/blog/ai-automations-90-day-payback.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Which AI Automations Pay Back in 90 Days (And Which Don't)",
+    "description": "A pattern from real client work: narrow, high-volume automations pay for themselves fast — ambitious "AI agent" builds usually don't.",
+    "url": "https://daintytrading.com/blog/ai-automations-90-day-payback.html",
+    "datePublished": "2026-08-28",
+    "dateModified": "2026-08-28",
+    "author": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "publisher": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "mainEntityOfPage": "https://daintytrading.com/blog/ai-automations-90-day-payback.html"
+  }
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a>
+        <a href="/services.html">Services</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/blog.html">Blog</a> &nbsp;/&nbsp; Business</div>
+        <h1>Which AI Automations Pay Back in 90 Days (And Which Don't)</h1>
+        <p class="lede">A pattern from real client work: narrow, high-volume automations pay for themselves fast — ambitious "AI agent" builds usually don't.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Topic</strong>&nbsp; Business</span>
+          <span class="chip"><strong>Published</strong>&nbsp; 28 August 2026</span>
+          <span class="chip"><strong>Read time</strong>&nbsp; 5 min</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <p>The AI automations that pay for themselves fast are narrow, high-volume, and boring. They replace one specific step in a workflow a human already does dozens of times a day — sorting, extracting, tagging, filing. The ones that don't pay back fast are the ambitious ones: an "AI agent" that's supposed to run an entire process end to end, make judgment calls, and hand you a finished result. We've built both kinds for clients. The pattern is consistent enough now that we can usually tell which category a project falls into before we write a line of code.</p>
+
+<h2>The wrong approach: chasing the impressive demo</h2>
+<p>Most teams start in the wrong place. Someone sees a slick agent demo — it reads an inbox, drafts replies, schedules meetings, updates the CRM — and decides that's the automation worth building. It's the version that sounds best in a board meeting. So the team spends three months building a general-purpose agent with a dozen tools, prompt chains for every edge case, and a fallback for when the model gets confused about which tool to call next.</p>
+<p>The problem isn't that this is impossible. It's that it's the hardest version of the problem, chosen first. General, multi-step, judgment-heavy automation is exactly where models are least reliable and where the cost of a wrong action is highest — a bad email draft is annoying, a wrongly scheduled meeting or a bad CRM update is expensive to unwind. Teams end up spending months on evals and guardrails for a workflow that, if it had been scoped down, could have shipped in weeks.</p>
+
+<h2>The better approach: automate the narrow step, not the whole job</h2>
+<p>The engagements with fast, obvious ROI all share a shape: one classification or extraction step, done at volume, with a cost you can measure in hours before you start. Email Triage is the cleanest example — it doesn't decide what to do with an email, it routes it. Given a mailbox getting 200+ messages a day, a model that sorts into "needs response today," "FYI," and "spam/newsletter" with 90%+ accuracy saves a support or ops team real hours every week, and you can measure the before/after in a spreadsheet. AutoArchive Mail is the same pattern applied to filing — it doesn't write anything, it just decides where things go, which means the failure mode is "misfiled," not "sent something wrong."</p>
+<p>CV Matcher follows the same logic on the hiring side: score resumes against a role's requirements and surface the top candidates, rather than trying to automate the interview or the offer decision. The model does extraction and ranking — a narrow, checkable task — and a recruiter still makes the call. That's the throughline across every fast-payback project: the model handles the repetitive judgment a human currently does hundreds of times, a human handles the final decision, and the automation is judged against a baseline you can actually measure.</p>
+<p>Contrast that with Ghost Writer and BrightPath, two projects that took closer to a year to show clear ROI. Ghost Writer generates first-draft content in a client's voice — genuinely useful, but the value is diffuse. Nobody tracks "hours saved drafting" the way they track "emails triaged." BrightPath coordinates multi-step client workflows across several systems, which means more integration surface, more failure modes, and a longer tail of edge cases before anyone trusts it enough to remove the human checkpoint. Both are now delivering real value. Neither paid for itself in 90 days, and pretending otherwise at the start would have set the wrong expectation with the client.</p>
+
+<h2>Where even the fast-ROI pattern breaks</h2>
+<p>Narrow automation isn't free of failure modes. If volume is low — say, 15 emails a day instead of 200 — the time saved doesn't clear the cost of building and maintaining the thing. If the task looks narrow but is actually high-stakes (routing a legal notice, filing something in a compliance-sensitive category), the accuracy bar goes up, review overhead creeps back in, and your 90-day payback quietly becomes a 9-month one. And if nobody measured the "before" cost — how many hours a week the team actually spent on the task — you're guessing at ROI instead of demonstrating it, which is how automations get killed six months in when someone finally asks what it saved.</p>
+
+<h2>What to do this week</h2>
+<p>Pick one repetitive task your team does more than 50 times a week — sorting, tagging, extracting, matching. Time how long it takes a person to do it once, multiply by weekly volume, and you have your baseline cost in hours. If that number is high and the task doesn't require a judgment call at the end, it's a strong candidate for a 90-day payback automation. If you're not sure whether a task is narrow enough to pay back fast or ambitious enough to need a longer runway, that's exactly the conversation worth having before you commit engineering time to it — <a href="https://daintytrading.com/contact.html">start a project</a> and we'll help you figure out which one you're looking at.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>About this post</h4>
+          <div class="label-row"><span>Published</span><span>28 August 2026</span></div>
+          <div class="label-row"><span>Topic</span><span>Business</span></div>
+          <div class="label-row"><span>Read time</span><span>5 min</span></div>
+          <div class="label-row"><span>Author</span><span>Dainty Trading</span></div>
+          <a class="btn btn-primary" href="https://daintytrading.com/contact.html">Start a project &rarr;</a>
+          <a class="btn btn-ghost" href="/services.html">See our services</a>
+        </aside>
+      </div>
+
+      <div style="margin-top:56px;padding-top:40px;border-top:1px solid rgba(128,128,128,.25)"><h3 style="font-size:1.1rem;font-weight:700;margin-bottom:20px">Related Articles</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px"><a href="https://daintytrading.com/blog/what-breaks-first-llm-production-pipeline.html" style="display:block;padding:18px;border:1px solid rgba(128,128,128,.25);border-radius:12px;text-decoration:none;color:inherit"><span style="font-size:.75rem;font-weight:600;color:#e11d48;text-transform:uppercase;letter-spacing:.03em">AI · Infrastructure</span><div style="font-weight:700;margin-top:6px;line-height:1.35">What Breaks First When You Put an LLM in Production</div></a><a href="https://daintytrading.com/blog/scope-ai-projects-avoid-blowout.html" style="display:block;padding:18px;border:1px solid rgba(128,128,128,.25);border-radius:12px;text-decoration:none;color:inherit"><span style="font-size:.75rem;font-weight:600;color:#e11d48;text-transform:uppercase;letter-spacing:.03em">Process</span><div style="font-weight:700;margin-top:6px;line-height:1.35">Stop AI Project Blowouts: Scope Right from Day One</div></a><a href="https://daintytrading.com/blog/ai-agent-vs-automation-production.html" style="display:block;padding:18px;border:1px solid rgba(128,128,128,.25);border-radius:12px;text-decoration:none;color:inherit"><span style="font-size:.75rem;font-weight:600;color:#e11d48;text-transform:uppercase;letter-spacing:.03em">AI · Engineering</span><div style="font-weight:700;margin-top:6px;line-height:1.35">AI Agent or Automation? Choose Wisely for Production.</div></a><a href="https://daintytrading.com/blog/ai-agent-demo-to-production-gap.html" style="display:block;padding:18px;border:1px solid rgba(128,128,128,.25);border-radius:12px;text-decoration:none;color:inherit"><span style="font-size:.75rem;font-weight:600;color:#e11d48;text-transform:uppercase;letter-spacing:.03em">AI · Engineering</span><div style="font-weight:700;margin-top:6px;line-height:1.35">Why Most AI Agent Projects Never Make It Past the Demo</div></a></div></div>
+
+      <nav class="next-prev" aria-label="Blog navigation">
+        <a href="/blog.html"><div class="lbl">&larr; Back</div><div class="ttl">All posts</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="/" class="brand" style="margin-bottom:14px;">
+            <span class="brand-mark" aria-hidden="true"></span>
+            Dainty Trading
+          </a>
+          <p class="muted" style="font-size:13.5px; max-width:360px;">
+            AI automation studio. We build production AI software for ourselves and selected clients.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Studio</h4>
+          <a href="/about.html">About</a>
+          <a href="/services.html">Services</a>
+          <a href="/blog.html">Blog</a>
+          <a href="/contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Featured projects</h4>
+          <a href="/projects/emailtriage.html">Email Triage</a>
+          <a href="/projects/ghost-writer.html">Ghost Writer</a>
+          <a href="/projects/convoforge.html">ConvoForge</a>
+          <a href="/projects/brightpath.html">BrightPath</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="/sitemap.xml">Sitemap</a>
+          <a href="/llms.txt">llms.txt</a>
+          <a href="/robots.txt">robots.txt</a>
+          <a href="/privacy.html">Privacy policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Dainty Trading. All rights reserved.</span>
+        <span>Built in Australia.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
