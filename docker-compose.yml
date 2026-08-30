@@ -29,6 +29,7 @@ services:
         condition: service_started
     networks:
       - dainty-net
+      - postgres-main-network
 
   api:
     build: ./api
@@ -48,3 +49,5 @@ services:
 
 networks:
   dainty-net:
+  postgres-main-network:
+    external: true
