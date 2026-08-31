@@ -21,8 +21,26 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 PROJECTS = [
     {
         "site_id": "265c7bd8-3f8a-41f9-98d4-ccedc9594283",
-        "html_file": REPO_ROOT / "projects" / "shuttersmith.html",
+        "html_files": [
+            REPO_ROOT / "projects" / "shuttersmith.html",
+            REPO_ROOT / "work.html",
+            REPO_ROOT / "index.html",
+            REPO_ROOT / "services" / "seo-geo-optimization.html",
+        ],
     },
+]
+
+# Every spot on the site the visit count is quoted, across all of the above
+# files. Each is anchored to Shuttersmith-specific surrounding text so it
+# can't collide with unrelated "N real visits" stats elsewhere on the site
+# (e.g. the AI-chat-referral stat on services/seo-geo-optimization.html).
+# Harmless to run against a file that doesn't contain a given spot.
+VISIT_COUNT_PATTERNS = [
+    r"[\d,]+(?= real visits &mdash;)",                    # shuttersmith.html prose
+    r"(Visits since \w{3,9}</span><span>)[\d,]+",         # shuttersmith.html sidecard
+    r"[\d,]+(?= real visits, majority via Google)",       # work.html / index.html cards
+    r'(<div class="result-stat">)[\d,]+(?= visits</div>)',  # seo-geo result-stat box
+    r"[\d,]+(?= real visits since tracking began)",       # seo-geo paragraph
 ]
 
 
@@ -51,15 +69,13 @@ def api_get(path, token, params=None):
 
 def update_visit_count(html_file, visits):
     text = html_file.read_text()
-    new_text, n1 = re.subn(r"[\d,]+(?= real visits)", f"{visits:,}", text)
-    new_text, n2 = re.subn(
-        r"(Visits since \w{3,9}</span><span>)[\d,]+",
-        rf"\g<1>{visits:,}",
-        new_text,
-    )
-    total = n1 + n2
+    new_text, total = text, 0
+    for pattern in VISIT_COUNT_PATTERNS:
+        compiled = re.compile(pattern)
+        repl = rf"\g<1>{visits:,}" if compiled.groups else f"{visits:,}"
+        new_text, n = compiled.subn(repl, new_text)
+        total += n
     if total == 0:
-        print(f"  no visit-count patterns matched in {html_file}, skipping")
         return False
     if new_text == text:
         print(f"  {html_file.name}: already {visits:,}, no change")
@@ -86,7 +102,8 @@ def main():
         )
         visits = stats.get("visits", 0)
         print(f"{website.get('name', site_id)}: {visits} visits since {created_at.date()}")
-        update_visit_count(project["html_file"], visits)
+        for html_file in project["html_files"]:
+            update_visit_count(html_file, visits)
 
 
 if __name__ == "__main__":
