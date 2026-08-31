@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """
-Pulls real view/visit counts from Umami and updates the "Where we are"
-stat line on the matching case-study page in this repo. Run weekly via cron.
+Pulls real view/visit counts from Umami and updates every spot on the site
+that quotes them (case-study page, homepage/work cards, SEO service page).
+The two full-sentence spots also get a "(as of <date>)" freshness label.
+Run weekly via cron.
 
-To bring another project's stats onto its case-study page once it's live
-and tracked in Umami, add an entry to PROJECTS below.
+To bring another project's stats onto its pages once it's live and tracked
+in Umami, add an entry to PROJECTS below.
 """
 import json
 import re
@@ -35,12 +37,18 @@ PROJECTS = [
 # can't collide with unrelated "N real visits" stats elsewhere on the site
 # (e.g. the AI-chat-referral stat on services/seo-geo-optimization.html).
 # Harmless to run against a file that doesn't contain a given spot.
+#
+# The two full-sentence spots also carry a "(as of <date>)" freshness label,
+# since they're prose making a specific claim; the short card blurbs and the
+# bare stat box don't have room for it and just get the number.
+DATED_VISIT_COUNT_PATTERNS = [
+    r"[\d,]+ real visits(?: \(as of [^)]+\))?(?= &mdash;)",               # shuttersmith.html prose
+    r"[\d,]+ real visits(?: \(as of [^)]+\))?(?= since tracking began)",  # seo-geo paragraph
+]
 VISIT_COUNT_PATTERNS = [
-    r"[\d,]+(?= real visits &mdash;)",                    # shuttersmith.html prose
     r"(Visits since \w{3,9}</span><span>)[\d,]+",         # shuttersmith.html sidecard
     r"[\d,]+(?= real visits, majority via Google)",       # work.html / index.html cards
     r'(<div class="result-stat">)[\d,]+(?= visits</div>)',  # seo-geo result-stat box
-    r"[\d,]+(?= real visits since tracking began)",       # seo-geo paragraph
 ]
 
 
@@ -67,9 +75,14 @@ def api_get(path, token, params=None):
     return json.load(urllib.request.urlopen(req))
 
 
-def update_visit_count(html_file, visits):
+def update_visit_count(html_file, visits, date_str):
     text = html_file.read_text()
     new_text, total = text, 0
+    for pattern in DATED_VISIT_COUNT_PATTERNS:
+        new_text, n = re.subn(
+            pattern, f"{visits:,} real visits (as of {date_str})", new_text
+        )
+        total += n
     for pattern in VISIT_COUNT_PATTERNS:
         compiled = re.compile(pattern)
         repl = rf"\g<1>{visits:,}" if compiled.groups else f"{visits:,}"
@@ -87,7 +100,9 @@ def update_visit_count(html_file, visits):
 
 def main():
     token = get_token(_load_password())
-    now_ms = int(datetime.now(timezone.utc).timestamp() * 1000)
+    now = datetime.now(timezone.utc)
+    now_ms = int(now.timestamp() * 1000)
+    date_str = now.strftime("%-d %b %Y")
 
     for project in PROJECTS:
         site_id = project["site_id"]
@@ -103,7 +118,7 @@ def main():
         visits = stats.get("visits", 0)
         print(f"{website.get('name', site_id)}: {visits} visits since {created_at.date()}")
         for html_file in project["html_files"]:
-            update_visit_count(html_file, visits)
+            update_visit_count(html_file, visits, date_str)
 
 
 if __name__ == "__main__":
