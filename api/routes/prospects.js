@@ -76,9 +76,6 @@ router.post('/:slug/send', async (req, res) => {
   if (!store.prospectExists(run, slug)) {
     return res.status(404).json({ error: 'Prospect not found' });
   }
-  if (!config.prospectsFooterAddress) {
-    return res.status(500).json({ error: 'PROSPECTS_FOOTER_ADDRESS is not configured — refusing to send a commercial email without a compliant footer (Spam Act 2003).' });
-  }
 
   const { to, subject, body, variant } = req.body || {};
   if (!to || typeof to !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(to.trim())) {

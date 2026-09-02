@@ -20,10 +20,14 @@ const config = {
     'We rebuilt Shuttersmith\'s site the same way, one fix at a time, no downtime.'
   ),
 
-  // Spam Act 2003 requires a genuine contact address in every commercial electronic message.
-  // Deliberately no fallback here — sending without one would be non-compliant, so an unset
-  // value is surfaced as a startup warning (see server.js) rather than silently defaulting.
-  prospectsFooterAddress: process.env.PROSPECTS_FOOTER_ADDRESS || '',
+  // Spam Act 2003 requires accurate sender-contact info the recipient can use for at least 30
+  // days — a working email address satisfies this (ACMA guidance), a street address isn't
+  // required. Defaults to the same FROM_EMAIL identity lib/email.js already sends from, so
+  // this doesn't need its own separately-configured value.
+  prospectsFooterAddress: required(
+    'PROSPECTS_FOOTER_ADDRESS',
+    `Dainty Trading · ABN 65 366 917 788 · ${required('FROM_EMAIL', 'hello@daintytrading.com')}`
+  ),
 };
 
 module.exports = config;
