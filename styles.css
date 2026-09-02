@@ -860,6 +860,22 @@ code, kbd {
   .nav-links.nav-open a {
     font-size: 16px;
   }
+  /* Same fix, extended to price-grid pages (seo-geo-optimization.html,
+     local-seo.html, website-builds.html, the three ai-*.html service pages).
+     Their .price-card/.month-list/.honest-note sizing and sidecard/plan
+     disclaimer paragraphs are set per-page (a page-level <style> block, or a
+     bare inline style="font-size:..."). Both load/cascade after this
+     stylesheet, so this needs !important to actually win here. */
+  .price-card .note,
+  .price-card li,
+  .month-list li,
+  .honest-note,
+  .result-card p,
+  .sidecard p,
+  .detail-body p[style*="font-size"] {
+    font-size: 15.5px !important;
+    line-height: 1.6 !important;
+  }
 }
 
 /* Homepage inline-style extraction (CSP hardening — drop style-src
