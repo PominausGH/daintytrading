@@ -33,6 +33,8 @@
   <style>
     .price-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin:10px 0; }
     @media (max-width:980px) { .price-grid { grid-template-columns:1fr; } }
+    .price-grid-2 { grid-template-columns:repeat(2,1fr); max-width:680px; }
+    @media (max-width:980px) { .price-grid-2 { grid-template-columns:1fr; } }
     .price-card { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:24px; display:flex; flex-direction:column; }
     .price-card.featured { border-color:var(--accent); box-shadow:var(--shadow); }
     .price-card .tier { font-size:13px; letter-spacing:.04em; text-transform:uppercase; color:var(--text-muted); }
@@ -66,8 +68,10 @@
       "name": "Local SEO & GEO packages",
       "itemListElement": [
         { "@type": "Offer", "name": "Audit", "price": "0", "priceCurrency": "AUD", "description": "Full local SEO and AI-search audit with a prioritised, plain-English fix list." },
-        { "@type": "Offer", "name": "Setup", "price": "2900", "priceCurrency": "AUD", "description": "One-off. Audit plus fixes shipped: LocalBusiness schema, service areas, llms.txt, AI-crawler access, Google Business Profile, and a review-generation system. No lock-in." },
-        { "@type": "Offer", "name": "Growth", "price": "550", "priceCurrency": "AUD", "description": "Monthly. Google Business Profile management, ongoing reviews, a new location page each month, and a plain-English report. Cancel anytime." }
+        { "@type": "Offer", "name": "Setup", "price": "3900", "priceCurrency": "AUD", "description": "One-off. Audit plus fixes shipped: LocalBusiness schema, service areas, llms.txt, AI-crawler access, Google Business Profile, and a review-generation system. No lock-in. $7,500 AUD for multi-location or multi-language businesses." },
+        { "@type": "Offer", "name": "Monitor", "price": "450", "priceCurrency": "AUD", "description": "Monthly. Automated ranking and AI-citation monitoring, with a monthly plain-English report. No fix pass included. Cancel anytime." },
+        { "@type": "Offer", "name": "Growth", "price": "950", "priceCurrency": "AUD", "description": "Monthly. Everything in Monitor, plus Google Business Profile posts, review replies, and a review campaign each month. Cancel anytime." },
+        { "@type": "Offer", "name": "Scale", "price": "1950", "priceCurrency": "AUD", "description": "Monthly. Everything in Growth, plus new suburb/service pages, full Google Business Profile management, monthly content, and a quarterly strategy call." }
       ]
     }
   }
@@ -78,8 +82,8 @@
     "@type": "FAQPage",
     "mainEntity": [
       { "@type": "Question", "name": "What is local GEO (generative engine optimization)?", "acceptedAnswer": { "@type": "Answer", "text": "It's making sure your business is the answer when someone asks ChatGPT, Claude, or Perplexity 'who does this near me?' It's driven by accurate structured data, your Google Business Profile, an llms.txt file, and making sure AI crawlers can actually read your site — not by backlinks." } },
-      { "@type": "Question", "name": "What does the $550 monthly plan actually include?", "acceptedAnswer": { "@type": "Answer", "text": "A typical month: Google Business Profile posts and review replies, a review campaign to that month's customers, one new location or service page, and a plain-English report showing what people searched, where they came from, and the calls you got. Roughly 3 to 5 hours of real work with something to show for it. It's month-to-month, cancel anytime, and if there's genuinely nothing useful to do that month, we tell you." } },
-      { "@type": "Question", "name": "Is there a lock-in contract?", "acceptedAnswer": { "@type": "Answer", "text": "No. The Setup is a one-off. The monthly Growth plan is cancel-anytime. We'd rather keep you because the work is worth it than because a contract traps you." } },
+      { "@type": "Question", "name": "What do the monthly plans actually include?", "acceptedAnswer": { "@type": "Answer", "text": "Three tiers. Monitor ($450/mo) is ranking and AI-citation monitoring plus a report, no fix pass. Growth ($950/mo) adds Google Business Profile posts, review replies, and a monthly review campaign. Scale ($1,950/mo) adds new suburb/service pages, full Google Business Profile management, monthly content, and a quarterly strategy call. All month-to-month, cancel anytime, and if there's genuinely nothing useful to do that month, we tell you." } },
+      { "@type": "Question", "name": "Is there a lock-in contract?", "acceptedAnswer": { "@type": "Answer", "text": "No. The Setup is a one-off. All three monthly plans (Monitor, Growth, Scale) are cancel-anytime. We'd rather keep you because the work is worth it than because a contract traps you." } },
       { "@type": "Question", "name": "Can you guarantee I'll be number one on Google?", "acceptedAnswer": { "@type": "Answer", "text": "No, and anyone who promises that isn't being straight with you. We fix what's structurally broken, get your Google listing and reviews working, and give you an honest read on what's left to do." } },
       { "@type": "Question", "name": "Do I need the monthly plan?", "acceptedAnswer": { "@type": "Answer", "text": "Only if you're actively trying to grow — reaching new suburbs, wanting a steady flow of reviews. If you just needed the one-time fix, we'll say so. We don't charge a retainer for nothing." } }
     ]
@@ -122,7 +126,7 @@
           <p>Most local businesses are invisible where it now counts. Not just on Google &mdash; but in the answer an AI assistant gives when someone asks it to recommend someone. We fix both, and we tell you plainly when there&rsquo;s nothing left worth paying for.</p>
 
           <h2>Packages</h2>
-          <div class="price-grid">
+          <div class="price-grid price-grid-2">
             <div class="price-card">
               <span class="tier">Audit</span>
               <div class="price">Free</div>
@@ -140,7 +144,7 @@
             <div class="price-card featured">
               <span class="price-badge">Most popular</span>
               <span class="tier">Setup</span>
-              <div class="price">from $2,900 <small>one-off</small></div>
+              <div class="price">$3,900 <small>one-off</small></div>
               <p class="note">We fix it. Done properly, no lock-in.</p>
               <ul>
                 <li>Everything in the audit &mdash; then we implement it</li>
@@ -152,25 +156,52 @@
               </ul>
               <a class="btn btn-primary" href="/contact.html">Get a quote &rarr;</a>
             </div>
+          </div>
 
+          <h3 style="margin-top:28px;">Then, optional monthly plans</h3>
+          <p style="font-size:14px;color:var(--text-dim);margin:0 0 16px;">Three tiers so you pick which level of ongoing work makes sense, not whether to sign up at all. Cancel anytime, no lock-in.</p>
+          <div class="price-grid">
             <div class="price-card">
+              <span class="tier">Monitor <small style="text-transform:none;letter-spacing:0;">&mdash; monthly</small></span>
+              <div class="price">$450<small>/mo</small></div>
+              <p class="note">Watch it, report on it, no fix pass included.</p>
+              <ul class="month-list">
+                <li>Automated ranking &amp; AI-citation monitoring</li>
+                <li>A plain-English report: searches, visitors, calls</li>
+                <li>Quiet monitoring for anything that breaks</li>
+              </ul>
+              <a class="btn btn-ghost" href="/contact.html" style="margin-top:16px;">Talk it through &rarr;</a>
+            </div>
+
+            <div class="price-card featured">
+              <span class="price-badge">Most popular</span>
               <span class="tier">Growth <small style="text-transform:none;letter-spacing:0;">&mdash; monthly</small></span>
-              <div class="price">from $550<small>/mo</small></div>
-              <p class="note">Cancel anytime. For businesses actively growing.</p>
-              <p style="font-size:13px;color:var(--text-muted);margin:0 0 4px;">What a month looks like:</p>
+              <div class="price">$950<small>/mo</small></div>
+              <p class="note">Monitor, plus we keep working your listing.</p>
+              <p style="font-size:13px;color:var(--text-muted);margin:0 0 4px;">Everything in Monitor, plus:</p>
               <ul class="month-list">
                 <li>Google Business Profile posts &amp; review replies</li>
                 <li>A review campaign to that month&rsquo;s customers</li>
-                <li>One new suburb or service page</li>
-                <li>A plain-English report: searches, visitors, calls</li>
-                <li>Quiet monitoring for anything that breaks</li>
+              </ul>
+              <a class="btn btn-primary" href="/contact.html" style="margin-top:16px;">Talk it through &rarr;</a>
+            </div>
+
+            <div class="price-card">
+              <span class="tier">Scale <small style="text-transform:none;letter-spacing:0;">&mdash; monthly</small></span>
+              <div class="price">$1,950<small>/mo</small></div>
+              <p class="note">For businesses actively expanding into new areas.</p>
+              <p style="font-size:13px;color:var(--text-muted);margin:0 0 4px;">Everything in Growth, plus:</p>
+              <ul class="month-list">
+                <li>New suburb/service pages each month</li>
+                <li>Full Google Business Profile management</li>
+                <li>A quarterly strategy call</li>
               </ul>
               <a class="btn btn-ghost" href="/contact.html" style="margin-top:16px;">Talk it through &rarr;</a>
             </div>
           </div>
 
           <div class="honest-note">
-            <strong>We&rsquo;ll tell you when you don&rsquo;t need us.</strong> The monthly plan is only worth it if you&rsquo;re actively growing. If a month has nothing useful in it, we say so &mdash; and if you just needed the one-time fix, we&rsquo;ll tell you that too. No lock-in, ever.
+            <strong>We&rsquo;ll tell you when you don&rsquo;t need us.</strong> The monthly plans are only worth it if you&rsquo;re actively growing. If a month has nothing useful in it, we say so &mdash; and if you just needed the one-time fix, we&rsquo;ll tell you that too. No lock-in, ever.
           </div>
 
           <h2>Why us</h2>
@@ -187,12 +218,12 @@
             <p>It&rsquo;s making sure your business is the answer when someone asks ChatGPT, Claude, or Perplexity &ldquo;who does this near me?&rdquo; It&rsquo;s driven by accurate structured data, your Google Business Profile, an <code>llms.txt</code> file, and making sure AI crawlers can actually read your site &mdash; not by backlinks.</p>
           </details>
           <details class="faq-item">
-            <summary>What does the $550 monthly plan actually include?</summary>
-            <p>A typical month: Google Business Profile posts and review replies, a review campaign to that month&rsquo;s customers, one new location or service page, and a plain-English report showing what people searched, where they came from, and the calls you got. Roughly 3&ndash;5 hours of real work with something to show for it. Month-to-month, cancel anytime, and if there&rsquo;s genuinely nothing useful to do that month, we tell you.</p>
+            <summary>What do the monthly plans actually include?</summary>
+            <p>Three tiers. Monitor ($450/mo) is ranking and AI-citation monitoring plus a report, no fix pass. Growth ($950/mo) adds Google Business Profile posts, review replies, and a monthly review campaign. Scale ($1,950/mo) adds new suburb/service pages, full Google Business Profile management, monthly content, and a quarterly strategy call. Month-to-month, cancel anytime, and if there&rsquo;s genuinely nothing useful to do that month, we tell you.</p>
           </details>
           <details class="faq-item">
             <summary>Is there a lock-in contract?</summary>
-            <p>No. The Setup is a one-off. The monthly plan is cancel-anytime. We&rsquo;d rather keep you because the work is worth it than because a contract traps you.</p>
+            <p>No. The Setup is a one-off. All three monthly plans (Monitor, Growth, Scale) are cancel-anytime. We&rsquo;d rather keep you because the work is worth it than because a contract traps you.</p>
           </details>
           <details class="faq-item">
             <summary>Can you guarantee I&rsquo;ll be number one on Google?</summary>
@@ -208,8 +239,10 @@
           <h4>Local SEO &amp; GEO</h4>
           <div class="label-row"><span>Best for</span><span>Local service businesses</span></div>
           <div class="label-row"><span>Audit</span><span>Free</span></div>
-          <div class="label-row"><span>Setup</span><span>from $2,900</span></div>
-          <div class="label-row"><span>Growth</span><span>from $550/mo</span></div>
+          <div class="label-row"><span>Setup</span><span>$3,900</span></div>
+          <div class="label-row"><span>Monitor</span><span>$450/mo</span></div>
+          <div class="label-row"><span>Growth</span><span>$950/mo</span></div>
+          <div class="label-row"><span>Scale</span><span>$1,950/mo</span></div>
           <div class="label-row"><span>Lock-in</span><span>None</span></div>
           <p style="font-size:12px;color:var(--text-muted);margin:10px 0 16px;">Found on Google Maps, in local search, and by AI assistants &mdash; without a lock-in contract or a &ldquo;#1 ranking&rdquo; promise nobody can keep.</p>
           <a class="btn btn-primary" href="/contact.html">Start with an audit &rarr;</a>
