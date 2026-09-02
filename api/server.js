@@ -8,6 +8,7 @@ const statusRoutes = require('./routes/status');
 const adminRoutes = require('./routes/admin');
 const prospectsRoutes = require('./routes/prospects');
 const { startSuppressionMonitor } = require('./lib/suppression-monitor');
+const config = require('./lib/config');
 
 const app = express();
 app.disable('x-powered-by');
@@ -34,5 +35,9 @@ app.get('/api/health', (_req, res) => res.json({ ok: true }));
 
 app.listen(PORT, () => {
   console.log(`Dainty API listening on :${PORT}`);
+  if (!config.prospectsFooterAddress) {
+    console.warn('[prospects] PROSPECTS_FOOTER_ADDRESS is not set — outbound prospect emails ' +
+      'require a genuine contact address under the Spam Act 2003 and will be refused until it is set.');
+  }
   startSuppressionMonitor();
 });

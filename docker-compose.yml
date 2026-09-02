@@ -46,8 +46,11 @@ services:
     mem_limit: 128m
     networks:
       - dainty-net
+      - litellm_default
 
 networks:
   dainty-net:
   postgres-main-network:
+    external: true
+  litellm_default:
     external: true
