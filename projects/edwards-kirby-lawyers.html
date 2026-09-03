@@ -80,12 +80,13 @@
           <h2>What we built</h2>
           <p>A full rebuild of the public site &mdash; home, services by practice area, about, team, insights, results, and contact &mdash; alongside legal boilerplate that actually needed a proper pass (privacy, terms, disclaimer). But the site was the smaller half of the job.</p>
           <p>The bigger piece is a secure client portal that sits behind it: JWT authentication with MFA, role-based access control, encrypted document storage, ClamAV malware scanning on every file a client uploads, and a full audit log. That&rsquo;s not a brochure feature &mdash; it&rsquo;s a piece of software a firm&rsquo;s clients actually log into and rely on while a matter is live.</p>
+          <p>Alongside the portal, we built an automated review-request pipeline &mdash; a secure, tokenized email sequence that asks a client for a Google review once their matter closes, with staged day-14 and day-28 follow-ups if they haven&rsquo;t responded, and a one-click opt-out so nobody gets chased after they&rsquo;ve already left one. It&rsquo;s deduplicated per matter, and it&rsquo;s live in production right now &mdash; not a mockup.</p>
 
           <h2>SEO/GEO, built in from day one</h2>
           <p>Every page shipped with real metadata and OG images, a proper <code>sitemap.xml</code> and <code>robots.txt</code>, and an <code>llms.txt</code> so AI assistants can read the firm&rsquo;s services cleanly rather than guessing. Structured data covers both <code>LegalService</code> and <code>FAQPage</code> schema &mdash; the goal is that when someone asks Google, or asks ChatGPT or Perplexity, &ldquo;who handles insolvency in Sydney,&rdquo; EK Lawyers shows up with the right answer already attached.</p>
 
           <h2>Where we are</h2>
-          <p>The rebuild is complete and about to go live, replacing the old site outright.</p>
+          <p>The rebuild is complete and about to go live, replacing the old site outright. Next up: wiring the review-request pipeline directly into the firm&rsquo;s LEAP practice management system, so a request fires the moment a matter is marked complete &mdash; no one has to remember to trigger it.</p>
         </article>
 
         <aside class="sidecard">
@@ -95,6 +96,7 @@
           <div class="label-row"><span>Location</span><span>Sydney, NSW</span></div>
           <div class="label-row"><span>Portal</span><span>JWT + MFA · RBAC</span></div>
           <div class="label-row"><span>Documents</span><span>Encrypted · AV-scanned</span></div>
+          <div class="label-row"><span>Reviews</span><span>Automated request pipeline</span></div>
           <div class="label-row"><span>SEO/GEO</span><span>Structured data + llms.txt</span></div>
           <a class="btn btn-ghost" href="/contact.html">Build something similar</a>
         </aside>
