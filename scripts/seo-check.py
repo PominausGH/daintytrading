@@ -39,6 +39,25 @@ SKIP_DIRS = ("api/", "admin/", "og/", "node_modules/")
 # out of the index says so with a noindex robots tag, which is detected below.
 NOT_INDEXED = {"404.html"}
 
+# Deliberately live but not submitted for crawling. Search Console had 66 URLs
+# sitting at "Discovered - currently not indexed" — found via the sitemap,
+# never fetched — so submitting the 300-500 word product blurbs was spending
+# crawl budget on pages Google had already declined, at the expense of the
+# ones that can rank. They stay linked from work.html for people. The three
+# client case studies are real, substantial pages and stay submitted.
+UNSUBMITTED_PREFIX = "projects/"
+UNSUBMITTED_EXCEPTIONS = {
+    "projects/edwards-kirby-lawyers.html",
+    "projects/shuttersmith.html",
+    "projects/new-shutter-business.html",
+}
+
+
+def submitted(rel):
+    """Should this page be in sitemap.xml?"""
+    return not rel.startswith(UNSUBMITTED_PREFIX) or rel in UNSUBMITTED_EXCEPTIONS
+
+
 TRACKER = "/stats/sc.js"
 
 
@@ -79,8 +98,12 @@ def main():
             findings.append(f"sitemap lists a URL with no file: {u}")
     in_sitemap = {("index.html" if u == f"{SITE}/" else u[len(SITE) + 1:]) for u in sm_urls}
     for rel in rels:
-        if rel not in in_sitemap and rel not in NOT_INDEXED and rel not in noindexed:
+        if (rel not in in_sitemap and rel not in NOT_INDEXED
+                and rel not in noindexed and submitted(rel)):
             findings.append(f"page missing from sitemap.xml: {rel}")
+    for rel in in_sitemap:
+        if not submitted(rel):
+            findings.append(f"deliberately unsubmitted page is back in sitemap.xml: {rel}")
 
     # 2. Nothing indexable is orphaned — a page no other page links to is one
     #    Google reaches through the sitemap alone, and ranks accordingly.
