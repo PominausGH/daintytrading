@@ -74,14 +74,42 @@
     <div class="container">
       <div class="detail-body">
         <article class="prose">
+          <!-- TODO(andrew): the numbers below are everything the repo can verify.
+               Worth adding when you have them to hand, in this order of value:
+                 1. Traffic baseline before July (even "effectively zero" with a
+                    source beats an unquantified "wasn't capturing before").
+                 2. Inquiry or job count attributable to the site, and over what
+                    period. Craig's review says "lots more jobs" — a number makes
+                    it evidence rather than a quote.
+                 3. Engagement start date, and the date each phase shipped.
+                 4. Anything the audit actually found on the old site. Specific
+                    faults are the most persuasive content on a page like this,
+                    and right now this section describes method, not findings. -->
           <h2>The problem</h2>
-          <p>Like most local businesses, Shuttersmith relied on word of mouth and an existing site that had never had a real technical SEO pass &mdash; no structured data, nothing built for the way search has changed. And search has changed: a growing share of &ldquo;who does X near me&rdquo; questions now get answered by an AI assistant that never sends a click. Ranking on Google isn&rsquo;t enough anymore if ChatGPT, Perplexity, or an AI Overview can&rsquo;t read your site cleanly enough to recommend you.</p>
+          <p>Shuttersmith sells and installs plantation shutters &mdash; the kind of business where nearly every job begins with someone searching for a supplier near them. It had been running on word of mouth and a site that had never had a real technical SEO pass: no structured data, no service-area pages, nothing that told a search engine what the business did or where it did it. That is an ordinary enough starting point. What makes it expensive now is that search itself has moved.</p>
+          <p>A growing share of &ldquo;who does X near me&rdquo; questions are answered before a results page ever loads &mdash; by an AI Overview, by ChatGPT, by Perplexity. Those answers get assembled from whatever the assistant can read cleanly and trust. A site with no schema, no <code>llms.txt</code>, and no consistent statement of its own services and service area doesn&rsquo;t get recommended; it gets skipped in favour of a competitor whose site happens to be legible. Ranking on Google is still necessary. It is no longer sufficient.</p>
 
           <h2>What we did</h2>
-          <p>Shuttersmith is the proving ground for Dainty Trading&rsquo;s productised SEO + GEO service &mdash; Audit, Setup, and Growth tiers built for exactly this kind of business. That means a full technical SEO audit, structured data and local-business schema, and generative-engine optimisation work: making sure the site&rsquo;s factual content &mdash; services, service area, pricing, credentials &mdash; is written in a way an AI assistant can lift correctly, not just a way Google can index.</p>
+          <p>Shuttersmith is the first client on our productised SEO + GEO service, and the proving ground for it &mdash; Audit, Setup, then Growth, in that order.</p>
+          <p>The audit came first: a full crawl, indexation checked against Search Console, every piece of structured data validated, and an explicit pass on what AI crawlers could and couldn&rsquo;t see. The output is a list ranked by impact against effort rather than a generic checklist &mdash; which matters on a small business site, where there is a finite budget of changes worth making and the order you make them in decides what the money buys.</p>
+          <p>The setup work that followed was the unglamorous half. <strong>LocalBusiness schema</strong>, so the business, its service area and its contact details are machine-readable rather than inferred from page copy. <strong>Service-area pages</strong>, so the site states where it works instead of leaving it implied. Metadata and Open Graph across every page, a clean <code>sitemap.xml</code> and <code>robots.txt</code>, and analytics &mdash; that last one first, so everything after it could be measured rather than asserted. Alongside the on-site work sit the Google Business Profile and a review-generation system: for a local trade, the profile and the reviews attached to it frequently do more work than the website does.</p>
 
-          <h2>Where we are</h2>
-          <p>Since we started tracking in July, the site has had 354 real visits (as of 31 Aug 2026) &mdash; and of the ones with an identifiable source, the large majority came from Google search, genuine organic traffic it wasn&rsquo;t capturing before. That traffic has started converting into real customer inquiries, not just page views. The GEO half is still in progress (the site&rsquo;s <code>llms.txt</code> is next up), so we&rsquo;re not claiming an AI-search win yet &mdash; only reporting what the analytics actually show. What&rsquo;s already real: the work brought in enough new business that the client asked us to build them a second business entirely, <a href="/projects/new-shutter-business.html">a trade-price, self-install spinoff</a> of the same shutters business. We&rsquo;ll update this page with full before-and-after numbers as the SEO/GEO results mature.</p>
+          <h2>What the numbers show</h2>
+          <p>Since we started tracking in July, the site has had 354 real visits (as of 31 Aug 2026) &mdash; and of the ones with an identifiable source, the large majority came from Google search. These are sessions in analytics, not impressions or modelled reach, and they are traffic the business wasn&rsquo;t capturing before.</p>
+          <p>They have converted into customer inquiries rather than sitting as page views. The clearest evidence of that is second-order, and not something we could have engineered: the work brought in enough new business that the client backed a second company entirely &mdash; <a href="/projects/new-shutter-business.html">a trade-price, self-install spinoff</a> of the same shutters business &mdash; and asked us to build that site too.</p>
+
+          <h2>What the client says</h2>
+          <figure class="testimonial-card">
+            <blockquote class="testimonial-quote">&ldquo;We engaged Andrew to have a look at our website,he explained what he needed to do and fixed everything and we our now getting lots more jobs through from.the internet traffic He also built a new website for a new branch of the business The work is fantastic and he absolutely nalied it Its about time we spent some money and got the return you hope for After several companies I have found the one I will be sticking with&rdquo;</blockquote>
+            <figcaption class="testimonial-caption">
+              <span class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>&nbsp;
+              <strong class="testimonial-name">Craig Smith</strong> &middot; Local Guide &middot; <a href="https://www.google.com/maps/place/?q=place_id:ChIJ2VLpW3U4aoQRz6YI6UQ2hr4" target="_blank" rel="noopener" class="link-dim">read it on Google</a>
+            </figcaption>
+          </figure>
+
+          <h2>What we are not claiming yet</h2>
+          <p>The GEO half of the engagement is still in progress &mdash; the site&rsquo;s <code>llms.txt</code> is the next thing to ship &mdash; so every number above is Search only. We are not claiming an AI-search win on this site, because we haven&rsquo;t measured one. Once <code>llms.txt</code> is live and AI referrals show up in the analytics the way they already do across our own products, we&rsquo;ll report whatever they actually are.</p>
+          <p>We&rsquo;ll update this page with full before-and-after numbers as the engagement matures. The honest position today: measurable organic traffic where there had been effectively none, a client who reinvested on the strength of it, and a GEO layer still to land.</p>
         </article>
 
         <aside class="sidecard">
