@@ -96,8 +96,12 @@
           <p>Doing it at launch rather than later is the cheapest this work ever gets. A new site has no legacy URLs to preserve, no accumulated content written without schema in mind, and no existing rankings to protect while things move &mdash; every argument for deferring it disappears. It also means the business isn&rsquo;t starting from zero on search the way most launches do, and that when an AI assistant is asked about trade-price shutters, there is something legible for it to read on day one instead of six months in.</p>
           <p>There is a second reason we&rsquo;re paying attention to this one. Same owner, same product category, same market &mdash; but one site was retrofitted and the other launched clean. Over the next few months that gives us an unusually direct comparison of what building it in is worth against bolting it on, on data we own rather than on a case study someone else published.</p>
 
+          <h2>Why we built it this way</h2>
+          <p><a href="/projects/shuttersmith.html">Shuttersmith&rsquo;s audit</a> found a fault that had nothing to do with the site&rsquo;s own code: the hosting it ran on was silently blocking several AI crawlers at the server level, invisible until we tested it directly. That&rsquo;s the kind of thing a retrofit finds after the fact and a clean build can rule out before launch &mdash; so before this site goes live, the same direct crawler test runs against it first, not after something looks wrong in the analytics.</p>
+          <p>Analytics also goes in at launch rather than after, for the same reason it mattered on Shuttersmith: without it, there's no way to know what the first month of a brand-new site actually did. That matters more here than usual, because it sets up a comparison nobody else can publish &mdash; the first month of a launched-clean site against the first month of a retrofitted one, same owner, same market, side by side.</p>
+
           <h2>Where we are</h2>
-          <p>The build is complete and in staging, finishing final pricing sign-off ahead of going live.</p>
+          <p>The build is complete and in staging, finishing final pricing sign-off ahead of going live. This page will carry real launch-month numbers once there are any to report &mdash; not before.</p>
         </article>
 
         <aside class="sidecard">
