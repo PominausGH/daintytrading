@@ -842,30 +842,89 @@ code, kbd {
    (line 41) which blocks iOS's own small-text boost, so it read as genuinely
    small on a phone. Bumps the actual reading copy; leaves uppercase/
    letter-spaced labels, badges, and tags alone — those are small by design. */
-@media (max-width: 640px) {
-  .project-card p,
-  .service-card p,
-  .for-you-card p,
-  .flow-step p,
-  .blog-preview-card p,
-  .cast-card .cast-why {
-    font-size: 15.5px;
-    line-height: 1.6;
+/* ---- Mobile typography -------------------------------------------------
+   Layout is already handled: .detail-body collapses to one column at 920px,
+   so the sidecard stacks under the article on any phone. What was left is the
+   type scale. The desktop scale leans on 10.5-14px for labels, captions, card
+   copy and inline code — comfortable on a monitor at arm's length, real work
+   on a phone held at reading distance.
+
+   Fixed by role rather than per-selector, so the next component added
+   inherits the floor instead of needing another line here:
+     reading text  >= 16px   ·   chrome and captions >= 15px
+     micro-labels  >= 12.5px (uppercase tags and badges stay small by design)
+
+   Two breakpoints on purpose. Reading text and chrome go up at 768px, which
+   covers large phones. Card body copy waits until 640px, because the card
+   grids are still two-across above that and bigger text in a half-width card
+   reads worse, not better. */
+@media (max-width: 768px) {
+  /* Long-form reading — blog posts and case studies are the pages people
+     actually read end to end on a phone. */
+  .prose p,
+  .prose ul,
+  .prose ol {
+    font-size: 17px;
+    line-height: 1.75;
   }
+  .detail-hero .lede { font-size: 17.5px; }
+  .testimonial-quote { font-size: 16.5px; }
+  /* Inline code sits mid-sentence in the posts; 13.5px next to 17px prose
+     reads as a typo. */
+  code, kbd { font-size: 15px; }
+
+  /* Chrome: nav, footer, breadcrumbs, meta chips, sidecard rows, captions. */
   .site-footer,
   .footer-col a,
-  .sidecard .label-row {
+  .footer-tagline,
+  .footer-linkedin,
+  .footer-social a,
+  .sidecard .label-row,
+  .nav-links a,
+  .nav-cta,
+  .link-dim-sm,
+  .chip,
+  .crumbs,
+  .testimonial-caption,
+  .trust-badge,
+  .trust-grid .stat-label,
+  .gbp-label,
+  .blog-preview-card .read-link,
+  .project-card .arrow,
+  .for-you-label,
+  .group-heading,
+  .stack-note {
     font-size: 15px;
   }
-  .nav-links.nav-open a {
-    font-size: 16px;
+  .nav-links.nav-open a { font-size: 16px; }
+
+  /* Vertical rhythm. The desktop spacing (84px between sections, 80px above a
+     detail hero) is most of a screen of empty scrolling on a handset, which
+     makes a page feel longer and thinner than it is. Tightened, not removed. */
+  section { padding: 56px 0; }
+  .detail-hero { padding: 44px 0 32px; }
+  .detail-body { padding: 32px 0 32px; gap: 36px; }
+
+  /* Micro-labels stay smaller than body text by design, but nothing needs to
+     be under 12.5px on a handset. */
+  .project-card .tag,
+  .blog-preview-card .post-tag,
+  .outcome-line,
+  .cast-card .cast-replaces,
+  .badge-dev,
+  .badge-test,
+  .flow-num,
+  .next-prev .lbl,
+  .eyebrow,
+  .footer-col h3,
+  .sidecard h4 {
+    font-size: 12.5px;
   }
-  /* Same fix, extended to price-grid pages (seo-geo-optimization.html,
-     local-seo.html, website-builds.html, the three ai-*.html service pages).
-     Their .price-card/.month-list/.honest-note sizing and sidecard/plan
-     disclaimer paragraphs are set per-page (a page-level <style> block, or a
-     bare inline style="font-size:..."). Both load/cascade after this
-     stylesheet, so this needs !important to actually win here. */
+
+  /* The price-grid service pages (seo-geo-optimization, local-seo,
+     website-builds, the three ai-*.html) set these in a page-level <style>
+     block, or a bare inline style="font-size:...". Both cascade after this
+     stylesheet, so this needs !important to win. */
   .price-card .note,
   .price-card li,
   .month-list li,
@@ -873,8 +932,28 @@ code, kbd {
   .result-card p,
   .sidecard p,
   .detail-body p[style*="font-size"] {
-    font-size: 15.5px !important;
+    font-size: 16px !important;
     line-height: 1.6 !important;
+  }
+  .price-card .tier,
+  .price-card .price small,
+  .price-badge,
+  .result-label {
+    font-size: 13px !important;
+  }
+}
+
+/* Card body copy, held back to the width where each grid is single-column. */
+@media (max-width: 640px) {
+  .project-card p,
+  .service-card p,
+  .for-you-card p,
+  .for-you-card strong,
+  .flow-step p,
+  .blog-preview-card p,
+  .cast-card .cast-why {
+    font-size: 16px;
+    line-height: 1.6;
   }
 }
 
