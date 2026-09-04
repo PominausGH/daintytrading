@@ -74,12 +74,27 @@
     <div class="container">
       <div class="detail-body">
         <article class="prose">
+          <!-- TODO(andrew): to fill in once it launches —
+                 1. Launch date, and first month's traffic against Shuttersmith's
+                    first month. Same owner, same market, one site retrofitted
+                    and one launched clean: that comparison is the most
+                    interesting thing this page could carry, and nobody else can
+                    publish it.
+                 2. Quotes completed through the calculator vs enquiries by phone.
+                 3. The actual trade-price differential, if the client is happy
+                    for it to be stated more precisely than "roughly 20%". -->
           <h2>The problem</h2>
-          <p>This is the second half of the <a href="/projects/shuttersmith.html">Shuttersmith</a> story. Our SEO/GEO work on their first business worked well enough that the client decided to launch a second, complementary one: plantation shutters sold at trade price, with a self-install option for customers who&rsquo;d rather measure and fit their own than pay for a full install. That&rsquo;s a genuinely different product to sell online &mdash; it needed real quoting tools, not another brochure site.</p>
+          <p>This is the second half of the <a href="/projects/shuttersmith.html">Shuttersmith</a> story. Our SEO/GEO work on the client&rsquo;s first business worked well enough that they decided to launch a second, complementary one: plantation shutters at trade price, with a self-install option for customers who&rsquo;d rather measure and fit their own than pay for a full install.</p>
+          <p>That is a genuinely different thing to sell online. A shutters install is a consultation &mdash; someone visits, measures, quotes. A trade-price self-install kit is closer to a product: the customer needs to arrive at a price themselves, trust that the measurements they took are the ones that will be cut, and understand exactly what they are and aren&rsquo;t getting for the lower number. A brochure site with a contact form doesn&rsquo;t do that job. It needed real quoting tools.</p>
 
           <h2>What we built</h2>
-          <p>A full Next.js site built around a measure-it-yourself flow: customers can use an on-site calculator to size their own windows, then choose between a professional install or a DIY self-install kit priced roughly 20% below the installed rate. Pricing is transparent and flat &mdash; the client&rsquo;s call, and one we built the calculator around rather than around a sales team.</p>
-          <p>SEO/GEO was built in from the start, the same way it was for Shuttersmith and Edwards Kirby: full metadata, <code>sitemap.xml</code>, <code>robots.txt</code>, an <code>llms.txt</code> for AI-search visibility, and structured data &mdash; so a brand-new business isn&rsquo;t starting from zero on search the way most launches do.</p>
+          <p>A full Next.js site built around a measure-it-yourself flow. Customers size their own windows using an on-site calculator, then choose between a professional install and a DIY self-install kit priced roughly 20% below the installed rate. Pricing is transparent and flat &mdash; the client&rsquo;s call, and one we built the calculator around rather than around a sales team.</p>
+          <p>Flat pricing is worth dwelling on, because it changes what the site has to do. When the price is negotiated, the site&rsquo;s only job is to generate a lead and hand it to a person. When the price is published and fixed, the site has to answer the whole question &mdash; sizing, options, what self-install actually involves, what it costs &mdash; well enough that the customer can decide without a call. That is more work to build and considerably better to own: the qualifying happens before the enquiry rather than after it.</p>
+
+          <h2>Launching with SEO/GEO already in place</h2>
+          <p>SEO/GEO was built in from the start, the same way it was for Shuttersmith and Edwards Kirby: full metadata, <code>sitemap.xml</code>, <code>robots.txt</code>, an <code>llms.txt</code> for AI-search visibility, and structured data throughout.</p>
+          <p>Doing it at launch rather than later is the cheapest this work ever gets. A new site has no legacy URLs to preserve, no accumulated content written without schema in mind, and no existing rankings to protect while things move &mdash; every argument for deferring it disappears. It also means the business isn&rsquo;t starting from zero on search the way most launches do, and that when an AI assistant is asked about trade-price shutters, there is something legible for it to read on day one instead of six months in.</p>
+          <p>There is a second reason we&rsquo;re paying attention to this one. Same owner, same product category, same market &mdash; but one site was retrofitted and the other launched clean. Over the next few months that gives us an unusually direct comparison of what building it in is worth against bolting it on, on data we own rather than on a case study someone else published.</p>
 
           <h2>Where we are</h2>
           <p>The build is complete and in staging, finishing final pricing sign-off ahead of going live.</p>
