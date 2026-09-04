@@ -8,6 +8,7 @@ document.querySelectorAll('.phone-reveal-btn').forEach(function (btn) {
   btn.addEventListener('click', function () {
     var n = '+' + this.dataset.a + this.dataset.b + this.dataset.c;
     this.outerHTML = '<a href="tel:' + n + '" class="phone-revealed">' + n + '</a>';
+    if (window.umami) window.umami.track('phone_revealed', { page: location.pathname });
   });
 });
 
