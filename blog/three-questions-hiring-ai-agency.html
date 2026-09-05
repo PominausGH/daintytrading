@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Three questions to ask before hiring an AI agency &mdash; Dainty Trading</title>
+  <meta name="description" content="Avoid unmaintainable AI prototypes. Ask these three questions to find an agency that delivers robust, cost-effective production systems." />
+  <link rel="canonical" href="https://daintytrading.com/blog/three-questions-hiring-ai-agency.html" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0c10" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Three questions to ask before hiring an AI agency" />
+  <meta property="og:description" content="Avoid unmaintainable AI prototypes. Ask these three questions to find an agency that delivers robust, cost-effective production systems." />
+  <meta property="og:url" content="https://daintytrading.com/blog/three-questions-hiring-ai-agency.html" />
+  <meta property="og:image" content="https://daintytrading.com/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://daintytrading.com/og-card.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Three questions to ask before hiring an AI agency",
+    "description": "Avoid unmaintainable AI prototypes. Ask these three questions to find an agency that delivers robust, cost-effective production systems.",
+    "url": "https://daintytrading.com/blog/three-questions-hiring-ai-agency.html",
+    "datePublished": "2026-09-05",
+    "dateModified": "2026-09-05",
+    "author": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "publisher": { "@type": "Organization", "name": "Dainty Trading", "url": "https://daintytrading.com" },
+    "mainEntityOfPage": "https://daintytrading.com/blog/three-questions-hiring-ai-agency.html"
+  }
+  </script>
+  <script defer src="https://analytics.daintytrading.com/script.js" data-website-id="8874c3d2-4193-4d58-8d4c-2fa4bcba5c1e"></script>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="brand-mark" aria-hidden="true"></span> Dainty Trading</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="/#projects">Projects</a>
+        <a href="/services.html">Services</a>
+        <a href="/blog.html">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/blog.html">Blog</a> &nbsp;/&nbsp; Business</div>
+        <h1>Three questions to ask before hiring an AI agency</h1>
+        <p class="lede">Avoid unmaintainable AI prototypes. Ask these three questions to find an agency that delivers robust, cost-effective production systems.</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Topic</strong>&nbsp; Business</span>
+          <span class="chip"><strong>Published</strong>&nbsp; 5 September 2026</span>
+          <span class="chip"><strong>Read time</strong>&nbsp; 5 min</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <p>Hiring an AI agency feels like a coin flip. Will you get a production-ready system or an impressive demo that crumbles under real traffic? We've seen too many founders left with an unmaintainable prototype, not a scalable solution. To cut through the marketing fluff, ask prospective agencies these three questions: How do you handle model updates and deprecations? What does your evaluation framework look like, beyond unit tests? And how do you ensure the system is cost-effective and stays that way? The answers reveal whether they build for the long haul or just for the demo day.</p>
+
+<h2>The Prototype Trap</h2>
+<p>Most agencies, especially newer ones, focus solely on the 'happy path.' They hard-code calls to <code>api.openai.com</code> or <code>api.anthropic.com</code> directly into the application, often with static prompt templates. They'll show you a dazzling demo where their agent perfectly summarizes an email or generates a product description. It seems reasonable: get a working MVP out fast. The problem emerges after deployment. When OpenAI releases <code>gpt-4o-2024-08-06</code> and deprecates <code>gpt-4o-2024-05-13</code>, your hard-coded prompts might break or degrade without warning. Your costs might silently skyrocket as token usage increases. Their 'evaluation' is often just manual testing on a handful of examples, leaving you blind to performance regressions or edge case failures. This approach saves development time upfront but guarantees an unmaintainable, costly mess down the line.</p>
+
+<h2>Building for Production, Not Just PoC</h2>
+<p>We build AI systems with resilience, quality, and cost-effectiveness baked in from day one. This means architecting for change, not against it.</p>
+<p>First, <strong>for model updates and deprecations</strong>, we use a robust gateway layer like LiteLLM or an internal abstraction. This allows us to swap models, providers, or even introduce routing logic without touching the core application. For <code>AutoArchive Mail</code>, we built a versioned prompt registry, where each prompt has a specific <code>model_id</code> and <code>version</code>. When a new model drops, we run our integration test suite against the new version with the old prompt. If it degrades, we iterate on the prompt within the registry, deploy the new version, and monitor. For critical workflows, we implement confidence scores and human-in-the-loop fallbacks. If the model output for <code>CV Matcher</code> drops below a certain confidence threshold, it flags for manual review instead of sending a poor recommendation.</p>
+<p>Second, <strong>our evaluation framework</strong> extends far beyond unit tests. We build dedicated evaluation pipelines using tools like LangChain's evaluation modules or custom scripts. For projects like <code>Ghost Writer</code>, we maintain a golden dataset of hundreds of prompts and expected outputs, manually labeled by domain experts. We run automated metrics (e.g., semantic similarity, fact-checking via RAG) and integrate A/B testing for prompt variations. This allows us to quantify performance improvements or regressions, not just guess. This framework costs about 20% of the initial project budget, but it's non-negotiable for shipping reliable AI.</p>
+<p>Finally, <strong>ensuring cost-effectiveness</strong> is an architectural decision. We instrument every LLM API call for token usage, latency, and cost using our internal monitoring tools (often built on top of OpenTelemetry). For <code>BrightPath</code>, we implemented a multi-model strategy: <code>gpt-3.5-turbo</code> handles initial classification and simple summarization, while <code>gpt-4o</code> is reserved for complex reasoning or creative generation. We also aggressively cache common queries and responses at the application layer. This granular visibility and tiered model usage keep running costs predictable and manageable. We’ve found that agencies that can't show you real-time token dashboards are likely setting you up for a bill shock.</p>
+
+<h2>When This Approach Adds Unnecessary Complexity</h2>
+<p>This robust approach isn't always necessary for every project. If you're building a purely internal tool with low usage, where human review is always part of the workflow, and the cost isn't a significant concern, then the overhead of a full evaluation pipeline or a complex gateway might be overkill. A small team building a simple <code>Email Triage</code> MVP for themselves might not need a multi-model routing layer initially. The additional complexity and development time for these systems can add 20-30% to the initial project cost. For a proof-of-concept where the goal is solely to validate an idea quickly, a simpler, more direct integration might be sufficient. However, be honest with yourself about the project's future. If there's any chance it will scale, handle sensitive data, or require high reliability, cutting corners here will inevitably lead to a costly refactor later. That's a mistake we've helped clients fix more than once.</p>
+
+<h2>Your Next Step</h2>
+<p>Before you sign a contract or even schedule a second call, prepare to ask these three questions. Don't just listen for a 'yes,' listen for the <em>how</em>. Ask for specific tools, architectural patterns, and examples from their past work. Probe into their evaluation methodologies beyond simple unit tests. Insist on understanding their plan for cost management from day one. An agency that can articulate a concrete, detailed answer to each question, backed by experience, is an agency that understands the realities of shipping production AI. If their answers are vague or focus only on the initial demo, consider that a major red flag. If you're looking for a partner that builds maintainable, cost-effective AI systems, we're ready to discuss your project. <a href="https://daintytrading.com/contact.html">Start a project</a> with us today.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>About this post</h4>
+          <div class="label-row"><span>Published</span><span>5 September 2026</span></div>
+          <div class="label-row"><span>Topic</span><span>Business</span></div>
+          <div class="label-row"><span>Read time</span><span>5 min</span></div>
+          <div class="label-row"><span>Author</span><span>Dainty Trading</span></div>
+          <a class="btn btn-primary" href="https://daintytrading.com/contact.html">Start a project &rarr;</a>
+          <a class="btn btn-ghost" href="/services.html">See our services</a>
+        </aside>
+      </div>
+
+      <div style="margin-top:56px;padding-top:40px;border-top:1px solid rgba(128,128,128,.25)"><h3 style="font-size:1.1rem;font-weight:700;margin-bottom:20px">Related Articles</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px"><a href="https://daintytrading.com/blog/ai-feature-maintenance-cost-after-launch.html" style="display:block;padding:18px;border:1px solid rgba(128,128,128,.25);border-radius:12px;text-decoration:none;color:inherit"><span style="font-size:.75rem;font-weight:600;color:#e11d48;text-transform:uppercase;letter-spacing:.03em">Business</span><div style="font-weight:700;margin-top:6px;line-height:1.35">Your AI Feature Launch Was The Cheap Part</div></a><a href="https://daintytrading.com/blog/ai-automations-90-day-payback.html" style="display:block;padding:18px;border:1px solid rgba(128,128,128,.25);border-radius:12px;text-decoration:none;color:inherit"><span style="font-size:.75rem;font-weight:600;color:#e11d48;text-transform:uppercase;letter-spacing:.03em">Business</span><div style="font-weight:700;margin-top:6px;line-height:1.35">Which AI Automations Pay Back in 90 Days (And Which Don&#x27;t)</div></a><a href="https://daintytrading.com/blog/why-we-run-evals-before-shipping-ai-features.html" style="display:block;padding:18px;border:1px solid rgba(128,128,128,.25);border-radius:12px;text-decoration:none;color:inherit"><span style="font-size:.75rem;font-weight:600;color:#e11d48;text-transform:uppercase;letter-spacing:.03em">AI · Engineering</span><div style="font-weight:700;margin-top:6px;line-height:1.35">Why We Run Evals Before Shipping Any AI Feature Change</div></a><a href="https://daintytrading.com/blog/discovery-week-ai-automation-partner.html" style="display:block;padding:18px;border:1px solid rgba(128,128,128,.25);border-radius:12px;text-decoration:none;color:inherit"><span style="font-size:.75rem;font-weight:600;color:#e11d48;text-transform:uppercase;letter-spacing:.03em">Process</span><div style="font-weight:700;margin-top:6px;line-height:1.35">What Actually Happens in Week One With an AI Automation Partner</div></a></div></div>
+
+      <nav class="next-prev" aria-label="Blog navigation">
+        <a href="/blog.html"><div class="lbl">&larr; Back</div><div class="ttl">All posts</div></a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="/" class="brand" style="margin-bottom:14px;">
+            <span class="brand-mark" aria-hidden="true"></span>
+            Dainty Trading
+          </a>
+          <p class="muted" style="font-size:13.5px; max-width:360px;">
+            AI automation studio. We build production AI software for ourselves and selected clients.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Studio</h4>
+          <a href="/about.html">About</a>
+          <a href="/services.html">Services</a>
+          <a href="/blog.html">Blog</a>
+          <a href="/contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Featured projects</h4>
+          <a href="/projects/emailtriage.html">Email Triage</a>
+          <a href="/projects/ghost-writer.html">Ghost Writer</a>
+          <a href="/projects/convoforge.html">ConvoForge</a>
+          <a href="/projects/brightpath.html">BrightPath</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="/sitemap.xml">Sitemap</a>
+          <a href="/llms.txt">llms.txt</a>
+          <a href="/robots.txt">robots.txt</a>
+          <a href="/privacy.html">Privacy policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Dainty Trading. All rights reserved.</span>
+        <span>Built in Australia.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
