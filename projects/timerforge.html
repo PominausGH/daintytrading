@@ -110,6 +110,10 @@
 
           <h2>What it taught us</h2>
           <p>Cross-platform desktop is a real product surface in 2026 if you&rsquo;re willing to do the boring work. The boring work &mdash; code signing, notarisation, auto-update, crash reporting &mdash; is the moat. Once it&rsquo;s done, releases cost almost nothing and the surface is yours.</p>
+
+          <h2>Two codebases, one product</h2>
+          <p>The desktop app and the web SaaS are genuinely separate applications &mdash; PyQt6 on the desktop, Node and Express on the web &mdash; not one codebase compiled two ways. That was a deliberate call: a countdown timer on a desktop needs to survive without a network connection and feel native to each OS&rsquo;s window chrome, while the web version needs to be embeddable in an iframe and share instantly by URL. Trying to force both out of one codebase would have meant compromising on whichever platform lost the argument. Keeping them separate means each can lean into what its platform is actually good at, at the cost of keeping feature parity a deliberate decision rather than something the build system gives you for free.</p>
+          <p>What ties them together is Stripe. A pro licence purchased on the web unlocks the same entitlement on desktop, checked against the same subscription record &mdash; the product is two apps, but the account is one.</p>
         </article>
 
         <aside class="sidecard">

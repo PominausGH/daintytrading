@@ -83,6 +83,10 @@
 
           <h2>The automation angle</h2>
           <p>No AI here on purpose. The deterministic image pipeline (rotate-by-largest-rect, edge-detect crop, contrast normalisation) handles 95% of the cases. Adding an LLM would slow it down and make it less predictable.</p>
+          <p>Determinism matters more than it sounds like it should for a screenshot tool. The same input image always produces the same crop and the same rotation, which means a batch of 200 screenshots processes unattended without anyone needing to check the output for the odd model hallucination or an inconsistent call on borderline cases. It also runs entirely offline, which matters for the actual content of most screenshot folders &mdash; error messages with account details in them, internal dashboards, draft documents &mdash; none of which needs to leave the machine to get cleaned up.</p>
+
+          <h2>Ordering and pairing</h2>
+          <p>The timestamp-sort step does more work than it looks like. Screenshots taken minutes apart during the same research session need to land in the order they were actually looked at, not the order the filesystem happens to list them in &mdash; and the note-pairing logic has to match a <code>.txt</code> or <code>.md</code> file to its screenshot by proximity in time rather than by filename, since almost nobody names their scratch notes to match their screenshots. Getting that pairing wrong is worse than not pairing at all, because a mismatched note reads as authoritative when it isn&rsquo;t.</p>
 
           <h2>How it&rsquo;ll be used</h2>
           <ul><li><strong>Researchers and students</strong> assembling reading-and-annotation packs.</li><li><strong>Designers</strong> bundling reference shots and rationale notes for a client review.</li><li><strong>Anyone with a screenshots folder they&rsquo;ve been avoiding.</strong></li></ul>

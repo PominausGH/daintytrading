@@ -83,6 +83,7 @@
 
           <h2>The AI angle</h2>
           <p>The honest engineering is in the failure handling. Every agent run either succeeds, raises a structured failure with context, or asks the human a single specific question. The controller routes those failures back into the plan instead of silently retrying. This is the difference between a cute demo and a system you trust to run overnight.</p>
+          <p>Splitting the work across specialist agents rather than one long-running Claude call is what makes the state recoverable. A single agent that plans, codes, tests, and reviews in one continuous context loses track of what it already tried once the context gets long enough, and a crash mid-run means starting over. Handing each step type to its own agent, with the controller as the only thing holding overall project state, means a test-agent failure doesn&rsquo;t corrupt what the code-agent already got right &mdash; the controller can re-run just the failed step, or escalate it as the one specific question a human actually needs to answer, instead of replaying the whole goal from scratch.</p>
 
           <h2>How it&rsquo;ll be used</h2>
           <ul><li><strong>Solo developers</strong> who want a project-aware agent for evening tickets.</li><li><strong>Studios like ours</strong> using it to compress repetitive build work.</li><li><strong>Researchers</strong> studying multi-agent failure modes in production conditions.</li></ul>
