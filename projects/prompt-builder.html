@@ -83,6 +83,7 @@
 
           <h2>The AI angle</h2>
           <p>The interesting bit is step two. Generic prompt scaffolds (&ldquo;You are an expert in X&rdquo;) get average results. Adaptive question generation &mdash; where the LLM decides what it needs to know based on the goal &mdash; gets dramatically better results. We&rsquo;re tuning the question-asker more than the prompt-writer.</p>
+          <p>The failure mode we&rsquo;re designing against isn&rsquo;t a bad prompt &mdash; it&rsquo;s a wizard that asks questions nobody wants to answer. A goal like &ldquo;write a resignation letter&rdquo; and a goal like &ldquo;build a data pipeline&rdquo; need entirely different clarifying questions, and a fixed form for either one either asks things the user has already answered in the goal itself, or misses the one detail that actually changes the output. Letting Claude generate the questions per-goal means the wizard stays short even as the range of things people ask it for grows &mdash; the alternative is a form that keeps getting longer to cover more cases, which is exactly the friction the tool exists to remove.</p>
 
           <h2>How it&rsquo;ll be used</h2>
           <ul><li><strong>Knowledge workers</strong> who use AI daily but don&rsquo;t want to study prompt engineering.</li><li><strong>Teams onboarding new AI users</strong> who want a guardrail.</li><li><strong>Content teams</strong> producing structured outputs at volume.</li></ul>

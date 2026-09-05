@@ -109,6 +109,9 @@
 
           <h2>What it taught us</h2>
           <p>That natural-language input only works when the bot reflects back what it understood, every time. The single biggest reduction in user errors came from making Nudgle say &ldquo;OK &mdash; reminder set for Tuesday 9pm, repeats weekly. Reply &lsquo;no&rsquo; to fix.&rdquo; before committing. The undo is more important than the parser.</p>
+
+          <h2>Why a chat bot instead of a calendar integration</h2>
+          <p>The tempting build is a Google Calendar sync &mdash; more structured, more familiar to build against. We went with a standalone Telegram bot instead, because the entire value proposition is capturing a reminder in the same window you&rsquo;re already typing in, with zero context switch. A calendar integration means opening a different app, finding the right day, and filling in fields &mdash; exactly the friction Nudgle exists to remove. Storing everything in our own Postgres, rather than delegating to a calendar API, is also what makes quiet hours and vacation mode possible: those are business rules about when a reminder is allowed to fire, and they only work if we own the delivery logic end to end rather than handing scheduling off to someone else&rsquo;s calendar.</p>
         </article>
 
         <aside class="sidecard">

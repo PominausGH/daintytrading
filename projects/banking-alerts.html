@@ -83,6 +83,10 @@
 
           <h2>The automation angle</h2>
           <p>All in n8n, deliberately. The whole flow &mdash; auth refresh, balance fetch, threshold check, notification fan-out &mdash; lives in a graph anyone on the team can read and edit. It also means we can extend it (transaction categorisation, alerts on suspicious patterns) without touching code.</p>
+          <p>Open Banking consent under the Consumer Data Right is Australia-specific by design, which is why this stays a local-market tool rather than a general one: the consent model, the data the API actually exposes, and the compliance obligations around holding it are all set by CDR rules that don&rsquo;t transfer to other markets. Building for one regulatory regime properly beats building for several badly.</p>
+
+          <h2>Why ntfy over a native app</h2>
+          <p>ntfy&rsquo;s no-account model is the point, not a shortcut. A push alert about your own bank balance is exactly the kind of data you don&rsquo;t want sitting in a third party&rsquo;s user database against your name and phone number. Subscribing to a topic requires nothing more than knowing the topic name, so the notification service itself never learns whose balance it&rsquo;s pinging.</p>
 
           <h2>How it&rsquo;ll be used</h2>
           <ul><li><strong>Households</strong> running offset and savings buffers that need to stay above minimums.</li><li><strong>Sole traders</strong> watching their business account before paying suppliers.</li><li><strong>Anyone with auto-pays</strong> who wants warning before a direct debit tips the balance.</li></ul>

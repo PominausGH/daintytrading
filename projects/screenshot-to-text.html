@@ -83,6 +83,8 @@
 
           <h2>The AI angle</h2>
           <p>Two-pass extraction. The first pass is deterministic OCR; the second pass uses GPT-4 Vision only on regions the first pass scored below a confidence threshold. This keeps cost down (Vision calls are expensive) while raising the floor on accuracy where it matters.</p>
+          <p>Routing on confidence rather than running Vision over every page is the part that makes this economical at volume. Most of a typical scan &mdash; body paragraphs, standard form fields &mdash; is exactly what Tesseract is already good at, so paying for a Vision call there would be pure cost with no accuracy gain. Reserving the expensive model for the regions that actually need it (a table with merged cells, a signature, a stamp overlapping text) is what lets the accuracy floor rise without the per-page cost rising with it.</p>
+          <p>Per-block confidence scoring is also what makes the output usable downstream rather than just accurate on average. A single page-level confidence score tells an integrator nothing about which fields to trust; per-block scores mean a business can auto-accept the high-confidence fields and route only the uncertain ones to a human, instead of treating every extraction as equally reliable or equally suspect.</p>
 
           <h2>How it&rsquo;ll be used</h2>
           <ul><li><strong>Bookkeeping firms</strong> processing client receipts at scale.</li><li><strong>Healthcare admin teams</strong> digitising patient intake forms.</li><li><strong>Legal teams</strong> with handwritten case notes that need to be searchable.</li></ul>
