@@ -18,6 +18,7 @@ document.getElementById('contact-form').addEventListener('submit', async functio
   errEl.style.display = 'none';
   btn.disabled = true;
   btn.textContent = 'Sending…';
+  if (window.umami) window.umami.track('contact_submit_attempted');
 
   var payload = {
     name: document.getElementById('name').value.trim(),
@@ -47,5 +48,6 @@ document.getElementById('contact-form').addEventListener('submit', async functio
     errEl.style.display = 'block';
     btn.disabled = false;
     btn.textContent = 'Send enquiry';
+    if (window.umami) window.umami.track('contact_submit_failed', { reason: err.message });
   }
 });
