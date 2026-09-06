@@ -83,6 +83,7 @@
 
           <h2>The AI angle</h2>
           <p>Receipt OCR is a solved problem when receipts behave. Real-world receipts &mdash; faded thermal paper, oblique angles, glare, half-folded &mdash; are not solved. We feed the raw OCR plus the original image into a quick verification step that catches obvious mistakes (totals that don&rsquo;t add up, vendor names misread as nonsense) before they hit the dashboard.</p>
+          <p>The SMS-only interface is the actual product decision, not a shortcut. Every field worker already has a phone that can send an MMS; none of them are going to install an app, remember a password, or open a browser mid-job to log a $12 fuel receipt. Twilio receiving the photo and Celery picking it up asynchronously means the worker&rsquo;s phone is free the moment the message sends &mdash; there&rsquo;s no spinner to wait on, no confirmation screen, nothing that turns a two-second task into a thirty-second one. If OCR fails or the verification step flags a mismatch, the record still lands in the dashboard, just marked for a human glance rather than silently dropped &mdash; a receipt worth reimbursing should never disappear because a scan came out blurry.</p>
 
           <h2>How it&rsquo;ll be used</h2>
           <ul><li><strong>Trades businesses</strong> with multiple vans on the road.</li><li><strong>Sales teams</strong> with travelling reps and per-diem expenses.</li><li><strong>Property managers</strong> with maintenance contractors submitting reimbursable receipts.</li></ul>

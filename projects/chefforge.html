@@ -93,6 +93,9 @@
 
           <h2>What it taught us</h2>
           <p>That &ldquo;the AI got it wrong&rdquo; usually means the verifier was missing. Ninety percent of complaints traced back to a constraint we hadn&rsquo;t encoded as a hard check. The fix isn&rsquo;t a smarter prompt &mdash; it&rsquo;s another check.</p>
+
+          <h2>Why generation happens in two passes, not one</h2>
+          <p>Asking a model for a full week of meals in a single call sounds simpler, but it&rsquo;s the wrong shape for the problem: a full plan has too many constraints in flight at once for the model to hold consistently, so the failures show up as a fine-looking Tuesday that quietly blows the week&rsquo;s budget by Friday. Splitting outline from detail means each pass only has to get one thing right &mdash; a balanced week of meal slots, then a recipe that fits the slot it was given &mdash; and the deterministic verifier between the two passes is what actually catches drift, not a better prompt. It also means a single bad recipe can be regenerated on its own without throwing out a week that was otherwise fine.</p>
         </article>
 
         <aside class="sidecard">

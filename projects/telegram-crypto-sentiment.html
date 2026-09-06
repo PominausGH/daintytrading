@@ -83,6 +83,10 @@
 
           <h2>The AI angle</h2>
           <p>Sentiment is the easy part. The hard part is signal extraction: distinguishing &ldquo;genuine early conviction&rdquo; from &ldquo;coordinated shilling&rdquo;, separating sarcasm from earnest panic, attributing claims to credible authors. Claude scores each message with structured output (sentiment, confidence, topic, claim type) and the aggregator does the rest.</p>
+          <p>Structured output is what makes the aggregation trustworthy rather than just plausible-sounding. A free-text sentiment summary is easy to generate and hard to audit; a fixed schema per message means every score can be traced back to the message that produced it, and a channel&rsquo;s aggregate sentiment is a real function of its individual messages rather than a second model's paraphrase of them. That matters more here than in most sentiment-analysis use cases, because the whole point of the system is to be trusted enough to act on.</p>
+
+          <h2>Why validation comes before rollout</h2>
+          <p>Correlating sentiment against price is easy to get spuriously right on a short backtest window &mdash; a handful of channels will look predictive by chance alone, and the only way to tell a real signal from noise is to run it against enough historical data that the lucky cases wash out. That&rsquo;s the reason this stays internal-only for now: opening it up before the validation is done would mean shipping confidence nobody has actually earned yet.</p>
 
           <h2>How it&rsquo;ll be used</h2>
           <ul><li><strong>Crypto traders</strong> who want a single dashboard instead of fifty pinned channels.</li><li><strong>Analysts and researchers</strong> studying sentiment-vs-price relationships at scale.</li><li><strong>Internal R&amp;D</strong> &mdash; we use it as a sandbox for evaluating LLM-driven sentiment systems.</li></ul>

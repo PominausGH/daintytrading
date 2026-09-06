@@ -82,6 +82,8 @@
 
           <h2>The automation angle</h2>
           <p>The interesting thing here isn&rsquo;t the AI &mdash; it&rsquo;s the testing discipline. Every endpoint has its happy path covered, every permission rule is asserted in tests, and the CI pipeline blocks merges that drop coverage. The lesson generalises: a backend built like this can absorb new features for years without rotting.</p>
+          <p>The API also models the social layer a recipe product actually needs &mdash; following other users, rating recipes, commenting, and a personalised activity feed built from who you follow &mdash; not just the recipes-and-ingredients CRUD the name suggests. A companion React/TypeScript frontend exists to exercise it end to end, which is what forces the permission model to be honest: a &ldquo;follow&rdquo; relationship, a rating that belongs to exactly one user, a feed query that has to stay fast as the follow graph grows, all have to work through the same auth layer a real client depends on, not just through a test client that assumes the happy path.</p>
+          <p>GitHub Actions runs the suite on every push, which is what makes the coverage gate mean something &mdash; a test suite nobody runs automatically decays into documentation nobody trusts. Docker Compose brings up the API, Postgres, and the frontend together, so &ldquo;does this actually work&rdquo; is one command rather than a checklist of services to start in the right order.</p>
 
           <h2>How it&rsquo;s used</h2>
           <ul>
