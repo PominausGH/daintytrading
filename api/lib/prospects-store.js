@@ -1,5 +1,7 @@
 const fs = require('fs');
 const path = require('path');
+const config = require('./config');
+const { draftProspectEmail } = require('./prospects-aios');
 
 // Read-only mount from customer-web_check's `reports/` dir (see docker-compose.yml).
 // PROSPECTS_REPORTS_DIR lets local/dev runs point at a scratch fixture dir instead.
@@ -7,6 +9,10 @@ const REPORTS_ROOT = process.env.PROSPECTS_REPORTS_DIR || path.join(__dirname, '
 // Writable — same mount clients-store.js already uses for JSON/JSONL data.
 const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, '..', 'data');
 const SENT_LOG_FILE = path.join(DATA_DIR, 'prospects-sent.json');
+const SUPPRESSION_FILE = path.join(DATA_DIR, 'prospects-suppression.json');
+const DRAFT_LOG_FILE = path.join(DATA_DIR, 'prospects-draft-log.jsonl');
+const VARIANT_COUNTER_FILE = path.join(DATA_DIR, 'prospects-variant-counter.json');
+const HEARTBEAT_FILE = path.join(DATA_DIR, 'prospects-heartbeat.json');
 
 // `run` and `slug` become filesystem path segments under the read-only mount, so they're
 // validated strictly before ever touching fs — no '.', '/', or '\' allowed at all, which
@@ -140,13 +146,21 @@ function readSentLog() {
   }
 }
 
-function markSent(run, slug, { to, subject }) {
+function markSent(run, slug, { to, subject, domain, variant }) {
   fs.mkdirSync(DATA_DIR, { recursive: true });
   const log = readSentLog();
-  const record = { sentAt: new Date().toISOString(), to, subject };
+  const record = { sentAt: new Date().toISOString(), to, subject, domain: domain || null, variant: variant || null };
   log[`${run}:${slug}`] = record;
   fs.writeFileSync(SENT_LOG_FILE, JSON.stringify(log, null, 2));
   return record;
+}
+
+// Used by the /send route's rate-limit guard — 25/week is well under anything that would
+// trip email-provider reputation limits, but is enforced here rather than left to Brevo.
+function countSentInLastDays(days) {
+  const log = readSentLog();
+  const cutoff = Date.now() - days * 24 * 60 * 60 * 1000;
+  return Object.values(log).filter((r) => new Date(r.sentAt).getTime() >= cutoff).length;
 }
 
 // Returns null if the run directory itself doesn't exist (caller should 404);
@@ -167,6 +181,7 @@ function getRunProspects(run) {
     return {
       url: row.url || '',
       business_name: row.business_name || '',
+      contact_email: row.contact_email || '',
       platform: row.platform || '',
       score: row.score === '' || row.score === undefined ? null : Number(row.score),
       findings_count: row.findings_count === '' || row.findings_count === undefined ? null : Number(row.findings_count),
@@ -243,7 +258,168 @@ function rephraseFinding(message) {
   return text.charAt(0).toLowerCase() + text.slice(1);
 }
 
-function buildDraft(run, slug) {
+// Mirrors customer_web_check's own src/customer_web_check/scoring.py Severity weights exactly,
+// so "how bad" agrees between the audit tool's score and the pick made here.
+const SEVERITY_WEIGHT = { info: 0, low: 1, medium: 3, high: 7, critical: 15 };
+
+// customer-web-check has no GBP/traffic data (the original spec assumed a "visibility" field
+// that doesn't exist in the real report schema) — visibility here is a per-category heuristic
+// for "how likely is a real customer to actually notice this", not a measured signal. effortMins
+// is a rough guess at fix time. Both are deliberately coarse; tune via testing real replies
+// rather than trying to model this more precisely up front.
+const CATEGORY_META = {
+  product_sanity: { visibility: 5, effortMins: 45 },
+  placeholder_copy: { visibility: 5, effortMins: 20 },
+  broken_link: { visibility: 4, effortMins: 15 },
+  accc_claims: { visibility: 3, effortMins: 30 },
+  page_bloat: { visibility: 3, effortMins: 60 },
+  social_meta: { visibility: 3, effortMins: 15 },
+  wp_plugins: { visibility: 2, effortMins: 20 },
+  copyright_year: { visibility: 2, effortMins: 5 },
+  security_headers: { visibility: 1, effortMins: 15 },
+};
+const DEFAULT_CATEGORY_META = { visibility: 2, effortMins: 30 };
+
+function findingScore(finding) {
+  const severityWeight = SEVERITY_WEIGHT[finding.severity] || 0;
+  const meta = CATEGORY_META[finding.category] || DEFAULT_CATEGORY_META;
+  return (severityWeight * meta.visibility) / meta.effortMins;
+}
+
+// Picks exactly one finding — the spec is explicit that two dilutes the email. info/low
+// severity findings (crawl noise, platform-detection notes, a stale copyright year) are never
+// worth a cold email on their own, so they're excluded from candidacy outright rather than
+// just scoring low. Returns null if nothing clears config.prospectsMinFindingScore.
+function selectTopFinding(findings) {
+  const candidates = (Array.isArray(findings) ? findings : [])
+    .filter((f) => f && (f.severity === 'medium' || f.severity === 'high' || f.severity === 'critical'))
+    .map((f) => ({ finding: f, score: findingScore(f) }))
+    .sort((a, b) => b.score - a.score);
+
+  const top = candidates[0];
+  if (!top || top.score < config.prospectsMinFindingScore) return null;
+  return top;
+}
+
+function getDomain(url) {
+  if (!url || typeof url !== 'string') return null;
+  return url.trim().replace(/^https?:\/\//i, '').replace(/^www\./i, '').replace(/\/.*$/, '').toLowerCase() || null;
+}
+
+function readJsonSafe(file, fallback) {
+  if (!fs.existsSync(file)) return fallback;
+  try {
+    return JSON.parse(fs.readFileSync(file, 'utf8'));
+  } catch {
+    return fallback;
+  }
+}
+
+// Flat list of lowercased domains/emails. No dedicated admin UI for this yet — edit the file
+// directly, or wire up an endpoint if this needs to be self-serve later.
+function readSuppressionList() {
+  return readJsonSafe(SUPPRESSION_FILE, []);
+}
+
+function isSuppressed(...values) {
+  const list = readSuppressionList().map((v) => String(v).toLowerCase());
+  return values.filter(Boolean).some((v) => list.includes(String(v).toLowerCase()));
+}
+
+// Scans the sent log for the most recent send to the same domain, regardless of which
+// run/slug it came from — a prospect re-appearing in next month's batch under the same
+// domain must not get emailed again inside the cooldown window.
+function findRecentSendForDomain(domain) {
+  if (!domain) return null;
+  const log = readSentLog();
+  let mostRecent = null;
+  for (const record of Object.values(log)) {
+    if (record.domain !== domain) continue;
+    if (!mostRecent || record.sentAt > mostRecent.sentAt) mostRecent = record;
+  }
+  return mostRecent;
+}
+
+function daysSince(isoDate) {
+  return (Date.now() - new Date(isoDate).getTime()) / (1000 * 60 * 60 * 24);
+}
+
+// Alternates A/B globally across all drafts (not per-domain) so the split stays even
+// regardless of which prospects get opened for review on a given day.
+function nextVariant() {
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+  const state = readJsonSafe(VARIANT_COUNTER_FILE, { count: 0 });
+  const variant = state.count % 2 === 0 ? 'A' : 'B';
+  fs.writeFileSync(VARIANT_COUNTER_FILE, JSON.stringify({ count: state.count + 1 }, null, 2));
+  return variant;
+}
+
+function appendDraftLog(entry) {
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+  fs.appendFileSync(DRAFT_LOG_FILE, JSON.stringify({ at: new Date().toISOString(), ...entry }) + '\n');
+}
+
+// Written on every draft-generation attempt (not just successes) — this is the file the
+// heartbeat monitor reads to tell "no prospects worth emailing this batch" apart from
+// "the pipeline silently stopped running". See customer-web_check/run-monthly-batch.sh for
+// the audit-side heartbeat this pairs with.
+//
+// Only 'pending' and 'auto_rejected' represent the LLM actually being called — 'suppressed',
+// 'cooldown', and 'skipped_below_threshold' are gates that fire before that call, so counting
+// them as "generated" would mask a real silent failure (e.g. AIOS unreachable) behind a run
+// that only ever hit prospects already in cooldown.
+const ZERO_COUNTS = { generated24h: 0, autoRejected24h: 0, errors24h: 0 };
+function touchHeartbeat(status) {
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+  const existing = readJsonSafe(HEARTBEAT_FILE, ZERO_COUNTS);
+  const now = new Date().toISOString();
+  const sameWindow = existing.windowStart && daysSince(existing.windowStart) < 1;
+  const windowStart = sameWindow ? existing.windowStart : now;
+  const counts = sameWindow ? existing : ZERO_COUNTS;
+  fs.writeFileSync(
+    HEARTBEAT_FILE,
+    JSON.stringify(
+      {
+        lastCheckedAt: now,
+        windowStart,
+        generated24h: counts.generated24h + (status === 'pending' ? 1 : 0),
+        autoRejected24h: counts.autoRejected24h + (status === 'auto_rejected' ? 1 : 0),
+        errors24h: counts.errors24h + (status === 'error' ? 1 : 0),
+      },
+      null,
+      2
+    )
+  );
+}
+
+// The 90-word cap and AU-voice instructions live in the prompt, but the model doesn't
+// reliably honour a word cap on its own — enforce it here rather than trusting compliance.
+function wordCount(text) {
+  return (text || '').trim().split(/\s+/).filter(Boolean).length;
+}
+
+// A generic subject ("Quick question", "Noticed something") defeats the whole point of
+// naming the defect concretely — reject a subject that doesn't share any real vocabulary
+// with the finding it's supposedly about.
+function isConcreteSubject(subject, findingMessage) {
+  if (!subject || subject.length > 120) return false;
+  const stopwords = new Set(['your', 'site', 'about', 'quick', 'note', 'website', 'the', 'a', 'an', 'and', 'for', 'with', 'this', 'that']);
+  const subjectWords = new Set(
+    subject.toLowerCase().match(/[a-z0-9]{4,}/g)?.filter((w) => !stopwords.has(w)) || []
+  );
+  const findingWords = new Set(
+    (findingMessage || '').toLowerCase().match(/[a-z0-9]{4,}/g)?.filter((w) => !stopwords.has(w)) || []
+  );
+  for (const w of subjectWords) {
+    if (findingWords.has(w)) return true;
+  }
+  return false;
+}
+
+// Returns { status: 'pending' | 'auto_rejected' | 'skipped_below_threshold' | 'suppressed' | 'cooldown',
+//           subject, body, confidence, variant, reason, contactEmail }
+// subject/body are '' when status isn't 'pending' or 'auto_rejected' — there's nothing to send.
+async function buildDraft(run, slug) {
   const data = readProspectJson(run, slug);
   if (!data) return null;
 
@@ -253,54 +429,89 @@ function buildDraft(run, slug) {
     (data.abr && data.abr.entity_name) ||
     null;
   const label = businessName || cleanSiteUrl(data.site_url);
+  const contactEmail = (row && row.contact_email) || data.contact_email || null;
+  const domain = getDomain((row && row.url) || data.site_url);
 
+  if (isSuppressed(domain, contactEmail)) {
+    touchHeartbeat('suppressed');
+    return { status: 'suppressed', subject: '', body: '', confidence: null, variant: null, reason: 'Domain or contact is on the suppression list.', contactEmail };
+  }
+
+  const recentSend = findRecentSendForDomain(domain);
+  if (recentSend && daysSince(recentSend.sentAt) < config.prospectsCooldownDays) {
+    touchHeartbeat('cooldown');
+    return {
+      status: 'cooldown',
+      subject: '',
+      body: '',
+      confidence: null,
+      variant: null,
+      reason: `Already emailed this domain ${Math.floor(daysSince(recentSend.sentAt))} days ago (cooldown is ${config.prospectsCooldownDays} days).`,
+      contactEmail,
+    };
+  }
+
+  // Deliberately picks ONE finding, not two — the spec is explicit that two dilutes an
+  // otherwise sharp email. Dedupe-by-message still applies (see rephraseFinding/describe
+  // logic this replaces) since selectTopFinding operates on raw findings, and a recurring
+  // check produces one finding per page with identical .message text; scoring the same
+  // message twice doesn't change which message wins, just how loudly.
   const findings = Array.isArray(data.findings) ? data.findings : [];
-
-  // A recurring check (e.g. the same unsubstantiated claim on every product page)
-  // produces one finding per occurrence with identical .message text — pulling the
-  // top 2 by severity alone can grab the same issue twice from two different pages.
-  // Dedupe by message first, so "top 2" means 2 distinct issues, not 2 copies of one.
-  const distinct = [];
-  const seenMessages = new Set();
-  for (const f of findings) {
-    if (seenMessages.has(f.message)) continue;
-    seenMessages.add(f.message);
-    distinct.push({ message: f.message, count: findings.filter((x) => x.message === f.message).length });
+  const top = selectTopFinding(findings);
+  if (!top) {
+    touchHeartbeat('skipped_below_threshold');
+    return { status: 'skipped_below_threshold', subject: '', body: '', confidence: null, variant: null, reason: 'No finding scored high enough to justify an email.', contactEmail };
   }
 
-  // When the same issue recurs across many pages, say so — "appears on N pages" makes
-  // a single real point land harder than silently repeating it, and is more honest
-  // than a single finding that only shows one of its N examples.
-  function describe(d) {
-    const text = rephraseFinding(d.message);
-    return d.count > 1 ? `${text} (found on ${d.count} pages)` : text;
+  const findingMessage = rephraseFinding(top.finding.message);
+  const variant = nextVariant();
+
+  let draft;
+  try {
+    draft = await draftProspectEmail({
+      businessName: label,
+      niche: data.platform,
+      findingMessage,
+      proofLine: config.shuttersmithProofLine,
+      variant,
+    });
+  } catch (err) {
+    appendDraftLog({ run, slug, domain, status: 'error', variant, error: err.message });
+    touchHeartbeat('error');
+    throw err;
   }
 
-  const f1 = distinct[0] ? describe(distinct[0]) : '';
-  const f2 = distinct[1] ? describe(distinct[1]) : '';
+  const words = wordCount(draft.body);
+  const reasons = [];
+  if (draft.confidence < config.prospectsConfidenceThreshold) reasons.push(`confidence ${draft.confidence} below ${config.prospectsConfidenceThreshold}`);
+  if (words > config.prospectsMaxWords) reasons.push(`body is ${words} words (max ${config.prospectsMaxWords})`);
+  if (!draft.subject || !draft.body) reasons.push('missing subject or body');
+  if (draft.subject && !isConcreteSubject(draft.subject, findingMessage)) reasons.push('subject reads generic, not tied to the actual finding');
 
-  let findingsSentence;
-  if (f1 && f2) {
-    findingsSentence = `Noticed a couple of things — ${f1} and ${f2}.`;
-  } else if (f1) {
-    findingsSentence = `Noticed one thing — ${f1}.`;
-  } else {
-    findingsSentence = "Had a look through and there's a bit of room for improvement.";
-  }
+  const status = reasons.length ? 'auto_rejected' : 'pending';
 
-  const subject = `Quick note about ${label}`;
-  const body = [
-    'Hi there,',
-    '',
-    `I run a small AU web dev studio and had a look at ${label}'s site. ${findingsSentence}`,
-    '',
-    "Nothing urgent, but easy wins. Happy to send over the full breakdown if useful, or if you'd like a hand fixing any of it, happy to help with that too. Just reply either way.",
-    '',
-    'Andrew',
-    'Dainty Trading',
-  ].join('\n');
+  appendDraftLog({
+    run,
+    slug,
+    domain,
+    status,
+    variant,
+    confidence: draft.confidence,
+    findingCategory: top.finding.category,
+    findingScore: top.score,
+    reasons: reasons.length ? reasons : undefined,
+  });
+  touchHeartbeat(status);
 
-  return { subject, body };
+  return {
+    status,
+    subject: draft.subject,
+    body: draft.body,
+    confidence: draft.confidence,
+    variant,
+    reason: reasons.join('; ') || null,
+    contactEmail,
+  };
 }
 
 module.exports = {
@@ -312,4 +523,7 @@ module.exports = {
   markSent,
   cleanSiteUrl,
   rephraseFinding,
+  getDomain,
+  isSuppressed,
+  countSentInLastDays,
 };

@@ -83,6 +83,7 @@
 
           <h2>The automation angle</h2>
           <p>The interesting automation is the funnel: cohort-aware lifecycle emails through Brevo, a churn-aware win-back flow, and a usage report that tells subscribers which scripts they read most so renewal feels obvious. None of it requires AI &mdash; it requires being honest about what subscribers actually do with the product.</p>
+          <p>Subscription state is driven entirely by Stripe&rsquo;s webhooks, not by anything the client asserts. The app never trusts a &ldquo;user says they paid&rdquo; signal; it waits for <code>customer.subscription.*</code> events and updates access from there, which is the only way trial-to-paid, pause, and cancellation stay consistent when a card fails silently in the background or a subscriber cancels from Stripe&rsquo;s own billing portal rather than inside the app. Redis sits in front of the content library so the gated reading experience doesn&rsquo;t re-check entitlement against Postgres on every page view &mdash; entitlement changes rarely, reads happen constantly, and the cache only needs to be right, not instant.</p>
 
           <h2>How it&rsquo;s used</h2>
           <ul>

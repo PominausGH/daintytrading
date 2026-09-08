@@ -55,20 +55,35 @@ async function selectProspect(idx) {
   await loadDraft(row);
 }
 
+var currentVariant = null;
+
+var STATUS_BANNER = {
+  suppressed: 'Suppressed — this domain or contact is on the suppression list. Not sendable.',
+  cooldown: null, // reason string from the API already says everything useful
+  skipped_below_threshold: 'No finding here scored high enough to justify an email. Not sendable.',
+  auto_rejected: null, // reason string from the API says why
+};
+
 async function loadDraft(row) {
   var card = document.getElementById('draft-card');
   var meta = document.getElementById('draft-meta');
   var alreadySent = document.getElementById('already-sent-note');
+  var draftBanner = document.getElementById('draft-status-banner');
   var errEl = document.getElementById('send-error');
   var okEl = document.getElementById('send-success');
+  var sendSubmit = document.getElementById('send-submit');
   errEl.style.display = 'none';
   okEl.style.display = 'none';
+  draftBanner.style.display = 'none';
+  currentVariant = null;
 
   card.style.display = 'block';
   document.getElementById('draft-title').textContent = 'Draft outreach email';
   meta.textContent = 'Loading draft…';
   document.getElementById('subject').value = '';
   document.getElementById('body').value = '';
+  document.getElementById('to').value = row.contact_email || '';
+  sendSubmit.disabled = false;
 
   if (row.sent) {
     alreadySent.style.display = 'block';
@@ -79,9 +94,22 @@ async function loadDraft(row) {
 
   try {
     var draft = await adminFetch('/api/admin/prospects/' + encodeURIComponent(row.slug) + '/draft?run=' + encodeURIComponent(currentRun));
-    meta.textContent = (row.business_name && row.business_name.trim() ? row.business_name : row.url) + ' — score ' + (row.score == null ? '?' : row.score);
-    document.getElementById('subject').value = draft.subject;
-    document.getElementById('body').value = draft.body;
+    var scoreLabel = (row.business_name && row.business_name.trim() ? row.business_name : row.url) + ' — score ' + (row.score == null ? '?' : row.score);
+    if (draft.confidence != null) scoreLabel += ' · confidence ' + draft.confidence + ' · variant ' + draft.variant;
+    meta.textContent = scoreLabel;
+    document.getElementById('subject').value = draft.subject || '';
+    document.getElementById('body').value = draft.body || '';
+    currentVariant = draft.variant || null;
+
+    if (draft.status !== 'pending') {
+      var msg = draft.reason || STATUS_BANNER[draft.status] || ('Not sendable (' + draft.status + ').');
+      draftBanner.textContent = (draft.status === 'auto_rejected' ? 'Auto-rejected: ' : '') + msg;
+      draftBanner.style.display = 'block';
+      // auto_rejected still shows subject/body so you can judge whether the prompt is
+      // being too conservative, but neither this nor any other non-pending status is
+      // sendable as-is — force a manual override (edit + regenerate) rather than a stray click.
+      sendSubmit.disabled = true;
+    }
   } catch (err) {
     meta.textContent = '';
     errEl.textContent = err.message;
@@ -128,6 +156,15 @@ document.getElementById('logout-btn').addEventListener('click', async function (
   window.location.href = '/admin/login.html';
 });
 
+// A non-pending draft disables Send by default, but editing it is exactly how the spec
+// wants "rewriting more than a third of these" to surface as a prompt problem — so an edit
+// re-enables Send rather than locking the admin out of overriding a flagged draft entirely.
+['subject', 'body'].forEach(function (id) {
+  document.getElementById(id).addEventListener('input', function () {
+    document.getElementById('send-submit').disabled = false;
+  });
+});
+
 document.getElementById('reload-draft-btn').addEventListener('click', function () {
   if (!currentSlug) return;
   if (!window.confirm('Regenerate the draft? This will discard your current edits.')) return;
@@ -152,6 +189,7 @@ document.getElementById('send-form').addEventListener('submit', async function (
         to: document.getElementById('to').value.trim(),
         subject: document.getElementById('subject').value.trim(),
         body: document.getElementById('body').value,
+        variant: currentVariant,
       }),
     });
     okEl.textContent = 'Sent.';

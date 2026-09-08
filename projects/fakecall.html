@@ -89,6 +89,10 @@
 
           <h2>Where we are</h2>
           <p>iOS build with CallKit integration is working in TestFlight. Latency budget hits the conversational target on most networks. Android build is in development. Public launch waits for the persona library to be more polished &mdash; right now it&rsquo;s 8 well-tuned scenarios, we want 20.</p>
+
+          <h2>Why CallKit instead of a plain in-app call screen</h2>
+          <p>An in-app &ldquo;incoming call&rdquo; screen is the easy build, and it&rsquo;s also the reason most fake-call apps don&rsquo;t hold up &mdash; the illusion depends on the phone behaving exactly like it does for a real call, and a screen inside an app can&rsquo;t do that. CallKit puts the call on the actual lock screen, with the actual system ringtone and answer/decline UI, so it looks identical to any other incoming call to anyone glancing at the phone. The cost is that CallKit imposes real constraints &mdash; strict rules on when an app is allowed to report an incoming call, and no equivalent API on Android, which is why the two platforms aren&rsquo;t on the same timeline.</p>
+          <p>The persona count is deliberately capped for now rather than opened up. Each scenario needs its own tuning pass on tone, pacing, and what the AI does and doesn&rsquo;t know, and a persona that breaks character under an unexpected question is worse than no persona at all &mdash; it turns a believable call into an obviously fake one at the exact moment the user needed it most.</p>
         </article>
 
         <aside class="sidecard">
