@@ -1,0 +1,24 @@
+---
+// Minimal shell for the internal client-portal/admin dashboard — no public marketing
+// Header/Footer, always noindex. Admin pages build their own .admin-wrap layout.
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{title}</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#0a0c10" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+</head>
+<body>
+  <slot />
+</body>
+</html>

@@ -1,0 +1,450 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Dainty Trading',
+    alternateName: 'Dainty Trading AI Automation Studio',
+    url: 'https://daintytrading.com',
+    logo: 'https://daintytrading.com/og-card.jpg',
+    description: 'AI automation studio building production AI software across email, trading, education, content, and SaaS infrastructure.',
+    founder: { '@type': 'Person', '@id': 'https://daintytrading.com/about.html#andrew-dainty', name: 'Andrew Dainty', url: 'https://daintytrading.com/about.html#andrew-dainty', sameAs: ['https://www.linkedin.com/in/andrewdainty/'] },
+    sameAs: [
+      'https://www.linkedin.com/company/132014328/',
+      'https://www.linkedin.com/in/andrewdainty/',
+      'https://substack.com/@andrewdainty',
+      'https://share.google/sPuFFHaeYpqb8IF9V',
+    ],
+    knowsAbout: [
+      'AI automation', 'Large language models', 'Claude API',
+      'Workflow automation', 'SaaS development', 'Algorithmic trading',
+      'Email automation', 'Content automation',
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Dainty Trading',
+    url: 'https://daintytrading.com',
+    publisher: { '@type': 'Organization', name: 'Dainty Trading' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      { '@type': 'Question', name: 'What is Dainty Trading?', acceptedAnswer: { '@type': 'Answer', text: "Dainty Trading is an AI automation studio. We design, build, and operate production AI software — 37 products covering email, content, education, knowledge management, marketing automation, scheduling, billing, and SaaS infrastructure. Some are shipped and live; others are in final testing or active development. Each project page is honest about which." } },
+      { '@type': 'Question', name: 'What kind of AI projects do you take on?', acceptedAnswer: { '@type': 'Answer', text: 'LLM-powered features (Claude, Gemini, OpenRouter), agentic workflows, content automation pipelines, AI-driven personalisation, and structured-extraction systems. We also do the boring infrastructure that keeps them up — gateways, queues, evals, billing.' } },
+      { '@type': 'Question', name: 'What stack do you build on?', acceptedAnswer: { '@type': 'Answer', text: 'Python (FastAPI, Django) and Node.js (Fastify, Express) on the backend; Next.js, React, and React Native on the front; PostgreSQL and Redis for state; n8n for orchestration; Stripe for billing; LiteLLM for routing across model providers; Docker everywhere.' } },
+      { '@type': 'Question', name: 'Do you only build with Claude?', acceptedAnswer: { '@type': 'Answer', text: 'No. We default to Anthropic Claude because it punches above its weight on long-context and structured tasks, but we route through OpenRouter and LiteLLM so projects can pick Gemini, OpenAI, or open-weights when the economics or latency demand it.' } },
+      { '@type': 'Question', name: 'How fast can you ship?', acceptedAnswer: { '@type': 'Answer', text: "First demo in 1–2 weeks for most builds. A first paying customer in 4–8 weeks. We move fast because we've already built the boring parts (billing, auth, LLM routing, observability) and reuse them across every project." } },
+      { '@type': 'Question', name: 'Where are you based?', acceptedAnswer: { '@type': 'Answer', text: 'Australia. We work async with clients globally and are happy to operate in your timezone.' } },
+      { '@type': 'Question', name: 'How do I start?', acceptedAnswer: { '@type': 'Answer', text: "Email us via the contact page with two paragraphs: what you want built and why it matters. We'll reply within one business day with a scoped first sprint." } },
+    ],
+  },
+];
+---
+<BaseLayout
+  title="Dainty Trading — AI Automation Studio | 17 Live AI Products"
+  description="Dainty Trading is an Australian AI development agency. We build production LLM software — from first demo to paying customers in weeks — and build and rank websites with SEO/GEO built in. Start a project today."
+  canonicalPath="/"
+  ogImage="https://daintytrading.com/og-card.jpg"
+  jsonLd={jsonLd}
+  hreflangAlternates={true}
+>
+  <main id="main">
+    <section class="hero">
+      <div class="hero-bg" aria-hidden="true">
+        <picture>
+          <source srcset="/daintytrading-hero.webp" type="image/webp" />
+          <img src="/daintytrading-hero.jpg" alt="" loading="eager" decoding="async" />
+        </picture>
+      </div>
+      <div class="container">
+        <span class="eyebrow">AI Automation Studio · 37 Products</span>
+        <h1>We ship AI software that earns its keep.</h1>
+        <p class="lead">
+          For SaaS founders and operators who need AI in production &mdash; not in a slide deck.
+          We&rsquo;ve built 37 products ourselves &mdash; email triage, AI tutors, content engines, CRM tools &mdash;
+          so your project gets proven infrastructure from day one. First working demo in 1&ndash;2&nbsp;weeks.
+          We also build and rank websites for local businesses &mdash; SEO and generative-engine optimisation
+          shipped straight into the code, not a PDF.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="/contact.html">Start a project &rarr;</a>
+          <a class="btn btn-ghost" href="#featured-work">See what we&rsquo;ve built</a>
+        </div>
+        <div class="trust-badges">
+          <span class="trust-badge">&#10003; No retainer</span>
+          <span class="trust-badge">&#10003; Demo in 2 weeks</span>
+          <span class="trust-badge">&#10003; Scoped in 48 hours</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="client-work">
+      <div class="container">
+        <div class="section-head">
+          <h2>Client work</h2>
+          <p>Not our product &mdash; their business. Paying engagements where we&rsquo;re the outside build or SEO/GEO team.</p>
+        </div>
+        <div class="project-grid">
+          <a class="project-card" href="/projects/edwards-kirby-lawyers.html">
+            <span class="tag">Client · Legal</span>
+            <h3>Edwards Kirby Lawyers</h3>
+            <p>Full website rebuild for a Sydney insolvency and business law firm, plus a secure client portal &mdash; JWT + MFA, encrypted document storage, SEO/GEO built in from day one.</p>
+            <span class="outcome-line">About to go live</span>
+            <span class="arrow">Read the story →</span>
+          </a>
+          <a class="project-card" href="/projects/shuttersmith.html">
+            <span class="tag">Client · SEO/GEO</span>
+            <h3>Shuttersmith</h3>
+            <p>The first client on our productised SEO + GEO service &mdash; technical audit, structured data, and generative-engine optimisation so the business is found by Google and by AI assistants.</p>
+            <span class="outcome-line">405 real visits, majority via Google &middot; led to a second business</span>
+            <span class="arrow">Read the story →</span>
+          </a>
+          <a class="project-card" href="/projects/new-shutter-business.html">
+            <span class="tag">Client · Home improvement</span>
+            <h3>New Shutter Business</h3>
+            <p>A second business, launched off the back of Shuttersmith&rsquo;s SEO/GEO results &mdash; trade-price plantation shutters with a self-install option and a full measure-and-quote build.</p>
+            <span class="outcome-line">In staging, launching soon</span>
+            <span class="arrow">Read the story →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="for-you">
+      <div class="container">
+        <p class="for-you-label">This is for you if&hellip;</p>
+        <div class="for-you-grid">
+          <div class="for-you-card">
+            <span class="for-you-check">&#10003;</span>
+            <div>
+              <strong>You&rsquo;re a SaaS founder</strong>
+              <p>You have a workflow that still runs on people, not software &mdash; and you want to change that without a six-month engineering project.</p>
+            </div>
+          </div>
+          <div class="for-you-card">
+            <span class="for-you-check">&#10003;</span>
+            <div>
+              <strong>You&rsquo;re a CTO or technical lead</strong>
+              <p>You know where AI could help but don&rsquo;t have the team to build the eval pipeline, prompt ops, and infrastructure that make it reliable.</p>
+            </div>
+          </div>
+          <div class="for-you-card">
+            <span class="for-you-check">&#10003;</span>
+            <div>
+              <strong>You&rsquo;ve done the research</strong>
+              <p>You know what an LLM is. You know the business case. You need a team that&rsquo;s actually shipped it in production &mdash; not just demo&rsquo;d it.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="trust">
+      <div class="container">
+        <div class="trust-grid">
+          <div>
+            <div class="stat-num">37</div>
+            <div class="stat-label">Products shipped &amp; in-flight</div>
+          </div>
+          <div>
+            <div class="stat-num">24</div>
+            <div class="stat-label">LLM-powered apps</div>
+          </div>
+          <div>
+            <div class="stat-num">5</div>
+            <div class="stat-label">Verticals served</div>
+          </div>
+          <div>
+            <div class="stat-num">100%</div>
+            <div class="stat-label">Built &amp; operated in-house</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section id="why">
+      <div class="container">
+        <div class="section-head">
+          <h2>Why Dainty Trading</h2>
+          <p>Most AI agencies spend eight weeks writing a deck. We spend it writing code.</p>
+        </div>
+        <div class="service-grid service-grid-2col">
+          <div class="service-card">
+            <div class="icon">01</div>
+            <h3>Proof of work, not pitch decks</h3>
+            <p>We have 37 products &mdash; 17 live and paying &mdash; you can click on right now. Every project page shows the real stack, the build timeline, and what broke. That&rsquo;s the portfolio. Judge us on it.</p>
+          </div>
+          <div class="service-card">
+            <div class="icon">02</div>
+            <h3>Speed that&rsquo;s earned, not promised</h3>
+            <p>First working demo in 1&ndash;2 weeks. First paying customer in 4&ndash;8 weeks. We move fast because we&rsquo;ve already built the boring parts &mdash; billing, auth, LLM routing, observability &mdash; and reuse them across every project.</p>
+          </div>
+          <div class="service-card">
+            <div class="icon">03</div>
+            <h3>Proven plumbing, not glued-together demos</h3>
+            <p>We&rsquo;ve already built the layer most AI projects trip over &mdash; routing, billing, observability, evals. Every client gets it on day one, because we run it for our own products first. <span class="stack-note">Stack: Claude &middot; LiteLLM &middot; n8n &middot; FastAPI &middot; Postgres</span></p>
+          </div>
+          <div class="service-card">
+            <div class="icon">04</div>
+            <h3>We align on P&amp;L, not feature lists</h3>
+            <p>AI that doesn&rsquo;t reduce headcount, cut support tickets, or generate revenue isn&rsquo;t AI &mdash; it&rsquo;s a line item. We build to measurable outcomes and tell you what success looks like before we start.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="how-it-works">
+      <div class="container">
+        <div class="section-head">
+          <h2>How an engagement works</h2>
+          <p>Hard deadlines at every stage. No discovery phase that lasts longer than the build.</p>
+        </div>
+        <div class="flow-grid">
+          <div class="flow-step">
+            <div class="flow-num">Day 1</div>
+            <h3>Brief received</h3>
+            <p>Fill in the contact form. We reply with our read on the project and any clarifying questions &mdash; same business day.</p>
+          </div>
+          <div class="flow-step">
+            <div class="flow-num">Week 1</div>
+            <h3>Scope agreed</h3>
+            <p>If it&rsquo;s a fit, we send a one-page scope for the first sprint: fixed price, hard end date, and exactly what you&rsquo;ll have at the end of it.</p>
+          </div>
+          <div class="flow-step">
+            <div class="flow-num">Week 2</div>
+            <h3>First demo live</h3>
+            <p>A working slice of your product, deployed somewhere you can use it. Not a mockup, not a Figma &mdash; running software.</p>
+          </div>
+        </div>
+        <p class="center mt-36"><a class="btn btn-primary" href="/contact.html">Start a project &rarr;</a></p>
+      </div>
+    </section>
+
+    <section id="featured-work">
+      <div class="container">
+        <div class="section-head">
+          <h2>A few of the 37</h2>
+          <p>Five live products, from years of daily use to fresh launches. <a href="/work.html">See the full portfolio &rarr;</a></p>
+        </div>
+
+        <div class="project-grid">
+          <a class="project-card" href="/projects/brightpath.html">
+            <span class="tag">AI · Education</span>
+            <h3>BrightPath</h3>
+            <p>Personalised K-12 online school with an AI tutor named Pax, gamified rewards, and progress tracking that actually nudges kids.</p>
+            <span class="outcome-line">AI tutor in production &middot; K&ndash;12 students on-platform daily</span>
+            <span class="arrow">Read the story →</span>
+          </a>
+          <a class="project-card" href="/projects/emailtriage.html">
+            <span class="tag">AI · Productivity</span>
+            <h3>Email Triage</h3>
+            <p>Claude-powered email categorizer that scores priority, drafts replies, and runs across multiple Gmail and Outlook accounts.</p>
+            <span class="outcome-line">200+ emails processed daily &middot; Runs across Gmail &amp; Outlook</span>
+            <span class="arrow">Read the story →</span>
+          </a>
+          <a class="project-card" href="/projects/ghost-writer.html">
+            <span class="tag">AI · Content</span>
+            <h3>Ghost Writer</h3>
+            <p>End-to-end content engine: detects trending topics, writes 1,500-word articles, runs 6-layer quality checks, and auto-publishes to LinkedIn and Medium.</p>
+            <span class="outcome-line">3 articles/week published &middot; No human writer in the loop</span>
+            <span class="arrow">Read the story →</span>
+          </a>
+          <a class="project-card" href="/projects/solar-loan-reconciler.html">
+            <span class="tag">Finance · Automation</span>
+            <h3>Solar Loan Reconciler</h3>
+            <p>Built for a financial company. Collects Mon&ndash;Fri solar loan transaction CSVs, matches them against the weekly Loan Payout Report, flags any gaps, and emails a clean HTML report to the loans team every Friday.</p>
+            <span class="outcome-line">Zero missed loans since go-live &middot; Fully automated every Friday</span>
+            <span class="arrow">Read the story →</span>
+          </a>
+          <a class="project-card" href="/projects/skeddy.html">
+            <span class="tag">AI · Bots</span>
+            <h3>Nudgle</h3>
+            <p>Telegram reminder bot with natural-language scheduling. Quiet hours, vacation mode, recurring tasks — all parsed by Claude.</p>
+            <span class="arrow">Read the story →</span>
+          </a>
+        </div>
+
+        <p class="center mt-32"><a class="btn btn-ghost" href="/work.html">See all 17 live products &amp; the full portfolio &rarr;</a></p>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="container">
+        <div class="section-head">
+          <h2>AI Development Services</h2>
+          <p>We don&rsquo;t do AI demos. We ship AI features that show up in your P&amp;L. Four things, done well.</p>
+        </div>
+
+        <div class="service-grid service-grid-2col">
+          <div class="service-card">
+            <div class="icon">01</div>
+            <h3><a href="/services/ai-product-builds.html" class="link-inherit">AI product builds</a></h3>
+            <p>Full-stack delivery. We take an idea — yours or ours — and ship a paying product. Backend, frontend, mobile, billing, observability, and the LLM glue that makes it real.</p>
+          </div>
+          <div class="service-card">
+            <div class="icon">02</div>
+            <h3><a href="/services/ai-automation-retrofit.html" class="link-inherit">Automation retrofits</a></h3>
+            <p>Already have a SaaS or internal tool? We bolt in AI where it earns its keep — email triage, support deflection, content generation, structured extraction — without rewriting the world.</p>
+          </div>
+          <div class="service-card">
+            <div class="icon">03</div>
+            <h3><a href="/services/ai-infrastructure.html" class="link-inherit">AI infrastructure</a></h3>
+            <p>LLM gateways, prompt versioning, evals, queue workers, billing plumbing, observability. The unsexy layer that decides whether your AI feature stays up at 3am.</p>
+          </div>
+          <div class="service-card">
+            <div class="icon">04</div>
+            <h3><a href="/services/seo-geo-optimization.html" class="link-inherit">SEO &amp; GEO optimization</a></h3>
+            <p>Get found by Google and by AI answer engines. We audit and fix meta tags, schema markup, llms.txt, and AI-crawler access — shipped directly to your codebase, not a PDF. Free audit, Setup $3,900 AUD — not the $5k&ndash;$15k-plus retainer agencies typically quote for the same audit-and-fix scope.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how-we-work">
+      <div class="container">
+        <div class="section-head">
+          <h2>How we work</h2>
+          <p>No retainers, no long SoWs to sign. Three steps from brief to paying customers.</p>
+        </div>
+        <div class="service-grid">
+          <div class="service-card">
+            <div class="icon">01</div>
+            <h3>Brief &rarr; scope in 48 hours</h3>
+            <p>Tell us the workflow or product in two paragraphs. We come back with a realistic scope: what ships in sprint one, what the stack looks like, and what it costs. No proposal theatre.</p>
+          </div>
+          <div class="service-card">
+            <div class="icon">02</div>
+            <h3>Sprint one &rarr; demo in 1&ndash;2 weeks</h3>
+            <p>We don&rsquo;t start with architecture reviews. We ship the smallest thing that proves the idea works, put it in front of a real user, and let you decide whether to continue. One working feature. Deployed. Clickable.</p>
+          </div>
+          <div class="service-card">
+            <div class="icon">03</div>
+            <h3>Iterate to a product &rarr; weeks 3&ndash;8</h3>
+            <p>Each sprint adds one feature that earns its keep. Daily written updates. Weekly live demo. You own the roadmap; we own the execution. By week eight, you have paying customers or we&rsquo;ve told you why.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container">
+        <div class="section-head">
+          <h2>Frequently asked questions</h2>
+          <p>Short answers to what people ask before booking a call.</p>
+        </div>
+
+        <div class="faq-list">
+          <details class="faq-item" open>
+            <summary>What is Dainty Trading?</summary>
+            <p>Dainty Trading is an AI automation studio. We design, build, and operate production AI software — 37 products covering email, content, education, knowledge management, marketing automation, scheduling, billing, and SaaS infrastructure. Some are shipped and live; others are in final testing or active development. Each project page is honest about which.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>What kind of AI projects do you take on?</summary>
+            <p>LLM-powered features (Claude, Gemini, OpenRouter), agentic workflows, content automation pipelines, AI-driven personalisation, and structured-extraction systems. We also do the boring infrastructure that keeps them up — gateways, queues, evals, billing.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>What stack do you build on?</summary>
+            <p>Python (FastAPI, Django) and Node.js (Fastify, Express) on the backend; Next.js, React, and React Native on the front; PostgreSQL and Redis for state; n8n for orchestration; Stripe for billing; LiteLLM for routing across model providers; Docker everywhere.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>Do you only build with Claude?</summary>
+            <p>No. We default to Anthropic Claude because it punches above its weight on long-context and structured tasks, but we route through OpenRouter and LiteLLM so projects can pick Gemini, OpenAI, or open-weights when the economics or latency demand it.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>How fast can you ship?</summary>
+            <p>First demo in 1–2 weeks for most builds. A first paying customer in 4–8 weeks. We move fast because we&rsquo;ve already built the boring parts (billing, auth, LLM routing, observability) and reuse them across every project.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>Where are you based?</summary>
+            <p>Australia. We work async with clients globally and are happy to operate in your timezone.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>How do I start?</summary>
+            <p>Email <a href="/contact.html">us via the contact page</a> with two paragraphs: what you want built and why it matters. We&rsquo;ll reply within one business day with a scoped first sprint.</p>
+          </details>
+        </div>
+
+        <div class="cta-banner">
+          <h2>Have an AI idea you want shipped?</h2>
+          <p>We pick a small number of client engagements each quarter. If you&rsquo;ve got something concrete, let&rsquo;s talk.</p>
+          <a class="btn btn-primary" href="/contact.html">Start a project →</a>
+        </div>
+      </div>
+    </section>
+    <section class="blog-preview">
+      <div class="container">
+        <div class="section-head">
+          <h2>From the blog</h2>
+          <p>How we think about building AI in production.</p>
+        </div>
+        <div class="blog-preview-grid">
+          <a class="blog-preview-card" href="/blog/how-long-to-build-production-ai-agent.html">
+            <span class="post-tag">Process</span>
+            <h3>How long does it take to build a production AI agent?</h3>
+            <p>The demo takes a week. The gap to reliable production is evaluation pipelines, fallback handling, and edge cases — here&rsquo;s the honest timeline.</p>
+            <span class="read-link">Read &rarr;</span>
+          </a>
+          <a class="blog-preview-card" href="/blog/rules-still-win-when-not-to-use-llm.html">
+            <span class="post-tag">Engineering</span>
+            <h3>Rules Still Win: When Not to Use an LLM</h3>
+            <p>LLMs aren&rsquo;t a silver bullet. Our decision tree for when deterministic rules outperform AI models &mdash; and when to use both.</p>
+            <span class="read-link">Read &rarr;</span>
+          </a>
+          <a class="blog-preview-card" href="/blog/token-cost-optimization-savings.html">
+            <span class="post-tag">Cost</span>
+            <h3>Token Cost Optimization: Where the Savings Actually Are</h3>
+            <p>The highest-ROI strategies for reducing LLM costs in production: prompt caching, model routing, context trimming, and output constraints.</p>
+            <span class="read-link">Read &rarr;</span>
+          </a>
+        </div>
+        <p class="center mt-32"><a href="/blog.html" class="link-dim-sm">View all posts &rarr;</a></p>
+      </div>
+    </section>
+
+    <section class="testimonials-section">
+      <div class="container">
+        <h2 class="testimonials-title">What users say</h2>
+        <div class="testimonials-narrow testimonials-narrow--spaced">
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJ2VLpW3U4aoQRz6YI6UQ2hr4" target="_blank" rel="noopener" class="gbp-card">
+            <img src="/gbp-logo.png" width="40" height="40" alt="" loading="lazy" class="gbp-logo" />
+            <div>
+              <div class="gbp-rating-row">
+                <span class="gbp-score">5.0</span>
+                <span class="gbp-stars">★★★★★</span>
+              </div>
+              <div class="gbp-label">Rated on Google &rarr;</div>
+            </div>
+          </a>
+        </div>
+        <div class="testimonials-narrow">
+          <figure class="testimonial-card">
+            <blockquote class="testimonial-quote">&ldquo;We engaged Andrew to have a look at our website,he explained what he needed to do and fixed everything and we our now getting lots more jobs through from.the internet traffic He also built a new website for a new branch of the business The work is fantastic and he absolutely nalied it Its about time we spent some money and got the return you hope for After several companies I have found the one I will be sticking with&rdquo;</blockquote>
+            <figcaption class="testimonial-caption">
+              <span class="testimonial-stars">★★★★★</span>&nbsp;
+              <strong class="testimonial-name">Craig Smith</strong> &middot; Local Guide &middot; <a href="https://www.google.com/maps/place/?q=place_id:ChIJ2VLpW3U4aoQRz6YI6UQ2hr4" target="_blank" rel="noopener" class="link-dim">Google review</a>
+            </figcaption>
+          </figure>
+          <figure class="testimonial-card">
+            <blockquote class="testimonial-quote">&ldquo;SATs week and we have been using BrightPath for about 2 weeks now. Ethan just learnt long division, in the space of a day and actually enjoyed the lessons. He asked me why didn&rsquo;t school teach me this way &mdash; the step-by-step guides at the start help so much. Thanks for the help BrightPath team, keep up the good work.&rdquo;</blockquote>
+            <figcaption class="testimonial-caption">
+              <span class="testimonial-stars">★★★★★</span>&nbsp;
+              <strong class="testimonial-name">Neil C</strong> &middot; Parent of an 11-year-old &middot; 2-week follow-up &middot; <a href="https://brightpath.school" target="_blank" rel="noopener" class="link-dim">BrightPath</a>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>
