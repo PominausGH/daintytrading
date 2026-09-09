@@ -16,10 +16,10 @@ ogImage: "https://daintytrading.com/og-card.jpg"
 <p>This robust approach isn't a silver bullet. The complexity of managing multiple Redis keys, token buckets, and a message queue adds operational overhead. For a small, internal tool with minimal traffic, a simple global rate limiter (or even none) might be sufficient. Building out cost-based throttling requires careful estimation of token usage, which isn't always perfectly accurate, especially with dynamic prompt templates or agentic workflows. Provider costs change, and your internal cost models need to keep pace. When we built <code>AutoArchive Mail</code>, the initial token cost estimates were off by 15% in production due to unexpected API response variations, requiring a quick adjustment to our throttling logic. Also, a queue-based system introduces latency, which might be unacceptable for real-time user-facing features. If you're wrestling with these scaling challenges, we help teams like yours build robust AI infrastructure. Consider <a href="https://daintytrading.com/contact.html">starting a project</a> with us.</p>
 
 <p>Start by implementing a simple per-user rate limit using a sliding window in Redis. For instance, allow 5 requests per minute per user. If you're using Python, <code>redis-py</code> makes this straightforward with its <code>incr</code> and <code>expire</code> commands, combined with a quick check of the count within the window. Then, integrate a basic token cost estimate into your prompt functions; just multiply your <code>input_tokens</code> by a rough per-token cost and add a buffer for output. This immediate step will prevent the most common failure mode: a single user exhausting your entire provider quota and bringing your service to a halt.</p>
-        
+
 <div class="cast-philosophy" style="margin-top:40px;border-top:1px solid var(--border);padding-top:32px;">
-  <p><strong>We build production AI, not prototypes.</strong>
-  If you're looking to ship something like what's described here — see
-  <a href="/services.html">how we work</a> or
-  <a href="/contact.html">start a project brief →</a></p>
+<p><strong>We build production AI, not prototypes.</strong>
+If you're looking to ship something like what's described here — see
+<a href="/services.html">how we work</a> or
+<a href="/contact.html">start a project brief →</a></p>
 </div>

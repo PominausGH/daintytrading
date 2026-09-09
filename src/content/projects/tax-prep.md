@@ -54,20 +54,20 @@ schemaExtra:
 ---
 
 <h2>The problem</h2>
-          <p>Tax prep isn’t hard because the maths is hard. It’s hard because the inputs are scattered across a year of inboxes, banking apps, photos of crumpled receipts, and PDFs from three different brokers. By the time it’s due, half a Saturday goes to assembling the pile before any actual returns get filled.</p>
+<p>Tax prep isn’t hard because the maths is hard. It’s hard because the inputs are scattered across a year of inboxes, banking apps, photos of crumpled receipts, and PDFs from three different brokers. By the time it’s due, half a Saturday goes to assembling the pile before any actual returns get filled.</p>
 
-          <h2>What we’re building</h2>
-          <p>Tax Prep is a single drop-zone for every document that might matter at tax time. Forward an email, drag a PDF, snap a receipt — everything lands in a vault organised by tax year and category. Documents are OCR’d, classified (income / deductible / capital gains / super / charitable / medical), and tagged with the relevant amounts and dates. At year-end, one export gives your accountant a complete, structured handover.</p>
+<h2>What we’re building</h2>
+<p>Tax Prep is a single drop-zone for every document that might matter at tax time. Forward an email, drag a PDF, snap a receipt — everything lands in a vault organised by tax year and category. Documents are OCR’d, classified (income / deductible / capital gains / super / charitable / medical), and tagged with the relevant amounts and dates. At year-end, one export gives your accountant a complete, structured handover.</p>
 
-          <h2>The AI angle</h2>
-          <p>Claude does the classification. Each new document goes through OCR, then a structured prompt that returns category, dollar amount, date, counter-party, and a confidence score. Low-confidence items go to a small review queue you triage in batches. Confidence calibrates over time as you accept or correct the model’s guesses — the system learns your specific deduction categories the same way a long-running accountant learns them.</p>
+<h2>The AI angle</h2>
+<p>Claude does the classification. Each new document goes through OCR, then a structured prompt that returns category, dollar amount, date, counter-party, and a confidence score. Low-confidence items go to a small review queue you triage in batches. Confidence calibrates over time as you accept or correct the model’s guesses — the system learns your specific deduction categories the same way a long-running accountant learns them.</p>
 
-          <h2>How it’ll be used</h2>
-          <ul>
-            <li><strong>Sole traders and contractors</strong> who track receipts in three places and lose two of them.</li>
-            <li><strong>Investors</strong> with brokerage statements, dividends, and capital-gains events that need cross-referencing.</li>
-            <li><strong>Anyone with a complex personal return</strong> who wants tax time to be a half-hour handover, not a weekend.</li>
-          </ul>
+<h2>How it’ll be used</h2>
+<ul>
+<li><strong>Sole traders and contractors</strong> who track receipts in three places and lose two of them.</li>
+<li><strong>Investors</strong> with brokerage statements, dividends, and capital-gains events that need cross-referencing.</li>
+<li><strong>Anyone with a complex personal return</strong> who wants tax time to be a half-hour handover, not a weekend.</li>
+</ul>
 
-          <h2>Where we are</h2>
-          <p>OCR + classification is working. Email forwarding, manual upload, and bank-statement parsing are in. The next milestone is the year-end export — a single bundle in the format your accountant prefers (CSV, PDF, or a hand-shake with their software). Expected public beta around the next financial year crossover.</p>
+<h2>Where we are</h2>
+<p>OCR + classification is working. Email forwarding, manual upload, and bank-statement parsing are in. The next milestone is the year-end export — a single bundle in the format your accountant prefers (CSV, PDF, or a hand-shake with their software). Expected public beta around the next financial year crossover.</p>

@@ -55,23 +55,23 @@ schemaExtra:
 ---
 
 <h2>The problem</h2>
-          <p>The first wave of AI recipe apps generated impressive-looking dishes that nobody could actually cook. Either the ingredients didn’t exist in your supermarket, the steps assumed equipment you didn’t have, or the macros didn’t add up to the diet you said you were on. We wanted a system that took constraints seriously and let the AI freelance only inside them.</p>
+<p>The first wave of AI recipe apps generated impressive-looking dishes that nobody could actually cook. Either the ingredients didn’t exist in your supermarket, the steps assumed equipment you didn’t have, or the macros didn’t add up to the diet you said you were on. We wanted a system that took constraints seriously and let the AI freelance only inside them.</p>
 
-          <h2>What we built</h2>
-          <p>ChefForge is a FastAPI backend with a clean recipe-and-plan schema. Users describe their household once — how many people, dietary restrictions, equipment, weekly budget, ingredients to avoid, ingredients to use up — and ChefForge plans a week of dinners that hit all the constraints. Each recipe is independently solvable: rendered with portion-scaled quantities, total cost, total time, and macros that sum back to the user’s daily budget.</p>
+<h2>What we built</h2>
+<p>ChefForge is a FastAPI backend with a clean recipe-and-plan schema. Users describe their household once — how many people, dietary restrictions, equipment, weekly budget, ingredients to avoid, ingredients to use up — and ChefForge plans a week of dinners that hit all the constraints. Each recipe is independently solvable: rendered with portion-scaled quantities, total cost, total time, and macros that sum back to the user’s daily budget.</p>
 
-          <h2>The AI angle</h2>
-          <p>Generation happens in two passes. The first asks for a balanced weekly outline. The second expands each slot into a full recipe and verifies that the resulting plan still sums to the user’s constraints — if it doesn’t, the LLM is told exactly what’s wrong and asked to revise. The verifier is deterministic code, not another LLM call, which is why ChefForge stays tight even when the underlying model gets creative.</p>
+<h2>The AI angle</h2>
+<p>Generation happens in two passes. The first asks for a balanced weekly outline. The second expands each slot into a full recipe and verifies that the resulting plan still sums to the user’s constraints — if it doesn’t, the LLM is told exactly what’s wrong and asked to revise. The verifier is deterministic code, not another LLM call, which is why ChefForge stays tight even when the underlying model gets creative.</p>
 
-          <h2>How it’s used</h2>
-          <ul>
-            <li><strong>Busy households</strong> who want one less weekly decision.</li>
-            <li><strong>People on specific eating regimes</strong> — high-protein, gluten-free, low-FODMAP — who can’t trust generic recipe sites.</li>
-            <li><strong>Cooking-curious beginners</strong> who need pacing, not inspiration.</li>
-          </ul>
+<h2>How it’s used</h2>
+<ul>
+<li><strong>Busy households</strong> who want one less weekly decision.</li>
+<li><strong>People on specific eating regimes</strong> — high-protein, gluten-free, low-FODMAP — who can’t trust generic recipe sites.</li>
+<li><strong>Cooking-curious beginners</strong> who need pacing, not inspiration.</li>
+</ul>
 
-          <h2>What it taught us</h2>
-          <p>That “the AI got it wrong” usually means the verifier was missing. Ninety percent of complaints traced back to a constraint we hadn’t encoded as a hard check. The fix isn’t a smarter prompt — it’s another check.</p>
+<h2>What it taught us</h2>
+<p>That “the AI got it wrong” usually means the verifier was missing. Ninety percent of complaints traced back to a constraint we hadn’t encoded as a hard check. The fix isn’t a smarter prompt — it’s another check.</p>
 
-          <h2>Why generation happens in two passes, not one</h2>
-          <p>Asking a model for a full week of meals in a single call sounds simpler, but it’s the wrong shape for the problem: a full plan has too many constraints in flight at once for the model to hold consistently, so the failures show up as a fine-looking Tuesday that quietly blows the week’s budget by Friday. Splitting outline from detail means each pass only has to get one thing right — a balanced week of meal slots, then a recipe that fits the slot it was given — and the deterministic verifier between the two passes is what actually catches drift, not a better prompt. It also means a single bad recipe can be regenerated on its own without throwing out a week that was otherwise fine.</p>
+<h2>Why generation happens in two passes, not one</h2>
+<p>Asking a model for a full week of meals in a single call sounds simpler, but it’s the wrong shape for the problem: a full plan has too many constraints in flight at once for the model to hold consistently, so the failures show up as a fine-looking Tuesday that quietly blows the week’s budget by Friday. Splitting outline from detail means each pass only has to get one thing right — a balanced week of meal slots, then a recipe that fits the slot it was given — and the deterministic verifier between the two passes is what actually catches drift, not a better prompt. It also means a single bad recipe can be regenerated on its own without throwing out a week that was otherwise fine.</p>

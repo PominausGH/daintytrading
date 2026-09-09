@@ -42,10 +42,10 @@ ogImage: "https://daintytrading.com/og-card.jpg"
 <h2>Practical Next Step</h2>
 
 <p>This week, pick one critical LLM-powered feature you're building or considering. Define what "success" looks like for that feature in concrete, measurable terms. Then, start building a small, representative test set – 20-50 examples of inputs and their ideal outputs. Focus on diversity, not just happy paths. Put this test set into a JSONL file. Even without a full automated pipeline, having this ground truth will immediately make your model selection and iteration process more objective. If you find yourself struggling to define "good" or build a diverse test set, that's often a sign that the problem itself isn't well-defined yet. For those looking to implement this kind of robust system or needing help defining their AI strategy, we regularly help clients architect and <a href="https://daintytrading.com/contact.html">start a project</a> with these evaluation systems.</p>
-        
+
 <div class="cast-philosophy" style="margin-top:40px;border-top:1px solid var(--border);padding-top:32px;">
-  <p><strong>We build production AI, not prototypes.</strong>
-  If you're looking to ship something like what's described here — see
-  <a href="/services.html">how we work</a> or
-  <a href="/contact.html">start a project brief →</a></p>
+<p><strong>We build production AI, not prototypes.</strong>
+If you're looking to ship something like what's described here — see
+<a href="/services.html">how we work</a> or
+<a href="/contact.html">start a project brief →</a></p>
 </div>

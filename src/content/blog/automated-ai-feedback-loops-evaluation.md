@@ -33,9 +33,9 @@ ogImage: "https://daintytrading.com/og-card.jpg"
 <h2>Practical next step: Instrument for Edit Distance</h2>
 <p>This week, pick one AI feature in your app and start tracking "Acceptance Rate" or "Edit Distance." Don't worry about building a judge model yet. Just measure how much of the AI's output actually makes it into the final state of the user's work. If your "Acceptance Rate" is below 60%, your prompt is likely the bottleneck, and no amount of user feedback buttons will fix it. Once you have that baseline, you can start testing prompt iterations against a real, behavioral metric.</p>
 
-          <div class="cast-philosophy" style="margin-top:40px;border-top:1px solid var(--border);padding-top:32px;">
-            <p><strong>We build production AI, not prototypes.</strong>
-            If you’re looking to ship something like what’s described here — see
-            <a href="/services.html">how we work</a> or
-            <a href="/contact.html">start a project brief →</a></p>
-          </div>
+<div class="cast-philosophy" style="margin-top:40px;border-top:1px solid var(--border);padding-top:32px;">
+<p><strong>We build production AI, not prototypes.</strong>
+If you’re looking to ship something like what’s described here — see
+<a href="/services.html">how we work</a> or
+<a href="/contact.html">start a project brief →</a></p>
+</div>

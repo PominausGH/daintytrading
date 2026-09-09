@@ -32,10 +32,10 @@ ogImage: "https://daintytrading.com/og-card.jpg"
 
 <h2>Practical next step</h2>
 <p>Don't try to implement all of this today. Start with the most critical risk: PII leaking into your logs. Check your CloudWatch, Datadog, or whatever tool you use for application logging. Search for the raw payloads being sent to your LLM provider. If user input is sitting there in plain text, write a simple middleware function this week to hash or redact the user message before it gets logged. Once your logs are clean and your compliance team is happy, you can start worrying about parsing errors and your P99 latency. Fix the security hole first, then fix the reliability.</p>
-        
+
 <div class="cast-philosophy" style="margin-top:40px;border-top:1px solid var(--border);padding-top:32px;">
-  <p><strong>We build production AI, not prototypes.</strong>
-  If you're looking to ship something like what's described here — see
-  <a href="/services.html">how we work</a> or
-  <a href="/contact.html">start a project brief →</a></p>
+<p><strong>We build production AI, not prototypes.</strong>
+If you're looking to ship something like what's described here — see
+<a href="/services.html">how we work</a> or
+<a href="/contact.html">start a project brief →</a></p>
 </div>

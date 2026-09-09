@@ -32,10 +32,10 @@ ogImage: "https://daintytrading.com/og-card.jpg"
 
 <h2>Practical Next Step</h2>
 <p>If you're managing multiple LLM providers or anticipate doing so, dedicate an afternoon to a LiteLLM proof-of-concept. Start by pulling the LiteLLM Docker image: <code>docker pull ghcr.io/berriai/litellm</code>. Next, create a simple <code>config.yaml</code> to define two custom models, one mapping to OpenAI's <code>gpt-4o</code> and another to Anthropic's <code>claude-3-opus-20240229</code>. Define environment variables for your API keys (<code>OPENAI_API_KEY</code>, <code>ANTHROPIC_API_KEY</code>). Then, run the container: <code>docker run -p 4000:4000 -v ./config.yaml:/app/config.yaml -e OPENAI_API_KEY=$OPENAI_API_KEY -e ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY ghcr.io/berriai/litellm</code>. Finally, from your application, send a simple completion request to <code>http://localhost:4000/chat/completions</code>, swapping the <code>model</code> parameter between your custom names. Experiment with <code>fallback_models</code> in your <code>config.yaml</code> to see the resilience in action. This minimal setup will quickly demonstrate the power of a unified gateway.</p>
-        
+
 <div class="cast-philosophy" style="margin-top:40px;border-top:1px solid var(--border);padding-top:32px;">
-  <p><strong>We build production AI, not prototypes.</strong>
-  If you're looking to ship something like what's described here — see
-  <a href="/services.html">how we work</a> or
-  <a href="/contact.html">start a project brief →</a></p>
+<p><strong>We build production AI, not prototypes.</strong>
+If you're looking to ship something like what's described here — see
+<a href="/services.html">how we work</a> or
+<a href="/contact.html">start a project brief →</a></p>
 </div>
