@@ -50,10 +50,10 @@ ogImage: "https://daintytrading.com/og-card.jpg"
 <li><strong>User interaction metric:</strong> Implement a simple "thumbs up" / "thumbs down" button, or log whether the AI-generated content was ultimately saved or sent by the user.</li>
 </ol>
 <p>Monitor these metrics daily for a week. You'll quickly see if your initial assumptions about quality hold up in the wild. This small investment pays dividends in stability and user satisfaction. If you need help structuring these rollouts or setting up the right telemetry, we frequently guide teams through this process; consider a <a href="https://daintytrading.com/contact.html">Start a project</a> discussion with Dainty.</p>
-        
+
 <div class="cast-philosophy" style="margin-top:40px;border-top:1px solid var(--border);padding-top:32px;">
-  <p><strong>We build production AI, not prototypes.</strong>
-  If you're looking to ship something like what's described here — see
-  <a href="/services.html">how we work</a> or
-  <a href="/contact.html">start a project brief →</a></p>
+<p><strong>We build production AI, not prototypes.</strong>
+If you're looking to ship something like what's described here — see
+<a href="/services.html">how we work</a> or
+<a href="/contact.html">start a project brief →</a></p>
 </div>

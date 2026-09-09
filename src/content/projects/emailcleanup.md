@@ -48,20 +48,20 @@ schemaExtra:
 ---
 
 <h2>The problem</h2>
-          <p>Mailing-list hygiene is the most-deferred maintenance task in marketing. Bouncebacks tank deliverability; disposable-email signups poison conversion data; the existing “email verification” vendors charge per check at scale. We wanted a self-hostable, single-endpoint service that solved 90% of the problem cheaply.</p>
+<p>Mailing-list hygiene is the most-deferred maintenance task in marketing. Bouncebacks tank deliverability; disposable-email signups poison conversion data; the existing “email verification” vendors charge per check at scale. We wanted a self-hostable, single-endpoint service that solved 90% of the problem cheaply.</p>
 
-          <h2>What we built</h2>
-          <p>Email Cleanup is a FastAPI service backed by SQLite. It maintains a curated <code>domains.txt</code> of known disposable, role, and parked providers; runs deterministic syntax and MX-record checks; and answers a single <code>POST /validate</code> with a structured verdict per address. Bulk endpoints accept lists and stream results back as soon as each one resolves.</p>
+<h2>What we built</h2>
+<p>Email Cleanup is a FastAPI service backed by SQLite. It maintains a curated <code>domains.txt</code> of known disposable, role, and parked providers; runs deterministic syntax and MX-record checks; and answers a single <code>POST /validate</code> with a structured verdict per address. Bulk endpoints accept lists and stream results back as soon as each one resolves.</p>
 
-          <h2>The automation angle</h2>
-          <p>The domain list is the product. We auto-update it from public disposable-domain feeds with a manual review queue, and accept user-flagged domains via a single endpoint. There’s no LLM here; there doesn’t need to be. Pattern matching with good source data beats clever models for the cost-per-call this product targets.</p>
+<h2>The automation angle</h2>
+<p>The domain list is the product. We auto-update it from public disposable-domain feeds with a manual review queue, and accept user-flagged domains via a single endpoint. There’s no LLM here; there doesn’t need to be. Pattern matching with good source data beats clever models for the cost-per-call this product targets.</p>
 
-          <h2>How it’s used</h2>
-          <ul>
-            <li><strong>SaaS signups</strong> rejecting disposable inboxes before they pollute the funnel.</li>
-            <li><strong>Email senders</strong> cleaning lists before a campaign goes out.</li>
-            <li><strong>Internal tools</strong> across our portfolio that need a fast yes/no.</li>
-          </ul>
+<h2>How it’s used</h2>
+<ul>
+<li><strong>SaaS signups</strong> rejecting disposable inboxes before they pollute the funnel.</li>
+<li><strong>Email senders</strong> cleaning lists before a campaign goes out.</li>
+<li><strong>Internal tools</strong> across our portfolio that need a fast yes/no.</li>
+</ul>
 
-          <h2>What it taught us</h2>
-          <p>Not every product needs AI to be valuable. Sometimes the win is a tight schema, a maintained data file, and a service that responds in under twenty milliseconds. We use Email Cleanup ourselves — it’s the kind of unsexy infrastructure that quietly improves every other product.</p>
+<h2>What it taught us</h2>
+<p>Not every product needs AI to be valuable. Sometimes the win is a tight schema, a maintained data file, and a service that responds in under twenty milliseconds. We use Email Cleanup ourselves — it’s the kind of unsexy infrastructure that quietly improves every other product.</p>

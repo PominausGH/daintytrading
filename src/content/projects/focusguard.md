@@ -61,23 +61,23 @@ schemaExtra:
 ---
 
 <h2>The problem</h2>
-          <p>The market is flooded with task apps and timer apps; almost none of them are honest about what they measure. Most reward you for opening the app, not for getting the work done. We wanted a tool that ranked sessions by depth and surfaced the kind of analytics you’d want before a quarterly review — not the kind that show up on a dopamine dashboard.</p>
+<p>The market is flooded with task apps and timer apps; almost none of them are honest about what they measure. Most reward you for opening the app, not for getting the work done. We wanted a tool that ranked sessions by depth and surfaced the kind of analytics you’d want before a quarterly review — not the kind that show up on a dopamine dashboard.</p>
 
-          <h2>What we built</h2>
-          <p>FocusShield is built once on Expo SDK 54 and ships to iOS, Android, and the web. The Node and Express backend handles auth (JWT), task CRUD, and the analytics roll-ups; Postgres is the source of truth. The mobile experience and the desktop experience are deliberately the same shape — one task list, one timer, one weekly view — because context-switching between layouts kills retention more than any missing feature.</p>
+<h2>What we built</h2>
+<p>FocusShield is built once on Expo SDK 54 and ships to iOS, Android, and the web. The Node and Express backend handles auth (JWT), task CRUD, and the analytics roll-ups; Postgres is the source of truth. The mobile experience and the desktop experience are deliberately the same shape — one task list, one timer, one weekly view — because context-switching between layouts kills retention more than any missing feature.</p>
 
-          <h2>The automation angle</h2>
-          <p>FocusShield isn’t LLM-heavy by design; the value is in the discipline of measurement. Where automation does help: weekly digest emails (“here’s where your hours actually went”), smart breaks based on session length, and an opt-in summary that turns a week of session metadata into one paragraph you can paste into a status update.</p>
+<h2>The automation angle</h2>
+<p>FocusShield isn’t LLM-heavy by design; the value is in the discipline of measurement. Where automation does help: weekly digest emails (“here’s where your hours actually went”), smart breaks based on session length, and an opt-in summary that turns a week of session metadata into one paragraph you can paste into a status update.</p>
 
-          <h2>The meeting cost calculator</h2>
-          <p>The feature that surprises people most isn’t the timer — it’s the meeting cost calculator. Enter attendee count and an average salary, hit start, and it shows the running cost per minute and per hour for the meeting you’re actually sitting in, with start/stop/reset controls and a shareable summary at the end. The focus timer itself ships three presets out of the box — Classic (25/5/15), Deep Work (50/10/20), and Sprint (15/5/15) — each linkable to a specific task, with a session-history calendar and CSV export for anyone who wants their own analytics rather than trusting ours.</p>
+<h2>The meeting cost calculator</h2>
+<p>The feature that surprises people most isn’t the timer — it’s the meeting cost calculator. Enter attendee count and an average salary, hit start, and it shows the running cost per minute and per hour for the meeting you’re actually sitting in, with start/stop/reset controls and a shareable summary at the end. The focus timer itself ships three presets out of the box — Classic (25/5/15), Deep Work (50/10/20), and Sprint (15/5/15) — each linkable to a specific task, with a session-history calendar and CSV export for anyone who wants their own analytics rather than trusting ours.</p>
 
-          <h2>How it’s used</h2>
-          <ul>
-            <li><strong>Solo operators</strong> tracking deep work alongside running a business.</li>
-            <li><strong>Knowledge workers</strong> who want to know whether yesterday was actually productive.</li>
-            <li><strong>Students</strong> who need to time-box study without becoming hostage to a Pomodoro cult.</li>
-          </ul>
+<h2>How it’s used</h2>
+<ul>
+<li><strong>Solo operators</strong> tracking deep work alongside running a business.</li>
+<li><strong>Knowledge workers</strong> who want to know whether yesterday was actually productive.</li>
+<li><strong>Students</strong> who need to time-box study without becoming hostage to a Pomodoro cult.</li>
+</ul>
 
-          <h2>What it taught us</h2>
-          <p>Cross-platform via Expo is genuinely a force multiplier for a small team if you’re willing to keep the surface area lean. The moment you start chasing platform-specific feel, the savings disappear. We picked “same shape, native polish” and have shipped twelve releases without a fork.</p>
+<h2>What it taught us</h2>
+<p>Cross-platform via Expo is genuinely a force multiplier for a small team if you’re willing to keep the surface area lean. The moment you start chasing platform-specific feel, the savings disappear. We picked “same shape, native polish” and have shipped twelve releases without a fork.</p>

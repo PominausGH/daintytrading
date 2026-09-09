@@ -43,9 +43,9 @@ ogImage: "https://daintytrading.com/og-card.jpg"
 
 <p>If you are dealing with spiraling inference costs and need help architecting a more efficient pipeline, <a href="https://daintytrading.com/contact.html">start a project</a> with us. We can help you implement these routing and caching strategies without degrading your product's performance or introducing unnecessary infrastructure complexity.</p>
 
-          <div class="cast-philosophy" style="margin-top:40px;border-top:1px solid var(--border);padding-top:32px;">
-            <p><strong>We build production AI, not prototypes.</strong>
-            If you’re looking to ship something like what’s described here — see
-            <a href="/services.html">how we work</a> or
-            <a href="/contact.html">start a project brief →</a></p>
-          </div>
+<div class="cast-philosophy" style="margin-top:40px;border-top:1px solid var(--border);padding-top:32px;">
+<p><strong>We build production AI, not prototypes.</strong>
+If you’re looking to ship something like what’s described here — see
+<a href="/services.html">how we work</a> or
+<a href="/contact.html">start a project brief →</a></p>
+</div>

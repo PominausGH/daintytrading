@@ -60,10 +60,10 @@ ogImage: "https://daintytrading.com/og-card.jpg"
 <li>What are the concrete consequences if this feature produces a wrong answer?</li>
 </ol>
 <p>If your answers point towards deterministic outputs, tight latency, or high costs of failure, start with a rule-based approach. For example, if you need to extract specific fields from a semi-structured document, try using Pydantic to define your schema and a simple parser first. Only if the input variability becomes unmanageable, or the task truly requires natural language understanding, should you bring in an LLM. This focused approach saves engineering cycles and delivers more robust systems. When you're ready to tackle these complex decisions and build production-grade AI, we’re here to help. <a href="https://daintytrading.com/contact.html">Start a project</a> with us.</p>
-        
+
 <div class="cast-philosophy" style="margin-top:40px;border-top:1px solid var(--border);padding-top:32px;">
-  <p><strong>We build production AI, not prototypes.</strong>
-  If you're looking to ship something like what's described here — see
-  <a href="/services.html">how we work</a> or
-  <a href="/contact.html">start a project brief →</a></p>
+<p><strong>We build production AI, not prototypes.</strong>
+If you're looking to ship something like what's described here — see
+<a href="/services.html">how we work</a> or
+<a href="/contact.html">start a project brief →</a></p>
 </div>
