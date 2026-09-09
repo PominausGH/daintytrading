@@ -35,8 +35,8 @@ sidecard:
 ctaBannerHeading: "Good work turns into the next project. Ours does."
 ctaBannerBody: "We scope projects in 48 hours and ship a first demo in 1–2 weeks. Tell us what you need."
 prevLink:
-  label: "Shuttersmith"
-  href: "/projects/shuttersmith.html"
+  label: "Shuttersmith Rebuild"
+  href: "/projects/shuttersmith-rebuild.html"
 nextLink:
   label: "Edwards Kirby Lawyers"
   href: "/projects/edwards-kirby-lawyers.html"

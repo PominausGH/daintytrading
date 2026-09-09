@@ -42,8 +42,8 @@ prevLink:
   label: "All projects"
   href: "/work.html"
 nextLink:
-  label: "New Shutter Business"
-  href: "/projects/new-shutter-business.html"
+  label: "Shuttersmith Rebuild"
+  href: "/projects/shuttersmith-rebuild.html"
 schemaType: "CreativeWork"
 schemaExtra:
   about: "Technical SEO and generative-engine optimisation for a local business, delivered as Dainty Trading's productised SEO/GEO service."
