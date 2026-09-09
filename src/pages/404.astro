@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="Page Not Found — Dainty Trading"
+  description="The page you're looking for doesn't exist. Head back to the Dainty Trading homepage."
+  canonicalPath="/404.html"
+  robots="noindex, follow"
+>
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container" style="text-align:center; padding-top:80px; padding-bottom:80px;">
+        <p class="muted" style="font-size:72px; font-weight:700; margin:0 0 16px; line-height:1;">404</p>
+        <h1 style="margin:0 0 16px;">Page not found.</h1>
+        <p class="lede" style="margin:0 0 32px;">That URL doesn&rsquo;t exist. It may have moved, or you might have followed a broken link.</p>
+        <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+          <a href="/" class="btn btn-primary">Back to homepage</a>
+          <a href="/work.html" class="btn btn-ghost">Browse projects</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

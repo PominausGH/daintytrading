@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="Leave a Review — Dainty Trading"
+  description="Worked with Dainty Trading on a project? Leave a quick review — takes about a minute."
+  canonicalPath="/review.html"
+  robots="noindex, follow"
+>
+  <style>
+    .form-grid { display: grid; gap: 16px; max-width: 640px; }
+    .form-grid label { display: block; font-size: 14px; color: var(--text-dim); margin-bottom: 6px; }
+    .form-grid input, .form-grid textarea, .form-grid select {
+      width: 100%; padding: 12px 14px; border-radius: 10px;
+      background: var(--bg-elev); border: 1px solid var(--border); color: var(--text);
+      font: inherit;
+    }
+    .form-grid input:focus, .form-grid textarea:focus, .form-grid select:focus {
+      outline: none; border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(124,92,255,0.18);
+    }
+    .form-grid textarea { min-height: 120px; resize: vertical; }
+    .form-grid button { justify-self: start; }
+    .google-review-box {
+      max-width: 640px; margin-top: 40px; padding: 20px 22px;
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      background: var(--bg-elev);
+    }
+    .google-review-box p { margin: 0 0 10px; font-size: 14px; color: var(--text-dim); }
+  </style>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; Leave a review</div>
+        <h1>Got two minutes? Tell us how it went.</h1>
+        <p class="lede">If we&rsquo;ve built something for you, a few honest lines helps other founders decide whether to reach out. We read every review and most end up on the site &mdash; credited with your name, unless you tell us otherwise.</p>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <div id="review-form-wrap">
+            <form class="form-grid" id="review-form" novalidate>
+              <div>
+                <label for="name">Your name</label>
+                <input id="name" name="name" type="text" required autocomplete="name" />
+              </div>
+              <div>
+                <label for="company">Company (optional)</label>
+                <input id="company" name="company" type="text" autocomplete="organization" />
+              </div>
+              <div>
+                <label for="project">Which project?</label>
+                <select id="project" name="project">
+                  <option value="">Not sure / general feedback</option>
+                  <option>BrightPath</option>
+                  <option>Email Triage</option>
+                  <option>Email Cleanup</option>
+                  <option>Subscription Incinerator</option>
+                  <option>Everyring.ai</option>
+                  <option>CV Matcher</option>
+                  <option>BizPage Builder</option>
+                  <option>FocusShield</option>
+                  <option>AutoArchive</option>
+                  <option>TimerForge</option>
+                  <option>Ghost Writer</option>
+                  <option>ConvoForge</option>
+                  <option>Solar Loan Reconciler</option>
+                  <option>Nudgle</option>
+                  <option>Marketing OS</option>
+                  <option>Post Reel</option>
+                  <option>Billing API</option>
+                  <option>SEO/GEO optimization</option>
+                  <option>A client engagement (custom build)</option>
+                </select>
+              </div>
+              <div>
+                <label for="rating">Rating</label>
+                <select id="rating" name="rating" required>
+                  <option value="5">★★★★★ — Excellent</option>
+                  <option value="4">★★★★☆ — Good</option>
+                  <option value="3">★★★☆☆ — Okay</option>
+                  <option value="2">★★☆☆☆ — Not great</option>
+                  <option value="1">★☆☆☆☆ — Poor</option>
+                </select>
+              </div>
+              <div>
+                <label for="quote">Your review</label>
+                <textarea id="quote" name="quote" required placeholder="What did we build, and how has it worked out for you?"></textarea>
+              </div>
+              <div>
+                <label for="email">Email (optional)</label>
+                <input id="email" name="email" type="email" autocomplete="email" placeholder="In case we want to follow up before publishing" />
+              </div>
+
+              <!-- Honeypot — invisible to humans; bots fill it in -->
+              <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">
+                <label for="dt_website">Work phone</label>
+                <input type="text" id="dt_website" name="dt_website" tabindex="-1" autocomplete="off" />
+              </div>
+              <input type="hidden" id="dt_form_loaded_at" name="dt_form_loaded_at" />
+
+              <button type="submit" id="review-submit" class="btn btn-primary">Submit review</button>
+              <p id="form-error" class="muted" style="font-size:13px; margin:0; color:#f87171; display:none;"></p>
+              <p class="muted" style="font-size:12px;margin:0;color:var(--text-muted);">&#128274; Your data is never sold or shared &middot; <a href="/privacy.html" style="color:var(--text-muted);text-decoration:underline;">Privacy policy</a></p>
+            </form>
+          </div>
+
+          <div id="review-success" style="display:none; padding: 32px 0;">
+            <h3 style="margin:0 0 12px;">Thanks &mdash; got it.</h3>
+            <p>We read every review that comes in. Most end up on the site within a few days.</p>
+            <p class="muted" style="font-size:13px;"><a href="/work.html">See the full portfolio &rarr;</a></p>
+          </div>
+
+          <script is:inline defer src="/js/review-form.js"></script>
+
+          <div class="google-review-box">
+            <p><strong>Prefer Google?</strong> If you'd rather leave a review on our Google Business Profile instead (or as well), that helps us too. We're currently rated <span style="color:var(--accent-2);">★★★★★</span> <strong style="color:var(--text);">5.0</strong> on Google.</p>
+            <a class="btn btn-ghost" href="https://g.page/r/Cc-mCOlENoa-EAE/review" target="_blank" rel="noopener">Leave a Google review &rarr;</a>
+            <a class="btn btn-ghost" href="https://www.google.com/maps/place/?q=place_id:ChIJ2VLpW3U4aoQRz6YI6UQ2hr4" target="_blank" rel="noopener">See our Google reviews &rarr;</a>
+          </div>
+        </article>
+
+        <aside class="sidecard">
+          <h4>Why we ask</h4>
+          <p class="muted" style="font-size:13.5px;">Real feedback from real projects is more useful to the next founder than anything we could write ourselves. Thank you.</p>
+          <a class="btn btn-ghost" href="/work.html">See the portfolio</a>
+          <a class="btn btn-ghost" href="/contact.html">Start a project</a>
+        </aside>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

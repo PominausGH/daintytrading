@@ -1,15 +1,19 @@
 #!/usr/bin/env python3
 """
-Pulls real view/visit counts from Umami and updates every spot on the site
-that quotes them (case-study page, homepage/work cards, SEO service page).
-The two full-sentence spots also get a "(as of <date>)" freshness label.
-Run weekly via cron.
+Pulls real view/visit counts from Umami and writes them to api/data/project-stats.json.
+
+The site used to be raw HTML, so this script sed-replaced the numbers directly
+into rendered pages. Post-Astro-migration the site is a static build — editing
+`.html` output would just get overwritten by the next build — so instead this
+writes a small JSON file that api/routes/project-stats.js serves, and the
+Shuttersmith case-study page fetches client-side at runtime. No rebuild needed
+when stats update; run weekly via cron same as before.
 
 To bring another project's stats onto its pages once it's live and tracked
-in Umami, add an entry to PROJECTS below.
+in Umami, add an entry to PROJECTS below and reference its key from the
+relevant .astro/.md page's fetch script.
 """
 import json
-import re
 import urllib.request
 import urllib.parse
 from datetime import datetime, timezone
@@ -19,36 +23,10 @@ UMAMI_URL = "http://localhost:3100"
 USERNAME = "genmailing@gmail.com"
 CREDS_FILE = "/opt/docker/umami/.umami_report_creds"
 REPO_ROOT = Path(__file__).resolve().parents[2]
+STATS_FILE = REPO_ROOT / "api" / "data" / "project-stats.json"
 
 PROJECTS = [
-    {
-        "site_id": "265c7bd8-3f8a-41f9-98d4-ccedc9594283",
-        "html_files": [
-            REPO_ROOT / "projects" / "shuttersmith.html",
-            REPO_ROOT / "work.html",
-            REPO_ROOT / "index.html",
-            REPO_ROOT / "services" / "seo-geo-optimization.html",
-        ],
-    },
-]
-
-# Every spot on the site the visit count is quoted, across all of the above
-# files. Each is anchored to Shuttersmith-specific surrounding text so it
-# can't collide with unrelated "N real visits" stats elsewhere on the site
-# (e.g. the AI-chat-referral stat on services/seo-geo-optimization.html).
-# Harmless to run against a file that doesn't contain a given spot.
-#
-# The two full-sentence spots also carry a "(as of <date>)" freshness label,
-# since they're prose making a specific claim; the short card blurbs and the
-# bare stat box don't have room for it and just get the number.
-DATED_VISIT_COUNT_PATTERNS = [
-    r"[\d,]+ real visits(?: \(as of [^)]+\))?(?= &mdash;)",               # shuttersmith.html prose
-    r"[\d,]+ real visits(?: \(as of [^)]+\))?(?= since tracking began)",  # seo-geo paragraph
-]
-VISIT_COUNT_PATTERNS = [
-    r"(Visits since \w{3,9}</span><span>)[\d,]+",         # shuttersmith.html sidecard
-    r"[\d,]+(?= real visits, majority via Google)",       # work.html / index.html cards
-    r'(<div class="result-stat">)[\d,]+(?= visits</div>)',  # seo-geo result-stat box
+    {"key": "shuttersmith", "site_id": "265c7bd8-3f8a-41f9-98d4-ccedc9594283"},
 ]
 
 
@@ -75,35 +53,13 @@ def api_get(path, token, params=None):
     return json.load(urllib.request.urlopen(req))
 
 
-def update_visit_count(html_file, visits, date_str):
-    text = html_file.read_text()
-    new_text, total = text, 0
-    for pattern in DATED_VISIT_COUNT_PATTERNS:
-        new_text, n = re.subn(
-            pattern, f"{visits:,} real visits (as of {date_str})", new_text
-        )
-        total += n
-    for pattern in VISIT_COUNT_PATTERNS:
-        compiled = re.compile(pattern)
-        repl = rf"\g<1>{visits:,}" if compiled.groups else f"{visits:,}"
-        new_text, n = compiled.subn(repl, new_text)
-        total += n
-    if total == 0:
-        return False
-    if new_text == text:
-        print(f"  {html_file.name}: already {visits:,}, no change")
-        return False
-    html_file.write_text(new_text)
-    print(f"  {html_file.name}: updated {total} spot(s) to {visits:,} real visits")
-    return True
-
-
 def main():
     token = get_token(_load_password())
     now = datetime.now(timezone.utc)
     now_ms = int(now.timestamp() * 1000)
     date_str = now.strftime("%-d %b %Y")
 
+    results = {}
     for project in PROJECTS:
         site_id = project["site_id"]
         website = api_get(f"/api/websites/{site_id}", token)
@@ -117,8 +73,16 @@ def main():
         )
         visits = stats.get("visits", 0)
         print(f"{website.get('name', site_id)}: {visits} visits since {created_at.date()}")
-        for html_file in project["html_files"]:
-            update_visit_count(html_file, visits, date_str)
+        results[project["key"]] = {
+            "visits": visits,
+            "trackingSince": created_at.date().isoformat(),
+            "asOf": date_str,
+            "updatedAt": now.isoformat(),
+        }
+
+    STATS_FILE.parent.mkdir(parents=True, exist_ok=True)
+    STATS_FILE.write_text(json.dumps(results, indent=2) + "\n")
+    print(f"Wrote {STATS_FILE}")
 
 
 if __name__ == "__main__":

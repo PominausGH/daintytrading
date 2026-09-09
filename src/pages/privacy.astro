@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="Privacy Policy — Dainty Trading"
+  description="Privacy policy for Dainty Trading. Covers what data we collect, how it's used, and your rights under the Australian Privacy Act 1988 and GDPR."
+  canonicalPath="/privacy.html"
+>
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; Privacy policy</div>
+        <h1>Privacy policy.</h1>
+        <p class="lede">Last updated: 2 July 2026. This policy covers daintytrading.com and how we handle information you share with us.</p>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+
+          <h2>Who we are</h2>
+          <p>Dainty Trading is an AI automation studio based in Australia. We operate daintytrading.com and a portfolio of AI software products. Our contact address is <a href="mailto:hello@daintytrading.com">hello@daintytrading.com</a>.</p>
+
+          <h2>What data we collect</h2>
+
+          <h3>Contact form</h3>
+          <p>When you submit the contact form at <a href="/contact.html">/contact.html</a>, we collect:</p>
+          <ul>
+            <li>Your name</li>
+            <li>Your email address</li>
+            <li>Company name (optional)</li>
+            <li>Engagement type (selected from a dropdown)</li>
+            <li>Your project description (free text)</li>
+          </ul>
+          <p>We also record a form-load timestamp (used to detect automated bot submissions) and check a hidden honeypot field. Neither is stored beyond the submission event.</p>
+          <p>This data is used solely to respond to your enquiry. We do not add you to any marketing list without your explicit consent.</p>
+
+          <h3>Analytics</h3>
+          <p>We use <a href="https://umami.is" rel="noopener" target="_blank">Umami</a>, a self-hosted, open-source analytics platform. Umami is <strong>cookieless</strong> — it does not set any cookies in your browser and does not track you across sites. It collects page views, referrer, device type, and country at an aggregate level. No personally identifiable information is collected or stored by Umami.</p>
+          <p>Umami is hosted on our own infrastructure in Australia. No data is sent to third-party analytics providers.</p>
+
+          <h2>How we store and use data</h2>
+          <p>Contact form submissions are delivered to us via <a href="https://www.brevo.com" rel="noopener" target="_blank">Brevo</a> (formerly Sendinblue), a transactional email platform. Brevo processes your submission to deliver the notification email to us and the confirmation email to you. Brevo&rsquo;s privacy policy is available at brevo.com.</p>
+          <p>We do not operate a database on this marketing site. Your contact form data is not stored in any database we control beyond what Brevo retains for email delivery (typically 30 days of transactional logs).</p>
+          <p>We do not sell, rent, or share your personal information with third parties except as described above (Brevo for email delivery).</p>
+
+          <h2>Cookies</h2>
+          <p>This site does not set any cookies for visitors — our analytics platform (Umami) is cookieless by design, and we do not use tracking or advertising cookies. (Our internal admin dashboard sets a login session cookie, but only for our own staff after authenticating — never for site visitors.)</p>
+
+          <h2>Australian Privacy Act 1988</h2>
+          <p>Dainty Trading operates in compliance with the <em>Privacy Act 1988</em> (Cth) and the Australian Privacy Principles (APPs). Under the APPs, you have the right to:</p>
+          <ul>
+            <li>Request access to personal information we hold about you</li>
+            <li>Request correction of inaccurate personal information</li>
+            <li>Request deletion of personal information we hold about you</li>
+            <li>Complain about how we have handled your personal information</li>
+          </ul>
+          <p>To exercise any of these rights, email <a href="mailto:hello@daintytrading.com">hello@daintytrading.com</a>. We will respond within 30 days.</p>
+
+          <h2>GDPR (UK and EU visitors)</h2>
+          <p>If you are located in the United Kingdom or European Economic Area, the following applies in addition to the above.</p>
+          <p><strong>Legal basis for processing:</strong> We process contact form data on the basis of legitimate interest (responding to a project enquiry you initiated). We do not process data on the basis of consent for marketing purposes.</p>
+          <p><strong>Data transfers:</strong> Your contact form data is processed by Brevo, which is headquartered in France and operates under GDPR. Brevo acts as a data processor on our behalf under a Data Processing Agreement.</p>
+          <p><strong>Your rights:</strong> Under GDPR, you have the rights of access, rectification, erasure, restriction, portability, and objection. You also have the right to lodge a complaint with your local supervisory authority. To exercise your rights, contact <a href="mailto:hello@daintytrading.com">hello@daintytrading.com</a>.</p>
+
+          <h2>Third-party links</h2>
+          <p>This site contains links to external websites (GitHub, product domains, tool documentation). We are not responsible for the privacy practices of those sites. We recommend reviewing their privacy policies before providing personal information.</p>
+
+          <h2>Children&rsquo;s privacy</h2>
+          <p>This site is not directed at children under 13 and we do not knowingly collect personal information from children. If you believe a child has submitted information through our contact form, please contact us so we can delete it.</p>
+
+          <h2>Changes to this policy</h2>
+          <p>We may update this policy from time to time. The &ldquo;Last updated&rdquo; date at the top of this page will reflect any changes. Material changes will be noted here.</p>
+
+          <h2>Contact</h2>
+          <p>For any privacy-related questions or requests: <a href="mailto:hello@daintytrading.com">hello@daintytrading.com</a></p>
+
+        </article>
+
+        <aside class="sidecard">
+          <h4>Quick summary</h4>
+          <div class="label-row"><span>Cookies</span><span>None for visitors</span></div>
+          <div class="label-row"><span>Analytics</span><span>Umami (self-hosted, cookieless)</span></div>
+          <div class="label-row"><span>Email delivery</span><span>Brevo</span></div>
+          <div class="label-row"><span>Data sold</span><span>Never</span></div>
+          <div class="label-row"><span>Jurisdiction</span><span>Australia (APPs)</span></div>
+          <a class="btn btn-ghost" href="/contact.html">Privacy request →</a>
+        </aside>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

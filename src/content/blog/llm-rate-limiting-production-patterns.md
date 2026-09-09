@@ -1,0 +1,25 @@
+---
+title: "Stop Hitting LLM Rate Limits: What We Learned Shipping"
+description: "Learn production patterns for rate limiting AI endpoints, including per-user, cost-based, and queue-based throttling, to avoid provider limits and unexpected bills."
+category: "AI · Engineering"
+publishedDate: "2026-06-08"
+readTime: "4 min"
+ogImage: "https://daintytrading.com/og-card.jpg"
+---
+
+<p>We’ve all been there: your new AI feature goes live, and within hours, you’re either staring at a <code>429 Too Many Requests</code> from Anthropic or OpenAI, or an email warning about your credit card limit. The problem isn't just about preventing abuse; it's about managing provider limits and ensuring fair access. A single user hitting your <code>/summarize</code> endpoint with 50,000-token documents can exhaust your entire quota, blocking legitimate users and costing a fortune. We quickly learned that robust rate limiting isn't an afterthought; it's fundamental to shipping production AI.</p>
+
+<p>Most teams initially skip rate limiting entirely, or implement a basic, global throttle. They might set a simple <code>X requests/minute</code> across the whole service. This seems reasonable at first. You're deploying fast, you want to see if the feature has traction. The issue is it's a blunt instrument. A global limit means one active user can consume the entire budget, effectively enacting a denial-of-service for everyone else. It doesn't account for varying request costs (a short prompt vs. a multi-document RAG query). And it certainly doesn't help when your provider limits are structured per-key, per-user, or per-project, rather than matching your global service limit.</p>
+
+<p>At Dainty, we implement a multi-layered approach: per-user rate limiting, cost-based throttling, and queue-based burst handling, often fronted by an API gateway like Kong or a custom proxy. For per-user limits, we rely on Redis. Each user has a sliding window or a token bucket. For example, for our <code>Ghost Writer</code> service, a user might be allowed 10 requests per minute and 100 requests per hour. We store <code>user_id:timestamps</code> in a Redis list or a sorted set, pruning old entries. For cost-based throttling, we track estimated token usage. Before making an LLM call, we estimate input tokens, add a buffer for output, and check if the user's current token budget (also in Redis) would be exceeded. If it is, the request is rejected or pushed to a queue. For example, a "premium" user might get 10,000 tokens per minute, while a "free" user gets 1,000. This is crucial for controlling spend on services like BrightPath, where query complexity varies wildly. When limits are hit, we don't just fail immediately. High-priority requests (e.g., from paid users) might bypass a queue, while others go into a Celery or RabbitMQ queue for asynchronous processing, providing a better user experience than an immediate <code>429</code>. This allows us to handle traffic spikes gracefully without dropping requests or blowing our budget.</p>
+
+<p>This robust approach isn't a silver bullet. The complexity of managing multiple Redis keys, token buckets, and a message queue adds operational overhead. For a small, internal tool with minimal traffic, a simple global rate limiter (or even none) might be sufficient. Building out cost-based throttling requires careful estimation of token usage, which isn't always perfectly accurate, especially with dynamic prompt templates or agentic workflows. Provider costs change, and your internal cost models need to keep pace. When we built <code>AutoArchive Mail</code>, the initial token cost estimates were off by 15% in production due to unexpected API response variations, requiring a quick adjustment to our throttling logic. Also, a queue-based system introduces latency, which might be unacceptable for real-time user-facing features. If you're wrestling with these scaling challenges, we help teams like yours build robust AI infrastructure. Consider <a href="https://daintytrading.com/contact.html">starting a project</a> with us.</p>
+
+<p>Start by implementing a simple per-user rate limit using a sliding window in Redis. For instance, allow 5 requests per minute per user. If you're using Python, <code>redis-py</code> makes this straightforward with its <code>incr</code> and <code>expire</code> commands, combined with a quick check of the count within the window. Then, integrate a basic token cost estimate into your prompt functions; just multiply your <code>input_tokens</code> by a rough per-token cost and add a buffer for output. This immediate step will prevent the most common failure mode: a single user exhausting your entire provider quota and bringing your service to a halt.</p>
+        
+<div class="cast-philosophy" style="margin-top:40px;border-top:1px solid var(--border);padding-top:32px;">
+  <p><strong>We build production AI, not prototypes.</strong>
+  If you're looking to ship something like what's described here — see
+  <a href="/services.html">how we work</a> or
+  <a href="/contact.html">start a project brief →</a></p>
+</div>

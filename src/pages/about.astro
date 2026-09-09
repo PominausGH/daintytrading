@@ -1,0 +1,98 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    name: 'About Dainty Trading',
+    url: 'https://daintytrading.com/about.html',
+    mainEntity: {
+      '@type': 'Organization',
+      name: 'Dainty Trading',
+      url: 'https://daintytrading.com',
+      description: 'AI automation studio building production AI software.',
+      founder: {
+        '@type': 'Person',
+        '@id': 'https://daintytrading.com/about.html#andrew-dainty',
+        name: 'Andrew Dainty',
+        jobTitle: 'Founder',
+        url: 'https://daintytrading.com/about.html#andrew-dainty',
+        worksFor: { '@type': 'Organization', name: 'Dainty Trading', url: 'https://daintytrading.com' },
+        sameAs: ['https://www.linkedin.com/in/andrewdainty/', 'https://substack.com/@andrewdainty'],
+      },
+    },
+  },
+];
+---
+<BaseLayout
+  title="About — Dainty Trading | AI Automation Studio"
+  description="Dainty Trading is a small AI automation studio in Australia. We build production AI products — for our own portfolio and for selected clients. 37 products and counting."
+  canonicalPath="/about.html"
+  ogImage="https://daintytrading.com/og-card.jpg"
+  jsonLd={jsonLd}
+>
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; About</div>
+        <h1>A studio, not an agency.</h1>
+        <p class="lede">We build production AI software. Mostly for ourselves — 37 products and counting — and occasionally for clients we want to work with.</p>
+      </div>
+    </section>
+
+    <div class="container" style="padding-top:0; padding-bottom:0;">
+      <div style="max-width:900px; margin:0 auto 48px;">
+        <picture>
+          <source srcset="/about-desk.webp" type="image/webp" />
+          <img src="/about-desk.jpg" alt="The Dainty Trading studio — triple monitor setup with BrightPath and Claude Code open" width="1400" height="467" style="width:100%;display:block;border-radius:14px;border:1px solid var(--border);" loading="lazy" decoding="async" />
+        </picture>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <h2>What we believe</h2>
+          <p><strong>Shipping is the only proof.</strong> AI is the most over-demoed technology in software. The thing that matters is whether someone pays for the result on Tuesday morning. Every project on our portfolio page is something a real user can sign up for today.</p>
+          <p><strong>Boring infrastructure is the moat.</strong> The flashy bit is the prompt. The reason it works in production is everything around the prompt: routing, evals, queues, billing, observability. We&rsquo;ve already built that layer once, so each new product gets it for free.</p>
+          <p><strong>Small surface, deep stack.</strong> Two-person teams ship more than ten-person teams that need permission. We keep the studio small on purpose.</p>
+
+          <h2>How the portfolio came about</h2>
+          <p>Each product started as something we wanted to use ourselves, or a problem a friend kept describing. Email triage came from drowning in inboxes across three businesses. Ghost Writer came from wanting to publish without spending Sunday writing. The trading bot came from getting tired of staring at charts. We turn the itch into a service, charge a sensible amount, and let it run.</p>
+          <p>The studio underneath is the thing we get paid to build for other people: the same patterns, the same shared infrastructure, the same speed.</p>
+
+          <h2>The toolkit</h2>
+          <ul>
+            <li><strong>LLMs:</strong> Anthropic Claude (Opus, Sonnet, Haiku) as the default; Google Gemini and OpenAI behind <code>LiteLLM</code>/<code>OpenRouter</code> for cost and latency variants.</li>
+            <li><strong>Backends:</strong> Python (FastAPI, Django) and Node.js (Fastify, Express). Postgres for state, Redis for queues, n8n for workflows.</li>
+            <li><strong>Frontends:</strong> Next.js, React, plain HTML when that&rsquo;s the right answer. React Native + Expo for mobile.</li>
+            <li><strong>Plumbing:</strong> Stripe, Brevo, Google OAuth, GlitchTip, Umami, Ghost CMS for marketing sites.</li>
+            <li><strong>Deployment:</strong> Docker Compose on a small fleet of self-hosted boxes; not because it&rsquo;s fashionable, because it&rsquo;s cheaper and we know exactly what&rsquo;s running.</li>
+          </ul>
+
+          <h2>Why we run open source</h2>
+          <p>A studio is only as honest as the boring infrastructure underneath it. Behind every product on the portfolio page sits an open-source stack we run ourselves &mdash; <strong>Umami</strong> for analytics, <strong>Cal.com</strong> for scheduling, <strong>LiteLLM</strong> for routing across model providers, <strong>Paperless-NGX</strong> for documents, <strong>Open WebUI</strong> for direct model access, <strong>Speedtest Tracker</strong> for the studio&rsquo;s own internet, <strong>Portainer</strong> for container ops, <strong>Syncthing</strong> for files, plus <strong>n8n</strong> and <strong>Ghost</strong> for workflow and content. Each one replaces a SaaS most teams pay for.</p>
+          <p>This isn&rsquo;t ideology. It&rsquo;s knowing what we recommend. When we suggest a stack to a client, we already know the failure modes, the upgrade pain, and the realistic running cost &mdash; because we run it ourselves. The same tools we trust for the studio are the tools we can stand up for you on day one, on your hardware, under your auth.</p>
+
+          <h2 id="andrew-dainty">Who&rsquo;s behind it</h2>
+          <p>The studio is run by <strong>Andrew Dainty</strong>, who founded Dainty Trading in 2024 and builds and operates the products listed on the <a href="/work.html">portfolio page</a> &mdash; the LLM routing and eval layer underneath them, the Postgres and Docker infrastructure they run on, and the client engagements the studio takes on. He writes the posts on this blog.</p>
+          <p>Find him on <a href="https://www.linkedin.com/in/andrewdainty/" rel="noopener">LinkedIn</a> or <a href="https://substack.com/@andrewdainty" rel="noopener">Substack</a>, or <a href="/contact.html">send a note</a> directly.</p>
+
+          <h2>If you want to work with us</h2>
+          <p>Read the <a href="/services.html">services page</a> to see how engagements work, then <a href="/contact.html">drop a note</a>. We reply within one business day.</p>
+        </article>
+
+        <aside class="sidecard">
+          <h4>Studio facts</h4>
+          <div class="label-row"><span>Founded</span><span>Operating since 2024</span></div>
+          <div class="label-row"><span>Team size</span><span>Small &amp; deliberate</span></div>
+          <div class="label-row"><span>Based</span><span>Australia</span></div>
+          <div class="label-row"><span>Live products</span><span>13</span></div>
+          <div class="label-row"><span>LLM-powered</span><span>24 &amp; growing</span></div>
+          <a class="btn btn-primary" href="/contact.html">Get in touch</a>
+        </aside>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

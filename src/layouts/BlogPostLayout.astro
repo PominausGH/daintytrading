@@ -1,0 +1,76 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'blog'>;
+  prevLink?: { label: string; href: string };
+  nextLink?: { label: string; href: string };
+}
+
+const { entry, prevLink, nextLink } = Astro.props;
+const { title, description, category, publishedDate, readTime, ogImage } = entry.data;
+const { Content } = await entry.render();
+
+const publishedLabel = publishedDate.toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' });
+const canonicalPath = `/blog/${entry.slug}.html`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: title,
+    description,
+    url: `https://daintytrading.com${canonicalPath}`,
+    datePublished: publishedDate.toISOString().slice(0, 10),
+    dateModified: publishedDate.toISOString().slice(0, 10),
+    author: { '@type': 'Person', name: 'Andrew Dainty', url: 'https://daintytrading.com/about.html#andrew-dainty', sameAs: ['https://www.linkedin.com/in/andrewdainty/'] },
+    publisher: { '@type': 'Organization', name: 'Dainty Trading', url: 'https://daintytrading.com' },
+    mainEntityOfPage: `https://daintytrading.com${canonicalPath}`,
+  },
+];
+---
+<BaseLayout title={`${title} — Dainty Trading`} description={description} canonicalPath={canonicalPath} ogImage={ogImage} jsonLd={jsonLd}>
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/blog.html">Blog</a> &nbsp;/&nbsp; {category}</div>
+        <h1>{title}</h1>
+        <p class="lede">{description}</p>
+        <div class="meta-row">
+          <span class="chip"><strong>Topic</strong>&nbsp; {category}</span>
+          <span class="chip"><strong>Author</strong>&nbsp; <a href="/about.html#andrew-dainty">Andrew Dainty</a></span>
+          <span class="chip"><strong>Published</strong>&nbsp; {publishedLabel}</span>
+          <span class="chip"><strong>Read time</strong>&nbsp; {readTime}</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <Content />
+        </article>
+
+        <aside class="sidecard">
+          <h4>About this post</h4>
+          <div class="label-row"><span>Published</span><span>{publishedLabel}</span></div>
+          <div class="label-row"><span>Topic</span><span>{category}</span></div>
+          <div class="label-row"><span>Read time</span><span>{readTime}</span></div>
+          <div class="label-row"><span>Author</span><span>Dainty Trading</span></div>
+          <a class="btn btn-primary" href="/contact.html">Start a project &rarr;</a>
+          <a class="btn btn-ghost" href="/services.html">See our services</a>
+        </aside>
+      </div>
+
+      <nav class="next-prev" aria-label="Blog navigation">
+        {prevLink ? (
+          <a href={prevLink.href}><div class="lbl">&larr; Previous</div><div class="ttl">{prevLink.label}</div></a>
+        ) : <span />}
+        {nextLink ? (
+          <a href={nextLink.href} style="text-align:right;"><div class="lbl">Next &rarr;</div><div class="ttl">{nextLink.label}</div></a>
+        ) : <span />}
+      </nav>
+    </div>
+  </main>
+</BaseLayout>

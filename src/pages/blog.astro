@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf()
+);
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    name: 'Dainty Trading Blog',
+    url: 'https://daintytrading.com/blog.html',
+    description: 'Practical writing on AI automation from an AI automation studio.',
+    publisher: { '@type': 'Organization', name: 'Dainty Trading', url: 'https://daintytrading.com' },
+  },
+];
+---
+<BaseLayout
+  title="Blog — Dainty Trading | AI Automation Insights"
+  description="Practical writing on AI automation: how to retrofit AI into existing SaaS, LLM routing, what actually ships in a sprint, and which AI features show up in your P&L."
+  canonicalPath="/blog.html"
+  jsonLd={jsonLd}
+>
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; Blog</div>
+        <h1>Writing from the studio.</h1>
+        <p class="lede">Practical notes on AI automation — what works in production, what doesn&rsquo;t, and how we think about the decisions in between.</p>
+      </div>
+    </section>
+
+    <div class="container" style="padding-top: 56px; padding-bottom: 100px;">
+      <div class="project-grid">
+        {posts.map((post) => {
+          const dateLabel = post.data.publishedDate.toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' });
+          return (
+            <a class="project-card" href={`/blog/${post.slug}.html`}>
+              <span class="tag">{post.data.category}</span>
+              <h3>{post.data.title}</h3>
+              <p>{post.data.description}</p>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:auto; padding-top:12px;">
+                <span style="font-size:12px; color:var(--text-muted);">{dateLabel} &middot; {post.data.readTime} read</span>
+                <span class="arrow" style="padding-top:0;">Read &rarr;</span>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </main>
+</BaseLayout>
