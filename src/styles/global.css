@@ -941,3 +941,31 @@ code, kbd {
 .footer-tagline { font-size: 13.5px; max-width: 360px; }
 .footer-linkedin { font-size: 13.5px; }
 
+/* Founder byline (about.html) */
+.founder-byline {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 16px 0 20px;
+}
+
+.founder-byline img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.founder-byline div {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+
+.founder-byline span {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
