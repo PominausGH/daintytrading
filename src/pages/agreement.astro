@@ -1,9 +1,13 @@
-<!DOCTYPE html>
-<html lang="en-AU">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Website Brief & Agreement | Dainty Trading</title>
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="Website Brief & Agreement — Dainty Trading"
+  description="Tell us about your project, review the scope and fees, and sign your web design agreement with Dainty Trading online."
+  canonicalPath="/agreement.html"
+  robots="noindex, nofollow"
+  chrome="full"
+>
 <!--
   CONFIG
   - WEBHOOK_URL: points at the n8n "Web Design Agreement" webhook. The client's browser posts
@@ -15,119 +19,113 @@
     Checkbox groups take comma-separated values: ?pages=Home,About,Contact
   - ?lock=project makes the Project & fees section read-only for the client.
   - ?countersign=1&ref=<reference>: the link n8n emails Dainty Trading after a client signs.
-    Reveals the provider countersign control (hidden from clients — see allowCountersign)
-    and, once countersigned, posts a minimal {event:'countersign_only', reference, ...} payload
-    that the webhook merges with the original client-signed record it already has on file.
+    Reveals the provider signature box (hidden from clients — see allowCountersign) immediately
+    on load, and once countersigned, posts a minimal {event:'countersign_only', reference, ...}
+    payload that the webhook merges with the original client-signed record it already has on file.
     This is NOT the same as window.__PREFILL__ (server-side-only, used for PDF rendering) —
     a page opened this way does not have the client's signature in memory, by design.
 -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --ink:#1F3A5F; --text:#1D2733; --muted:#5A6B7B; --line:#CCD4DD; --wash:#F3F5F8;
-    --paper:#FFFFFF; --go:#1F6F5C; --pen:#1A3D8F; --warn:#A63D2F;
-    --serif:'IBM Plex Serif', Georgia, serif; --sans:'IBM Plex Sans', system-ui, sans-serif;
-  }
   * { box-sizing:border-box; }
-  html { scroll-behavior:smooth; scroll-padding-top:120px; }
+  html { scroll-behavior:smooth; scroll-padding-top:108px; }
   @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} }
-  body { margin:0; background:var(--wash); color:var(--text); font:16px/1.55 var(--sans); }
 
-  header.top { background:var(--ink); color:#fff; }
-  .top-inner { max-width:820px; margin:0 auto; padding:28px 20px 22px; }
-  .brand { font-size:14px; opacity:.8; margin:0 0 6px; }
-  h1 { font:600 clamp(26px,5vw,34px)/1.15 var(--serif); margin:0 0 8px; }
-  .lede { margin:0; opacity:.85; max-width:60ch; }
+  .agreement-hero .lede { max-width: 60ch; }
 
-  nav.steps { position:sticky; top:0; z-index:10; background:var(--paper); border-bottom:1px solid var(--line); }
+  nav.steps { position:sticky; top:0; z-index:10; background:rgba(10,12,16,0.9); backdrop-filter:saturate(140%) blur(14px); border-bottom:1px solid var(--border); }
   .steps-inner { max-width:820px; margin:0 auto; display:flex; gap:4px; align-items:center; padding:8px 12px; overflow-x:auto; }
-  .steps a { flex:0 0 auto; text-decoration:none; color:var(--muted); font-size:14px; padding:6px 10px; border-radius:6px; white-space:nowrap; }
-  .steps a b { display:inline-grid; place-items:center; width:20px; height:20px; border-radius:50%; border:1px solid var(--line); font-size:12px; margin-right:6px; font-weight:600; }
-  .steps a:hover { background:var(--wash); color:var(--ink); }
+  .steps a { flex:0 0 auto; text-decoration:none; color:var(--text-muted); font-size:14px; padding:6px 10px; border-radius:6px; white-space:nowrap; }
+  .steps a b { display:inline-grid; place-items:center; width:20px; height:20px; border-radius:50%; border:1px solid var(--border-strong); font-size:12px; margin-right:6px; font-weight:600; }
+  .steps a:hover { background:var(--bg-elev); color:var(--text); text-decoration:none; }
   .steps .spacer { flex:1; }
-  .btn { font:500 15px var(--sans); border-radius:8px; padding:10px 16px; cursor:pointer; border:1px solid var(--ink); background:var(--paper); color:var(--ink); }
-  .btn:hover { background:var(--wash); }
-  .btn.primary { background:var(--go); border-color:var(--go); color:#fff; }
-  .btn.primary:hover { filter:brightness(1.08); }
-  .btn.small { padding:6px 12px; font-size:14px; }
-  .btn:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, canvas:focus-visible, a:focus-visible { outline:3px solid #7FA6D6; outline-offset:2px; }
+  .steps .btn.small { padding:6px 12px; font-size:14px; }
+  .btn:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, canvas:focus-visible, a:focus-visible { outline:3px solid var(--accent); outline-offset:2px; }
 
-  main { max-width:820px; margin:0 auto; padding:24px 16px 80px; }
-  section.sheet { background:var(--paper); border:1px solid var(--line); border-radius:10px; padding:28px clamp(18px,4vw,36px); margin-bottom:22px; }
-  h2 { font:600 22px/1.25 var(--serif); color:var(--ink); margin:0 0 4px; }
-  .sub { color:var(--muted); margin:0 0 20px; font-size:15px; }
-  h3 { font:600 16px var(--sans); color:var(--ink); margin:26px 0 12px; padding-top:18px; border-top:1px solid var(--line); }
-  h3:first-of-type { border-top:0; padding-top:0; margin-top:8px; }
+  #doc { max-width:820px; margin:0 auto; padding:24px 16px 80px; }
+  section.sheet { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:28px clamp(18px,4vw,36px); margin-bottom:22px; }
+  section.sheet h2 { font-size:22px; line-height:1.25; color:var(--text); margin:0 0 4px; font-weight:700; }
+  section.sheet .sub { color:var(--text-muted); margin:0 0 20px; font-size:15px; }
+  section.sheet h3 { font-size:16px; font-weight:600; color:var(--text); margin:26px 0 12px; padding-top:18px; border-top:1px solid var(--border); }
+  section.sheet h3:first-of-type { border-top:0; padding-top:0; margin-top:8px; }
 
   .grid { display:grid; grid-template-columns:1fr 1fr; gap:14px 18px; }
   .grid .full { grid-column:1/-1; }
   @media (max-width:620px){ .grid{ grid-template-columns:1fr; } }
   label.f { display:block; font-size:14px; font-weight:500; color:var(--text); }
-  label.f span.hint { font-weight:400; color:var(--muted); }
+  label.f span.hint { font-weight:400; color:var(--text-muted); }
   label.f .req { color:var(--warn); }
-  input[type=text], input[type=email], input[type=tel], input[type=url], input[type=date], textarea, select {
-    display:block; width:100%; margin-top:5px; font:16px var(--sans); color:var(--text);
-    border:1px solid var(--line); border-radius:7px; padding:9px 11px; background:#fff;
+  #doc input[type=text], #doc input[type=email], #doc input[type=tel], #doc input[type=url], #doc input[type=date], #doc textarea, #doc select {
+    display:block; width:100%; margin-top:5px; font:16px var(--font-sans); color:var(--text);
+    border:1px solid var(--border); border-radius:var(--radius-sm); padding:9px 11px; background:var(--bg-elev);
   }
-  textarea { min-height:84px; resize:vertical; }
-  fieldset { border:0; padding:0; margin:0; }
-  legend { font-size:14px; font-weight:500; margin-bottom:6px; padding:0; }
+  #doc textarea { min-height:84px; resize:vertical; }
+  #doc fieldset { border:0; padding:0; margin:0; }
+  #doc legend { font-size:14px; font-weight:500; margin-bottom:6px; padding:0; color:var(--text); }
   .opts { display:flex; flex-wrap:wrap; gap:8px; }
-  .opts label { display:flex; align-items:center; gap:7px; border:1px solid var(--line); border-radius:7px; padding:7px 11px; font-size:15px; cursor:pointer; background:#fff; }
-  .opts label:has(input:checked) { border-color:var(--ink); background:#E9EFF6; }
-  .opts input { accent-color:var(--ink); margin:0; }
-  .invalid { border-color:var(--warn) !important; box-shadow:0 0 0 2px #F4D6D1; }
+  .opts label { display:flex; align-items:center; gap:7px; border:1px solid var(--border); border-radius:var(--radius-sm); padding:7px 11px; font-size:15px; cursor:pointer; background:var(--bg-elev); color:var(--text-dim); }
+  .opts label:has(input:checked) { border-color:var(--accent); background:var(--accent-soft); color:var(--text); }
+  .opts input { accent-color:var(--accent); margin:0; }
+  .invalid { border-color:var(--warn) !important; box-shadow:0 0 0 2px rgba(255,181,71,0.25); }
 
-  .note { background:var(--wash); border-left:3px solid var(--ink); padding:10px 14px; font-size:14px; color:var(--muted); border-radius:0 6px 6px 0; margin:0 0 18px; }
+  .note { background:var(--bg-elev); border-left:3px solid var(--accent); padding:10px 14px; font-size:14px; color:var(--text-dim); border-radius:0 6px 6px 0; margin:0 0 18px; }
 
-  .terms h4 { font:600 16px var(--serif); color:var(--ink); margin:22px 0 8px; }
-  .terms p { margin:0 0 8px; padding-left:40px; text-indent:-40px; font-size:15px; max-width:72ch; }
-  .terms p b { display:inline-block; width:40px; text-indent:0; color:var(--ink); }
+  .terms h4 { font-size:16px; font-weight:600; color:var(--text); margin:22px 0 8px; }
+  .terms p { margin:0 0 8px; padding-left:40px; text-indent:-40px; font-size:15px; max-width:72ch; color:var(--text-dim); }
+  .terms p b { display:inline-block; width:40px; text-indent:0; color:var(--text); }
 
-  /* Signature — the one memorable element: ink on a ruled line */
+  /* Signature pad: deliberately paper-coloured regardless of theme — it's meant to read
+     as "sign here on paper," and it keeps the captured ink legible in the printed PDF too. */
   .sigs { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
-  @media (max-width:720px){ .sigs{ grid-template-columns:1fr; } }
-  .sig { border:1px solid var(--line); border-radius:10px; padding:16px; }
-  .sig h4 { margin:0 0 12px; font:600 15px var(--sans); color:var(--ink); }
-  .pad-wrap { position:relative; margin:12px 0 8px; background:#FCFCFD; border:1px dashed var(--line); border-radius:8px; }
-  .pad-wrap::before { content:"×"; position:absolute; left:14px; bottom:26px; font:22px var(--serif); color:#9AA7B4; pointer-events:none; }
+  .sigs:has(.sig[hidden]) { grid-template-columns:1fr; max-width:380px; }
+  @media (max-width:720px){ .sigs{ grid-template-columns:1fr; max-width:none; } }
+  .sig { border:1px solid var(--border); border-radius:var(--radius); padding:16px; }
+  .sig h4 { margin:0 0 12px; font-size:15px; font-weight:600; color:var(--text); }
+  .pad-wrap { position:relative; margin:12px 0 8px; background:#FCFCFD; border:1px dashed #CCD4DD; border-radius:var(--radius-sm); }
+  .pad-wrap::before { content:"×"; position:absolute; left:14px; bottom:26px; font:22px Georgia,serif; color:#9AA7B4; pointer-events:none; }
   .pad-wrap::after { content:""; position:absolute; left:12px; right:12px; bottom:28px; border-bottom:1.5px solid #9AA7B4; pointer-events:none; }
-  canvas.pad { display:block; width:100%; height:150px; touch-action:none; cursor:crosshair; border-radius:8px; }
-  .pad-wrap.invalid { border-style:solid; }
-  .pad-tools { display:flex; justify-content:space-between; align-items:center; font-size:13px; color:var(--muted); }
-  .agree { display:flex; gap:10px; align-items:flex-start; font-size:14px; margin:12px 0 4px; }
-  .agree input { accent-color:var(--go); margin-top:3px; width:18px; height:18px; flex:0 0 auto; }
-  .signed-stamp { display:none; margin-top:10px; font-size:13px; color:var(--go); font-weight:500; }
+  canvas.pad { display:block; width:100%; height:150px; touch-action:none; cursor:crosshair; border-radius:var(--radius-sm); }
+  .pad-wrap.invalid { border-style:solid; border-color:var(--warn); }
+  .pad-tools { display:flex; justify-content:space-between; align-items:center; font-size:13px; color:var(--text-muted); }
+  .agree { display:flex; gap:10px; align-items:flex-start; font-size:14px; margin:12px 0 4px; color:var(--text-dim); }
+  .agree input { accent-color:var(--accent-2); margin-top:3px; width:18px; height:18px; flex:0 0 auto; }
+  .signed-stamp { display:none; margin-top:10px; font-size:13px; color:var(--accent-2); font-weight:500; }
   .sig.done .signed-stamp { display:block; }
-  .sig.done .pad-wrap { border-style:solid; border-color:var(--go); }
+  .sig.done .pad-wrap { border-style:solid; border-color:var(--accent-2); }
 
   .actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; align-items:center; }
-  .msg { font-size:14px; margin-top:12px; min-height:1.4em; }
-  .msg.err { color:var(--warn); } .msg.ok { color:var(--go); }
-  .audit { display:none; margin-top:18px; font-size:13px; color:var(--muted); border-top:1px solid var(--line); padding-top:12px; word-break:break-all; }
+  .msg { font-size:14px; margin-top:12px; min-height:1.4em; color:var(--text-dim); }
+  .msg.err { color:var(--warn); } .msg.ok { color:var(--accent-2); }
+  .audit { display:none; margin-top:18px; font-size:13px; color:var(--text-muted); border-top:1px solid var(--border); padding-top:12px; word-break:break-all; }
   body.locked .audit { display:block; }
-  body.locked main input, body.locked main textarea, body.locked main select { background:var(--wash); }
+  body.locked #doc input, body.locked #doc textarea, body.locked #doc select { background:var(--bg); }
   body.locked .opts label, body.locked .agree { pointer-events:none; }
-  .print-val { display:none; white-space:pre-wrap; }
+  .print-val { display:none; white-space:pre-wrap; color:var(--text); }
   .print-only { display:none; }
 
   @media print {
+    /* Redefine the site's dark-theme tokens for print only — every rule above that uses
+       these variables becomes print-safe (dark text on white) without needing a parallel
+       set of print-specific overrides for each one. */
+    :root {
+      --bg:#fff; --bg-elev:#fff; --bg-card:#fff;
+      --text:#1D2733; --text-dim:#5A6B7B; --text-muted:#5A6B7B;
+      --border:#CCD4DD; --border-strong:#CCD4DD;
+      --accent:#1F3A5F; --accent-2:#1F6F5C; --accent-text:#1F3A5F; --accent-soft:transparent;
+    }
     @page { size:A4; margin:16mm 14mm; }
-    body { background:#fff; font-size:11pt; }
-    header.top { background:none; color:var(--ink); border-bottom:2px solid var(--ink); }
-    .top-inner { padding:0 0 8px; }
-    .lede, nav.steps, .actions, .pad-tools .btn, .no-print, .msg { display:none !important; }
-    main { padding:0; max-width:none; }
-    section.sheet { border:0; padding:0; margin:0 0 10mm; border-radius:0; }
+    body { background:#fff !important; font-size:11pt; }
+    .site-header, .site-footer, nav.steps, .actions, .pad-tools .btn, .no-print, .msg { display:none !important; }
+    .agreement-hero { border-bottom:2px solid var(--accent); padding:0 0 8px; }
+    .agreement-hero .lede, .agreement-hero .crumbs { display:none !important; }
+    #doc { padding:0; max-width:none; }
+    section.sheet { border:0; padding:0; margin:0 0 10mm; border-radius:0; background:none; }
     section.break { break-before:page; }
     h3, .terms h4, .sig { break-after:avoid; break-inside:avoid; }
-    textarea { display:none !important; }
-    .print-val { display:block; border:1px solid var(--line); border-radius:4px; padding:6px 8px; margin-top:4px; min-height:1.6em; }
-    input, select { border:0 !important; border-bottom:1px solid var(--line) !important; border-radius:0 !important; padding:2px 0 !important; background:none !important; }
-    .opts label { border:0; padding:2px 8px 2px 0; }
+    #doc textarea { display:none !important; }
+    .print-val { display:block; border:1px solid var(--border); border-radius:4px; padding:6px 8px; margin-top:4px; min-height:1.6em; }
+    #doc input, #doc select { border:0 !important; border-bottom:1px solid var(--border) !important; border-radius:0 !important; padding:2px 0 !important; background:none !important; }
+    .opts label { border:0; padding:2px 8px 2px 0; background:none; }
     .opts label:not(:has(input:checked)) { display:none; }
-    .opts label:has(input:checked) { background:none; }
     canvas.pad { display:none; }
     .print-only { display:block; }
     img.sig-img { width:100%; height:auto; max-height:120px; object-fit:contain; }
@@ -137,18 +135,18 @@
     input.empty { color:transparent !important; }
     img.sig-img:not([src]) { display:none; }
     .sig:not(.done) .agree { display:none; }
+    .sig[hidden] { display:none !important; }
   }
 </style>
-</head>
-<body>
 
-<header class="top">
-  <div class="top-inner">
-    <p class="brand">Dainty Trading · daintytrading.com</p>
+<section class="detail-hero agreement-hero">
+  <div class="container">
+    <p class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; Website brief &amp; agreement</p>
+    <p class="print-only" style="font-size:13px;color:var(--text-muted);margin:0 0 6px;">Dainty Trading · daintytrading.com</p>
     <h1>Website brief and design agreement</h1>
     <p class="lede">Tell us about your business and what you need, check the project details and terms, then sign on screen. You can print or save a PDF copy at any time.</p>
   </div>
-</header>
+</section>
 
 <nav class="steps" aria-label="Sections">
   <div class="steps-inner">
@@ -158,7 +156,7 @@
     <a href="#terms"><b>4</b>Terms</a>
     <a href="#sign"><b>5</b>Sign</a>
     <span class="spacer"></span>
-    <button class="btn small" type="button" data-print>Print or save PDF</button>
+    <button class="btn btn-ghost small" type="button" data-print>Print or save PDF</button>
   </div>
 </nav>
 
@@ -276,7 +274,7 @@
   <fieldset style="margin-top:14px"><legend>GST</legend><div class="opts" data-group="gst" data-type="radio"></div></fieldset>
   <p class="note" style="margin-top:14px">Payment: 50% deposit on signing (non-refundable), work starts once received. 50% balance on completion, before the site goes live. Two rounds of revisions included per stage (design, then build).</p>
 
-  <h3>Ongoing services <span class="hint" style="font-weight:400;color:var(--muted)">(optional)</span></h3>
+  <h3>Ongoing services <span class="hint" style="font-weight:400;color:var(--text-muted)">(optional)</span></h3>
   <div class="grid">
     <label class="f">Monthly fee<input type="text" name="monthly_fee" placeholder="$ per month, or N/A"></label>
     <label class="f">Includes<input type="text" name="monthly_scope" placeholder="e.g. hosting, updates, backups, SEO"></label>
@@ -358,7 +356,7 @@
 <!-- 5. SIGN -->
 <section class="sheet break" id="sign">
   <h2>Sign</h2>
-  <p class="sub">Type your name, sign in the box with your finger or mouse, and tick to agree.</p>
+  <p class="sub" id="sign-sub">Type your name, sign in the box with your finger or mouse, and tick to agree.</p>
 
   <div class="sigs">
     <div class="sig" data-party="client">
@@ -366,27 +364,27 @@
       <label class="f">Full name <span class="req">*</span><input type="text" name="client_sign_name" required></label>
       <label class="f" style="margin-top:10px">Position<input type="text" name="client_sign_role" placeholder="e.g. Owner, Director"></label>
       <div class="pad-wrap"><canvas class="pad" aria-label="Client signature pad" tabindex="0"></canvas></div>
-      <div class="pad-tools"><span>Sign above the line</span><button type="button" class="btn small" data-clear>Clear</button></div>
+      <div class="pad-tools"><span>Sign above the line</span><button type="button" class="btn btn-ghost small" data-clear>Clear</button></div>
       <label class="agree"><input type="checkbox" name="client_agree"> <span>I have read and agree to this Agreement, including the Website Brief and Project details, and I'm authorised to sign for the business.</span></label>
       <div class="signed-stamp"></div>
     </div>
 
-    <div class="sig" data-party="provider">
+    <div class="sig" data-party="provider" id="providerSig" hidden>
       <h4>Provider, Dainty Trading</h4>
       <label class="f">Full name<input type="text" name="provider_sign_name"></label>
       <label class="f" style="margin-top:10px">Position<input type="text" name="provider_sign_role" value="Sole trader"></label>
       <div class="pad-wrap"><canvas class="pad" aria-label="Provider signature pad" tabindex="0"></canvas></div>
-      <div class="pad-tools"><span>Sign above the line</span><button type="button" class="btn small" data-clear>Clear</button></div>
+      <div class="pad-tools"><span>Sign above the line</span><button type="button" class="btn btn-ghost small" data-clear>Clear</button></div>
       <label class="agree"><input type="checkbox" name="provider_agree"> <span>I agree to this Agreement on behalf of Dainty Trading.</span></label>
       <div class="signed-stamp"></div>
     </div>
   </div>
 
   <div class="actions">
-    <button type="button" class="btn primary" id="signBtn">Sign agreement</button>
-    <button type="button" class="btn" data-print>Print or save PDF</button>
-    <button type="button" class="btn no-print" id="counterBtn" hidden>Countersign as Dainty Trading</button>
-    <button type="button" class="btn no-print" id="sendBtn" hidden>Send signed copy</button>
+    <button type="button" class="btn btn-primary" id="signBtn">Sign agreement</button>
+    <button type="button" class="btn btn-ghost" data-print>Print or save PDF</button>
+    <button type="button" class="btn btn-ghost no-print" id="counterBtn" hidden>Countersign as Dainty Trading</button>
+    <button type="button" class="btn btn-ghost no-print" id="sendBtn" hidden>Send signed copy</button>
   </div>
   <div class="msg" id="msg" role="status" aria-live="polite"></div>
   <div class="audit" id="audit"></div>
@@ -394,7 +392,7 @@
 
 </main>
 
-<script>
+<script is:inline>
 const WEBHOOK_URL = 'https://n8n.daintytrading.com/webhook/agreement-signed';
 
 const GROUPS = {
@@ -442,8 +440,19 @@ if (qs.get('lock') === 'project') {
 }
 // Provider countersignature is only ever offered on a link Dainty Trading opens itself
 // (emailed by the webhook after the client signs) — never exposed in the client's own
-// signing session, so a client can't complete both signatures themselves.
+// signing session, so a client can't complete both signatures themselves. On that link,
+// the client's own sign box has nothing to do here either, so it's swapped out entirely
+// for the provider's — this is a review/countersign page, not a dual-signing page.
 const allowCountersign = qs.get('countersign') === '1';
+const clientSigBox = document.querySelector('.sig[data-party="client"]');
+const providerSigBox = document.getElementById('providerSig');
+if (allowCountersign) {
+  clientSigBox.hidden = true;
+  providerSigBox.hidden = false;
+  document.getElementById('signBtn').hidden = true;
+  document.getElementById('counterBtn').hidden = false;
+  document.getElementById('sign-sub').textContent = 'Review the details above, then sign in the box below to countersign on behalf of Dainty Trading.';
+}
 
 // Mirror textareas for print
 document.querySelectorAll('textarea').forEach(t => {
@@ -482,6 +491,7 @@ document.querySelectorAll('.sig').forEach(sig => {
   state.img = img;
   pads.set(sig.dataset.party, { sig, c, state });
 });
+if (allowCountersign) { const p = pads.get('provider'); /* box just became visible — canvas needs its real size now */ const r = p.c.getBoundingClientRect(); }
 
 const refreshPrintImages = () => {
   pads.forEach(({ c, state }) => { if (state.drawn) state.img.src = c.toDataURL('image/png'); else state.img.removeAttribute('src'); });
@@ -531,15 +541,8 @@ document.getElementById('signBtn').addEventListener('click', async () => {
   const ymd = now.getFullYear() + String(now.getMonth()+1).padStart(2,'0') + String(now.getDate()).padStart(2,'0');
   const ref = 'DT-' + ymd + '-' + hash.slice(0,6).toUpperCase();
 
-  const provider = pads.get('provider');
-  const providerSigned = provider.state.drawn && data.provider_agree && data.provider_sign_name;
-  pads.forEach(({ sig }, party) => {
-    if (party === 'client' || providerSigned) {
-      sig.classList.add('done');
-      const name = party === 'client' ? data.client_sign_name : data.provider_sign_name;
-      sig.querySelector('.signed-stamp').textContent = `Signed electronically by ${name}, ${stamp}`;
-    }
-  });
+  cp.sig.classList.add('done');
+  cp.sig.querySelector('.signed-stamp').textContent = `Signed electronically by ${data.client_sign_name}, ${stamp}`;
 
   fields().forEach(e => { if (e.type !== 'checkbox' && e.type !== 'radio') e.readOnly = true; });
   document.body.classList.add('locked');
@@ -547,22 +550,16 @@ document.getElementById('signBtn').addEventListener('click', async () => {
 
   document.getElementById('audit').innerHTML =
     `<strong>Reference ${ref}</strong><br>Signed ${now.toISOString()}<br>Content fingerprint (SHA-256): ${hash}` +
-    (providerSigned ? '' : '<br>Awaiting countersignature by Dainty Trading.');
+    '<br>Awaiting countersignature by Dainty Trading.';
 
   signedRecord = {
     reference: ref, signed_at: now.toISOString(), timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     sha256: hash, user_agent: navigator.userAgent, page: location.href.split('?')[0],
-    status: providerSigned ? 'countersigned' : 'client_signed',
+    status: 'client_signed',
     fields: data,
-    signatures: {
-      client: cp.c.toDataURL('image/png'),
-      provider: providerSigned ? provider.c.toDataURL('image/png') : null,
-    },
+    signatures: { client: cp.c.toDataURL('image/png'), provider: null },
   };
   document.getElementById('signBtn').hidden = true;
-  // Only reveal the countersign control on a link Dainty Trading opened itself (?countersign=1) —
-  // never in the client's own session, otherwise the client could sign for both parties.
-  if (!providerSigned && allowCountersign) { const ps = provider.sig; ps.querySelectorAll('input').forEach(e => { e.readOnly = false; }); ps.querySelector('.agree').style.pointerEvents = 'auto'; document.getElementById('counterBtn').hidden = false; }
   if (WEBHOOK_URL) {
     say('Signed. Sending your copy to Dainty Trading…');
     await sendRecord();
@@ -647,6 +644,8 @@ document.getElementById('sendBtn').addEventListener('click', async () => {
 // client saw — no separate PDF template to keep in sync. Not used in the normal browser flow.
 if (window.__PREFILL__) (async () => {
   const rec = window.__PREFILL__;
+  // A render always needs both sig boxes visible regardless of how they were signed.
+  clientSigBox.hidden = false; providerSigBox.hidden = false;
   Object.entries(rec.fields || {}).forEach(([name, val]) => {
     const els = doc.querySelectorAll(`[name="${CSS.escape(name)}"]`);
     if (!els.length) return;
@@ -683,5 +682,4 @@ if (window.__PREFILL__) (async () => {
   window.__PREFILL_DONE__ = true;
 })();
 </script>
-</body>
-</html>
+</BaseLayout>
