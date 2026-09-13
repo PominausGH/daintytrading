@@ -847,6 +847,17 @@ code, kbd {
    small on a phone. Bumps the actual reading copy; leaves uppercase/
    letter-spaced labels, badges, and tags alone — those are small by design. */
 @media (max-width: 640px) {
+  /* Article/case-study body copy (.prose p, li) was already the largest text
+     on these pages at 16.5px, but real user feedback on an actual phone
+     (Pixel 9 Pro) said it still reads too small — dim (var(--text-dim))
+     against the dark background compounds it. Bumped size and lifted to the
+     brighter --text color, mobile only; desktop reading experience unchanged. */
+  .prose p,
+  .prose li {
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--text);
+  }
   .project-card p,
   .service-card p,
   .for-you-card p,
