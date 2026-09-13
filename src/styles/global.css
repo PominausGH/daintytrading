@@ -673,7 +673,11 @@ section { padding: 84px 0; }
   gap: 56px;
   padding: 56px 0 40px;
 }
-@media (max-width: 920px) { .detail-body { grid-template-columns: 1fr; } }
+/* 920px missed common phones in landscape (e.g. iPhone Pro Max is 932px wide
+   sideways), so the sidecard kept rendering next to the article instead of
+   stacking under it on mobile. 1080px covers phone landscape widths while
+   still giving real desktop/laptop viewports the two-column layout. */
+@media (max-width: 1080px) { .detail-body { grid-template-columns: 1fr; } }
 
 .prose h2 {
   font-size: 26px;
