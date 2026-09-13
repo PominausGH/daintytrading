@@ -301,6 +301,15 @@ function selectTopFinding(findings) {
   return top;
 }
 
+// Picks the case-study proof line matching the prospect's vertical (set by
+// customer-web_check's sourcing pipeline), falling back to `default` for
+// manually-authored runs that don't set one or set an unrecognized value.
+function selectProofLine(vertical) {
+  const lines = config.prospectsProofLines || {};
+  if (vertical && lines[vertical]) return lines[vertical];
+  return lines.default;
+}
+
 function getDomain(url) {
   if (!url || typeof url !== 'string') return null;
   return url.trim().replace(/^https?:\/\//i, '').replace(/^www\./i, '').replace(/\/.*$/, '').toLowerCase() || null;
@@ -472,7 +481,7 @@ async function buildDraft(run, slug) {
       businessName: label,
       niche: data.platform,
       findingMessage,
-      proofLine: config.shuttersmithProofLine,
+      proofLine: selectProofLine(data.vertical),
       variant,
     });
   } catch (err) {
@@ -523,6 +532,7 @@ module.exports = {
   markSent,
   cleanSiteUrl,
   rephraseFinding,
+  selectProofLine,
   getDomain,
   isSuppressed,
   countSentInLastDays,
