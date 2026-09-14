@@ -475,13 +475,20 @@ async function buildDraft(run, slug) {
   const findingMessage = rephraseFinding(top.finding.message);
   const variant = nextVariant();
 
+  // Not every finding's .url is a real page — customer_web_check's broken_link check in
+  // particular can leave it as a non-URL placeholder like "(crawl)" when it doesn't have a
+  // clean source-page attribution for that specific link (confirmed live 2026-09-14: this
+  // was silently getting passed to the AI as if it were a real page to cite). Guard against
+  // anything that doesn't actually look like a URL rather than trusting the field blindly.
+  const findingUrl = /^https?:\/\//i.test(top.finding.url || '') ? top.finding.url : null;
+
   let draft;
   try {
     draft = await draftProspectEmail({
       businessName: label,
       niche: data.platform,
       findingMessage,
-      findingUrl: top.finding.url || null,
+      findingUrl,
       proofLine: selectProofLine(data.vertical),
       variant,
     });
