@@ -13,12 +13,23 @@ const config = {
   prospectsRateLimitPerWeek: parseInt(required('PROSPECTS_RATE_LIMIT_PER_WEEK', '25'), 10),
   prospectsMaxWords: parseInt(required('PROSPECTS_MAX_WORDS', '90'), 10),
 
-  // Andrew's own case-study line, referenced in the drafted email as social proof. Override
-  // per batch/niche via env if a different proof point fits better.
-  shuttersmithProofLine: required(
-    'PROSPECTS_PROOF_LINE',
-    'We rebuilt Shuttersmith\'s site the same way, one fix at a time, no downtime.'
-  ),
+  // Per-vertical case-study proof lines, referenced in the drafted email as social proof.
+  // prospects-store.js's buildDraft() picks the entry matching the prospect's `vertical`
+  // field (set by customer-web_check's sourcing pipeline — see sourcing/seed_queries.py),
+  // falling back to `default` for manually-authored runs that don't set one. Add a new
+  // vertical here once there's a real case study to back it (see seed_queries.py's
+  // docstring for the current plan: lawyers, once that site is live). Each entry is
+  // individually overridable via PROSPECTS_PROOF_LINE_<VERTICAL_UPPERCASE>.
+  prospectsProofLines: {
+    default: required(
+      'PROSPECTS_PROOF_LINE',
+      'We rebuilt Shuttersmith\'s site the same way, one fix at a time, no downtime.'
+    ),
+    shutters_blinds_awnings: required(
+      'PROSPECTS_PROOF_LINE_SHUTTERS_BLINDS_AWNINGS',
+      'We rebuilt two shutters and blinds businesses\' sites for the same client, one fix at a time, no downtime.'
+    ),
+  },
 
   // Spam Act 2003 requires accurate sender-contact info the recipient can use for at least 30
   // days — a working email address satisfies this (ACMA guidance), a street address isn't
