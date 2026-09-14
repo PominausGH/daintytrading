@@ -56,14 +56,24 @@ function linkifyUrls(escapedText) {
 
 // Converts the plain-text, edited-by-a-human body into simple HTML for sendEmail() —
 // escape first, then linkify URLs, then turn blank-line-separated paragraphs into <p> and
-// single newlines into <br>, deliberately with no other styling/template so it doesn't read
-// as a marketing email.
+// single newlines into <br>. Wrapped in a font/line-height/spacing container so it reads
+// like a normal person's email client output (readable font, real paragraph gaps) rather
+// than un-styled <p> tags stacked with each client's inconsistent default margins — but
+// deliberately no logo/banner/colour-block/button, since that's what reads as a marketing
+// template (and testing showed *that* combination is what triggered a spam/phishing read,
+// not plain text itself).
 function textToHtml(text) {
-  return text
+  const paragraphs = text
     .trim()
     .split(/\n{2,}/)
-    .map((para) => '<p>' + linkifyUrls(escapeHtml(para)).replace(/\n/g, '<br>') + '</p>')
+    .map((para) => '<p style="margin:0 0 14px 0;">' + linkifyUrls(escapeHtml(para)).replace(/\n/g, '<br>') + '</p>')
     .join('\n');
+  return (
+    '<div style="font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Roboto,Arial,sans-serif;' +
+    'font-size:15px;line-height:1.5;color:#222;">' +
+    paragraphs +
+    '</div>'
+  );
 }
 
 // Spam Act 2003 requires a genuine contact address in every commercial electronic message,
