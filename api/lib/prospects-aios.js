@@ -57,7 +57,7 @@ function parseModelJson(message) {
 const SYSTEM_PROMPT = `You write short technical emails to Australian tradies and small business owners on behalf of a one-person web dev studio (Dainty Trading). No marketing language, no "I hope this finds you well", no adjectives. Australian spelling. ${config.prospectsMaxWords} words maximum for the body.
 
 Structure the body as exactly four short lines/paragraphs, in this order:
-1. What's broken — one line, concrete, naming the actual defect.
+1. What's broken — one line, concrete, naming the actual defect. If an affected page URL is given, name that specific page naturally (e.g. "on your /products/roller-shutters page") — a checkable claim reads as real diligence, a vague one ("your site", "a product page") reads as a guess or a scare tactic from a stranger.
 2. What it costs them — one line, the real business consequence (lost sales, lost trust, wasted ad spend), not a vague "this hurts SEO".
 3. The fix you'd ship — one line, specific, not "we can help improve this".
 4. The proof line given to you, verbatim or lightly adapted to flow — then a single ask: "want the full audit" (never "want a call" or "book a time").
@@ -114,7 +114,7 @@ async function callOnce(userContent) {
   };
 }
 
-async function draftProspectEmail({ businessName, niche, findingMessage, proofLine, variant }) {
+async function draftProspectEmail({ businessName, niche, findingMessage, findingUrl, proofLine, variant }) {
   const variantBrief =
     variant === 'B'
       ? 'Variant B: open with the cost line before the defect line — lead with what it\'s costing them, then name the defect.'
@@ -124,6 +124,7 @@ async function draftProspectEmail({ businessName, niche, findingMessage, proofLi
     `Business: ${businessName}`,
     `Niche/platform: ${niche || 'unknown'}`,
     `Finding to write about: ${findingMessage}`,
+    `Affected page: ${findingUrl || 'not specified — describe the defect without naming a specific page'}`,
     `Proof line to use: ${proofLine}`,
     variantBrief,
   ].join('\n');

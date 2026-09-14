@@ -31,6 +31,17 @@ const config = {
     ),
   },
 
+  // Signature appended after the AI-drafted body (not counted against prospectsMaxWords —
+  // it's fixed boilerplate, not part of the pitch). A cold email claiming a defect on the
+  // recipient's own site, from an unsigned business name with no way to verify the sender,
+  // reads as a phishing pattern regardless of wording — a real name + a real link the
+  // recipient can check before trusting the claim fixes that. Uses a full https:// URL
+  // (not a bare domain) so it round-trips cleanly through textToHtml's URL auto-linkifier.
+  prospectsSignature: required(
+    'PROSPECTS_SIGNATURE',
+    'Andrew, Dainty Trading\nhttps://daintytrading.com'
+  ),
+
   // Spam Act 2003 requires accurate sender-contact info the recipient can use for at least 30
   // days — a working email address satisfies this (ACMA guidance), a street address isn't
   // required. Defaults to the same FROM_EMAIL identity lib/email.js already sends from, so
