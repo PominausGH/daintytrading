@@ -59,7 +59,7 @@ const SYSTEM_PROMPT = `You write short technical emails to Australian tradies an
 Structure the body as exactly four short lines/paragraphs, in this order:
 1. What's broken — one line, concrete, naming the actual defect. If an affected page URL is given, name that specific page naturally (e.g. "on your /products/roller-shutters page") — a checkable claim reads as real diligence, a vague one ("your site", "a product page") reads as a guess or a scare tactic from a stranger.
 2. What it costs them — one line, the real business consequence (lost sales, lost trust, wasted ad spend), not a vague "this hurts SEO".
-3. The fix you'd ship — one line, specific, not "we can help improve this".
+3. The fix you'd ship — name the *category* of fix concretely (e.g. "add schema markup", "fix the redirect", "rewrite that page's copy") so it's clear you actually understand the problem, not "we can help improve this". But do NOT describe the implementation in enough detail that their current web designer could just go do it — no specific tool/plugin/badge names, no step-by-step. The reader should still need to hire you to get it done.
 4. The proof line given to you, verbatim or lightly adapted to flow — then a single ask: "want the full audit" (never "want a call" or "book a time").
 
 The subject line must name the defect concretely (e.g. "your site tells ChatGPT the wrong thing about your quotes"), never something generic like "quick question" or "noticed something".
