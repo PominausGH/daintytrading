@@ -73,4 +73,46 @@ const jsonLd = [
       </nav>
     </div>
   </main>
+
+  <script define:vars={{ slug: entry.slug, title, category }}>
+    (function () {
+      var fired = false;
+      var article = document.querySelector('article.prose');
+
+      function send() {
+        if (fired) return;
+        if (!window.umami || typeof window.umami.track !== 'function') return;
+        fired = true;
+        window.umami.track('blog_read', { slug: slug, title: title, category: category });
+        window.removeEventListener('scroll', onScroll);
+        clearInterval(timeTimer);
+      }
+
+      function onScroll() {
+        if (!article || fired) return;
+        var rect = article.getBoundingClientRect();
+        var scrolled = window.innerHeight - rect.bottom;
+        var readable = scrolled / rect.height;
+        if (readable >= 0.6) send();
+      }
+
+      // Engaged read = 60% of the article scrolled past, or 30s of visible dwell time,
+      // whichever comes first — pageviews alone can't tell a bounce from a read.
+      var visibleMs = 0;
+      var lastTick = document.visibilityState === 'visible' ? Date.now() : null;
+      var timeTimer = setInterval(function () {
+        if (document.visibilityState !== 'visible') return;
+        if (lastTick) visibleMs += Date.now() - lastTick;
+        lastTick = Date.now();
+        if (visibleMs >= 30000) send();
+      }, 2000);
+
+      document.addEventListener('visibilitychange', function () {
+        lastTick = document.visibilityState === 'visible' ? Date.now() : null;
+      });
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('pagehide', function () { clearInterval(timeTimer); });
+    })();
+  </script>
 </BaseLayout>
