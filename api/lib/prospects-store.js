@@ -181,7 +181,7 @@ function getRunProspects(run) {
     return {
       url: row.url || '',
       business_name: row.business_name || '',
-      contact_email: row.contact_email || '',
+      contact_email: (row.contact_email || '').trim(),
       platform: row.platform || '',
       score: row.score === '' || row.score === undefined ? null : Number(row.score),
       findings_count: row.findings_count === '' || row.findings_count === undefined ? null : Number(row.findings_count),

@@ -49,8 +49,21 @@ function markSelectedRow(idx) {
 
 async function selectProspect(idx) {
   var row = currentProspects[idx];
-  if (!row || !row.slug) return;
+  if (!row) return;
   markSelectedRow(idx);
+  var note = document.getElementById('row-error-note');
+  if (!row.slug) {
+    // No usable slug means the scan for this business never produced a report
+    // (status=error rows have an empty json_path) — there's no draft or email
+    // to show, so say that instead of leaving the click looking like a no-op.
+    document.getElementById('draft-card').style.display = 'none';
+    note.textContent = row.status === 'error'
+      ? 'Scan failed for this business' + (row.error_message ? ' (' + row.error_message + ')' : '') + ' — no contact email was captured.'
+      : 'No contact email available for this prospect.';
+    note.style.display = 'block';
+    return;
+  }
+  note.style.display = 'none';
   currentSlug = row.slug;
   await loadDraft(row);
 }
@@ -75,6 +88,7 @@ async function loadDraft(row) {
   errEl.style.display = 'none';
   okEl.style.display = 'none';
   draftBanner.style.display = 'none';
+  document.getElementById('row-error-note').style.display = 'none';
   currentVariant = null;
 
   card.style.display = 'block';
