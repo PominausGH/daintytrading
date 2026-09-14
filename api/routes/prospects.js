@@ -41,15 +41,28 @@ router.get('/:slug/draft', async (req, res) => {
   res.json(draft);
 });
 
+// Turns a bare https:// URL into a real clickable link — run AFTER escaping, on already-
+// escaped text (URLs don't contain &/</>, so escaping never corrupts a match). A hoverable
+// link the recipient can check against the claimed domain is a genuine anti-phishing signal;
+// leaving the signature's URL as inert text undercuts the whole point of including it.
+function linkifyUrls(escapedText) {
+  return escapedText.replace(/https?:\/\/[^\s<]+/g, (url) => {
+    const trailing = url.match(/[).,!?]+$/);
+    const clean = trailing ? url.slice(0, -trailing[0].length) : url;
+    const suffix = trailing ? trailing[0] : '';
+    return `<a href="${clean}">${clean}</a>${suffix}`;
+  });
+}
+
 // Converts the plain-text, edited-by-a-human body into simple HTML for sendEmail() —
-// escape first, then turn blank-line-separated paragraphs into <p> and single
-// newlines into <br>, deliberately with no styling/template so it doesn't read as
-// a marketing email.
+// escape first, then linkify URLs, then turn blank-line-separated paragraphs into <p> and
+// single newlines into <br>, deliberately with no other styling/template so it doesn't read
+// as a marketing email.
 function textToHtml(text) {
   return text
     .trim()
     .split(/\n{2,}/)
-    .map((para) => '<p>' + escapeHtml(para).replace(/\n/g, '<br>') + '</p>')
+    .map((para) => '<p>' + linkifyUrls(escapeHtml(para)).replace(/\n/g, '<br>') + '</p>')
     .join('\n');
 }
 

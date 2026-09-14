@@ -481,6 +481,7 @@ async function buildDraft(run, slug) {
       businessName: label,
       niche: data.platform,
       findingMessage,
+      findingUrl: top.finding.url || null,
       proofLine: selectProofLine(data.vertical),
       variant,
     });
@@ -512,10 +513,15 @@ async function buildDraft(run, slug) {
   });
   touchHeartbeat(status);
 
+  // Signature appended after the word-count/subject checks above (which must judge only
+  // the AI's actual pitch, not fixed boilerplate) — but still included in what's returned
+  // for review/edit/send, so it's never missing from what actually goes out.
+  const bodyWithSignature = draft.body ? `${draft.body}\n\n${config.prospectsSignature}` : draft.body;
+
   return {
     status,
     subject: draft.subject,
-    body: draft.body,
+    body: bodyWithSignature,
     confidence: draft.confidence,
     variant,
     reason: reasons.join('; ') || null,
