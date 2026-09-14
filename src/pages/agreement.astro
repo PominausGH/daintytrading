@@ -643,43 +643,56 @@ document.getElementById('sendBtn').addEventListener('click', async () => {
 // to produce the canonical signed PDF. Reuses the exact same markup/terms/print CSS the
 // client saw — no separate PDF template to keep in sync. Not used in the normal browser flow.
 if (window.__PREFILL__) (async () => {
-  const rec = window.__PREFILL__;
-  // A render always needs both sig boxes visible regardless of how they were signed.
-  clientSigBox.hidden = false; providerSigBox.hidden = false;
-  Object.entries(rec.fields || {}).forEach(([name, val]) => {
-    const els = doc.querySelectorAll(`[name="${CSS.escape(name)}"]`);
-    if (!els.length) return;
-    if (Array.isArray(val)) { const lc = val.map(v => String(v).toLowerCase()); els.forEach(e => { e.checked = lc.includes(e.value.toLowerCase()); }); }
-    else if (els[0].type === 'checkbox') els[0].checked = !!val;
-    else if (els[0].type === 'radio') els.forEach(e => { e.checked = e.value === val; });
-    else els[0].value = val ?? '';
-  });
-  document.querySelectorAll('textarea').forEach(t => { if (t.nextElementSibling?.classList.contains('print-val')) t.nextElementSibling.textContent = t.value; });
-  fields().forEach(e => { if (e.type !== 'checkbox' && e.type !== 'radio') e.readOnly = true; });
-  document.body.classList.add('locked');
-
-  for (const party of ['client', 'provider']) {
-    const dataUrl = rec.signatures && rec.signatures[party];
-    const p = pads.get(party);
-    if (!dataUrl) continue;
-    const ctx = p.c.getContext('2d');
-    await new Promise(res => {
-      const img = new Image();
-      img.onload = () => { const r = p.c.getBoundingClientRect(); ctx.drawImage(img, 0, 0, r.width, r.height); p.state.drawn = true; res(); };
-      img.src = dataUrl;
+  // Whatever happens below, __PREFILL_DONE__ must end up set — Gotenberg polls
+  // this expression and otherwise hangs until its own request timeout, which
+  // is how a single bad signature image previously wedged every PDF render.
+  try {
+    const rec = window.__PREFILL__;
+    // A render always needs both sig boxes visible regardless of how they were signed.
+    clientSigBox.hidden = false; providerSigBox.hidden = false;
+    Object.entries(rec.fields || {}).forEach(([name, val]) => {
+      const els = doc.querySelectorAll(`[name="${CSS.escape(name)}"]`);
+      if (!els.length) return;
+      if (Array.isArray(val)) { const lc = val.map(v => String(v).toLowerCase()); els.forEach(e => { e.checked = lc.includes(e.value.toLowerCase()); }); }
+      else if (els[0].type === 'checkbox') els[0].checked = !!val;
+      else if (els[0].type === 'radio') els.forEach(e => { e.checked = e.value === val; });
+      else els[0].value = val ?? '';
     });
-    p.sig.classList.add('done');
-    const name = party === 'client' ? rec.fields.client_sign_name : rec.fields.provider_sign_name;
-    const when = party === 'provider' && rec.countersigned_at ? rec.countersigned_at : rec.signed_at;
-    p.sig.querySelector('.signed-stamp').textContent = `Signed electronically by ${name}, ${new Date(when).toLocaleString('en-AU', { dateStyle: 'long', timeStyle: 'short' })} (${rec.timezone || 'UTC'})`;
+    document.querySelectorAll('textarea').forEach(t => { if (t.nextElementSibling?.classList.contains('print-val')) t.nextElementSibling.textContent = t.value; });
+    fields().forEach(e => { if (e.type !== 'checkbox' && e.type !== 'radio') e.readOnly = true; });
+    document.body.classList.add('locked');
+
+    for (const party of ['client', 'provider']) {
+      const dataUrl = rec.signatures && rec.signatures[party];
+      const p = pads.get(party);
+      if (!dataUrl) continue;
+      const ctx = p.c.getContext('2d');
+      try {
+        await new Promise((res, rej) => {
+          const img = new Image();
+          img.onload = () => { const r = p.c.getBoundingClientRect(); ctx.drawImage(img, 0, 0, r.width, r.height); p.state.drawn = true; res(); };
+          img.onerror = () => rej(new Error(`signature image failed to decode for ${party}`));
+          img.src = dataUrl;
+        });
+      } catch (e) {
+        console.error(e);
+      }
+      p.sig.classList.add('done');
+      const name = party === 'client' ? rec.fields.client_sign_name : rec.fields.provider_sign_name;
+      const when = party === 'provider' && rec.countersigned_at ? rec.countersigned_at : rec.signed_at;
+      p.sig.querySelector('.signed-stamp').textContent = `Signed electronically by ${name}, ${new Date(when).toLocaleString('en-AU', { dateStyle: 'long', timeStyle: 'short' })} (${rec.timezone || 'UTC'})`;
+    }
+
+    document.getElementById('audit').innerHTML =
+      `<strong>Reference ${rec.reference}</strong><br>Signed ${rec.signed_at}<br>Content fingerprint (SHA-256): ${rec.sha256}` +
+      (rec.countersigned_at ? `<br>Countersigned ${rec.countersigned_at}` : '<br>Awaiting countersignature by Dainty Trading.');
+
+    refreshPrintImages();
+  } catch (e) {
+    console.error('prefill render failed', e);
+  } finally {
+    window.__PREFILL_DONE__ = true;
   }
-
-  document.getElementById('audit').innerHTML =
-    `<strong>Reference ${rec.reference}</strong><br>Signed ${rec.signed_at}<br>Content fingerprint (SHA-256): ${rec.sha256}` +
-    (rec.countersigned_at ? `<br>Countersigned ${rec.countersigned_at}` : '<br>Awaiting countersignature by Dainty Trading.');
-
-  refreshPrintImages();
-  window.__PREFILL_DONE__ = true;
 })();
 </script>
 </BaseLayout>
