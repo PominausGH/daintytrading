@@ -29,14 +29,26 @@ function renderProspects(prospects) {
       '<td>' + (row.findings_count == null ? '—' : adminEscapeHtml(String(row.findings_count))) + '</td>' +
       '<td>' + (row.high_severity_count == null ? '—' : adminEscapeHtml(String(row.high_severity_count))) + '</td>' +
       '<td>' + statusPillHtml(row) + '</td>' +
-      '<td>' + (row.sent ? '<span class="sent-pill">Sent</span>' : '') + '</td>' +
+      '<td>' + (row.sent
+        ? '<span class="sent-pill">Sent</span>'
+        : '<button type="button" class="btn btn-ghost row-action-btn" data-idx="' + idx + '">Draft email →</button>') +
+      '</td>' +
       '</tr>';
   }).join('');
 
+  // Whole row stays clickable (convenience), but the explicit button is the primary,
+  // visually-obvious way in — nothing about a plain table row signalled "click me" before
+  // this, just a cursor change and a faint hover tint once you were already hovering.
   body.querySelectorAll('tr').forEach(function (tr) {
     tr.addEventListener('click', function () {
       var idx = parseInt(tr.dataset.idx, 10);
       selectProspect(idx);
+    });
+  });
+  body.querySelectorAll('.row-action-btn').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      selectProspect(parseInt(btn.dataset.idx, 10));
     });
   });
 }
