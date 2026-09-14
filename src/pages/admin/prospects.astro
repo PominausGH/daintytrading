@@ -20,8 +20,10 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     .prospect-table tr { cursor: pointer; }
     .prospect-table tr:hover td { background: var(--bg-elev); }
     .prospect-table tr.selected td { background: var(--accent-soft); }
-    .prospect-table .biz { font-weight: 600; }
+    .prospect-table .biz { font-weight: 600; color: var(--accent-text); }
+    .prospect-table tr:hover .biz { text-decoration: underline; }
     .prospect-table .url { color: var(--text-muted); font-size: 12px; }
+    .row-action-btn { font-size: 12.5px; padding: 5px 12px; }
     .status-pill {
       display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600;
       background: var(--accent-soft); color: var(--accent-text); border: 1px solid var(--border-strong);
@@ -63,7 +65,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
     <table class="prospect-table" id="prospect-table" style="display:none;">
       <thead>
-        <tr><th>Business / URL</th><th>Score</th><th>Findings</th><th>High sev.</th><th>Status</th><th></th></tr>
+        <tr><th>Business / URL</th><th>Score</th><th>Findings</th><th>High sev.</th><th>Status</th><th>Action</th></tr>
       </thead>
       <tbody id="prospect-table-body"></tbody>
     </table>
