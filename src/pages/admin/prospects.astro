@@ -23,6 +23,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     .prospect-table .biz { font-weight: 600; color: var(--accent-text); }
     .prospect-table tr:hover .biz { text-decoration: underline; }
     .prospect-table .url { color: var(--text-muted); font-size: 12px; }
+    .no-email-tag { color: #fbbf24; }
     .row-action-btn { font-size: 12.5px; padding: 5px 12px; }
     .status-pill {
       display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600;
@@ -43,6 +44,10 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     .draft-meta { font-size: 12.5px; color: var(--text-muted); margin-bottom: 14px; }
     .already-sent-note { font-size: 13px; color: #4ade80; margin-bottom: 14px; }
     .draft-status-banner {
+      font-size: 13px; color: #fbbf24; background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.3);
+      border-radius: 8px; padding: 10px 12px; margin-bottom: 14px;
+    }
+    .no-email-note {
       font-size: 13px; color: #fbbf24; background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.3);
       border-radius: 8px; padding: 10px 12px; margin-bottom: 14px;
     }
@@ -76,6 +81,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       <h2 style="font-size:15px;margin:0 0 4px;" id="draft-title">Draft outreach email</h2>
       <p class="draft-meta" id="draft-meta"></p>
       <p class="already-sent-note" id="already-sent-note" style="display:none;"></p>
+      <p class="no-email-note" id="no-email-note" style="display:none;"></p>
       <p class="draft-status-banner" id="draft-status-banner" style="display:none;"></p>
       <form id="send-form" novalidate>
         <label for="to">To</label>

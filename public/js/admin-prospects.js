@@ -23,8 +23,12 @@ function renderProspects(prospects) {
 
   body.innerHTML = prospects.map(function (row, idx) {
     var label = row.business_name && row.business_name.trim() ? row.business_name : row.url;
+    // Flagging this up front (rather than only after a click) is the difference between
+    // "clicking did nothing" and "there's genuinely no email captured for this one" —
+    // status=error rows already say so via the status pill, no need to repeat it here.
+    var noEmailTag = !row.contact_email && row.status !== 'error' ? ' <span class="no-email-tag">no email found</span>' : '';
     return '<tr data-idx="' + idx + '">' +
-      '<td><div class="biz">' + adminEscapeHtml(label) + '</div><div class="url">' + adminEscapeHtml(row.url) + '</div></td>' +
+      '<td><div class="biz">' + adminEscapeHtml(label) + '</div><div class="url">' + adminEscapeHtml(row.url) + noEmailTag + '</div></td>' +
       '<td>' + (row.score == null ? '—' : adminEscapeHtml(String(row.score))) + '</td>' +
       '<td>' + (row.findings_count == null ? '—' : adminEscapeHtml(String(row.findings_count))) + '</td>' +
       '<td>' + (row.high_severity_count == null ? '—' : adminEscapeHtml(String(row.high_severity_count))) + '</td>' +
@@ -93,6 +97,7 @@ async function loadDraft(row) {
   var card = document.getElementById('draft-card');
   var meta = document.getElementById('draft-meta');
   var alreadySent = document.getElementById('already-sent-note');
+  var noEmailNote = document.getElementById('no-email-note');
   var draftBanner = document.getElementById('draft-status-banner');
   var errEl = document.getElementById('send-error');
   var okEl = document.getElementById('send-success');
@@ -110,6 +115,16 @@ async function loadDraft(row) {
   document.getElementById('body').value = '';
   document.getElementById('to').value = row.contact_email || '';
   sendSubmit.disabled = false;
+
+  // The scan succeeded but found no mailto: link or plain-text email anywhere on the
+  // site — the "To" field is left blank with no other signal, which reads exactly like
+  // a broken click ("I clicked and there's no email"). Say so plainly instead.
+  if (!row.contact_email) {
+    noEmailNote.style.display = 'block';
+    noEmailNote.textContent = 'No contact email was found on this business’s site — enter one manually to send.';
+  } else {
+    noEmailNote.style.display = 'none';
+  }
 
   if (row.sent) {
     alreadySent.style.display = 'block';
