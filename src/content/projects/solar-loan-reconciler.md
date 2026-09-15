@@ -1,5 +1,6 @@
 ---
 type: "product"
+status: "live"
 name: "Solar Loan Reconciler"
 title: "Solar Loan Reconciler — Automated Weekly Payout Matching | Dainty Trading"
 description: "Automated Friday reconciliation system for a financial company's solar loan payouts. Collects daily CSVs Mon–Fri, matches them against the weekly Loan Payout Report, flags unmatched IDs, and emails a clean HTML report to the loans team."

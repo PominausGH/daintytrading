@@ -1,5 +1,6 @@
 ---
 type: "product"
+status: "dev"
 name: "Finance Tracker"
 title: "Finance Tracker — Dainty Trading"
 description: "A clean personal finance tracker for income, expenses, and budgets over time. No bank-feed wizardry, no upsells — just a place to log money in and out and see the trend."

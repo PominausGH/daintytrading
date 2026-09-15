@@ -1,5 +1,6 @@
 ---
 type: "product"
+status: "dev"
 name: "DevTodo"
 title: "DevTodo — AI Task Manager for Developers | Dainty Trading"
 description: "DevTodo pulls TODOs from your code, syncs Google Calendar, runs through n8n, and uses Claude (via LiteLLM) to write task summaries and estimates. Built for developers who hate writing tickets."

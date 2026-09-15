@@ -1,5 +1,6 @@
 ---
 type: "product"
+status: "dev"
 name: "Prompt Builder"
 title: "Prompt Builder — Dainty Trading"
 description: "A 3-step wizard that helps non-technical users write detailed, effective AI prompts. Takes a rough idea, asks the right clarifying questions, and outputs a polished prompt ready to paste into any model."

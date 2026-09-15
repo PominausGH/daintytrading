@@ -1,5 +1,6 @@
 ---
 type: "product"
+status: "live"
 name: "Billing API"
 title: "Billing API — Shared SaaS Billing Infrastructure | Dainty Trading"
 description: "Billing API is the shared payments and subscription service across Dainty Trading's portfolio. Stripe, Brevo, Postgres, Fastify — every product launches with billing wired in on day one."

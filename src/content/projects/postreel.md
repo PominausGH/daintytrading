@@ -1,5 +1,6 @@
 ---
 type: "product"
+status: "live"
 name: "Post Reel"
 title: "Post Reel — AI Video Social Media Scheduler | Dainty Trading"
 description: "Post Reel is a social media management platform with an AI video studio built in. Give it a URL, it crawls your site, writes a script, synthesises a voiceover, and produces a finished short-form video — scheduled automatically across 12 platforms."

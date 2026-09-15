@@ -42,6 +42,7 @@ const projects = defineCollection({
   schema: z.discriminatedUnion('type', [
     z.object({
       type: z.literal('product'),
+      status: z.enum(['live', 'testing', 'dev']), // single source of truth for the work.astro grouping and the portfolio counts quoted across other pages — see src/data/products.ts
       schemaType: z.string(), // JSON-LD @type, e.g. "SoftwareApplication", "EducationalOrganization"
       schemaExtra: z.record(z.any()).optional(), // extra JSON-LD fields beyond @context/@type/name/description
       ...projectBase,

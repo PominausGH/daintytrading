@@ -1,5 +1,6 @@
 ---
 type: "product"
+status: "live"
 name: "BizPage Builder"
 title: "BizPage Builder — AI-Generated Landing Pages for Local Businesses | Dainty Trading"
 description: "BizPage Builder finds local businesses without websites, generates SEO-ready landing pages with Claude, and ships them as deployable ZIPs. Built for agencies and lead-gen operators."
@@ -15,7 +16,7 @@ metaChips:
   - label: "LLM"
     value: "Anthropic Claude"
   - label: "Status"
-    value: "In development"
+    value: "Live"
 screenshot:
   image: "/screenshots/bizpage-builder.png"
   imageWebp: "/screenshots/bizpage-builder.webp"
@@ -24,7 +25,7 @@ sidecard:
   heading: "Project facts"
   rows:
     - label: "Status"
-      value: "In development"
+      value: "Live"
     - label: "Domain"
       value: "bizpage.biz"
     - label: "Backend"

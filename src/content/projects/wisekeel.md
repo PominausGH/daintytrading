@@ -1,5 +1,6 @@
 ---
 type: "product"
+status: "live"
 name: "WiseKeel"
 title: "WiseKeel — Secure AI Agent Deployment for Business | Dainty Trading"
 description: "WiseKeel designs, deploys, and governs AI agents inside a client's own infrastructure — scoped access, human approval gates, full audit trail. Fixed-price engagements, no platform fee."

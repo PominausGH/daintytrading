@@ -1,5 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getProductCounts } from '../data/products';
+
+const counts = await getProductCounts();
 
 const jsonLd = [
   {
@@ -40,7 +43,7 @@ const jsonLd = [
 ---
 <BaseLayout
   title="AI Development Agency Australia — Production AI Software | Dainty Trading"
-  description="Dainty Trading is an Australian AI development agency. We build production LLM software for Australian businesses and global teams. 17 products live. First demo in 2 weeks. AEST timezone."
+  description={`Dainty Trading is an Australian AI development agency. We build production LLM software for Australian businesses and global teams. ${counts.live} products live. First demo in 2 weeks. AEST timezone.`}
   canonicalPath="/australia.html"
   hreflangAlternates={true}
   jsonLd={jsonLd}
@@ -48,11 +51,11 @@ const jsonLd = [
   <main id="main">
     <section class="hero">
       <div class="container">
-        <span class="eyebrow">AI Development Agency &middot; Australia &middot; 17 Live AI Products</span>
+        <span class="eyebrow">AI Development Agency &middot; Australia &middot; {counts.live} Live AI Products</span>
         <h1>AI Development Agency in Australia</h1>
         <p class="lead">
           Dainty Trading is an Australian AI development studio. We design, build, and run
-          production AI software &mdash; for our own 38-product portfolio and for Australian
+          production AI software &mdash; for our own {counts.total}-product portfolio and for Australian
           businesses that need reliable AI features fast. No demos, no slide-deck AI.
           Real software that runs in production.
         </p>
@@ -67,7 +70,7 @@ const jsonLd = [
     <div class="trust">
       <div class="container">
         <div class="trust-grid">
-          <div><div class="stat-num">38</div><div class="stat-label">Products shipped &amp; in-flight</div></div>
+          <div><div class="stat-num">{counts.total}</div><div class="stat-label">Products shipped &amp; in-flight</div></div>
           <div><div class="stat-num">2 wks</div><div class="stat-label">First demo delivered</div></div>
           <div><div class="stat-num">AU</div><div class="stat-label">Based &amp; operated</div></div>
           <div><div class="stat-num">100%</div><div class="stat-label">Built &amp; operated in-house</div></div>

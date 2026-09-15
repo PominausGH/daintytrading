@@ -1,5 +1,6 @@
 ---
 type: "product"
+status: "dev"
 name: "ScreenShoot Cleaner"
 title: "ScreenShoot Cleaner — Dainty Trading"
 description: "Drop a folder of messy screenshots and notes, get back a single clean PDF. Auto-crops, deskews, and orders the images, then bundles them with any matching note files into a tidy export."

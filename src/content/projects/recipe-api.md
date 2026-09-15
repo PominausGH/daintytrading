@@ -1,5 +1,6 @@
 ---
 type: "product"
+status: "dev"
 name: "Recipe API"
 title: "Recipe API — Django REST Backend for Recipes | Dainty Trading"
 description: "Recipe API is a clean Django REST Framework backend for recipes and ingredients with filtering, pagination, and authentication. The reference backend for any recipe front-end you want to build."

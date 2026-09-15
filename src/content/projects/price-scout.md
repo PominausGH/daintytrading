@@ -1,5 +1,6 @@
 ---
 type: "product"
+status: "testing"
 name: "Price Scout"
 title: "Price Scout — Dainty Trading"
 description: "A cost-of-living dashboard that tracks grocery, fuel, and energy prices across Australia and the UK. Households see how their spending compares week to week — without manually checking five supermarket apps."

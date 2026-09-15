@@ -1,5 +1,6 @@
 ---
 type: "product"
+status: "testing"
 name: "Second Brain"
 title: "Second Brain — Telegram Note-Taking with AI Recall | Dainty Trading"
 description: "Second Brain is a Telegram-based note-taking system. Forward anything — text, voice, photos, links — and Claude organises, tags, and surfaces it back when you actually need it."

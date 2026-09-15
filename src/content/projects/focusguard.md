@@ -1,5 +1,6 @@
 ---
 type: "product"
+status: "live"
 name: "FocusShield"
 title: "FocusShield — Cross-Platform Focus & Task App | Dainty Trading"
 description: "FocusShield is a cross-platform task and focus app — web, iOS, Android — with productivity analytics and a Postgres backend. Built on Expo and React Native."

@@ -1,5 +1,6 @@
 ---
 type: "product"
+status: "live"
 name: "Subscription Incinerator"
 title: "Subscription Incinerator — AI-Drafted Subscription Cancellation | Dainty Trading"
 description: "Subscription Incinerator finds the subscriptions you've forgotten and cancels the ones you don't want. Claude drafts merchant-specific cancellation emails calibrated to actual policy. SMS chases the rest."
