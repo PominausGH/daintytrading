@@ -51,6 +51,18 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       font-size: 13px; color: #fbbf24; background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.3);
       border-radius: 8px; padding: 10px 12px; margin-bottom: 14px;
     }
+    .modal-backdrop {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1000;
+      padding: 40px 20px; overflow-y: auto;
+    }
+    .modal-backdrop.open { display: flex; align-items: flex-start; justify-content: center; }
+    .modal-card { position: relative; width: 100%; max-width: 640px; margin-bottom: 32px; }
+    .modal-card.modal-card-sm { max-width: 440px; }
+    .modal-close {
+      position: absolute; top: 12px; right: 12px; background: none; border: none; color: var(--text-dim);
+      font-size: 22px; line-height: 1; cursor: pointer; padding: 6px 10px; border-radius: 8px;
+    }
+    .modal-close:hover { background: var(--bg-elev); color: var(--text); }
   </style>
 
   <div class="admin-wrap">
@@ -75,26 +87,35 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       <tbody id="prospect-table-body"></tbody>
     </table>
     <p id="empty-state" class="muted" style="display:none;">No prospects in this run.</p>
-    <p id="row-error-note" class="muted" style="display:none;margin-bottom:24px;"></p>
 
-    <div class="card" id="draft-card" style="display:none;">
-      <h2 style="font-size:15px;margin:0 0 4px;" id="draft-title">Draft outreach email</h2>
-      <p class="draft-meta" id="draft-meta"></p>
-      <p class="already-sent-note" id="already-sent-note" style="display:none;"></p>
-      <p class="no-email-note" id="no-email-note" style="display:none;"></p>
-      <p class="draft-status-banner" id="draft-status-banner" style="display:none;"></p>
-      <form id="send-form" novalidate>
-        <label for="to">To</label>
-        <input id="to" name="to" type="email" placeholder="owner@theirsite.com.au" required />
-        <label for="subject">Subject</label>
-        <input id="subject" name="subject" type="text" required />
-        <label for="body">Body</label>
-        <textarea id="body" name="body" required></textarea>
-        <button type="submit" id="send-submit" class="btn btn-primary">Send</button>
-        <button type="button" id="reload-draft-btn" class="btn btn-ghost">Regenerate draft</button>
-        <p id="send-error" class="muted" style="font-size:13px;color:#f87171;display:none;margin-top:12px;"></p>
-        <p id="send-success" class="muted" style="font-size:13px;color:#4ade80;display:none;margin-top:12px;"></p>
-      </form>
+    <div class="modal-backdrop" id="error-backdrop">
+      <div class="card modal-card modal-card-sm">
+        <button type="button" class="modal-close" id="error-close" aria-label="Close">&times;</button>
+        <p id="row-error-note" class="muted" style="margin:0;"></p>
+      </div>
+    </div>
+
+    <div class="modal-backdrop" id="draft-backdrop">
+      <div class="card modal-card" id="draft-card" role="dialog" aria-modal="true" aria-labelledby="draft-title">
+        <button type="button" class="modal-close" id="draft-close" aria-label="Close">&times;</button>
+        <h2 style="font-size:15px;margin:0 0 4px;" id="draft-title">Draft outreach email</h2>
+        <p class="draft-meta" id="draft-meta"></p>
+        <p class="already-sent-note" id="already-sent-note" style="display:none;"></p>
+        <p class="no-email-note" id="no-email-note" style="display:none;"></p>
+        <p class="draft-status-banner" id="draft-status-banner" style="display:none;"></p>
+        <form id="send-form" novalidate>
+          <label for="to">To</label>
+          <input id="to" name="to" type="email" placeholder="owner@theirsite.com.au" required />
+          <label for="subject">Subject</label>
+          <input id="subject" name="subject" type="text" required />
+          <label for="body">Body</label>
+          <textarea id="body" name="body" required></textarea>
+          <button type="submit" id="send-submit" class="btn btn-primary">Send</button>
+          <button type="button" id="reload-draft-btn" class="btn btn-ghost">Regenerate draft</button>
+          <p id="send-error" class="muted" style="font-size:13px;color:#f87171;display:none;margin-top:12px;"></p>
+          <p id="send-success" class="muted" style="font-size:13px;color:#4ade80;display:none;margin-top:12px;"></p>
+        </form>
+      </div>
     </div>
   </div>
 
