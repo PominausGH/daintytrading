@@ -1,5 +1,6 @@
 ---
 type: "product"
+status: "testing"
 name: "ChatVault"
 title: "ChatVault — One Searchable Archive for Every LLM Conversation | Dainty Trading"
 description: "ChatVault aggregates conversations from Claude, ChatGPT, Gemini, Grok, and Perplexity into a single searchable archive. Stop losing the answer you got three weeks ago in a different tab."

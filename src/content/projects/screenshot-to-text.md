@@ -1,5 +1,6 @@
 ---
 type: "product"
+status: "dev"
 name: "Screenshot to Text"
 title: "Screenshot to Text — Dainty Trading"
 description: "Production OCR that handles the messy stuff — tables, handwriting, complex layouts — with a high enough accuracy floor that businesses can put it in front of their customers."

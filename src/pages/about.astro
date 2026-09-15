@@ -1,5 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getProductCounts } from '../data/products';
+
+const counts = await getProductCounts();
 
 const jsonLd = [
   {
@@ -27,7 +30,7 @@ const jsonLd = [
 ---
 <BaseLayout
   title="About — Dainty Trading | AI Automation Studio"
-  description="Dainty Trading is a small AI automation studio in Australia. We build production AI products — for our own portfolio and for selected clients. 37 products and counting."
+  description={`Dainty Trading is a small AI automation studio in Australia. We build production AI products — for our own portfolio and for selected clients. ${counts.total} products and counting.`}
   canonicalPath="/about.html"
   ogImage="https://daintytrading.com/og-card.jpg"
   jsonLd={jsonLd}
@@ -37,7 +40,7 @@ const jsonLd = [
       <div class="container">
         <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; About</div>
         <h1>A studio, not an agency.</h1>
-        <p class="lede">We build production AI software. Mostly for ourselves — 37 products and counting — and occasionally for clients we want to work with.</p>
+        <p class="lede">We build production AI software. Mostly for ourselves — {counts.total} products and counting — and occasionally for clients we want to work with.</p>
       </div>
     </section>
 

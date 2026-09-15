@@ -1,5 +1,6 @@
 ---
 type: "product"
+status: "dev"
 name: "Yoga Platform"
 title: "Yoga Platform — 500+ Poses, Sequence Builder, Mobile + Web | Dainty Trading"
 description: "A full-stack yoga platform: 500+ poses with rich filters (chakra, prop, body part, style), a sequence builder, favourites, and progress tracking. Built on Supabase with a Vite web app and an Expo mobile app."

@@ -1,5 +1,6 @@
 ---
 type: "product"
+status: "live"
 name: "Nudgle"
 title: "Nudgle — Telegram Reminder Bot with Natural-Language Scheduling | Dainty Trading"
 description: "Nudgle is a Telegram reminder bot that listens to plain English. Quiet hours, vacation mode, recurring tasks — all parsed by Claude, stored in Postgres, delivered on time."

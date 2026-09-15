@@ -1,5 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getProductCounts } from '../data/products';
+
+const counts = await getProductCounts();
 
 const products = [
   ['BrightPath', 'brightpath'], ['Email Triage', 'emailtriage'], ['Email Cleanup', 'emailcleanup'],
@@ -22,8 +25,8 @@ const jsonLd = [
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: 'Dainty Trading Product Portfolio',
-    description: '38 products built and operated by Dainty Trading — across live, in final testing, and in active development.',
-    numberOfItems: 38,
+    description: `${counts.total} products built and operated by Dainty Trading — across live, in final testing, and in active development.`,
+    numberOfItems: counts.total,
     itemListElement: products.map(([name, slug], i) => ({
       '@type': 'ListItem',
       position: i + 1,
@@ -34,8 +37,8 @@ const jsonLd = [
 ];
 ---
 <BaseLayout
-  title="Our Work — 38 AI Products Built by Dainty Trading"
-  description="Browse all 38 AI products built and operated by Dainty Trading — 17 live and paying, others in final testing or active development. Real stack, real build story, every project page."
+  title={`Our Work — ${counts.total} AI Products Built by Dainty Trading`}
+  description={`Browse all ${counts.total} AI products built and operated by Dainty Trading — ${counts.live} live and paying, others in final testing or active development. Real stack, real build story, every project page.`}
   canonicalPath="/work.html"
   robots="index, follow, max-image-preview:large, max-snippet:-1"
   jsonLd={jsonLd}
@@ -44,8 +47,8 @@ const jsonLd = [
     <section class="detail-hero">
       <div class="container">
         <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; Work</div>
-        <h1>38 AI Products Built and Running</h1>
-        <p class="lede">Each project is a real product, not a case study slide. 17 are live and paying, the rest are in final testing or active development &mdash; every page below says which. Click any card to read the full build story.</p>
+        <h1>{counts.total} AI Products Built and Running</h1>
+        <p class="lede">Each project is a real product, not a case study slide. {counts.live} are live and paying, the rest are in final testing or active development &mdash; every page below says which. Click any card to read the full build story.</p>
       </div>
     </section>
 
@@ -96,7 +99,7 @@ const jsonLd = [
         <div class="project-group">
           <h3 class="group-heading group-live">
             <span class="group-label"><span class="group-dot" aria-hidden="true"></span>Live</span>
-            <span class="group-count">17 products</span>
+            <span class="group-count">{counts.live} products</span>
           </h3>
           <div class="project-grid">
           <a class="project-card" href="/projects/brightpath.html"><span class="tag">AI · Education</span><h3>BrightPath</h3><p>Personalised K-12 online school with an AI tutor named Pax, gamified rewards, and progress tracking that actually nudges kids.</p><span class="outcome-line">AI tutor in production &middot; K&ndash;12 students on-platform daily</span><span class="arrow">Read the story →</span></a>
@@ -116,13 +119,14 @@ const jsonLd = [
           <a class="project-card" href="/projects/marketing-os.html"><span class="tag">AI · Marketing Ops</span><h3>Marketing OS</h3><p>The internal control tower for our marketing — cross-portfolio SEO/GEO audits, Search Console visibility, and per-product customer tracking, in one dashboard.</p><span class="arrow">Read the story →</span></a>
           <a class="project-card" href="/projects/postreel.html"><span class="tag">AI · Social media</span><h3>Post Reel</h3><p>Social media scheduler with an AI video studio built in. Give it a URL, it crawls the site, writes a script, synthesises a voiceover, and produces a finished short-form video — scheduled across 12 platforms automatically.</p><span class="arrow">Read the story →</span></a>
           <a class="project-card" href="/projects/billing-api.html"><span class="tag">Infrastructure · SaaS</span><h3>Billing API</h3><p>Shared billing service across our portfolio. Stripe, Brevo, Postgres, and a Fastify core that lets every product launch on day one with payments wired in.</p><span class="arrow">Read the story →</span></a>
+          <a class="project-card" href="/projects/wisekeel.html"><span class="tag">AI · Agent Deployment</span><h3>WiseKeel</h3><p>Fixed-price AI agent deployment engagements, run inside a client&rsquo;s own infrastructure &mdash; scoped identity, human approval gates, full audit trail. No platform fee.</p><span class="arrow">Read the story →</span></a>
           </div>
         </div>
 
         <div class="project-group">
           <h3 class="group-heading group-test">
             <span class="group-label"><span class="group-dot" aria-hidden="true"></span>In final testing</span>
-            <span class="group-count">8 products</span>
+            <span class="group-count">{counts.testing} products</span>
           </h3>
           <div class="project-grid">
           <a class="project-card" href="/projects/second-brain.html"><span class="tag">AI · Knowledge <span class="badge-test">in test</span></span><h3>Second Brain</h3><p>Telegram-native note-taking. Forward anything &mdash; voice, photo, link, half-thought &mdash; and Claude tags it, links it, and gives it back when you actually need it.</p><span class="arrow">Read the story →</span></a>
@@ -139,7 +143,7 @@ const jsonLd = [
         <div class="project-group">
           <h3 class="group-heading group-dev">
             <span class="group-label"><span class="group-dot" aria-hidden="true"></span>In active development</span>
-            <span class="group-count">12 products</span>
+            <span class="group-count">{counts.dev} products</span>
           </h3>
           <div class="project-grid">
           <a class="project-card" href="/projects/devtodo.html"><span class="tag">AI · Developer Tools <span class="badge-dev">in dev</span></span><h3>DevTodo</h3><p>Pulls TODOs from your code, syncs Google Calendar, runs through n8n, and uses Claude to write the summary you would&rsquo;ve skipped.</p><span class="arrow">Read the story →</span></a>
@@ -154,7 +158,6 @@ const jsonLd = [
           <a class="project-card" href="/projects/telegram-crypto-sentiment.html"><span class="tag">AI · Crypto research <span class="badge-dev">in dev</span></span><h3>Telegram Crypto Sentiment</h3><p>Monitors crypto Telegram groups for sentiment, scores it with Claude, and correlates against price movement to surface predictive channels.</p><span class="arrow">Read the story →</span></a>
           <a class="project-card" href="/projects/screenshot-cleaner.html"><span class="tag">Productivity · Automation <span class="badge-dev">in dev</span></span><h3>ScreenShoot Cleaner</h3><p>Drop a folder of screenshots, get back a clean PDF. Auto-crop, deskew, contrast-normalise, sort, bundle. Local-first, no cloud.</p><span class="arrow">Read the story →</span></a>
           <a class="project-card" href="/projects/receiptsnap-ai.html"><span class="tag">AI · Mobile <span class="badge-dev">in dev</span></span><h3>ReceiptSnap AI</h3><p>Native iOS and Android receipt scanner. One-handed capture at the till, OCR via Google Cloud Vision, year-end export for your accountant.</p><span class="arrow">Read the story →</span></a>
-          <a class="project-card" href="/projects/wisekeel.html"><span class="tag">AI · Agent Deployment</span><h3>WiseKeel</h3><p>Fixed-price AI agent deployment engagements, run inside a client&rsquo;s own infrastructure &mdash; scoped identity, human approval gates, full audit trail. No platform fee.</p><span class="arrow">Read the story →</span></a>
           </div>
         </div>
 

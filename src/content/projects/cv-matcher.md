@@ -1,5 +1,6 @@
 ---
 type: "product"
+status: "live"
 name: "CV Matcher"
 title: "CV Matcher — AI Job Matching from LinkedIn | Dainty Trading"
 description: "CV Matcher scrapes LinkedIn jobs, scores them against your CV with Claude, and explains why each match scored the way it did. Less swipe-fatigue, more actual interviews."

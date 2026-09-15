@@ -1,5 +1,6 @@
 ---
 type: "product"
+status: "live"
 name: "AutoArchive"
 title: "AutoArchive — Enterprise Shared Mailbox Archiving | Dainty Trading"
 description: "AutoArchive backs up 45 shared email boxes to a secure local disk. Each email is saved with its message ID in the filename for instant retrieval — built for a Big 4 Australian bank."

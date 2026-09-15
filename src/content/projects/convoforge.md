@@ -1,5 +1,6 @@
 ---
 type: "product"
+status: "live"
 name: "ConvoForge"
 title: "ConvoForge — Multimodal AI Communication Coach | Dainty Trading"
 description: "ConvoForge is an AI communication coach. Real-time speech analysis, body-language feedback, AI avatar roleplay, and a live meeting overlay. Behavioural microlearning that compounds."

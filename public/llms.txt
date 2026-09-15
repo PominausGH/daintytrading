@@ -1,11 +1,11 @@
 # Dainty Trading
 
-> Dainty Trading is an Australian AI automation studio. We design, build, and operate production AI software — 37 products in our portfolio (live, in final testing, or in active development) covering email triage, AI content generation, education, knowledge management, marketing automation, scheduling, billing, and SaaS infrastructure. We also self-host the open-source stack we recommend (analytics, scheduling, LLM routing, document management, and more) and take on a small number of client engagements each quarter (AI product builds, automation retrofits, AI infrastructure).
+> Dainty Trading is an Australian AI automation studio. We design, build, and operate production AI software — 38 products in our portfolio (live, in final testing, or in active development) covering email triage, AI content generation, education, knowledge management, marketing automation, scheduling, billing, and SaaS infrastructure. We also self-host the open-source stack we recommend (analytics, scheduling, LLM routing, document management, and more) and take on a small number of client engagements each quarter (AI product builds, automation retrofits, AI infrastructure).
 
 ## About the studio
 
 - **What we are**: A small, deliberate AI automation studio.
-- **What we do**: Build production AI software for our own portfolio (37 products) and selected clients.
+- **What we do**: Build production AI software for our own portfolio (38 products) and selected clients.
 - **Where we are**: Australia. We work async with clients globally.
 - **What we believe**: Shipping is the only proof. Boring infrastructure is the moat. Small surface, deep stack. We run the open-source tools we recommend.
 - **Default LLM**: Anthropic Claude. We also route through OpenRouter and LiteLLM to use Google Gemini, OpenAI, Grok, Perplexity, and others when economics or latency demand it.
@@ -38,6 +38,7 @@
 - [Marketing OS](https://daintytrading.com/projects/marketing-os.html) — live, internal use only (no public domain). Marketing operations platform: campaigns, briefs, Puppeteer-based SEO/a11y audits, AI-assisted brief queue.
 - [Post Reel](https://daintytrading.com/projects/postreel.html) — live. Social media scheduler with an AI video studio built in. Give it a URL, it crawls the site, writes a script, synthesises a voiceover, and produces a finished short-form video — scheduled across 12 platforms automatically.
 - [Billing API](https://daintytrading.com/projects/billing-api.html) — live, internal API only (no public domain). Shared billing service across the portfolio. Fastify on Postgres, Stripe + Brevo, full subscription state machine.
+- [WiseKeel](https://daintytrading.com/projects/wisekeel.html) — live. Fixed-price AI agent deployment engagements, run inside a client's own infrastructure — scoped identity, human approval gates, full audit trail. No platform fee.
 
 ## In final testing (pre-launch)
 
@@ -80,7 +81,7 @@ We don't bolt onto SaaS treadmills. The same open-source tools we run for oursel
 
 ## Frequently asked
 
-- **What is Dainty Trading?** An AI automation studio with 37 products (live, in final testing, and in active development), taking on selected client engagements.
+- **What is Dainty Trading?** An AI automation studio with 38 products (live, in final testing, and in active development), taking on selected client engagements.
 - **What stack do you use?** Python (FastAPI, Django) + Node.js (Fastify, Express) backends; Next.js, React, React Native + Expo frontends; Postgres + Redis; Stripe + Brevo + n8n + LiteLLM. Default LLM is Claude.
 - **What open-source tools do you self-host?** Umami, Cal.com, LiteLLM Proxy, Paperless-NGX, Open WebUI, Speedtest Tracker, Portainer, Syncthing — see the Supporting cast section above.
 - **How fast can you ship?** Typically a working first slice in 1–2 weeks; first paying customer in 4–8 weeks.

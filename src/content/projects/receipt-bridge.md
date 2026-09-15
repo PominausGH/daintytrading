@@ -1,5 +1,6 @@
 ---
 type: "product"
+status: "dev"
 name: "Receipt Bridge"
 title: "Receipt Bridge — Dainty Trading"
 description: "Field workers text a photo of a receipt to a shared number. OCR extracts the data automatically and surfaces it in a finance dashboard. No paper, no manual entry, no missed reimbursements."

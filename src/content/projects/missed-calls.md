@@ -1,5 +1,6 @@
 ---
 type: "product"
+status: "live"
 name: "Everyring.ai"
 title: "Everyring.ai — AI Follow-Up for Every Missed Phone Call | Dainty Trading"
 description: "Everyring.ai catches missed phone calls for service businesses, prioritises follow-ups, and uses Claude to draft the right SMS or email per contact — in seconds, not hours."

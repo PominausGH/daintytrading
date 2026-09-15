@@ -1,5 +1,6 @@
 ---
 type: "product"
+status: "live"
 name: "BrightPath"
 title: "BrightPath — Personalised K-12 School with AI Tutor | Dainty Trading"
 description: "BrightPath is a personalised online K-12 school with an AI tutor (Pax), gamified rewards, and progress tracking. Built on Next.js and a Node API, powered by Claude and Gemini through OpenRouter."

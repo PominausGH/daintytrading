@@ -1,5 +1,6 @@
 ---
 type: "product"
+status: "live"
 name: "Ghost Writer"
 title: "Ghost Writer — AI Article Generation & Auto-Publishing | Dainty Trading"
 description: "Ghost Writer is an end-to-end content engine. It detects trending topics on Hacker News, Reddit, and Dev.to, drafts 1,500-word articles with Claude, runs six quality gates, and auto-publishes to LinkedIn and Medium."

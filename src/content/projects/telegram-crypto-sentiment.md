@@ -1,5 +1,6 @@
 ---
 type: "product"
+status: "dev"
 name: "Telegram Crypto Sentiment"
 title: "Telegram Crypto Sentiment — Dainty Trading"
 description: "Monitors crypto-focused Telegram groups for sentiment signals, scores them in real time, and correlates against price movement to surface signals that move ahead of the chart."

@@ -1,5 +1,6 @@
 ---
 type: "product"
+status: "live"
 name: "Marketing OS"
 title: "Marketing OS — Internal Marketing Operations Platform | Dainty Trading"
 description: "Marketing OS is the internal control tower for Dainty Trading's marketing — cross-portfolio SEO/GEO audits, Search Console visibility, and per-product customer tracking, in one Next.js dashboard."

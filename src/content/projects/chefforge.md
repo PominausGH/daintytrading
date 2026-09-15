@@ -1,5 +1,6 @@
 ---
 type: "product"
+status: "dev"
 name: "ChefForge"
 title: "ChefForge — AI Recipe Generation & Meal Planning | Dainty Trading"
 description: "ChefForge generates personalised recipes and weekly meal plans with AI. Tell it your constraints — dietary, budget, time, what's already in the fridge — and get a plan that adds up."

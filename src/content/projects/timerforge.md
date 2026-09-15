@@ -1,5 +1,6 @@
 ---
 type: "product"
+status: "live"
 name: "TimerForge"
 title: "TimerForge — Cross-Platform Countdown Timer SaaS | Dainty Trading"
 description: "TimerForge is a countdown timer that ships as a Windows/Mac/Linux desktop app and a web SaaS. Embeddable, shareable, billed by Stripe. Built on PyQt6 and Node."
