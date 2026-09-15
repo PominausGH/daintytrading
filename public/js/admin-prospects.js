@@ -2,6 +2,41 @@ var currentRun = null;
 var currentProspects = [];
 var currentSlug = null;
 
+function openModal(backdropId) {
+  document.getElementById(backdropId).classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(backdropId) {
+  document.getElementById(backdropId).classList.remove('open');
+  if (!document.querySelector('.modal-backdrop.open')) {
+    document.body.style.overflow = '';
+  }
+}
+
+document.querySelectorAll('.modal-backdrop').forEach(function (backdrop) {
+  // Click directly on the dimmed backdrop (not its content) closes it — same convention
+  // as the close (x) button, so there are two obvious ways out and no dead-end popup.
+  backdrop.addEventListener('click', function (e) {
+    if (e.target === backdrop) closeModal(backdrop.id);
+  });
+});
+
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-backdrop.open').forEach(function (backdrop) {
+      closeModal(backdrop.id);
+    });
+  }
+});
+
+document.getElementById('error-close').addEventListener('click', function () {
+  closeModal('error-backdrop');
+});
+document.getElementById('draft-close').addEventListener('click', function () {
+  closeModal('draft-backdrop');
+});
+
 function statusPillHtml(row) {
   var cls = row.status === 'error' ? 'status-pill error' : 'status-pill';
   return '<span class="' + cls + '">' + adminEscapeHtml(row.status || 'unknown') + '</span>';
@@ -67,19 +102,17 @@ async function selectProspect(idx) {
   var row = currentProspects[idx];
   if (!row) return;
   markSelectedRow(idx);
-  var note = document.getElementById('row-error-note');
   if (!row.slug) {
     // No usable slug means the scan for this business never produced a report
     // (status=error rows have an empty json_path) — there's no draft or email
-    // to show, so say that instead of leaving the click looking like a no-op.
-    document.getElementById('draft-card').style.display = 'none';
-    note.textContent = row.status === 'error'
+    // to show, so say that in its own small popup rather than opening the full
+    // draft modal or leaving the click looking like a no-op.
+    document.getElementById('row-error-note').textContent = row.status === 'error'
       ? 'Scan failed for this business' + (row.error_message ? ' (' + row.error_message + ')' : '') + ' — no contact email was captured.'
       : 'No contact email available for this prospect.';
-    note.style.display = 'block';
+    openModal('error-backdrop');
     return;
   }
-  note.style.display = 'none';
   currentSlug = row.slug;
   await loadDraft(row);
 }
@@ -94,7 +127,6 @@ var STATUS_BANNER = {
 };
 
 async function loadDraft(row) {
-  var card = document.getElementById('draft-card');
   var meta = document.getElementById('draft-meta');
   var alreadySent = document.getElementById('already-sent-note');
   var noEmailNote = document.getElementById('no-email-note');
@@ -105,10 +137,9 @@ async function loadDraft(row) {
   errEl.style.display = 'none';
   okEl.style.display = 'none';
   draftBanner.style.display = 'none';
-  document.getElementById('row-error-note').style.display = 'none';
   currentVariant = null;
 
-  card.style.display = 'block';
+  openModal('draft-backdrop');
   document.getElementById('draft-title').textContent = 'Draft outreach email';
   meta.textContent = 'Loading draft…';
   document.getElementById('subject').value = '';
@@ -161,7 +192,8 @@ async function loadDraft(row) {
 async function loadProspects(run) {
   currentRun = run;
   currentSlug = null;
-  document.getElementById('draft-card').style.display = 'none';
+  closeModal('draft-backdrop');
+  closeModal('error-backdrop');
   var data = await adminFetch('/api/admin/prospects?run=' + encodeURIComponent(run));
   renderProspects(data.prospects || []);
 }
