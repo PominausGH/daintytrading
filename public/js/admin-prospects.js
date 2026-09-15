@@ -42,6 +42,13 @@ function statusPillHtml(row) {
   return '<span class="' + cls + '">' + adminEscapeHtml(row.status || 'unknown') + '</span>';
 }
 
+// adminEscapeHtml() (via textContent/innerHTML) is only guaranteed to escape &, <, > — not
+// necessarily ", so a URL containing a literal quote could otherwise break out of a
+// double-quoted href attribute. Belt-and-braces for attribute-context embedding.
+function attrEscape(str) {
+  return adminEscapeHtml(str).replace(/"/g, '&quot;');
+}
+
 function renderProspects(prospects) {
   currentProspects = prospects;
   var table = document.getElementById('prospect-table');
@@ -62,8 +69,11 @@ function renderProspects(prospects) {
     // "clicking did nothing" and "there's genuinely no email captured for this one" —
     // status=error rows already say so via the status pill, no need to repeat it here.
     var noEmailTag = !row.contact_email && row.status !== 'error' ? ' <span class="no-email-tag">no email found</span>' : '';
+    var urlLink = row.url
+      ? '<a class="url row-url-link" href="' + attrEscape(row.url) + '" target="_blank" rel="noopener noreferrer">' + adminEscapeHtml(row.url) + '</a>'
+      : '';
     return '<tr data-idx="' + idx + '">' +
-      '<td><div class="biz">' + adminEscapeHtml(label) + '</div><div class="url">' + adminEscapeHtml(row.url) + noEmailTag + '</div></td>' +
+      '<td><div class="biz">' + adminEscapeHtml(label) + '</div>' + urlLink + noEmailTag + '</td>' +
       '<td>' + (row.score == null ? '—' : adminEscapeHtml(String(row.score))) + '</td>' +
       '<td>' + (row.findings_count == null ? '—' : adminEscapeHtml(String(row.findings_count))) + '</td>' +
       '<td>' + (row.high_severity_count == null ? '—' : adminEscapeHtml(String(row.high_severity_count))) + '</td>' +
@@ -82,6 +92,13 @@ function renderProspects(prospects) {
     tr.addEventListener('click', function () {
       var idx = parseInt(tr.dataset.idx, 10);
       selectProspect(idx);
+    });
+  });
+  body.querySelectorAll('.row-url-link').forEach(function (link) {
+    // Without this, clicking straight through to the business's own site would also
+    // trigger the row's click handler underneath it and pop the draft modal open.
+    link.addEventListener('click', function (e) {
+      e.stopPropagation();
     });
   });
   body.querySelectorAll('.row-action-btn').forEach(function (btn) {
