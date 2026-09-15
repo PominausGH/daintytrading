@@ -17,7 +17,7 @@ Context you must not contradict without evidence:
   Australian AI automation studio (Sydney / Central Coast, NSW).
 - It already ships `llms.txt`, a `robots.txt` with explicit AI-crawler allow
   rules (GPTBot, ClaudeBot, PerplexityBot, etc.), and JSON-LD for
-  Organization, WebSite, ItemList (37 products), and FAQPage.
+  Organization, WebSite, ItemList (38 products), and FAQPage.
 - "Geo" on this site means five separate static local-SEO landing pages
   (`/australia.html`, `/sydney.html`, `/central-coast.html`, `/uk.html`,
   `/usa.html`), each with its own canonical tag — not hreflang/i18n/currency
