@@ -4,7 +4,7 @@ description: "Summarization, RAG, and sliding windows solve different context pr
 category: "AI · Engineering"
 publishedDate: "2026-09-16"
 readTime: "5 min"
-ogImage: "https://daintytrading.com/og-card.jpg"
+ogImage: "https://telaloom.com/og-card.jpg"
 ---
 
 You manage long context in production by choosing the right tool for what's actually growing: use retrieval-augmented generation when the corpus is large and mostly irrelevant to any single query, use summarization when conversation history needs to persist but doesn't need to persist exactly, and use a sliding window when only recent turns matter at all. Most teams pick none of these on purpose — they just raise the token limit and hope. That's the wrong approach, and it fails in a specific, predictable way.
@@ -31,4 +31,4 @@ RAG adds a real infrastructure dependency — a vector database is one more thin
 
 ## What to do this week
 
-Pull one production conversation or session log that's currently getting dumped wholesale into your prompt, and classify each piece of it: static reference material (candidate for RAG), narrative history (candidate for summarization), or recent turns (candidate for a sliding window). You'll usually find it's not one strategy but two stacked together. If you want a second pair of eyes on the architecture before you build it, [start a project](https://daintytrading.com/contact.html) with us — this is the kind of tradeoff that's much cheaper to get right before you've built the pipeline than after.
+Pull one production conversation or session log that's currently getting dumped wholesale into your prompt, and classify each piece of it: static reference material (candidate for RAG), narrative history (candidate for summarization), or recent turns (candidate for a sliding window). You'll usually find it's not one strategy but two stacked together. If you want a second pair of eyes on the architecture before you build it, [start a project](https://telaloom.com/contact.html) with us — this is the kind of tradeoff that's much cheaper to get right before you've built the pipeline than after.

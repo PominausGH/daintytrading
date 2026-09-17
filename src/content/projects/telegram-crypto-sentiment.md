@@ -2,11 +2,11 @@
 type: "product"
 status: "dev"
 name: "Telegram Crypto Sentiment"
-title: "Telegram Crypto Sentiment — Dainty Trading"
+title: "Telegram Crypto Sentiment — TelaLoom"
 description: "Monitors crypto-focused Telegram groups for sentiment signals, scores them in real time, and correlates against price movement to surface signals that move ahead of the chart."
 ogTitle: "Telegram Crypto Sentiment"
 ogDescription: "Monitors crypto-focused Telegram groups for sentiment signals, scores them in real time, and correlates against price movement to surface signals that move ahead of the chart."
-ogImage: "https://daintytrading.com/og/telegram-crypto-sentiment.png"
+ogImage: "https://telaloom.com/og/telegram-crypto-sentiment.png"
 lede: "Monitors crypto-focused Telegram groups for sentiment signals, scores them in real time, and correlates against price movement to surface signals that move ahead of the chart."
 metaChips:
   - label: "Category"
@@ -23,7 +23,7 @@ sidecard:
     - label: "Status"
       value: "In development"
     - label: "Site"
-      value: "cryptosentiment.daintytrading.com"
+      value: "cryptosentiment.telaloom.com"
     - label: "Backend"
       value: "Python · Docker"
     - label: "Source"
@@ -49,7 +49,7 @@ schemaExtra:
   operatingSystem: "Web"
   publisher:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 ---
 
 <h2>The problem</h2>

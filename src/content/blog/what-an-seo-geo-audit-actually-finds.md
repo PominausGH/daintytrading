@@ -4,7 +4,7 @@ description: "The recurring, fixable issues we find on almost every unaudited si
 category: "SEO & GEO"
 publishedDate: "2026-07-13"
 readTime: "5 min"
-ogImage: "https://daintytrading.com/og-card.png"
+ogImage: "https://telaloom.com/og-card.png"
 ---
 
 <p>Most sites we audit were built to look right in a browser, not to be read correctly by a crawler — human or AI. That's not a criticism; it's just not what most teams are optimizing for when they ship. But it means the same handful of issues show up again and again, and every one of them is a fix, not a redesign. Here's what actually turns up.</p>

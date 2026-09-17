@@ -2,11 +2,11 @@
 type: "product"
 status: "live"
 name: "Everyring.ai"
-title: "Everyring.ai — AI Follow-Up for Every Missed Phone Call | Dainty Trading"
+title: "Everyring.ai — AI Follow-Up for Every Missed Phone Call | TelaLoom"
 description: "Everyring.ai catches missed phone calls for service businesses, prioritises follow-ups, and uses Claude to draft the right SMS or email per contact — in seconds, not hours."
 ogTitle: "Everyring.ai — never lose another phone lead"
 ogDescription: "Capture missed calls and follow up with AI-drafted messages, in seconds."
-ogImage: "https://daintytrading.com/og/missed-calls.png"
+ogImage: "https://telaloom.com/og/missed-calls.png"
 lede: "For service businesses, every unanswered call is a leaked customer. Everyring.ai catches them, ranks them, and uses Claude to draft the SMS or email that earns the call-back — in seconds, not hours."
 metaChips:
   - label: "Category"
@@ -58,7 +58,7 @@ schemaExtra:
   operatingSystem: "Web"
   publisher:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 ---
 
 <h2>The problem</h2>

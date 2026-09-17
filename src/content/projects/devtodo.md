@@ -2,11 +2,11 @@
 type: "product"
 status: "dev"
 name: "DevTodo"
-title: "DevTodo — AI Task Manager for Developers | Dainty Trading"
+title: "DevTodo — AI Task Manager for Developers | TelaLoom"
 description: "DevTodo pulls TODOs from your code, syncs Google Calendar, runs through n8n, and uses Claude (via LiteLLM) to write task summaries and estimates. Built for developers who hate writing tickets."
 ogTitle: "DevTodo — AI task manager for developers"
 ogDescription: "Pulls TODOs from code, syncs Calendar, summarises with Claude."
-ogImage: "https://daintytrading.com/og/devtodo.png"
+ogImage: "https://telaloom.com/og/devtodo.png"
 lede: "A task manager that meets developers where they already work. It reads TODOs from the codebase, syncs them to Google Calendar, runs through n8n for the wiring, and uses Claude to write the bits humans usually skip — titles, summaries, estimates."
 metaChips:
   - label: "Category"
@@ -23,7 +23,7 @@ sidecard:
     - label: "Status"
       value: "In development"
     - label: "Domain"
-      value: "todo.daintytrading.com"
+      value: "todo.telaloom.com"
     - label: "API"
       value: "Node · Express"
     - label: "Frontend"
@@ -38,7 +38,7 @@ sidecard:
       value: "Google Calendar API"
   primaryCta:
     label: "Visit DevTodo →"
-    href: "https://todo.daintytrading.com"
+    href: "https://todo.telaloom.com"
   ghostCta:
     label: "Build something similar"
     href: "/contact.html"
@@ -56,7 +56,7 @@ schemaExtra:
   operatingSystem: "Web · CLI"
   publisher:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 ---
 
 <h2>The problem</h2>

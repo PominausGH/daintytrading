@@ -2,11 +2,11 @@
 type: "product"
 status: "testing"
 name: "Second Brain"
-title: "Second Brain — Telegram Note-Taking with AI Recall | Dainty Trading"
+title: "Second Brain — Telegram Note-Taking with AI Recall | TelaLoom"
 description: "Second Brain is a Telegram-based note-taking system. Forward anything — text, voice, photos, links — and Claude organises, tags, and surfaces it back when you actually need it."
 ogTitle: "Second Brain — Telegram-native note-taking"
 ogDescription: "Forward to a bot, AI organises, you find it again instantly."
-ogImage: "https://daintytrading.com/og/second-brain.png"
+ogImage: "https://telaloom.com/og/second-brain.png"
 lede: "A note-taking system you already know how to use, because it lives where you already live: Telegram. Forward anything — voice, photo, link, half-written thought — and Claude organises it, tags it, and gives it back to you when you actually need it."
 metaChips:
   - label: "Category"
@@ -49,7 +49,7 @@ schemaExtra:
   operatingSystem: "Telegram"
   publisher:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 ---
 
 <h2>The problem</h2>

@@ -2,11 +2,11 @@
 type: "product"
 status: "dev"
 name: "Finance Tracker"
-title: "Finance Tracker — Dainty Trading"
+title: "Finance Tracker — TelaLoom"
 description: "A clean personal finance tracker for income, expenses, and budgets over time. No bank-feed wizardry, no upsells — just a place to log money in and out and see the trend."
 ogTitle: "Finance Tracker"
 ogDescription: "A clean personal finance tracker for income, expenses, and budgets over time. No bank-feed wizardry, no upsells — just a place to log money in and out and see the trend."
-ogImage: "https://daintytrading.com/og/finance-tracker.png"
+ogImage: "https://telaloom.com/og/finance-tracker.png"
 lede: "A clean personal finance tracker for income, expenses, and budgets over time. No bank-feed wizardry, no upsells — just a place to log money in and out and see the trend."
 metaChips:
   - label: "Category"
@@ -23,7 +23,7 @@ sidecard:
     - label: "Status"
       value: "In development"
     - label: "Site"
-      value: "finance.daintytrading.com"
+      value: "finance.telaloom.com"
     - label: "Backend"
       value: "Node.js · Express"
     - label: "Frontend"
@@ -49,7 +49,7 @@ schemaExtra:
   operatingSystem: "Web"
   publisher:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 ---
 
 <h2>The problem</h2>

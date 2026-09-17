@@ -2,11 +2,11 @@
 type: "product"
 status: "live"
 name: "Solar Loan Reconciler"
-title: "Solar Loan Reconciler — Automated Weekly Payout Matching | Dainty Trading"
+title: "Solar Loan Reconciler — Automated Weekly Payout Matching | TelaLoom"
 description: "Automated Friday reconciliation system for a financial company's solar loan payouts. Collects daily CSVs Mon–Fri, matches them against the weekly Loan Payout Report, flags unmatched IDs, and emails a clean HTML report to the loans team."
 ogTitle: "Solar Loan Reconciler"
 ogDescription: "Automated Friday reconciliation system that eliminates missed solar loan payouts for a financial company."
-ogImage: "https://daintytrading.com/og-card.jpg"
+ogImage: "https://telaloom.com/og-card.jpg"
 lede: "Built for a financial company to eliminate missed solar loan payouts. Every Friday, the system collects a week’s worth of transaction CSVs, matches them against the Loan Payout Report, flags any IDs that don’t line up, and emails a clean HTML report directly to the loans team — automatically, without anyone touching it."
 metaChips:
   - label: "Category"
@@ -49,7 +49,7 @@ schemaExtra:
   operatingSystem: "Web"
   publisher:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 ---
 
 <h2>The problem</h2>

@@ -2,11 +2,11 @@
 type: "product"
 status: "live"
 name: "Billing API"
-title: "Billing API — Shared SaaS Billing Infrastructure | Dainty Trading"
-description: "Billing API is the shared payments and subscription service across Dainty Trading's portfolio. Stripe, Brevo, Postgres, Fastify — every product launches with billing wired in on day one."
+title: "Billing API — Shared SaaS Billing Infrastructure | TelaLoom"
+description: "Billing API is the shared payments and subscription service across TelaLoom's portfolio. Stripe, Brevo, Postgres, Fastify — every product launches with billing wired in on day one."
 ogTitle: "Billing API"
-ogDescription: "Shared billing service across the Dainty Trading portfolio."
-ogImage: "https://daintytrading.com/og/billing-api.png"
+ogDescription: "Shared billing service across the TelaLoom portfolio."
+ogImage: "https://telaloom.com/og/billing-api.png"
 lede: "A single billing service backing the whole portfolio. Stripe, subscriptions, metering, refunds, dunning, lifecycle email through Brevo — every new product gets payments wired in on the first day, not the third sprint."
 metaChips:
   - label: "Category"
@@ -49,7 +49,7 @@ schemaType: "WebAPI"
 schemaExtra:
   provider:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 ---
 
 <h2>The problem</h2>
@@ -63,7 +63,7 @@ schemaExtra:
 
 <h2>How it’s used</h2>
 <ul>
-<li><strong>Every paid product</strong> in the Dainty Trading portfolio.</li>
+<li><strong>Every paid product</strong> in the TelaLoom portfolio.</li>
 <li><strong>Internal admin tools</strong> for support, refunds, and entitlement overrides.</li>
 <li><strong>Reporting</strong> rolling up MRR, churn, LTV across the whole portfolio in one place.</li>
 </ul>

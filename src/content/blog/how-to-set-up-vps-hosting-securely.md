@@ -4,7 +4,7 @@ description: "A plain-English, step-by-step walkthrough for setting up your firs
 category: "Infrastructure"
 publishedDate: "2026-07-24"
 readTime: "8 min"
-ogImage: "https://daintytrading.com/og-card.jpg"
+ogImage: "https://telaloom.com/og-card.jpg"
 ---
 
 <p>Every one of our own products — this site included — runs on a VPS we manage ourselves rather than a managed platform-as-a-service. That scares a lot of people off, and reasonably so: "server" sounds like something that requires a computer science degree to touch safely. It doesn't. A VPS is just a computer someone else keeps switched on and connected to the internet, that you get to log into. The setup below is the same handful of steps we run on every new box, and it takes about 20 minutes once you've done it once.</p>

@@ -4,7 +4,7 @@ description: "Stop waiting for user ratings. Learn how to build a reliable AI ev
 category: "AI · Engineering"
 publishedDate: "2026-06-07"
 readTime: "5 min"
-ogImage: "https://daintytrading.com/og-card.jpg"
+ogImage: "https://telaloom.com/og-card.jpg"
 ---
 
 <p>User feedback on AI features is notoriously noisy and sparse. In a typical production environment, fewer than 1% of users will click a thumbs-up or thumbs-down icon. When they do, the signal is often useless: a "thumbs-down" doesn't tell you if the model hallucinated, used the wrong tone, or simply returned a result the user didn't like for personal reasons. You cannot ship reliable AI features if you are waiting for humans to tell you what is broken.</p>
@@ -21,7 +21,7 @@ ogImage: "https://daintytrading.com/og-card.jpg"
 
 <p><strong>1. Deterministic Sanity Checks (Layer 1)</strong>: Before you even think about "quality," check for "validity." If your model is supposed to return JSON, validate it against a schema. If it’s generating code, run it through a linter or a sandbox. If it’s summarizing a document, check that the output length is within bounds and doesn't contain forbidden strings. These checks are cheap, fast, and catch 30% of the "obvious" failures before they ever need an LLM to look at them.</p>
 
-<p><strong>2. Implicit User Signals (Layer 2)</strong>: Stop asking users for their opinion and start watching their actions. In our <a href="https://daintytrading.com/contact.html">Start a project</a> engagements, we focus on "Edit Distance" or "Copy Events." If a user generates an email and immediately sends it, that is a high-confidence positive signal. If they spend three minutes rewriting 40% of the text, that is a failure. Tracking these implicit signals gives you a dataset that is 100x larger than your "thumbs-up" data.</p>
+<p><strong>2. Implicit User Signals (Layer 2)</strong>: Stop asking users for their opinion and start watching their actions. In our <a href="https://telaloom.com/contact.html">Start a project</a> engagements, we focus on "Edit Distance" or "Copy Events." If a user generates an email and immediately sends it, that is a high-confidence positive signal. If they spend three minutes rewriting 40% of the text, that is a failure. Tracking these implicit signals gives you a dataset that is 100x larger than your "thumbs-up" data.</p>
 
 <p><strong>3. LLM-as-a-Judge Sampling (Layer 3)</strong>: For the qualitative stuff—tone, accuracy, nuance—use a more capable model (like Claude 3.5 Sonnet or GPT-4o) to grade a random 5% sample of your production traffic. Give the "judge" model a clear rubric: "Did the assistant answer the question directly? (Score 1-5)" and "Was the tone professional? (Yes/No)." This turns qualitative vibes into quantitative metrics you can graph over time.</p>
 

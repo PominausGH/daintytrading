@@ -4,7 +4,7 @@ description: "Most AI features don't move the needle. A few do — reliably and 
 category: "Strategy"
 publishedDate: "2026-04-29"
 readTime: "5 min"
-ogImage: "https://daintytrading.com/og-card.jpg"
+ogImage: "https://telaloom.com/og-card.jpg"
 ---
 
 <h2>The test before you build</h2>

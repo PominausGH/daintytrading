@@ -2,11 +2,11 @@
 type: "product"
 status: "live"
 name: "Ghost Writer"
-title: "Ghost Writer — AI Article Generation & Auto-Publishing | Dainty Trading"
+title: "Ghost Writer — AI Article Generation & Auto-Publishing | TelaLoom"
 description: "Ghost Writer is an end-to-end content engine. It detects trending topics on Hacker News, Reddit, and Dev.to, drafts 1,500-word articles with Claude, runs six quality gates, and auto-publishes to LinkedIn and Medium."
 ogTitle: "Ghost Writer — AI content engine"
 ogDescription: "Trend detection, article generation, six-layer quality checks, multi-platform publishing — fully automated."
-ogImage: "https://daintytrading.com/og/ghost-writer.png"
+ogImage: "https://telaloom.com/og/ghost-writer.png"
 lede: "An end-to-end content engine. Trend detection, AI drafting, multi-layer quality control, and automated publishing to LinkedIn and Medium — with a human only in the loop when something looks off."
 metaChips:
   - label: "Category"
@@ -60,8 +60,8 @@ schemaExtra:
   operatingSystem: "Web"
   publisher:
     "@type": "Organization"
-    name: "Dainty Trading"
-    url: "https://daintytrading.com"
+    name: "TelaLoom"
+    url: "https://telaloom.com"
 ---
 
 <h2>The problem</h2>

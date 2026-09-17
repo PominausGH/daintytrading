@@ -2,11 +2,11 @@
 type: "product"
 status: "testing"
 name: "ChatVault"
-title: "ChatVault — One Searchable Archive for Every LLM Conversation | Dainty Trading"
+title: "ChatVault — One Searchable Archive for Every LLM Conversation | TelaLoom"
 description: "ChatVault aggregates conversations from Claude, ChatGPT, Gemini, Grok, and Perplexity into a single searchable archive. Stop losing the answer you got three weeks ago in a different tab."
 ogTitle: "ChatVault — your LLM conversations, all in one place"
 ogDescription: "Aggregate Claude, ChatGPT, Gemini, Grok, and Perplexity into one searchable archive."
-ogImage: "https://daintytrading.com/og/chatvault.png"
+ogImage: "https://telaloom.com/og/chatvault.png"
 lede: "One searchable archive for every conversation you’ve had with every model. Claude, ChatGPT, Gemini, Grok, Perplexity — all in one place, indexed by what you actually said and what they actually answered."
 metaChips:
   - label: "Category"
@@ -23,7 +23,7 @@ sidecard:
     - label: "Status"
       value: "In final testing"
     - label: "Site"
-      value: "chatvault.daintytrading.com"
+      value: "chatvault.telaloom.com"
     - label: "Backend"
       value: "Python"
     - label: "Database"
@@ -51,7 +51,7 @@ schemaExtra:
   operatingSystem: "Web"
   publisher:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 ---
 
 <h2>The problem</h2>

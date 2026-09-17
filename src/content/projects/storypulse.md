@@ -2,11 +2,11 @@
 type: "product"
 status: "testing"
 name: "StoryPulse"
-title: "StoryPulse — Instagram Growth Automation SaaS | Dainty Trading"
+title: "StoryPulse — Instagram Growth Automation SaaS | TelaLoom"
 description: "StoryPulse automates Instagram story views and reactions on behalf of connected accounts, drives profile visits and follower growth, and publishes AI-generated captions through the Meta Graph API."
 ogTitle: "StoryPulse — Instagram growth on autopilot"
 ogDescription: "Automated story views, AI captions, anti-detection, multi-account campaigns, Stripe-billed plans."
-ogImage: "https://daintytrading.com/og/storypulse.png"
+ogImage: "https://telaloom.com/og/storypulse.png"
 lede: "An Instagram growth-automation SaaS for creators and agencies. Automated story views and reactions drive profile visits; AI writes captions, hooks, and hashtags; multi-account campaigns target by hashtag, location, or competitor — with the anti-detection layer that decides whether any of it actually works."
 metaChips:
   - label: "Category"
@@ -23,7 +23,7 @@ sidecard:
     - label: "Status"
       value: "In development"
     - label: "Site"
-      value: "storypulse.daintytrading.com"
+      value: "storypulse.telaloom.com"
     - label: "Frontend"
       value: "Next.js"
     - label: "Database"
@@ -53,7 +53,7 @@ schemaExtra:
   operatingSystem: "Web"
   publisher:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 ---
 
 <h2>The problem</h2>

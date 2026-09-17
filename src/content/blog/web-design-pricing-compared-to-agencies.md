@@ -4,7 +4,7 @@ description: "Local agencies typically split website builds and SEO/GEO into two
 category: "Business"
 publishedDate: "2026-09-13"
 readTime: "4 min"
-ogImage: "https://daintytrading.com/og-card.png"
+ogImage: "https://telaloom.com/og-card.png"
 ---
 
 <p>We <a href="/blog/website-design-cost-australia-vs-offshore.html">wrote last week</a> about offshore vs. Australian pricing. The question we got back most was simpler: forget offshore, how do we compare to other local agencies? Roughly like this — a freelancer is $1,500–$5,000 for the build, nothing else. A boutique agency doing custom work is $3,000–$10,000+ for the build, then SEO gets quoted separately, usually as an $800–$2,500/month retainer if you want it at all. A branding-led agency — the ones who pitch you on "digital strategy" — starts around $15,000 and still treats SEO as an add-on line item. We're $6,900 AUD for a custom build, or $4,900 if you commit to 12 months of Growth after, and Local SEO & GEO setup is in that number, not quoted after.</p>

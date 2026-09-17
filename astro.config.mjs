@@ -6,7 +6,7 @@ import { defineConfig } from 'astro/config';
 // URL indexed. Instead src/pages/sitemap.xml.ts is a custom endpoint that
 // enumerates real routes at build time and emits classic /sitemap.xml directly.
 export default defineConfig({
-  site: 'https://daintytrading.com',
+  site: 'https://telaloom.com',
   output: 'static',
   trailingSlash: 'never',
   build: {

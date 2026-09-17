@@ -2,11 +2,11 @@
 type: "product"
 status: "live"
 name: "Email Cleanup"
-title: "Email Cleanup — Bulk Email Domain Validation API | Dainty Trading"
+title: "Email Cleanup — Bulk Email Domain Validation API | TelaLoom"
 description: "Email Cleanup is a FastAPI service for bulk email validation. Detects disposable providers, validates domains, and gives you a single endpoint for keeping your mailing lists healthy."
 ogTitle: "Email Cleanup"
 ogDescription: "FastAPI service for bulk email domain validation and disposable-provider detection."
-ogImage: "https://daintytrading.com/og/emailcleanup.png"
+ogImage: "https://telaloom.com/og/emailcleanup.png"
 lede: "A small, fast API that validates email addresses, flags disposable providers, and gives you a single endpoint for keeping mailing lists clean. Simple stack, simple price."
 metaChips:
   - label: "Category"
@@ -21,7 +21,7 @@ sidecard:
     - label: "Status"
       value: "Live"
     - label: "Domain"
-      value: "emailcleanup.daintytrading.com"
+      value: "emailcleanup.telaloom.com"
     - label: "Backend"
       value: "Python · FastAPI"
     - label: "Database"
@@ -45,7 +45,7 @@ schemaType: "WebAPI"
 schemaExtra:
   provider:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 ---
 
 <h2>The problem</h2>

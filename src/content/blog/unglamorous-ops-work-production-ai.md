@@ -4,7 +4,7 @@ description: "What happens after the AI demo: managing P99 latency, sanitizing P
 category: "AI · Engineering"
 publishedDate: "2026-06-10"
 readTime: "5 min"
-ogImage: "https://daintytrading.com/og-card.jpg"
+ogImage: "https://telaloom.com/og-card.jpg"
 ---
 
 <p>The operational work behind a production AI feature isn't prompt engineering—it's managing unpredictable latency, sanitizing PII from your logs, and gracefully handling structural failures when the model inevitably hallucinates malformed JSON. A reliable production AI agent takes months from proof of concept to stable deployment. The demo takes a weekend. The gap is filled with the unglamorous ops work required to keep the system alive when real, unpredictable users start interacting with it. If you're reading this, you probably already know that shipping an LLM feature isn't like shipping a standard CRUD application. The database returns in 15ms. The LLM might take 400ms, or it might take 14 seconds, or it might return a 529 overloaded error. The conversation around AI operations is often hijacked by vendors selling complex observability platforms. You don't need a massive new platform. You need a few specific, boring engineering practices.</p>
@@ -17,13 +17,13 @@ ogImage: "https://daintytrading.com/og-card.jpg"
 <p>Finally, assuming structured output works perfectly is a trap. You ask the model for an array of user objects. It returns a string that says, "Here is your JSON:" followed by a Markdown code block, followed by "Hope that helps!" Your standard <code>JSON.parse()</code> blows up, the backend throws a 500, and the user gets a generic error.</p>
 
 <h2>The better approach</h2>
-<p>At Dainty Trading, when we build client systems like CV Matcher or BrightPath, we treat the LLM as a hostile, unreliable, slow third-party API. Here is what that actually looks like in practice.</p>
+<p>At TelaLoom, when we build client systems like CV Matcher or BrightPath, we treat the LLM as a hostile, unreliable, slow third-party API. Here is what that actually looks like in practice.</p>
 
 <p><strong>Monitor P99s, not averages.</strong> Set up alerts specifically for P95 and P99 latency. We configure hard timeouts on our gateway layer. If the model doesn't respond in 8 seconds, we kill the connection and fall back. We'd rather show the user a fast error or a cached response than hang their session indefinitely while a model struggles to generate tokens.</p>
 
 <p><strong>Sanitize logs at the gateway.</strong> You need to log prompts to debug failures, but you cannot log PII. We use a lightweight local model or aggressive regex rules at the application edge to redact PII before the prompt ever hits our logging infrastructure. We log the system prompt, the token counts, and the latency, but the user's raw input is stripped of sensitive entities. We only keep the full payloads in short-lived, encrypted, compliance-audited storage for immediate debugging, and purge them within 7 days.</p>
 
-<p><strong>Implement defensive parsing and fallbacks.</strong> Never trust the LLM's structure. We use Zod in TypeScript or Pydantic in Python to strictly validate every response. But we don't just fail on validation errors. We write defensive extraction logic that strips Markdown formatting and attempts to salvage partial JSON structures. If the parsing completely fails, we have a fallback strategy: either retry the request with a lower temperature, or degrade gracefully to a non-AI feature. If you want us to help you <a href="https://daintytrading.com/contact.html">start a project</a>, getting these defensive layers right is where we spend the bulk of our integration time.</p>
+<p><strong>Implement defensive parsing and fallbacks.</strong> Never trust the LLM's structure. We use Zod in TypeScript or Pydantic in Python to strictly validate every response. But we don't just fail on validation errors. We write defensive extraction logic that strips Markdown formatting and attempts to salvage partial JSON structures. If the parsing completely fails, we have a fallback strategy: either retry the request with a lower temperature, or degrade gracefully to a non-AI feature. If you want us to help you <a href="https://telaloom.com/contact.html">start a project</a>, getting these defensive layers right is where we spend the bulk of our integration time.</p>
 
 <h2>Where this breaks</h2>
 <p>This defensive posture isn't free. Running PII redaction on every incoming prompt adds latency—usually 50 to 100ms if done locally—and increases your baseline compute costs. If you are building a low-margin consumer tool at scale, that overhead might break your unit economics.</p>

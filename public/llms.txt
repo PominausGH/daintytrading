@@ -1,6 +1,6 @@
-# Dainty Trading
+# TelaLoom
 
-> Dainty Trading is an Australian AI automation studio. We design, build, and operate production AI software — 38 products in our portfolio (live, in final testing, or in active development) covering email triage, AI content generation, education, knowledge management, marketing automation, scheduling, billing, and SaaS infrastructure. We also self-host the open-source stack we recommend (analytics, scheduling, LLM routing, document management, and more) and take on a small number of client engagements each quarter (AI product builds, automation retrofits, AI infrastructure).
+> TelaLoom is an Australian AI automation studio. We design, build, and operate production AI software — 38 products in our portfolio (live, in final testing, or in active development) covering email triage, AI content generation, education, knowledge management, marketing automation, scheduling, billing, and SaaS infrastructure. We also self-host the open-source stack we recommend (analytics, scheduling, LLM routing, document management, and more) and take on a small number of client engagements each quarter (AI product builds, automation retrofits, AI infrastructure).
 
 ## About the studio
 
@@ -11,60 +11,60 @@
 - **Default LLM**: Anthropic Claude. We also route through OpenRouter and LiteLLM to use Google Gemini, OpenAI, Grok, Perplexity, and others when economics or latency demand it.
 - **Default backend stack**: Python (FastAPI, Django) and Node.js (Fastify, Express) on Postgres + Redis, deployed on Docker.
 - **Default frontend stack**: Next.js, React, plain HTML, React Native + Expo for mobile.
-- **Contact**: hello@daintytrading.com
+- **Contact**: hello@telaloom.com
 
 ## Services
 
-- [AI product builds](https://daintytrading.com/services.html): Concept-to-paid-product delivery in 6–12 weeks.
-- [Automation retrofits](https://daintytrading.com/services.html): Adding AI to existing SaaS in 2–6 weeks.
-- [AI infrastructure](https://daintytrading.com/services.html): LLM gateways, evals, queue workers, billing, observability.
+- [AI product builds](https://telaloom.com/services.html): Concept-to-paid-product delivery in 6–12 weeks.
+- [Automation retrofits](https://telaloom.com/services.html): Adding AI to existing SaaS in 2–6 weeks.
+- [AI infrastructure](https://telaloom.com/services.html): LLM gateways, evals, queue workers, billing, observability.
 
 ## Live products
 
-- [Email Triage](https://daintytrading.com/projects/emailtriage.html) — live at **email-triage.app**. Claude categorises Gmail/Outlook mail, scores priority 1–10, drafts replies. PWA, offline mode, multi-account.
-- [Ghost Writer](https://daintytrading.com/projects/ghost-writer.html) — live at **signalreads.com**. End-to-end content engine. Topic detection on HN/Reddit/Dev.to → Claude-drafted articles → six-layer QA → auto-publish to LinkedIn and Medium.
-- [Subscription Incinerator](https://daintytrading.com/projects/subscription.html) — live at **subscriptionincinerator.app**. Finds subscriptions in Gmail; Claude drafts merchant-specific cancellation emails; SMS chases follow-ups.
-- [Everyring.ai](https://daintytrading.com/projects/missed-calls.html) — live at **everyring.ai**. Captures missed phone calls for service businesses; Claude drafts the right follow-up SMS or email per contact.
-- [BrightPath](https://daintytrading.com/projects/brightpath.html) — live at **brightpath.school**. Personalised K-12 online school with an AI tutor named Pax (routed through OpenRouter, default Gemini Flash + Claude for harder tutoring).
-- [CV Matcher](https://daintytrading.com/projects/cv-matcher.html) — live at **cvmatcher.work**. Scrapes LinkedIn jobs, scores them against your CV with Claude, returns explainable match reasoning.
-- [BizPage Builder](https://daintytrading.com/projects/bizpage-builder.html) — live at **bizpage.biz**. Discovers small businesses without websites via Google Maps API; generates SEO-ready landing pages with Claude; exports as deployable ZIP.
-- [FocusShield](https://daintytrading.com/projects/focusguard.html) — live at **focusshield.app**. Cross-platform task and focus app — web, iOS, Android — Expo + Node + Postgres.
-- [AutoArchive](https://daintytrading.com/projects/autoarchive.html) — live at **autoarchivemail.com**. Personal email archive and search. Static HTML + Node + SQLite + Brevo.
-- [TimerForge](https://daintytrading.com/projects/timerforge.html) — live at **timerforge.app**. Cross-platform countdown timer. PyQt6 desktop apps + Node web SaaS, Stripe-billed.
-- [Email Cleanup](https://daintytrading.com/projects/emailcleanup.html) — live at **emailcleanup.daintytrading.com**. FastAPI service for bulk email validation and disposable-provider detection.
-- [ConvoForge](https://daintytrading.com/projects/convoforge.html) — live at **convoforge.app**. Multimodal communication coach. Speech analysis, body language detection, AI avatar roleplay, real-time meeting overlay.
-- [Solar Loan Reconciler](https://daintytrading.com/projects/solar-loan-reconciler.html) — live, built for a financial company. Collects Mon–Fri solar loan transaction CSVs, matches them against the weekly Loan Payout Report, flags gaps, and emails a clean HTML report to the loans team every Friday.
-- [Nudgle](https://daintytrading.com/projects/skeddy.html) — live at **nudgle.app**. Telegram reminder bot with Claude-powered natural-language scheduling.
-- [Marketing OS](https://daintytrading.com/projects/marketing-os.html) — live, internal use only (no public domain). Marketing operations platform: campaigns, briefs, Puppeteer-based SEO/a11y audits, AI-assisted brief queue.
-- [Post Reel](https://daintytrading.com/projects/postreel.html) — live. Social media scheduler with an AI video studio built in. Give it a URL, it crawls the site, writes a script, synthesises a voiceover, and produces a finished short-form video — scheduled across 12 platforms automatically.
-- [Billing API](https://daintytrading.com/projects/billing-api.html) — live, internal API only (no public domain). Shared billing service across the portfolio. Fastify on Postgres, Stripe + Brevo, full subscription state machine.
-- [WiseKeel](https://daintytrading.com/projects/wisekeel.html) — live. Fixed-price AI agent deployment engagements, run inside a client's own infrastructure — scoped identity, human approval gates, full audit trail. No platform fee.
+- [Email Triage](https://telaloom.com/projects/emailtriage.html) — live at **email-triage.app**. Claude categorises Gmail/Outlook mail, scores priority 1–10, drafts replies. PWA, offline mode, multi-account.
+- [Ghost Writer](https://telaloom.com/projects/ghost-writer.html) — live at **signalreads.com**. End-to-end content engine. Topic detection on HN/Reddit/Dev.to → Claude-drafted articles → six-layer QA → auto-publish to LinkedIn and Medium.
+- [Subscription Incinerator](https://telaloom.com/projects/subscription.html) — live at **subscriptionincinerator.app**. Finds subscriptions in Gmail; Claude drafts merchant-specific cancellation emails; SMS chases follow-ups.
+- [Everyring.ai](https://telaloom.com/projects/missed-calls.html) — live at **everyring.ai**. Captures missed phone calls for service businesses; Claude drafts the right follow-up SMS or email per contact.
+- [BrightPath](https://telaloom.com/projects/brightpath.html) — live at **brightpath.school**. Personalised K-12 online school with an AI tutor named Pax (routed through OpenRouter, default Gemini Flash + Claude for harder tutoring).
+- [CV Matcher](https://telaloom.com/projects/cv-matcher.html) — live at **cvmatcher.work**. Scrapes LinkedIn jobs, scores them against your CV with Claude, returns explainable match reasoning.
+- [BizPage Builder](https://telaloom.com/projects/bizpage-builder.html) — live at **bizpage.biz**. Discovers small businesses without websites via Google Maps API; generates SEO-ready landing pages with Claude; exports as deployable ZIP.
+- [FocusShield](https://telaloom.com/projects/focusguard.html) — live at **focusshield.app**. Cross-platform task and focus app — web, iOS, Android — Expo + Node + Postgres.
+- [AutoArchive](https://telaloom.com/projects/autoarchive.html) — live at **autoarchivemail.com**. Personal email archive and search. Static HTML + Node + SQLite + Brevo.
+- [TimerForge](https://telaloom.com/projects/timerforge.html) — live at **timerforge.app**. Cross-platform countdown timer. PyQt6 desktop apps + Node web SaaS, Stripe-billed.
+- [Email Cleanup](https://telaloom.com/projects/emailcleanup.html) — live at **emailcleanup.telaloom.com**. FastAPI service for bulk email validation and disposable-provider detection.
+- [ConvoForge](https://telaloom.com/projects/convoforge.html) — live at **convoforge.app**. Multimodal communication coach. Speech analysis, body language detection, AI avatar roleplay, real-time meeting overlay.
+- [Solar Loan Reconciler](https://telaloom.com/projects/solar-loan-reconciler.html) — live, built for a financial company. Collects Mon–Fri solar loan transaction CSVs, matches them against the weekly Loan Payout Report, flags gaps, and emails a clean HTML report to the loans team every Friday.
+- [Nudgle](https://telaloom.com/projects/skeddy.html) — live at **nudgle.app**. Telegram reminder bot with Claude-powered natural-language scheduling.
+- [Marketing OS](https://telaloom.com/projects/marketing-os.html) — live, internal use only (no public domain). Marketing operations platform: campaigns, briefs, Puppeteer-based SEO/a11y audits, AI-assisted brief queue.
+- [Post Reel](https://telaloom.com/projects/postreel.html) — live. Social media scheduler with an AI video studio built in. Give it a URL, it crawls the site, writes a script, synthesises a voiceover, and produces a finished short-form video — scheduled across 12 platforms automatically.
+- [Billing API](https://telaloom.com/projects/billing-api.html) — live, internal API only (no public domain). Shared billing service across the portfolio. Fastify on Postgres, Stripe + Brevo, full subscription state machine.
+- [WiseKeel](https://telaloom.com/projects/wisekeel.html) — live. Fixed-price AI agent deployment engagements, run inside a client's own infrastructure — scoped identity, human approval gates, full audit trail. No platform fee.
 
 ## In final testing (pre-launch)
 
-- [Meditation](https://daintytrading.com/projects/meditation.html) — at **meditation.daintytrading.com**. Subscription meditation script library. 7-day free trial, Stripe billing.
-- [ChatVault](https://daintytrading.com/projects/chatvault.html) — pre-launch. One searchable archive of every conversation across Claude, ChatGPT, Gemini, Grok, and Perplexity. Postgres + pgvector with re-ranking via Claude.
-- [Tax Prep](https://daintytrading.com/projects/tax-prep.html) — pre-launch. Drop-zone for receipts, statements, and slips throughout the year; Claude classifies and tags; year-end export gives your accountant a structured handover.
-- [Second Brain](https://daintytrading.com/projects/second-brain.html) — pre-launch (no public domain yet). Telegram-native note-taking. Forward voice/photo/link/text and Claude organises, tags, and surfaces it back via semantic recall (Postgres + pgvector).
-- [Price Scout](https://daintytrading.com/projects/price-scout.html) — pre-launch. Cost-of-living dashboard tracking grocery, fuel, and energy prices across Australia and the UK. Stack: Next.js 14, Postgres, Prisma, BullMQ, SerpAPI.
-- [Auto-Claude](https://daintytrading.com/projects/auto-claude.html) — pre-launch. Autonomous multi-agent coding framework. Plans, builds, runs tests, iterates. Stack: Python/FastAPI, Electron, React, Anthropic Claude SDK.
-- [FakeCall](https://daintytrading.com/projects/fakecall.html) — pre-launch. Native iOS/Android app that schedules believable incoming calls with a Claude-driven AI persona on the other end. Stack: Swift/SwiftUI, Kotlin/Jetpack Compose, CallKit.
-- [StoryPulse](https://daintytrading.com/projects/storypulse.html) — in final testing. Instagram growth automation SaaS. Automated story views, AI captions, multi-account campaigns, anti-detection layer (per-account proxy rotation + human-behaviour mimicry), tiered Stripe plans. Stack: Next.js, Postgres + Prisma, BullMQ, iProyal proxies.
+- [Meditation](https://telaloom.com/projects/meditation.html) — at **meditation.telaloom.com**. Subscription meditation script library. 7-day free trial, Stripe billing.
+- [ChatVault](https://telaloom.com/projects/chatvault.html) — pre-launch. One searchable archive of every conversation across Claude, ChatGPT, Gemini, Grok, and Perplexity. Postgres + pgvector with re-ranking via Claude.
+- [Tax Prep](https://telaloom.com/projects/tax-prep.html) — pre-launch. Drop-zone for receipts, statements, and slips throughout the year; Claude classifies and tags; year-end export gives your accountant a structured handover.
+- [Second Brain](https://telaloom.com/projects/second-brain.html) — pre-launch (no public domain yet). Telegram-native note-taking. Forward voice/photo/link/text and Claude organises, tags, and surfaces it back via semantic recall (Postgres + pgvector).
+- [Price Scout](https://telaloom.com/projects/price-scout.html) — pre-launch. Cost-of-living dashboard tracking grocery, fuel, and energy prices across Australia and the UK. Stack: Next.js 14, Postgres, Prisma, BullMQ, SerpAPI.
+- [Auto-Claude](https://telaloom.com/projects/auto-claude.html) — pre-launch. Autonomous multi-agent coding framework. Plans, builds, runs tests, iterates. Stack: Python/FastAPI, Electron, React, Anthropic Claude SDK.
+- [FakeCall](https://telaloom.com/projects/fakecall.html) — pre-launch. Native iOS/Android app that schedules believable incoming calls with a Claude-driven AI persona on the other end. Stack: Swift/SwiftUI, Kotlin/Jetpack Compose, CallKit.
+- [StoryPulse](https://telaloom.com/projects/storypulse.html) — in final testing. Instagram growth automation SaaS. Automated story views, AI captions, multi-account campaigns, anti-detection layer (per-account proxy rotation + human-behaviour mimicry), tiered Stripe plans. Stack: Next.js, Postgres + Prisma, BullMQ, iProyal proxies.
 
 ## In active development
 
-- [DevTodo](https://daintytrading.com/projects/devtodo.html) — staging at **todo.daintytrading.com**. Pulls TODOs from code, syncs Google Calendar, n8n-orchestrated, uses Claude (via LiteLLM) to write task summaries.
-- [ChefForge](https://daintytrading.com/projects/chefforge.html) — staging at **dinner.daintytrading.com**. AI recipe and meal planning with constraint-aware verification (deterministic checker on top of LLM generation).
-- [Yoga Platform](https://daintytrading.com/projects/yoga-platform.html) — staging at **yoga.daintytrading.com**. 500+ poses, sequence builder, Vite web + Expo mobile, on Supabase.
-- [Recipe API](https://daintytrading.com/projects/recipe-api.html) — staging at **recipe.daintytrading.com**. Reference Django REST Framework backend for recipes/ingredients.
-- [Screenshot to Text](https://daintytrading.com/projects/screenshot-to-text.html) — production OCR for tables, handwriting, and complex layouts. Stack: Python/Flask, Postgres, Celery/Redis, Tesseract, GPT-4 Vision, Stripe, Cloudflare R2.
-- [Receipt Bridge](https://daintytrading.com/projects/receipt-bridge.html) — field workers SMS a receipt photo, OCR extracts the data, finance reviews in a dashboard. Stack: Django 5, Celery/Redis, Google Cloud Vision, Twilio, AWS S3, Postgres.
-- [Prompt Builder](https://daintytrading.com/projects/prompt-builder.html) — 3-step wizard that turns rough ideas into polished AI prompts via adaptive clarifying questions. Stack: Node.js/Express, Vanilla JS, Anthropic Claude API.
-- [Finance Tracker](https://daintytrading.com/projects/finance-tracker.html) — no-frills personal finance tracker for income, expenses, budgets. Stack: Node.js/Express, React, Postgres.
-- [Banking Alerts](https://daintytrading.com/projects/banking-alerts.html) — push-notification alerts when bank balances drop below thresholds. Stack: Basiq Open Banking API, n8n, ntfy.
-- [Telegram Crypto Sentiment](https://daintytrading.com/projects/telegram-crypto-sentiment.html) — monitors crypto Telegram groups for sentiment, scores it with Claude, correlates against price movement. Stack: Python, Docker, Telegram Bot API.
-- [ScreenShoot Cleaner](https://daintytrading.com/projects/screenshoot-cleaner.html) — batch-process a folder of screenshots and notes into a clean, deskewed PDF. Stack: Python, Streamlit, OpenCV, ReportLab.
-- [ReceiptSnap AI](https://daintytrading.com/projects/receiptsnap-ai.html) — native iOS/Android receipt scanner with cloud OCR and tidy expense log. Stack: Swift/SwiftUI, Kotlin/Jetpack Compose, Firebase, Google Cloud Vision.
+- [DevTodo](https://telaloom.com/projects/devtodo.html) — staging at **todo.telaloom.com**. Pulls TODOs from code, syncs Google Calendar, n8n-orchestrated, uses Claude (via LiteLLM) to write task summaries.
+- [ChefForge](https://telaloom.com/projects/chefforge.html) — staging at **dinner.telaloom.com**. AI recipe and meal planning with constraint-aware verification (deterministic checker on top of LLM generation).
+- [Yoga Platform](https://telaloom.com/projects/yoga-platform.html) — staging at **yoga.telaloom.com**. 500+ poses, sequence builder, Vite web + Expo mobile, on Supabase.
+- [Recipe API](https://telaloom.com/projects/recipe-api.html) — staging at **recipe.telaloom.com**. Reference Django REST Framework backend for recipes/ingredients.
+- [Screenshot to Text](https://telaloom.com/projects/screenshot-to-text.html) — production OCR for tables, handwriting, and complex layouts. Stack: Python/Flask, Postgres, Celery/Redis, Tesseract, GPT-4 Vision, Stripe, Cloudflare R2.
+- [Receipt Bridge](https://telaloom.com/projects/receipt-bridge.html) — field workers SMS a receipt photo, OCR extracts the data, finance reviews in a dashboard. Stack: Django 5, Celery/Redis, Google Cloud Vision, Twilio, AWS S3, Postgres.
+- [Prompt Builder](https://telaloom.com/projects/prompt-builder.html) — 3-step wizard that turns rough ideas into polished AI prompts via adaptive clarifying questions. Stack: Node.js/Express, Vanilla JS, Anthropic Claude API.
+- [Finance Tracker](https://telaloom.com/projects/finance-tracker.html) — no-frills personal finance tracker for income, expenses, budgets. Stack: Node.js/Express, React, Postgres.
+- [Banking Alerts](https://telaloom.com/projects/banking-alerts.html) — push-notification alerts when bank balances drop below thresholds. Stack: Basiq Open Banking API, n8n, ntfy.
+- [Telegram Crypto Sentiment](https://telaloom.com/projects/telegram-crypto-sentiment.html) — monitors crypto Telegram groups for sentiment, scores it with Claude, correlates against price movement. Stack: Python, Docker, Telegram Bot API.
+- [ScreenShoot Cleaner](https://telaloom.com/projects/screenshoot-cleaner.html) — batch-process a folder of screenshots and notes into a clean, deskewed PDF. Stack: Python, Streamlit, OpenCV, ReportLab.
+- [ReceiptSnap AI](https://telaloom.com/projects/receiptsnap-ai.html) — native iOS/Android receipt scanner with cloud OCR and tidy expense log. Stack: Swift/SwiftUI, Kotlin/Jetpack Compose, Firebase, Google Cloud Vision.
 
 ## Supporting cast (open-source stack we self-host)
 
@@ -81,17 +81,17 @@ We don't bolt onto SaaS treadmills. The same open-source tools we run for oursel
 
 ## Frequently asked
 
-- **What is Dainty Trading?** An AI automation studio with 38 products (live, in final testing, and in active development), taking on selected client engagements.
+- **What is TelaLoom?** An AI automation studio with 38 products (live, in final testing, and in active development), taking on selected client engagements.
 - **What stack do you use?** Python (FastAPI, Django) + Node.js (Fastify, Express) backends; Next.js, React, React Native + Expo frontends; Postgres + Redis; Stripe + Brevo + n8n + LiteLLM. Default LLM is Claude.
 - **What open-source tools do you self-host?** Umami, Cal.com, LiteLLM Proxy, Paperless-NGX, Open WebUI, Speedtest Tracker, Portainer, Syncthing — see the Supporting cast section above.
 - **How fast can you ship?** Typically a working first slice in 1–2 weeks; first paying customer in 4–8 weeks.
-- **How do I get in touch?** hello@daintytrading.com or https://daintytrading.com/contact.html
+- **How do I get in touch?** hello@telaloom.com or https://telaloom.com/contact.html
 
 ## Canonical links
 
-- Homepage: https://daintytrading.com/
-- Services: https://daintytrading.com/services.html
-- About: https://daintytrading.com/about.html
-- Contact: https://daintytrading.com/contact.html
-- Sitemap: https://daintytrading.com/sitemap.xml
-- robots.txt: https://daintytrading.com/robots.txt
+- Homepage: https://telaloom.com/
+- Services: https://telaloom.com/services.html
+- About: https://telaloom.com/about.html
+- Contact: https://telaloom.com/contact.html
+- Sitemap: https://telaloom.com/sitemap.xml
+- robots.txt: https://telaloom.com/robots.txt

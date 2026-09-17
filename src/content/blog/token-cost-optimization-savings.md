@@ -4,7 +4,7 @@ description: "The highest ROI strategies for reducing LLM token costs in product
 category: "AI · Engineering"
 publishedDate: "2026-06-07"
 readTime: "5 min"
-ogImage: "https://daintytrading.com/og-card.jpg"
+ogImage: "https://telaloom.com/og-card.jpg"
 ---
 
 <p>How do you optimize LLM token costs in production? The highest ROI comes from prompt caching, aggressive context trimming, routing simple tasks to smaller models, and capping output length. When you process 10,000+ requests a day, cutting your prompt context by 30% and caching the rest saves thousands of dollars a month. Most engineering teams overcomplicate cost reduction by immediately trying to fine-tune open-weights models or migrating to entirely new hosting ecosystems. The reality is that the fastest path to reducing your Anthropic or OpenAI bill by 80% is fixing your architecture and data hygiene, not replacing the frontier model entirely. The real savings are in the plumbing.</p>
@@ -19,7 +19,7 @@ ogImage: "https://daintytrading.com/og-card.jpg"
 
 <h2>The Better Approach</h2>
 
-<p>Here is what actually works. At Dainty Trading, we run systems like CV Matcher and Email Triage processing tens of thousands of requests daily. We don't host our own models. We aggressively optimize how we use the big ones.</p>
+<p>Here is what actually works. At TelaLoom, we run systems like CV Matcher and Email Triage processing tens of thousands of requests daily. We don't host our own models. We aggressively optimize how we use the big ones.</p>
 
 <p>First: <strong>Prompt Caching.</strong> If you are passing the same 50-page PDF, dense system instructions, or extensive few-shot examples into every request, you are burning money on every call. Both Anthropic and OpenAI support prompt caching. By moving static context to the absolute top of your prompt and structuring your calls to reuse that cached prefix, we typically see a 50–80% reduction in input token costs. For a high-volume feature, this single architectural change is transformative.</p>
 
@@ -41,7 +41,7 @@ ogImage: "https://daintytrading.com/og-card.jpg"
 
 <p>To cut costs this week, start with your output tokens. Audit your highest-volume API calls and hard-code a <code>max_tokens</code> limit that is exactly 20% above your expected response size. It takes five minutes and stops bleeding immediately. Next, identify the largest static block of text in your inputs (usually system prompts or RAG context rules) and restructure your API calls to utilize provider-native prompt caching.</p>
 
-<p>If you are dealing with spiraling inference costs and need help architecting a more efficient pipeline, <a href="https://daintytrading.com/contact.html">start a project</a> with us. We can help you implement these routing and caching strategies without degrading your product's performance or introducing unnecessary infrastructure complexity.</p>
+<p>If you are dealing with spiraling inference costs and need help architecting a more efficient pipeline, <a href="https://telaloom.com/contact.html">start a project</a> with us. We can help you implement these routing and caching strategies without degrading your product's performance or introducing unnecessary infrastructure complexity.</p>
 
 <div class="cast-philosophy" style="margin-top:40px;border-top:1px solid var(--border);padding-top:32px;">
 <p><strong>We build production AI, not prototypes.</strong>

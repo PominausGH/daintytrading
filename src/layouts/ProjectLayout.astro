@@ -18,7 +18,7 @@ const primarySchema: Record<string, unknown> = {
   '@type': data.schemaType,
   name: data.name,
   description: data.description,
-  ...(data.type === 'case-study' ? { url: `https://daintytrading.com${canonicalPath}` } : {}),
+  ...(data.type === 'case-study' ? { url: `https://telaloom.com${canonicalPath}` } : {}),
   ...(data.schemaExtra ?? {}),
 };
 
@@ -26,8 +26,8 @@ const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://daintytrading.com/' },
-    { '@type': 'ListItem', position: 2, name: 'Projects', item: 'https://daintytrading.com/work.html' },
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://telaloom.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Projects', item: 'https://telaloom.com/work.html' },
     { '@type': 'ListItem', position: 3, name: data.name },
   ],
 };

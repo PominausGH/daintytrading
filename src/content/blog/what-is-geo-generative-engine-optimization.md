@@ -4,7 +4,7 @@ description: "Generative engine optimization (GEO) is the practice of structurin
 category: "SEO & GEO"
 publishedDate: "2026-07-13"
 readTime: "4 min"
-ogImage: "https://daintytrading.com/og-card.png"
+ogImage: "https://telaloom.com/og-card.png"
 ---
 
 <p>Search didn't stop at Google. A meaningful share of the questions that used to trigger a search-and-click now get answered directly inside ChatGPT, Claude, or Perplexity — no visit to your site required, sometimes no visit possible even if the user wanted one, because the answer engine has already summarized it for them. Whether that summary is accurate, and whether it credits you at all, depends on whether your site is structured for a generative engine to read it correctly. That's GEO.</p>

@@ -2,11 +2,11 @@
 type: "product"
 status: "dev"
 name: "ScreenShoot Cleaner"
-title: "ScreenShoot Cleaner — Dainty Trading"
+title: "ScreenShoot Cleaner — TelaLoom"
 description: "Drop a folder of messy screenshots and notes, get back a single clean PDF. Auto-crops, deskews, and orders the images, then bundles them with any matching note files into a tidy export."
 ogTitle: "ScreenShoot Cleaner"
 ogDescription: "Drop a folder of messy screenshots and notes, get back a single clean PDF. Auto-crops, deskews, and orders the images, then bundles them with any matching note files into a tidy export."
-ogImage: "https://daintytrading.com/og/screenshoot-cleaner.png"
+ogImage: "https://telaloom.com/og/screenshoot-cleaner.png"
 lede: "Drop a folder of messy screenshots and notes, get back a single clean PDF. Auto-crops, deskews, and orders the images, then bundles them with any matching note files into a tidy export."
 metaChips:
   - label: "Category"
@@ -23,7 +23,7 @@ sidecard:
     - label: "Status"
       value: "In development"
     - label: "Site"
-      value: "screenshootcleaner.daintytrading.com"
+      value: "screenshootcleaner.telaloom.com"
     - label: "Backend"
       value: "Python · Streamlit"
     - label: "Image"
@@ -49,7 +49,7 @@ schemaExtra:
   operatingSystem: "Web"
   publisher:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 ---
 
 <h2>The problem</h2>

@@ -2,11 +2,11 @@
 type: "product"
 status: "live"
 name: "ConvoForge"
-title: "ConvoForge — Multimodal AI Communication Coach | Dainty Trading"
+title: "ConvoForge — Multimodal AI Communication Coach | TelaLoom"
 description: "ConvoForge is an AI communication coach. Real-time speech analysis, body-language feedback, AI avatar roleplay, and a live meeting overlay. Behavioural microlearning that compounds."
 ogTitle: "ConvoForge — multimodal communication coach"
 ogDescription: "Speech analysis, body-language feedback, AI avatar roleplay, live meeting overlay."
-ogImage: "https://daintytrading.com/og/convoforge.png"
+ogImage: "https://telaloom.com/og/convoforge.png"
 lede: "A behavioural-intelligence platform for the conversations that matter. Microlearning, real-time speech and body-language analysis, AI-avatar roleplay, and a live overlay that quietly coaches you mid-meeting."
 metaChips:
   - label: "Category"
@@ -60,8 +60,8 @@ schemaExtra:
   operatingSystem: "Web"
   publisher:
     "@type": "Organization"
-    name: "Dainty Trading"
-    url: "https://daintytrading.com"
+    name: "TelaLoom"
+    url: "https://telaloom.com"
 ---
 
 <h2>The problem</h2>

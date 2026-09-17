@@ -2,8 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 <BaseLayout
-  title="Website Brief & Agreement — Dainty Trading"
-  description="Tell us about your project, review the scope and fees, and sign your web design agreement with Dainty Trading online."
+  title="Website Brief & Agreement — TelaLoom"
+  description="Tell us about your project, review the scope and fees, and sign your web design agreement with TelaLoom online."
   canonicalPath="/agreement.html"
   robots="noindex, nofollow"
   chrome="full"
@@ -13,12 +13,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   - WEBHOOK_URL: points at the n8n "Web Design Agreement" webhook. The client's browser posts
     to it automatically right after signing (no manual click needed) — see sendRecord(). n8n
     stores the record, renders a PDF (by fetching this page, injecting window.__PREFILL__, and
-    printing it via Gotenberg), and emails Dainty Trading a countersign link + the client a receipt.
+    printing it via Gotenberg), and emails TelaLoom a countersign link + the client a receipt.
   - Prefill: any TEXT/checkbox/select field can be prefilled via query string using its name
     attribute, e.g. ?client_name=Darren%20Smith&project_name=New%20site&total_fee=%243%2C500
     Checkbox groups take comma-separated values: ?pages=Home,About,Contact
   - ?lock=project makes the Project & fees section read-only for the client.
-  - ?countersign=1&ref=<reference>: the link n8n emails Dainty Trading after a client signs.
+  - ?countersign=1&ref=<reference>: the link n8n emails TelaLoom after a client signs.
     Reveals the provider signature box (hidden from clients — see allowCountersign) immediately
     on load, and once countersigned, posts a minimal {event:'countersign_only', reference, ...}
     payload that the webhook merges with the original client-signed record it already has on file.
@@ -142,7 +142,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <section class="detail-hero agreement-hero">
   <div class="container">
     <p class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; Website brief &amp; agreement</p>
-    <p class="print-only" style="font-size:13px;color:var(--text-muted);margin:0 0 6px;">Dainty Trading · daintytrading.com</p>
+    <p class="print-only" style="font-size:13px;color:var(--text-muted);margin:0 0 6px;">TelaLoom · telaloom.com</p>
     <h1>Website brief and design agreement</h1>
     <p class="lede">Tell us about your business and what you need, check the project details and terms, then sign on screen. You can print or save a PDF copy at any time.</p>
   </div>
@@ -170,7 +170,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <h3>Service provider</h3>
   <div class="grid">
     <label class="f">Name<input type="text" name="provider_name" value="Andrew [surname]"></label>
-    <label class="f">Trading as<input type="text" name="provider_trading" value="Dainty Trading"></label>
+    <label class="f">Trading as<input type="text" name="provider_trading" value="TelaLoom"></label>
     <label class="f">ABN<input type="text" name="provider_abn" value=""></label>
     <label class="f">Email<input type="email" name="provider_email" value=""></label>
   </div>
@@ -255,7 +255,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <!-- 3. PROJECT (Schedule 1) -->
 <section class="sheet break" id="project">
   <h2>Project and fees</h2>
-  <p class="sub">Schedule 1. Completed by Dainty Trading after reviewing your brief.</p>
+  <p class="sub">Schedule 1. Completed by TelaLoom after reviewing your brief.</p>
   <div class="grid">
     <label class="f full">Project name<input type="text" name="project_name"></label>
     <label class="f full">Scope<textarea name="scope"></textarea></label>
@@ -370,12 +370,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </div>
 
     <div class="sig" data-party="provider" id="providerSig" hidden>
-      <h4>Provider, Dainty Trading</h4>
+      <h4>Provider, TelaLoom</h4>
       <label class="f">Full name<input type="text" name="provider_sign_name"></label>
       <label class="f" style="margin-top:10px">Position<input type="text" name="provider_sign_role" value="Sole trader"></label>
       <div class="pad-wrap"><canvas class="pad" aria-label="Provider signature pad" tabindex="0"></canvas></div>
       <div class="pad-tools"><span>Sign above the line</span><button type="button" class="btn btn-ghost small" data-clear>Clear</button></div>
-      <label class="agree"><input type="checkbox" name="provider_agree"> <span>I agree to this Agreement on behalf of Dainty Trading.</span></label>
+      <label class="agree"><input type="checkbox" name="provider_agree"> <span>I agree to this Agreement on behalf of TelaLoom.</span></label>
       <div class="signed-stamp"></div>
     </div>
   </div>
@@ -383,7 +383,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <div class="actions">
     <button type="button" class="btn btn-primary" id="signBtn">Sign agreement</button>
     <button type="button" class="btn btn-ghost" data-print>Print or save PDF</button>
-    <button type="button" class="btn btn-ghost no-print" id="counterBtn" hidden>Countersign as Dainty Trading</button>
+    <button type="button" class="btn btn-ghost no-print" id="counterBtn" hidden>Countersign as TelaLoom</button>
     <button type="button" class="btn btn-ghost no-print" id="sendBtn" hidden>Send signed copy</button>
   </div>
   <div class="msg" id="msg" role="status" aria-live="polite"></div>
@@ -393,7 +393,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 </main>
 
 <script>
-const WEBHOOK_URL = 'https://n8n.daintytrading.com/webhook/agreement-signed';
+const WEBHOOK_URL = 'https://n8n.telaloom.com/webhook/agreement-signed';
 
 const GROUPS = {
   goals: ['Get enquiries or leads','Take bookings','Sell products online','Show our work','Share information','Build trust'],
@@ -404,7 +404,7 @@ const GROUPS = {
   features: ['Contact form','Online booking','Online payments','Online shop','Newsletter sign-up','Google Map','Social media links','Reviews','Live chat','Member login','Multiple languages','Blog'],
   copy: ["I'll supply all text",'I need help writing it','A mix of both'],
   photos: ['I have my own','Use stock photos','Need a photographer'],
-  updates: ["I'll update it myself",'Dainty Trading manages updates','Not sure'],
+  updates: ["I'll update it myself",'TelaLoom manages updates','Not sure'],
   ongoing: ['Hosting and maintenance','SEO and Google ranking','Monthly reporting'],
   gst: ['Includes GST','No GST (provider not registered)'],
 };
@@ -438,7 +438,7 @@ if (qs.get('lock') === 'project') {
     if (e.type === 'radio') e.closest('label').style.pointerEvents = 'none'; else e.readOnly = true;
   });
 }
-// Provider countersignature is only ever offered on a link Dainty Trading opens itself
+// Provider countersignature is only ever offered on a link TelaLoom opens itself
 // (emailed by the webhook after the client signs) — never exposed in the client's own
 // signing session, so a client can't complete both signatures themselves. On that link,
 // the client's own sign box has nothing to do here either, so it's swapped out entirely
@@ -451,7 +451,7 @@ if (allowCountersign) {
   providerSigBox.hidden = false;
   document.getElementById('signBtn').hidden = true;
   document.getElementById('counterBtn').hidden = false;
-  document.getElementById('sign-sub').textContent = 'Review the details above, then sign in the box below to countersign on behalf of Dainty Trading.';
+  document.getElementById('sign-sub').textContent = 'Review the details above, then sign in the box below to countersign on behalf of TelaLoom.';
 }
 
 // Mirror textareas for print
@@ -550,7 +550,7 @@ document.getElementById('signBtn').addEventListener('click', async () => {
 
   document.getElementById('audit').innerHTML =
     `<strong>Reference ${ref}</strong><br>Signed ${now.toISOString()}<br>Content fingerprint (SHA-256): ${hash}` +
-    '<br>Awaiting countersignature by Dainty Trading.';
+    '<br>Awaiting countersignature by TelaLoom.';
 
   signedRecord = {
     reference: ref, signed_at: now.toISOString(), timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
@@ -561,10 +561,10 @@ document.getElementById('signBtn').addEventListener('click', async () => {
   };
   document.getElementById('signBtn').hidden = true;
   if (WEBHOOK_URL) {
-    say('Signed. Sending your copy to Dainty Trading…');
+    say('Signed. Sending your copy to TelaLoom…');
     await sendRecord();
   } else {
-    say('Signed. Save a PDF using Print, and email it to Dainty Trading.', 'ok');
+    say('Signed. Save a PDF using Print, and email it to TelaLoom.', 'ok');
   }
 });
 
@@ -582,7 +582,7 @@ document.getElementById('counterBtn').addEventListener('click', async () => {
   pv.sig.querySelector('.signed-stamp').textContent = `Signed electronically by ${nameEl.value.trim()}, ${stamp}`;
   pv.sig.querySelectorAll('input').forEach(e => { e.readOnly = true; }); ag.closest('.agree').style.pointerEvents = 'none';
   const audit = document.getElementById('audit');
-  audit.innerHTML = audit.innerHTML.replace('Awaiting countersignature by Dainty Trading.', 'Countersigned ' + now.toISOString());
+  audit.innerHTML = audit.innerHTML.replace('Awaiting countersignature by TelaLoom.', 'Countersigned ' + now.toISOString());
   document.getElementById('counterBtn').hidden = true; refreshPrintImages();
 
   // Same-session case (client and provider signed in one sitting, e.g. together on a call):
@@ -595,7 +595,7 @@ document.getElementById('counterBtn').addEventListener('click', async () => {
     payload = signedRecord;
   } else {
     // Remote case: this is a fresh session opened from the countersign link the webhook
-    // emailed to Dainty Trading (?countersign=1&ref=...). We never held the client's data
+    // emailed to TelaLoom (?countersign=1&ref=...). We never held the client's data
     // here, so send just the provider's part; the webhook merges it with the original
     // client-signed record it already has on file, keyed by reference.
     payload = {
@@ -625,7 +625,7 @@ async function sendRecord(payload) {
     const r = await fetch(WEBHOOK_URL, { method:'POST', headers:{ 'Content-Type':'application/json' }, body: JSON.stringify(payload) });
     if (!r.ok) throw new Error('HTTP ' + r.status);
     say(isCountersign ? 'Sent. Both parties now have a copy of the fully signed agreement.'
-                       : 'Sent. Dainty Trading has your signed copy — save a PDF for your own records too.', 'ok');
+                       : 'Sent. TelaLoom has your signed copy — save a PDF for your own records too.', 'ok');
     b.hidden = true; b.disabled = false;
   } catch (e) {
     b.hidden = false; b.disabled = false;
@@ -685,7 +685,7 @@ if (window.__PREFILL__) (async () => {
 
     document.getElementById('audit').innerHTML =
       `<strong>Reference ${rec.reference}</strong><br>Signed ${rec.signed_at}<br>Content fingerprint (SHA-256): ${rec.sha256}` +
-      (rec.countersigned_at ? `<br>Countersigned ${rec.countersigned_at}` : '<br>Awaiting countersignature by Dainty Trading.');
+      (rec.countersigned_at ? `<br>Countersigned ${rec.countersigned_at}` : '<br>Awaiting countersignature by TelaLoom.');
 
     refreshPrintImages();
   } catch (e) {

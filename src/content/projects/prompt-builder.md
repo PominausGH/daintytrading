@@ -2,11 +2,11 @@
 type: "product"
 status: "dev"
 name: "Prompt Builder"
-title: "Prompt Builder — Dainty Trading"
+title: "Prompt Builder — TelaLoom"
 description: "A 3-step wizard that helps non-technical users write detailed, effective AI prompts. Takes a rough idea, asks the right clarifying questions, and outputs a polished prompt ready to paste into any model."
 ogTitle: "Prompt Builder"
 ogDescription: "A 3-step wizard that helps non-technical users write detailed, effective AI prompts. Takes a rough idea, asks the right clarifying questions, and outputs a polished prompt ready to paste into any model."
-ogImage: "https://daintytrading.com/og/prompt-builder.png"
+ogImage: "https://telaloom.com/og/prompt-builder.png"
 lede: "A 3-step wizard that helps non-technical users write detailed, effective AI prompts. Takes a rough idea, asks the right clarifying questions, and outputs a polished prompt ready to paste into any model."
 metaChips:
   - label: "Category"
@@ -23,7 +23,7 @@ sidecard:
     - label: "Status"
       value: "In development"
     - label: "Site"
-      value: "promptbuilder.daintytrading.com"
+      value: "promptbuilder.telaloom.com"
     - label: "Backend"
       value: "Node.js · Express"
     - label: "Frontend"
@@ -49,7 +49,7 @@ schemaExtra:
   operatingSystem: "Web"
   publisher:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 ---
 
 <h2>The problem</h2>

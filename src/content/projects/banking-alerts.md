@@ -2,11 +2,11 @@
 type: "product"
 status: "dev"
 name: "Banking Alerts"
-title: "Banking Alerts — Dainty Trading"
+title: "Banking Alerts — TelaLoom"
 description: "Push-notification alerts when bank balances drop below thresholds. No app to install, no SaaS subscription — just an n8n flow on top of Open Banking that pings your phone when something needs attention."
 ogTitle: "Banking Alerts"
 ogDescription: "Push-notification alerts when bank balances drop below thresholds. No app to install, no SaaS subscription — just an n8n flow on top of Open Banking that pings your phone when something needs attention."
-ogImage: "https://daintytrading.com/og/banking-alerts.png"
+ogImage: "https://telaloom.com/og/banking-alerts.png"
 lede: "Push-notification alerts when bank balances drop below thresholds. No app to install, no SaaS subscription — just an n8n flow on top of Open Banking that pings your phone when something needs attention."
 metaChips:
   - label: "Category"
@@ -23,7 +23,7 @@ sidecard:
     - label: "Status"
       value: "In development"
     - label: "Site"
-      value: "banking.daintytrading.com"
+      value: "banking.telaloom.com"
     - label: "Banking"
       value: "Basiq Open Banking API"
     - label: "Orchestration"
@@ -49,7 +49,7 @@ schemaExtra:
   operatingSystem: "Web"
   publisher:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 ---
 
 <h2>The problem</h2>

@@ -18,7 +18,7 @@ function renderNotes(notes) {
     return;
   }
   list.innerHTML = notes.map(function (n) {
-    var badge = n.author === 'studio' ? '<span class="note-badge">Dainty Trading</span> ' : '';
+    var badge = n.author === 'studio' ? '<span class="note-badge">TelaLoom</span> ' : '';
     var meta = badge + adminEscapeHtml(n.name) + ' &middot; ' + adminFormatDate(n.submittedAt) +
       (n.targetDate ? ' &middot; target: ' + adminEscapeHtml(n.targetDate) : '') +
       (n.editedAt ? ' &middot; edited' : '');

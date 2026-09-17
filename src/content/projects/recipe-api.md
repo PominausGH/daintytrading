@@ -2,11 +2,11 @@
 type: "product"
 status: "dev"
 name: "Recipe API"
-title: "Recipe API — Django REST Backend for Recipes | Dainty Trading"
+title: "Recipe API — Django REST Backend for Recipes | TelaLoom"
 description: "Recipe API is a clean Django REST Framework backend for recipes and ingredients with filtering, pagination, and authentication. The reference backend for any recipe front-end you want to build."
 ogTitle: "Recipe API"
 ogDescription: "Django REST API for recipes and ingredients."
-ogImage: "https://daintytrading.com/og/recipe-api.png"
+ogImage: "https://telaloom.com/og/recipe-api.png"
 lede: "A clean, well-tested Django REST Framework backend for recipes and ingredients. Filtering, pagination, token auth, an OpenAPI schema, and a docker-compose that brings the whole thing up in one command."
 metaChips:
   - label: "Category"
@@ -21,7 +21,7 @@ sidecard:
     - label: "Status"
       value: "In development"
     - label: "Domain"
-      value: "recipe.daintytrading.com"
+      value: "recipe.telaloom.com"
     - label: "Backend"
       value: "Python · Django · DRF"
     - label: "Database"
@@ -45,7 +45,7 @@ schemaType: "WebAPI"
 schemaExtra:
   provider:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 ---
 
 <h2>The problem</h2>

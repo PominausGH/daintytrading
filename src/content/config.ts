@@ -64,7 +64,7 @@ const blog = defineCollection({
     category: z.string(),
     publishedDate: z.coerce.date(),
     readTime: z.string(), // e.g. "4 min", as shown on every post + the blog index card
-    ogImage: z.string().default('https://daintytrading.com/og-card.jpg'),
+    ogImage: z.string().default('https://telaloom.com/og-card.jpg'),
   }),
 });
 

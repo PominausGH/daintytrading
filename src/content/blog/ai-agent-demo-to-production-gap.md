@@ -4,7 +4,7 @@ description: "The gap between an AI agent demo and a shipped product isn't the m
 category: "AI · Engineering"
 publishedDate: "2026-08-20"
 readTime: "4 min"
-ogImage: "https://daintytrading.com/og-card.png"
+ogImage: "https://telaloom.com/og-card.png"
 ---
 
 <p>Most AI agent demos take a weekend to build. Most AI agents that survive contact with real users take three to six months longer than that to ship — and the majority of projects never close that gap. They stall in an internal Slack channel as "the thing we showed leadership," get quietly deprioritized, or ship and get turned off after the first bad week. The reason isn't the model. It's that a demo only has to work once, in front of a friendly audience, on inputs you chose. A shipped agent has to work on the thousandth input, chosen by someone who doesn't care how it works and has no patience for it failing.</p>
@@ -23,4 +23,4 @@ ogImage: "https://daintytrading.com/og-card.png"
 <p>This is real overhead, and for some projects it's not worth paying yet. A single-user internal tool with low stakes and a forgiving audience doesn't need a hundred-example eval harness before its first real use — it needs someone watching the logs for a week. Building the full guardrail stack before you have any real usage data is its own trap: you end up hardening against failure modes you invented instead of the ones that actually occur. The honest line is stakes and reversibility. An agent that drafts an email for a human to approve can ship rough. An agent that sends the email, deletes a record, or moves money needs the eval set and the fallback path before it touches a real user, not after.</p>
 
 <h2>Practical next step</h2>
-<p>Take your current demo and run it against twenty inputs you didn't write yourself — pull them from support tickets, ask a colleague to try to break it, or grab real (anonymized) user data if you have it. Log every failure, even the ones that seem minor. That list is your first eval set and your actual roadmap to shipping, and it will look nothing like your demo script. If you want a second pair of eyes on where your agent is likely to fail before your users find out, <a href="https://daintytrading.com/contact.html">start a project</a> with us.</p>
+<p>Take your current demo and run it against twenty inputs you didn't write yourself — pull them from support tickets, ask a colleague to try to break it, or grab real (anonymized) user data if you have it. Log every failure, even the ones that seem minor. That list is your first eval set and your actual roadmap to shipping, and it will look nothing like your demo script. If you want a second pair of eyes on where your agent is likely to fail before your users find out, <a href="https://telaloom.com/contact.html">start a project</a> with us.</p>

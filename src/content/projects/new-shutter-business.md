@@ -1,11 +1,11 @@
 ---
 type: "case-study"
 name: "New Shutter Business"
-title: "New Shutter Business — Built From the First One’s Results | Dainty Trading"
-description: "Dainty Trading built a second, trade-price self-install shutters business for a client, launched off the back of the SEO/GEO results we delivered for their first business — full Next.js build with a DIY measure calculator and SEO/GEO built in."
+title: "New Shutter Business — Built From the First One’s Results | TelaLoom"
+description: "TelaLoom built a second, trade-price self-install shutters business for a client, launched off the back of the SEO/GEO results we delivered for their first business — full Next.js build with a DIY measure calculator and SEO/GEO built in."
 ogTitle: "New Shutter Business — Built From the First One’s Results"
 ogDescription: "A self-install plantation shutters business, launched off the back of an SEO/GEO win for the client's first business."
-ogImage: "https://daintytrading.com/og-card.jpg"
+ogImage: "https://telaloom.com/og-card.jpg"
 lede: "The same client behind Shuttersmith — after our SEO/GEO work sent them more business than their first shutters company could hold. So they backed a second one: a trade-price, self-install spinoff. We built that site too."
 metaChips:
   - label: "Client"
@@ -45,7 +45,7 @@ schemaExtra:
   about: "Website and DIY measure-and-quote build for a second, self-install plantation shutters business."
   creator:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 client: "New Shutter Business"
 ---
 

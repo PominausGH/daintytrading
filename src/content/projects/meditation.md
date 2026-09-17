@@ -2,11 +2,11 @@
 type: "product"
 status: "testing"
 name: "Meditation"
-title: "Meditation — Subscription Meditation Library | Dainty Trading"
+title: "Meditation — Subscription Meditation Library | TelaLoom"
 description: "A subscription meditation library with a 7-day free trial, Stripe billing, and a content gate that doesn't feel like a content gate. Built on Next.js and FastAPI."
 ogTitle: "Meditation — guided scripts as a subscription"
 ogDescription: "Library of guided meditation scripts with a 7-day free trial and Stripe billing."
-ogImage: "https://daintytrading.com/og/meditation.png"
+ogImage: "https://telaloom.com/og/meditation.png"
 lede: "A subscription library of guided meditation scripts. Seven-day free trial, Stripe billing, content gating that respects the reader, and a Next.js front-end that loads in under a second on a slow phone."
 metaChips:
   - label: "Category"
@@ -23,7 +23,7 @@ sidecard:
     - label: "Status"
       value: "In final testing"
     - label: "Domain"
-      value: "meditation.daintytrading.com"
+      value: "meditation.telaloom.com"
     - label: "Frontend"
       value: "Next.js 14"
     - label: "Backend"
@@ -36,7 +36,7 @@ sidecard:
       value: "Stripe"
   primaryCta:
     label: "Visit Meditation →"
-    href: "https://meditation.daintytrading.com"
+    href: "https://meditation.telaloom.com"
   ghostCta:
     label: "Build something similar"
     href: "/contact.html"
@@ -54,7 +54,7 @@ schemaExtra:
   operatingSystem: "Web"
   publisher:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 ---
 
 <h2>The problem</h2>

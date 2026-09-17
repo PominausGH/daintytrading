@@ -2,11 +2,11 @@
 type: "product"
 status: "live"
 name: "WiseKeel"
-title: "WiseKeel — Secure AI Agent Deployment for Business | Dainty Trading"
+title: "WiseKeel — Secure AI Agent Deployment for Business | TelaLoom"
 description: "WiseKeel designs, deploys, and governs AI agents inside a client's own infrastructure — scoped access, human approval gates, full audit trail. Fixed-price engagements, no platform fee."
 ogTitle: "WiseKeel — secure AI agent deployment for business"
 ogDescription: "Deploys inside a client's own infrastructure — scoped access, human approval gates, full audit trail. No platform fee."
-ogImage: "https://daintytrading.com/og-card.jpg"
+ogImage: "https://telaloom.com/og-card.jpg"
 lede: "A keel isn’t there to slow the ship down — it’s there so the ship doesn’t roll over the first time it’s under load. WiseKeel runs fixed-price engagements that put AI agents to real, governed use inside a client’s own infrastructure — scoped identity, human approval gates, a full audit trail, and nothing of ours sitting on their monthly bill."
 metaChips:
   - label: "Category"
@@ -59,8 +59,8 @@ schemaExtra:
   serviceType: "AI agent deployment and governance"
   provider:
     "@type": "Organization"
-    name: "Dainty Trading"
-    url: "https://daintytrading.com"
+    name: "TelaLoom"
+    url: "https://telaloom.com"
 ---
 
 <h2>The problem</h2>

@@ -8,9 +8,9 @@ const jsonLd = [
   {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
-    name: 'Dainty Trading',
+    name: 'TelaLoom',
     description: 'AI development agency in Australia. We build production LLM software — AI products, automation retrofits, and AI infrastructure — for Australian businesses and global teams.',
-    url: 'https://daintytrading.com',
+    url: 'https://telaloom.com',
     areaServed: [
       { '@type': 'Country', name: 'Australia' },
       { '@type': 'AdministrativeArea', name: 'New South Wales' },
@@ -22,9 +22,9 @@ const jsonLd = [
       '@type': 'OfferCatalog',
       name: 'AI development services',
       itemListElement: [
-        { '@type': 'Offer', name: 'AI product builds', url: 'https://daintytrading.com/services/ai-product-builds.html' },
-        { '@type': 'Offer', name: 'AI automation retrofits', url: 'https://daintytrading.com/services/ai-automation-retrofit.html' },
-        { '@type': 'Offer', name: 'AI infrastructure', url: 'https://daintytrading.com/services/ai-infrastructure.html' },
+        { '@type': 'Offer', name: 'AI product builds', url: 'https://telaloom.com/services/ai-product-builds.html' },
+        { '@type': 'Offer', name: 'AI automation retrofits', url: 'https://telaloom.com/services/ai-automation-retrofit.html' },
+        { '@type': 'Offer', name: 'AI infrastructure', url: 'https://telaloom.com/services/ai-infrastructure.html' },
       ],
     },
   },
@@ -32,7 +32,7 @@ const jsonLd = [
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: [
-      { '@type': 'Question', name: 'Is Dainty Trading based in Australia?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Dainty Trading is an Australia-based AI development agency. We work async with Australian and international clients and are available in AEST timezone for real-time collaboration.' } },
+      { '@type': 'Question', name: 'Is TelaLoom based in Australia?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. TelaLoom is an Australia-based AI development agency. We work async with Australian and international clients and are available in AEST timezone for real-time collaboration.' } },
       { '@type': 'Question', name: 'What currencies do you invoice in?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. We invoice in AUD and USD. Australian clients pay in AUD; international clients in USD.' } },
       { '@type': 'Question', name: 'What AI software have you built for Australian use cases?', acceptedAnswer: { '@type': 'Answer', text: 'Our portfolio includes BrightPath (K-12 education platform with AI tutor), Email Triage, Everyring.ai (missed call follow-up for service businesses), BizPage Builder (local business websites), and Price Scout (cost-of-living tracker for Australian households). All built and operated by our Australian team.' } },
       { '@type': 'Question', name: 'Do you work with Australian startups or only enterprise?', acceptedAnswer: { '@type': 'Answer', text: 'We work primarily with founders and product teams at startups and scale-ups — typically pre-Series B. Our sprint-based model and fixed-price engagements suit teams that need fast results without a large agency overhead.' } },
@@ -42,8 +42,8 @@ const jsonLd = [
 ];
 ---
 <BaseLayout
-  title="AI Development Agency Australia — Production AI Software | Dainty Trading"
-  description={`Dainty Trading is an Australian AI development agency. We build production LLM software for Australian businesses and global teams. ${counts.live} products live. First demo in 2 weeks. AEST timezone.`}
+  title="AI Development Agency Australia — Production AI Software | TelaLoom"
+  description={`TelaLoom is an Australian AI development agency. We build production LLM software for Australian businesses and global teams. ${counts.live} products live. First demo in 2 weeks. AEST timezone.`}
   canonicalPath="/australia.html"
   hreflangAlternates={true}
   jsonLd={jsonLd}
@@ -54,7 +54,7 @@ const jsonLd = [
         <span class="eyebrow">AI Development Agency &middot; Australia &middot; {counts.live} Live AI Products</span>
         <h1>AI Development Agency in Australia</h1>
         <p class="lead">
-          Dainty Trading is an Australian AI development studio. We design, build, and run
+          TelaLoom is an Australian AI development studio. We design, build, and run
           production AI software &mdash; for our own {counts.total}-product portfolio and for Australian
           businesses that need reliable AI features fast. No demos, no slide-deck AI.
           Real software that runs in production.
@@ -141,7 +141,7 @@ const jsonLd = [
       <div class="container">
         <div class="section-head">
           <h2>Products Built and Running</h2>
-          <p>A sample of what we&rsquo;ve shipped &mdash; all live, all clickable. Full portfolio at <a href="/work.html">daintytrading.com</a>.</p>
+          <p>A sample of what we&rsquo;ve shipped &mdash; all live, all clickable. Full portfolio at <a href="/work.html">telaloom.com</a>.</p>
         </div>
         <div class="project-grid">
           <a class="project-card" href="/projects/brightpath.html"><span class="tag">AI · Education</span><h3>BrightPath</h3><p>K&ndash;12 online school with AI tutor Pax, gamified rewards, and progress tracking. Full product from concept to live.</p><span class="arrow">Read the story &rarr;</span></a>
@@ -161,7 +161,7 @@ const jsonLd = [
           <p>Common questions from Australian businesses considering an AI development engagement.</p>
         </div>
         <div class="faq-list">
-          <details class="faq-item" open><summary>Is Dainty Trading based in Australia?</summary><p>Yes. We are an Australia-based studio, operating in AEST. We work async with Australian and international clients and can do real-time calls during business hours across all Australian timezones.</p></details>
+          <details class="faq-item" open><summary>Is TelaLoom based in Australia?</summary><p>Yes. We are an Australia-based studio, operating in AEST. We work async with Australian and international clients and can do real-time calls during business hours across all Australian timezones.</p></details>
           <details class="faq-item"><summary>What currencies do you invoice in?</summary><p>Yes &mdash; AUD for Australian clients, USD for international clients. Simple and flexible.</p></details>
           <details class="faq-item"><summary>Do you understand Australian data privacy requirements?</summary><p>Yes. We build with the Australian Privacy Act 1988 (APPs) as a default architecture consideration &mdash; not an afterthought. For products handling personal information, we can route LLM calls through AU-region cloud infrastructure and help you build a compliant data processing architecture.</p></details>
           <details class="faq-item"><summary>What Australian industries have you built AI for?</summary><p>Education, service businesses, content marketing, personal finance, field operations, and health and wellness. Our portfolio spans these sectors &mdash; all live products, not case studies.</p></details>

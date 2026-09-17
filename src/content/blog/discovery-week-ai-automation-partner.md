@@ -4,7 +4,7 @@ description: "A concrete walkthrough of a discovery week: what gets mapped, what
 category: "Process"
 publishedDate: "2026-08-29"
 readTime: "4 min"
-ogImage: "https://daintytrading.com/og-card.png"
+ogImage: "https://telaloom.com/og-card.png"
 ---
 
 <p>Most "discovery" engagements produce a slide deck. Ours produces a decision: which workflow to automate first, which ones to leave alone, and what it costs to find out you were wrong. A good discovery week ends with a scoped pilot and a rejected list — not a roadmap that reads well in a boardroom and dies on contact with your actual data.</p>
@@ -25,7 +25,7 @@ ogImage: "https://daintytrading.com/og-card.png"
 
 <p>Day four, we rule things out. This is the part clients don't expect but end up valuing most. Not every workflow is worth automating with an LLM. Some are better served by a deterministic rule, a regex, or honestly, nothing — the volume doesn't justify the maintenance cost. On <strong>AutoArchive Mail</strong>, we killed two of the three proposed automations before writing code, because the actual volume was low enough that a human doing it manually cost less than building and maintaining a pipeline. Ruling things out is the deliverable, not a failure to find work.</p>
 
-<p>Day five, we write the scope. Not a roadmap — a single pilot: one workflow, a defined success metric, a cost estimate for both build and ongoing inference, and an explicit list of what we're not building yet. If you want to see how this plays out end to end, <a href="https://daintytrading.com/contact.html">start a project</a> and we'll walk you through what week one would look like for your specific stack.</p>
+<p>Day five, we write the scope. Not a roadmap — a single pilot: one workflow, a defined success metric, a cost estimate for both build and ongoing inference, and an explicit list of what we're not building yet. If you want to see how this plays out end to end, <a href="https://telaloom.com/contact.html">start a project</a> and we'll walk you through what week one would look like for your specific stack.</p>
 
 <h2>Where this breaks</h2>
 

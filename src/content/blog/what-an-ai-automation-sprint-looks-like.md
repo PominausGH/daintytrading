@@ -4,7 +4,7 @@ description: "A fixed-scope, fixed-price, four-week AI automation engagement. He
 category: "Process"
 publishedDate: "2026-05-13"
 readTime: "5 min"
-ogImage: "https://daintytrading.com/og-card.jpg"
+ogImage: "https://telaloom.com/og-card.jpg"
 ---
 
 <h2>Why fixed scope matters for AI work</h2>

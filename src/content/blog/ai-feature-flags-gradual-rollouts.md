@@ -4,7 +4,7 @@ description: "Gradual rollouts, A/B testing, and shadow mode are critical for AI
 category: "AI · Engineering"
 publishedDate: "2026-06-08"
 readTime: "6 min"
-ogImage: "https://daintytrading.com/og-card.jpg"
+ogImage: "https://telaloom.com/og-card.jpg"
 ---
 
 <p>Shipping an AI feature to 100% of users on day one is a critical mistake. AI isn't deterministic. It fails in novel, unpredictable ways that are difficult to catch in a test environment. The "happy path" works in development, but real-world prompts and diverse user inputs expose breakdowns you simply cannot anticipate. We've seen this repeatedly, whether it's an LLM hallucinating a critical response in a customer support tool or misinterpreting a complex query in a data analysis agent. Unlike traditional software bugs that often manifest deterministically, AI failures are probabilistic and context-dependent. A full rollout without safeguards means your first real-world test is a potential incident for all users. You need to control exposure, learn fast, and iterate safely.</p>
@@ -49,7 +49,7 @@ ogImage: "https://daintytrading.com/og-card.jpg"
 <li><strong>AI API call success/failure rate:</strong> Track HTTP status codes and any model-specific error messages.</li>
 <li><strong>User interaction metric:</strong> Implement a simple "thumbs up" / "thumbs down" button, or log whether the AI-generated content was ultimately saved or sent by the user.</li>
 </ol>
-<p>Monitor these metrics daily for a week. You'll quickly see if your initial assumptions about quality hold up in the wild. This small investment pays dividends in stability and user satisfaction. If you need help structuring these rollouts or setting up the right telemetry, we frequently guide teams through this process; consider a <a href="https://daintytrading.com/contact.html">Start a project</a> discussion with Dainty.</p>
+<p>Monitor these metrics daily for a week. You'll quickly see if your initial assumptions about quality hold up in the wild. This small investment pays dividends in stability and user satisfaction. If you need help structuring these rollouts or setting up the right telemetry, we frequently guide teams through this process; consider a <a href="https://telaloom.com/contact.html">Start a project</a> discussion with Dainty.</p>
 
 <div class="cast-philosophy" style="margin-top:40px;border-top:1px solid var(--border);padding-top:32px;">
 <p><strong>We build production AI, not prototypes.</strong>

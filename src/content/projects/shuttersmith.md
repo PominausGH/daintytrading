@@ -1,11 +1,11 @@
 ---
 type: "case-study"
 name: "Shuttersmith"
-title: "Shuttersmith — SEO & GEO Case Study | Dainty Trading"
-description: "Shuttersmith is the first client on Dainty Trading's productised SEO + GEO service — technical SEO, structured data, and generative-engine optimisation for a local business, from audit to ongoing growth."
+title: "Shuttersmith — SEO & GEO Case Study | TelaLoom"
+description: "Shuttersmith is the first client on TelaLoom's productised SEO + GEO service — technical SEO, structured data, and generative-engine optimisation for a local business, from audit to ongoing growth."
 ogTitle: "Shuttersmith — SEO & GEO Case Study"
 ogDescription: "The first client on our productised SEO + GEO service — audit, setup, and ongoing growth for a local business."
-ogImage: "https://daintytrading.com/og-card.jpg"
+ogImage: "https://telaloom.com/og-card.jpg"
 lede: "Shuttersmith is the first client on our productised SEO + GEO service — built to get a local business found by both classic search and the AI assistants now answering “who does this near me” before a search result ever loads."
 metaChips:
   - label: "Client"
@@ -46,10 +46,10 @@ nextLink:
   href: "/projects/shuttersmith-rebuild.html"
 schemaType: "CreativeWork"
 schemaExtra:
-  about: "Technical SEO and generative-engine optimisation for a local business, delivered as Dainty Trading's productised SEO/GEO service."
+  about: "Technical SEO and generative-engine optimisation for a local business, delivered as TelaLoom's productised SEO/GEO service."
   creator:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 client: "Shuttersmith"
 ---
 

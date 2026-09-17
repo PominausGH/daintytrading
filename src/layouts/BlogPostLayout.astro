@@ -21,16 +21,16 @@ const jsonLd = [
     '@type': 'BlogPosting',
     headline: title,
     description,
-    url: `https://daintytrading.com${canonicalPath}`,
+    url: `https://telaloom.com${canonicalPath}`,
     datePublished: publishedDate.toISOString().slice(0, 10),
     dateModified: publishedDate.toISOString().slice(0, 10),
-    author: { '@type': 'Person', name: 'Andrew Dainty', url: 'https://daintytrading.com/about.html#andrew-dainty', sameAs: ['https://www.linkedin.com/in/andrewdainty/'] },
-    publisher: { '@type': 'Organization', name: 'Dainty Trading', url: 'https://daintytrading.com' },
-    mainEntityOfPage: `https://daintytrading.com${canonicalPath}`,
+    author: { '@type': 'Person', name: 'Andrew Dainty', url: 'https://telaloom.com/about.html#andrew-dainty', sameAs: ['https://www.linkedin.com/in/andrewdainty/'] },
+    publisher: { '@type': 'Organization', name: 'TelaLoom', url: 'https://telaloom.com' },
+    mainEntityOfPage: `https://telaloom.com${canonicalPath}`,
   },
 ];
 ---
-<BaseLayout title={`${title} — Dainty Trading`} description={description} canonicalPath={canonicalPath} ogImage={ogImage} jsonLd={jsonLd}>
+<BaseLayout title={`${title} — TelaLoom`} description={description} canonicalPath={canonicalPath} ogImage={ogImage} jsonLd={jsonLd}>
   <main id="main">
     <section class="detail-hero">
       <div class="container">
@@ -57,7 +57,7 @@ const jsonLd = [
           <div class="label-row"><span>Published</span><span>{publishedLabel}</span></div>
           <div class="label-row"><span>Topic</span><span>{category}</span></div>
           <div class="label-row"><span>Read time</span><span>{readTime}</span></div>
-          <div class="label-row"><span>Author</span><span>Dainty Trading</span></div>
+          <div class="label-row"><span>Author</span><span>TelaLoom</span></div>
           <a class="btn btn-primary" href="/contact.html">Start a project &rarr;</a>
           <a class="btn btn-ghost" href="/services.html">See our services</a>
         </aside>

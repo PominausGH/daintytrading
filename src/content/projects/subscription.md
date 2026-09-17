@@ -2,11 +2,11 @@
 type: "product"
 status: "live"
 name: "Subscription Incinerator"
-title: "Subscription Incinerator — AI-Drafted Subscription Cancellation | Dainty Trading"
+title: "Subscription Incinerator — AI-Drafted Subscription Cancellation | TelaLoom"
 description: "Subscription Incinerator finds the subscriptions you've forgotten and cancels the ones you don't want. Claude drafts merchant-specific cancellation emails calibrated to actual policy. SMS chases the rest."
 ogTitle: "Subscription Incinerator — burn the subscriptions you don't use"
 ogDescription: "Find, track, and cancel unwanted subscriptions with AI-drafted cancellation emails."
-ogImage: "https://daintytrading.com/og/subscription.png"
+ogImage: "https://telaloom.com/og/subscription.png"
 lede: "A consumer app for the subscriptions you forgot you were paying for. Subscription Incinerator finds them, ranks them, and burns the ones you wave through — with AI-drafted cancellation emails calibrated to each merchant’s actual policy."
 metaChips:
   - label: "Category"
@@ -60,7 +60,7 @@ schemaExtra:
   operatingSystem: "Web"
   publisher:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 ---
 
 <h2>The problem</h2>

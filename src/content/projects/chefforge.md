@@ -2,11 +2,11 @@
 type: "product"
 status: "dev"
 name: "ChefForge"
-title: "ChefForge — AI Recipe Generation & Meal Planning | Dainty Trading"
+title: "ChefForge — AI Recipe Generation & Meal Planning | TelaLoom"
 description: "ChefForge generates personalised recipes and weekly meal plans with AI. Tell it your constraints — dietary, budget, time, what's already in the fridge — and get a plan that adds up."
 ogTitle: "ChefForge — AI recipe generation"
 ogDescription: "Personalised recipes and meal plans with constraints that actually hold."
-ogImage: "https://daintytrading.com/og/chefforge.png"
+ogImage: "https://telaloom.com/og/chefforge.png"
 lede: "An AI recipe and meal-planning service that takes your real constraints — dietary, budget, time, what’s already in the fridge — and turns them into a week of dinners with a shopping list that actually adds up."
 metaChips:
   - label: "Category"
@@ -23,7 +23,7 @@ sidecard:
     - label: "Status"
       value: "In development"
     - label: "Domain"
-      value: "dinner.daintytrading.com"
+      value: "dinner.telaloom.com"
     - label: "Backend"
       value: "Python · FastAPI"
     - label: "Database"
@@ -34,7 +34,7 @@ sidecard:
       value: "Plan · Recipes · Shopping list"
   primaryCta:
     label: "Visit ChefForge →"
-    href: "https://dinner.daintytrading.com"
+    href: "https://dinner.telaloom.com"
   ghostCta:
     label: "Build something similar"
     href: "/contact.html"
@@ -52,7 +52,7 @@ schemaExtra:
   operatingSystem: "Web"
   publisher:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 ---
 
 <h2>The problem</h2>

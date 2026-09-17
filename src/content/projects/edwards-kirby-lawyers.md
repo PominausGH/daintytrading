@@ -1,11 +1,11 @@
 ---
 type: "case-study"
 name: "Edwards Kirby Lawyers"
-title: "Edwards Kirby Lawyers — Website Rebuild & Client Portal | Dainty Trading"
-description: "Dainty Trading rebuilt Edwards Kirby Lawyers' website from the ground up and shipped a secure client portal alongside it — JWT + MFA, encrypted document storage, and SEO/GEO built in from day one."
+title: "Edwards Kirby Lawyers — Website Rebuild & Client Portal | TelaLoom"
+description: "TelaLoom rebuilt Edwards Kirby Lawyers' website from the ground up and shipped a secure client portal alongside it — JWT + MFA, encrypted document storage, and SEO/GEO built in from day one."
 ogTitle: "Edwards Kirby Lawyers — Website Rebuild & Client Portal"
 ogDescription: "A firm whose website hadn't kept pace with its practice, and a client portal to go with it — JWT + MFA, encrypted docs, SEO/GEO from the ground up."
-ogImage: "https://daintytrading.com/og-card.jpg"
+ogImage: "https://telaloom.com/og-card.jpg"
 lede: "A Sydney insolvency and business law firm was running on a website that hadn’t been touched in years — and had no way for clients to deal with them securely once a matter was actually underway. We rebuilt both: the public site, and a real client portal behind it."
 metaChips:
   - label: "Client"
@@ -49,7 +49,7 @@ schemaExtra:
   about: "Website rebuild and secure client portal for a Sydney insolvency and business law firm."
   creator:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 client: "Edwards Kirby Lawyers"
 ---
 
