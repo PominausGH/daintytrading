@@ -4,7 +4,7 @@ description: "Model deprecation is scheduled, not hypothetical — here's how to
 category: "AI · Infrastructure"
 publishedDate: "2026-09-12"
 readTime: "5 min"
-ogImage: "https://daintytrading.com/og-card.jpg"
+ogImage: "https://telaloom.com/og-card.jpg"
 ---
 
 Your AI vendor will deprecate the model you're using in production. Not might — will. Anthropic, OpenAI, and Google all publish deprecation schedules and retire model versions on a rolling basis, typically with a few months of notice. If your integration calls a specific model string with no fallback and no monitoring for deprecation notices, you will find out it's happening from a 404 or a degraded response in production, not from a calendar reminder.
@@ -25,7 +25,7 @@ A gateway is worth the extra layer once you're calling models from more than one
 
 Second, subscribe to your vendor's deprecation notices directly, not secondhand. Anthropic and OpenAI both publish model deprecation pages and send notices to account admins — put those in a shared inbox or Slack channel that an engineer actually watches, not the founder's personal email. Put the deprecation date on a calendar the same day you get the notice, with a reminder at least three weeks out. Three weeks is enough time to test a replacement model against your eval set; it is not enough time to also discover the model string is hard-coded in four places.
 
-Third, keep a small eval set — real prompts and expected-good outputs — for anything model-dependent that matters. When a new version comes out, run it against the eval set before you flip the config. This is the same discipline as a staging environment for a database migration: cheap insurance against a class of failure that's expensive to discover in production. If you're building something like this for the first time and want a second set of eyes on the architecture, that's the kind of scoping conversation we have with clients before [starting a project](https://daintytrading.com/contact.html).
+Third, keep a small eval set — real prompts and expected-good outputs — for anything model-dependent that matters. When a new version comes out, run it against the eval set before you flip the config. This is the same discipline as a staging environment for a database migration: cheap insurance against a class of failure that's expensive to discover in production. If you're building something like this for the first time and want a second set of eyes on the architecture, that's the kind of scoping conversation we have with clients before [starting a project](https://telaloom.com/contact.html).
 
 ## Where this breaks
 

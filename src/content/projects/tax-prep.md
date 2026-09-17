@@ -2,11 +2,11 @@
 type: "product"
 status: "testing"
 name: "Tax Prep"
-title: "Tax Prep — All Your Tax Documents in One Place | Dainty Trading"
+title: "Tax Prep — All Your Tax Documents in One Place | TelaLoom"
 description: "Tax Prep collates every receipt, statement, deduction, and slip into one organised vault — so tax time is a half-hour handover, not a weekend of folders."
 ogTitle: "Tax Prep — easier tax time"
 ogDescription: "Collates all tax documents in one searchable, year-tagged vault."
-ogImage: "https://daintytrading.com/og/tax-prep.png"
+ogImage: "https://telaloom.com/og/tax-prep.png"
 lede: "A vault for everything your accountant will eventually ask for. Drop in receipts, bank statements, payslips, deduction slips, and dividend notices throughout the year — AI categorises and tags each one — and tax time becomes a single export instead of a weekend of folders."
 metaChips:
   - label: "Category"
@@ -23,7 +23,7 @@ sidecard:
     - label: "Status"
       value: "In final testing"
     - label: "Site"
-      value: "taxprep.daintytrading.com"
+      value: "taxprep.telaloom.com"
     - label: "Frontend"
       value: "Next.js"
     - label: "Backend"
@@ -51,7 +51,7 @@ schemaExtra:
   operatingSystem: "Web"
   publisher:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 ---
 
 <h2>The problem</h2>

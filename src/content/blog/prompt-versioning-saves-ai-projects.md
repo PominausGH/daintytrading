@@ -4,7 +4,7 @@ description: "Untracked prompts cause silent quality regressions in production A
 category: "Process"
 publishedDate: "2026-08-28"
 readTime: "4 min"
-ogImage: "https://daintytrading.com/og-card.png"
+ogImage: "https://telaloom.com/og-card.png"
 ---
 
 <p>Someone edits the system prompt directly in the OpenAI or Anthropic console to fix a bad response, hits save, and moves on. Two weeks later, output quality on an unrelated task drops 15% and nobody can explain why. Nobody can explain why because nobody can see what changed. The prompt lives in a dashboard, a Notion doc, or a string literal three environments removed from the code review that would have caught it. This is how most teams handle prompts, and it's why most teams eventually ship a quality regression they can't diagnose.</p>
@@ -23,4 +23,4 @@ ogImage: "https://daintytrading.com/og-card.png"
 <p>For a two-person team shipping a single prompt that rarely changes, full PR review and a formal eval harness is more process than the problem deserves — a versioned file with a changelog comment at the top may be enough. The overhead becomes worth it once you have more than one person editing prompts, more than one environment, or a customer-facing feature where a regression has real cost. Eval sets also decay: if nobody updates them as the product changes, they give false confidence that a prompt still works when the underlying use case has moved on. Treat the eval set as a living artifact, not a one-time checkbox.</p>
 
 <h2>Practical next step</h2>
-<p>This week, find every prompt currently living outside your codebase — in a console, a database, a Slack thread someone copy-pasted from — and move it into a versioned file with a commit history. Don't rewrite the prompts yet. Just get them under version control so the next change produces a diff instead of a mystery. If you want help setting up the eval harness that makes prompt changes safe to ship quickly, <a href="https://daintytrading.com/contact.html">start a project</a> and we'll walk through what that looks like for your stack.</p>
+<p>This week, find every prompt currently living outside your codebase — in a console, a database, a Slack thread someone copy-pasted from — and move it into a versioned file with a commit history. Don't rewrite the prompts yet. Just get them under version control so the next change produces a diff instead of a mystery. If you want help setting up the eval harness that makes prompt changes safe to ship quickly, <a href="https://telaloom.com/contact.html">start a project</a> and we'll walk through what that looks like for your stack.</p>

@@ -4,7 +4,7 @@ description: "Model deprecations, prompt drift, and pricing shifts mean AI featu
 category: "Business"
 publishedDate: "2026-08-28"
 readTime: "5 min"
-ogImage: "https://daintytrading.com/og-card.png"
+ogImage: "https://telaloom.com/og-card.png"
 ---
 
 <p>The invoice for an AI feature doesn't end at launch. It ends when the vendor deprecates the model you built on, when a silent system prompt change on their end shifts your outputs, or when a pricing update quietly doubles your inference bill. Most project quotes treat AI features like any other software feature: fixed scope, fixed price, ship it, done. That assumption is wrong, and it's the single biggest source of budget surprises we see in AI work.</p>
@@ -33,4 +33,4 @@ The other place this breaks: if you're on a fixed-bid contract with no maintenan
 
 <h2>What to do this week</h2>
 
-<p>If you have an AI feature in production right now, go find out what model it's calling and whether that model has a deprecation date. Providers publish these — check them. If you don't have an eval set for that feature, write down ten real inputs and their expected outputs today; that's the seed of a suite that will save you hours the next time a model changes. And if you're scoping new AI work, put maintenance on the table as its own line item before you quote a price, not after something breaks. If you want a second opinion on what that ongoing cost should look like for your feature, <a href="https://daintytrading.com/contact.html">start a project</a> with us and we'll walk through it.</p>
+<p>If you have an AI feature in production right now, go find out what model it's calling and whether that model has a deprecation date. Providers publish these — check them. If you don't have an eval set for that feature, write down ten real inputs and their expected outputs today; that's the seed of a suite that will save you hours the next time a model changes. And if you're scoping new AI work, put maintenance on the table as its own line item before you quote a price, not after something breaks. If you want a second opinion on what that ongoing cost should look like for your feature, <a href="https://telaloom.com/contact.html">start a project</a> with us and we'll walk through it.</p>

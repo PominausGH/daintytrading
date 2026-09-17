@@ -4,7 +4,7 @@ description: "AI projects often derail after the demo. Learn how to scope with f
 category: "Process"
 publishedDate: "2026-08-26"
 readTime: "6 min"
-ogImage: "https://daintytrading.com/og-card.png"
+ogImage: "https://telaloom.com/og-card.png"
 ---
 
 <p>A reliable production AI agent takes 2–3 months from proof of concept to deployment. The demo takes a week. The gap is evals, fallback handling, and the edge cases you don't find until real traffic hits. The biggest reason projects blow out is not technical complexity; it's a failure to define "done" upfront. You get a cool demo in week one, then spend months in a feature development black hole, endlessly iterating with no clear path to shipping. This isn't sustainable.</p>
@@ -39,4 +39,4 @@ ogImage: "https://daintytrading.com/og-card.png"
 
 <p>Don't let your next AI project blow out. This week, pick one AI feature you're considering. Identify its core task. Then, gather 20-30 real-world examples of inputs for that task. Manually write the "perfect" output for each. This is your mini-eval set. Define one measurable metric for success—it could be as simple as "key information present in 80% of outputs" or "semantic similarity score above 0.7."</p>
 
-<p>Write a quick Python script to run your current prompt or model against this small set and calculate that metric. Make this script part of your local development loop. It will immediately force clarity on what "good" looks like and give you objective feedback on every change. If you're struggling to even define the core task or what "perfect" means, that's your first signal to refine the project goal before you write another line of code. If you're facing an AI project that’s lost its way, or want to ensure your next one starts right, we can help. <a href="https://daintytrading.com/contact.html">Start a project</a> with Dainty.</p>
+<p>Write a quick Python script to run your current prompt or model against this small set and calculate that metric. Make this script part of your local development loop. It will immediately force clarity on what "good" looks like and give you objective feedback on every change. If you're struggling to even define the core task or what "perfect" means, that's your first signal to refine the project goal before you write another line of code. If you're facing an AI project that’s lost its way, or want to ensure your next one starts right, we can help. <a href="https://telaloom.com/contact.html">Start a project</a> with Dainty.</p>

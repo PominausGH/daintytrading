@@ -2,11 +2,11 @@
 type: "product"
 status: "testing"
 name: "Auto-Claude"
-title: "Auto-Claude — Dainty Trading"
+title: "Auto-Claude — TelaLoom"
 description: "An autonomous multi-agent coding framework. Give it a goal — build the feature, fix the bug, spike the prototype — and it plans, builds, runs tests, and iterates until something works, with a human in the loop only when it asks."
 ogTitle: "Auto-Claude"
 ogDescription: "An autonomous multi-agent coding framework. Give it a goal — build the feature, fix the bug, spike the prototype — and it plans, builds, runs tests, and iterates until something works, with a human in the loop only when it asks."
-ogImage: "https://daintytrading.com/og/auto-claude.png"
+ogImage: "https://telaloom.com/og/auto-claude.png"
 lede: "An autonomous multi-agent coding framework. Give it a goal — build the feature, fix the bug, spike the prototype — and it plans, builds, runs tests, and iterates until something works, with a human in the loop only when it asks."
 metaChips:
   - label: "Category"
@@ -23,7 +23,7 @@ sidecard:
     - label: "Status"
       value: "In final testing"
     - label: "Site"
-      value: "autoclaude.daintytrading.com"
+      value: "autoclaude.telaloom.com"
     - label: "Backend"
       value: "Python · FastAPI"
     - label: "Frontend"
@@ -49,7 +49,7 @@ schemaExtra:
   operatingSystem: "Web"
   publisher:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 ---
 
 <h2>The problem</h2>

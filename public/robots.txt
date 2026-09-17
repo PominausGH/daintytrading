@@ -1,5 +1,5 @@
-# https://daintytrading.com/robots.txt
-# Dainty Trading — AI Automation Studio
+# https://telaloom.com/robots.txt
+# TelaLoom — AI Automation Studio
 # We welcome search engines and AI crawlers. See /llms.txt for AI-friendly summary.
 
 User-agent: *
@@ -63,4 +63,4 @@ Allow: /
 User-agent: Bytespider
 Allow: /
 
-Sitemap: https://daintytrading.com/sitemap.xml
+Sitemap: https://telaloom.com/sitemap.xml

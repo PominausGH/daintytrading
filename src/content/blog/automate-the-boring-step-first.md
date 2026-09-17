@@ -4,7 +4,7 @@ description: "Why the highest-friction, most repetitive task should be the first
 category: "Process"
 publishedDate: "2026-08-28"
 readTime: "4 min"
-ogImage: "https://daintytrading.com/og-card.png"
+ogImage: "https://telaloom.com/og-card.png"
 ---
 
 <p>When we scope an automation project, the first thing we build is never the part that makes a good demo. It's the step someone on the team does forty times a day and hates. Sort inbound emails into categories. Copy data from a PDF into a spreadsheet. Rewrite the same three paragraphs with slightly different names. That's where we start, and it's almost never where the client expects us to start. They usually want to lead with the part that looks like AI — the agent that drafts the whole proposal, the model that reads a contract and flags risk. We build that too, eventually. But last.</p>
@@ -22,4 +22,4 @@ ogImage: "https://daintytrading.com/og-card.png"
 <p>This isn't a universal law. Sometimes the highest-friction step is also the highest-judgment one, and there's no easy low-risk entry point — a small team doing bespoke client work, for instance, where every task genuinely requires human discretion. Forcing a "start boring" sequence there just delays the thing that actually matters. And if the repetitive task is already tolerable — five minutes a week, not five hours a day — automating it first wastes the political capital you're trying to build, because nobody notices the improvement. The sequencing rule is about maximizing visible relief per unit of engineering risk, not about always picking the most tedious task in the abstract. If the boring step is trivial and the judgment step is what's actually costing the business money, lead with the one that moves the number people care about.</p>
 
 <h2>What to do this week</h2>
-<p>Pick one workflow your team runs constantly. List every step, then mark each one on two axes: how often it happens, and how much judgment it takes. Automate the highest-frequency, lowest-judgment step first — even if it feels too small to justify a project. Ship it, measure the time saved, and use that number to justify the next, harder step. If you want a second opinion on where that first cut should be, <a href="https://daintytrading.com/contact.html">start a project</a> with us and we'll help you map the sequence before you write a line of code.</p>
+<p>Pick one workflow your team runs constantly. List every step, then mark each one on two axes: how often it happens, and how much judgment it takes. Automate the highest-frequency, lowest-judgment step first — even if it feels too small to justify a project. Ship it, measure the time saved, and use that number to justify the next, harder step. If you want a second opinion on where that first cut should be, <a href="https://telaloom.com/contact.html">start a project</a> with us and we'll help you map the sequence before you write a line of code.</p>

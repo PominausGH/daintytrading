@@ -4,7 +4,7 @@ description: "A reliable production AI agent takes 2–3 months to build. The de
 category: "Process"
 publishedDate: "2026-06-17"
 readTime: "5 min"
-ogImage: "https://daintytrading.com/og-card.jpg"
+ogImage: "https://telaloom.com/og-card.jpg"
 ---
 
 <h2>The honest timeline for a production AI agent</h2>
@@ -36,4 +36,4 @@ ogImage: "https://daintytrading.com/og-card.jpg"
 <h2>Measure before you modify</h2>
 <p>Stop tweaking your prompt and start measuring it. Before you write another line of code, pull 50 diverse, difficult examples of inputs your agent will face in production. Create a CSV with columns for input, expected output, and a pass/fail assertion. Write a simple Python script to run your current prompt against all 50 inputs concurrently, parse the results, and log the accuracy percentage. Once you have that baseline, you can actually see what breaks.</p>
 
-<p>If you're stuck in the prompt engineering loop and need to transition your prototype into a robust system, <a href="https://daintytrading.com/contact.html">start a project</a> with us. We'll help you build the infrastructure required to get your agent out of staging and into a reliable production environment.</p>
+<p>If you're stuck in the prompt engineering loop and need to transition your prototype into a robust system, <a href="https://telaloom.com/contact.html">start a project</a> with us. We'll help you build the infrastructure required to get your agent out of staging and into a reliable production environment.</p>

@@ -2,11 +2,11 @@
 type: "product"
 status: "dev"
 name: "Screenshot to Text"
-title: "Screenshot to Text — Dainty Trading"
+title: "Screenshot to Text — TelaLoom"
 description: "Production OCR that handles the messy stuff — tables, handwriting, complex layouts — with a high enough accuracy floor that businesses can put it in front of their customers."
 ogTitle: "Screenshot to Text"
 ogDescription: "Production OCR that handles the messy stuff — tables, handwriting, complex layouts — with a high enough accuracy floor that businesses can put it in front of their customers."
-ogImage: "https://daintytrading.com/og/screenshot-to-text.png"
+ogImage: "https://telaloom.com/og/screenshot-to-text.png"
 lede: "Production OCR that handles the messy stuff — tables, handwriting, complex layouts — with a high enough accuracy floor that businesses can put it in front of their customers."
 metaChips:
   - label: "Category"
@@ -23,7 +23,7 @@ sidecard:
     - label: "Status"
       value: "In development"
     - label: "Site"
-      value: "screenshottotext.daintytrading.com"
+      value: "screenshottotext.telaloom.com"
     - label: "Backend"
       value: "Python · Flask"
     - label: "Workers"
@@ -51,7 +51,7 @@ schemaExtra:
   operatingSystem: "Web"
   publisher:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 ---
 
 <h2>The problem</h2>

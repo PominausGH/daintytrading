@@ -4,7 +4,7 @@ description: "After half a year, we share what actually works when self-hosting 
 category: "AI · Engineering"
 publishedDate: "2026-06-08"
 readTime: "5 min"
-ogImage: "https://daintytrading.com/og-card.jpg"
+ogImage: "https://telaloom.com/og-card.jpg"
 ---
 
 <p>The moment you add a second LLM provider to your stack – maybe Anthropic for long-context tasks, Google for multimodal, or OpenAI for general-purpose – you've introduced a significant new operational headache. Suddenly, your direct API calls are tightly coupled to a single vendor's API, rate limits, and pricing model. We've seen teams hard-code provider-specific logic across their codebase, leading to brittle systems that are a nightmare to debug or switch. After six months of self-hosting LiteLLM across projects like <em>Email Triage</em> and <em>Ghost Writer</em>, we can confidently say: abstracting your LLM calls behind a unified gateway isn't optional, it's essential for any serious AI product.</p>
@@ -25,7 +25,7 @@ ogImage: "https://daintytrading.com/og-card.jpg"
 <li><strong>Caching:</strong> We leverage LiteLLM's built-in caching for common requests, reducing latency and API costs for applications like <em>BrightPath</em> where certain prompts are highly repeatable.</li>
 </ul>
 
-<p>This abstraction lets us dynamically route traffic based on cost, performance, or even specific model capabilities without changing application code. For <em>Ghost Writer</em>, we can send initial draft requests to a cheaper, faster model like <code>gpt-3.5-turbo</code>, then route final polish passes to <code>claude-3-opus-20240229</code>, all configured at the gateway level. If you're looking to unify your LLM infrastructure, consider Dainty's expertise to <a href="https://daintytrading.com/contact.html">start a project</a> and implement a robust gateway solution.</p>
+<p>This abstraction lets us dynamically route traffic based on cost, performance, or even specific model capabilities without changing application code. For <em>Ghost Writer</em>, we can send initial draft requests to a cheaper, faster model like <code>gpt-3.5-turbo</code>, then route final polish passes to <code>claude-3-opus-20240229</code>, all configured at the gateway level. If you're looking to unify your LLM infrastructure, consider Dainty's expertise to <a href="https://telaloom.com/contact.html">start a project</a> and implement a robust gateway solution.</p>
 
 <h2>Where This Breaks</h2>
 <p>While LiteLLM is powerful, it's not a silver bullet. The biggest drawback is operational overhead. You're now running another critical service that needs monitoring, scaling, and patching. This adds complexity that a small team using only one or two models from a single provider might not justify. We've also encountered situations where LiteLLM's integration with a brand new LLM provider had subtle bugs or missing features that required workarounds or waiting for upstream fixes. Debugging can be trickier, as you're adding another layer between your app and the LLM API. While <code>litellm.set_verbose(True)</code> helps, understanding network issues or provider-specific errors can sometimes require direct API calls to isolate. Furthermore, while LiteLLM offers basic caching and observability hooks, it's not a full-fledged monitoring or cost management platform. You'll still need to integrate its logs and metrics into your existing infrastructure. Don't expect it to replace your Datadog or Prometheus setup.</p>

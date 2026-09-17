@@ -24,21 +24,21 @@ const jsonLd = [
   {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: 'Dainty Trading Product Portfolio',
-    description: `${counts.total} products built and operated by Dainty Trading — across live, in final testing, and in active development.`,
+    name: 'TelaLoom Product Portfolio',
+    description: `${counts.total} products built and operated by TelaLoom — across live, in final testing, and in active development.`,
     numberOfItems: counts.total,
     itemListElement: products.map(([name, slug], i) => ({
       '@type': 'ListItem',
       position: i + 1,
-      url: `https://daintytrading.com/projects/${slug}.html`,
+      url: `https://telaloom.com/projects/${slug}.html`,
       name,
     })),
   },
 ];
 ---
 <BaseLayout
-  title={`Our Work — ${counts.total} AI Products Built by Dainty Trading`}
-  description={`Browse all ${counts.total} AI products built and operated by Dainty Trading — ${counts.live} live and paying, others in final testing or active development. Real stack, real build story, every project page.`}
+  title={`Our Work — ${counts.total} AI Products Built by TelaLoom`}
+  description={`Browse all ${counts.total} AI products built and operated by TelaLoom — ${counts.live} live and paying, others in final testing or active development. Real stack, real build story, every project page.`}
   canonicalPath="/work.html"
   robots="index, follow, max-image-preview:large, max-snippet:-1"
   jsonLd={jsonLd}

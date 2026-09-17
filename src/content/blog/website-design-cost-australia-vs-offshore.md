@@ -4,7 +4,7 @@ description: "A custom website in Australia runs $3,000–$25,000+; offshore tem
 category: "Business"
 publishedDate: "2026-09-12"
 readTime: "5 min"
-ogImage: "https://daintytrading.com/og-card.png"
+ogImage: "https://telaloom.com/og-card.png"
 ---
 
 <p>A professional website in Australia costs somewhere between $3,000 and $25,000 in 2026, depending on who builds it and what "custom" actually means. A local freelancer runs $1,500–$5,000. A small agency doing genuinely custom work is $3,000–$10,000+. A premium template, professionally customised, lands around $3,000–$8,000. A site built from a blank canvas — bespoke layout, real brand system, nothing reused — is $10,000–$30,000+. Offshore quotes on Fiverr or Upwork routinely undercut all of these, and that's exactly where the actual cost analysis has to start, not end.</p>

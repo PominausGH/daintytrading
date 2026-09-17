@@ -2,11 +2,11 @@
 type: "product"
 status: "dev"
 name: "Receipt Bridge"
-title: "Receipt Bridge — Dainty Trading"
+title: "Receipt Bridge — TelaLoom"
 description: "Field workers text a photo of a receipt to a shared number. OCR extracts the data automatically and surfaces it in a finance dashboard. No paper, no manual entry, no missed reimbursements."
 ogTitle: "Receipt Bridge"
 ogDescription: "Field workers text a photo of a receipt to a shared number. OCR extracts the data automatically and surfaces it in a finance dashboard. No paper, no manual entry, no missed reimbursements."
-ogImage: "https://daintytrading.com/og/receipt-bridge.png"
+ogImage: "https://telaloom.com/og/receipt-bridge.png"
 lede: "Field workers text a photo of a receipt to a shared number. OCR extracts the data automatically and surfaces it in a finance dashboard. No paper, no manual entry, no missed reimbursements."
 metaChips:
   - label: "Category"
@@ -23,7 +23,7 @@ sidecard:
     - label: "Status"
       value: "In development"
     - label: "Site"
-      value: "receiptbridge.daintytrading.com"
+      value: "receiptbridge.telaloom.com"
     - label: "Backend"
       value: "Django 5"
     - label: "Workers"
@@ -51,7 +51,7 @@ schemaExtra:
   operatingSystem: "Web"
   publisher:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 ---
 
 <h2>The problem</h2>

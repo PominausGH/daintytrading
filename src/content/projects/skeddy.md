@@ -2,11 +2,11 @@
 type: "product"
 status: "live"
 name: "Nudgle"
-title: "Nudgle — Telegram Reminder Bot with Natural-Language Scheduling | Dainty Trading"
+title: "Nudgle — Telegram Reminder Bot with Natural-Language Scheduling | TelaLoom"
 description: "Nudgle is a Telegram reminder bot that listens to plain English. Quiet hours, vacation mode, recurring tasks — all parsed by Claude, stored in Postgres, delivered on time."
 ogTitle: "Nudgle — Telegram reminder bot"
 ogDescription: "Natural-language scheduling for Telegram, parsed by Claude."
-ogImage: "https://daintytrading.com/og/skeddy.png"
+ogImage: "https://telaloom.com/og/skeddy.png"
 lede: "A Telegram reminder bot that listens to plain English. Tell Nudgle “remind me to call mum every Sunday at 6pm but not while I’m on holiday,” and it figures out what you meant."
 metaChips:
   - label: "Category"
@@ -58,7 +58,7 @@ schemaExtra:
   operatingSystem: "Telegram"
   publisher:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 ---
 
 <h2>The problem</h2>

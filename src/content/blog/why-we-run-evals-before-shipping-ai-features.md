@@ -4,7 +4,7 @@ description: "“It looked right when I tried it” isn't a test. Here's why Dai
 category: "AI · Engineering"
 publishedDate: "2026-09-02"
 readTime: "5 min"
-ogImage: "https://daintytrading.com/og-card.png"
+ogImage: "https://telaloom.com/og-card.png"
 ---
 
 <p>You tweak a prompt, run it against the three examples in your test file, and the output looks better. You ship it. Two days later, support tickets start coming in about a feature that was working fine last week. Nobody touched that code path. Except someone did — the prompt change that "looked right" broke a case that wasn't in your three examples.</p>
@@ -33,4 +33,4 @@ ogImage: "https://daintytrading.com/og-card.png"
 
 For a very small team shipping a low-stakes internal tool, a lightweight eval set — even 20 hand-picked hard cases — beats nothing, but don't expect it to catch everything a 200-example set would. The eval set is an investment that pays off in proportion to how much damage a silent regression would do. A typo-correction feature can probably skip this. A feature that routes support tickets or drafts customer-facing emails cannot.</p>
 
-<p>If you're building an AI feature and don't have an eval set yet, don't try to build the perfect one this week. Pull 20–30 real examples from logs or support tickets, write down what the correct output should have been, and script a comparison against your current output. That's enough to catch the next "looked right when I tried it" regression before your customers do. If you want help setting up eval infrastructure that actually gets used instead of abandoned after the first sprint, <a href="https://daintytrading.com/contact.html">start a project</a> with us.</p>
+<p>If you're building an AI feature and don't have an eval set yet, don't try to build the perfect one this week. Pull 20–30 real examples from logs or support tickets, write down what the correct output should have been, and script a comparison against your current output. That's enough to catch the next "looked right when I tried it" regression before your customers do. If you want help setting up eval infrastructure that actually gets used instead of abandoned after the first sprint, <a href="https://telaloom.com/contact.html">start a project</a> with us.</p>

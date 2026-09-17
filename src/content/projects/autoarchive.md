@@ -2,11 +2,11 @@
 type: "product"
 status: "live"
 name: "AutoArchive"
-title: "AutoArchive — Enterprise Shared Mailbox Archiving | Dainty Trading"
+title: "AutoArchive — Enterprise Shared Mailbox Archiving | TelaLoom"
 description: "AutoArchive backs up 45 shared email boxes to a secure local disk. Each email is saved with its message ID in the filename for instant retrieval — built for a Big 4 Australian bank."
 ogTitle: "AutoArchive"
 ogDescription: "A personal email archive and search tool that respects your data."
-ogImage: "https://daintytrading.com/og/autoarchive.png"
+ogImage: "https://telaloom.com/og/autoarchive.png"
 lede: "Built for a Big 4 Australian bank. 45 shared email boxes, backed up four times a day to a secure local disk. Every email saved with its message ID baked into the filename — find anything in seconds, no database required."
 metaChips:
   - label: "Category"
@@ -53,7 +53,7 @@ schemaExtra:
   operatingSystem: "Web"
   publisher:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 ---
 
 <h2>The problem</h2>

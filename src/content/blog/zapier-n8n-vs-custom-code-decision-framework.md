@@ -4,7 +4,7 @@ description: "Volume, error handling, and reasoning needs decide whether Zapier 
 category: "Automation"
 publishedDate: "2026-08-28"
 readTime: "5 min"
-ogImage: "https://daintytrading.com/og-card.png"
+ogImage: "https://telaloom.com/og-card.png"
 ---
 
 <p>We've had this argument with three different clients this year, and it's always the same shape: someone built a workflow in Zapier or n8n, it worked great for two months, and now it's silently dropping records or timing out on a third of runs. The question isn't "is no-code bad" — it's "did you pick the wrong tool for what this workflow actually needs to do." Most of the time, the answer comes down to three things: how much volume you're pushing, how much the workflow needs to reason versus just move data, and what happens when a step fails.</p>
@@ -33,4 +33,4 @@ ogImage: "https://daintytrading.com/og-card.png"
 
 <h2>What to do this week</h2>
 
-<p>Pull up your busiest automation and answer the three questions honestly: is any step making a judgment call, what's your actual daily volume, and how many branches deep does the logic go. If you land on "custom code" for a workflow that's mission-critical and currently held together with Zaps, that's worth a real conversation before it breaks in production instead of after. <a href="https://daintytrading.com/contact.html">Start a project</a> with us and we'll help you figure out where the line actually is for your specific workflow.</p>
+<p>Pull up your busiest automation and answer the three questions honestly: is any step making a judgment call, what's your actual daily volume, and how many branches deep does the logic go. If you land on "custom code" for a workflow that's mission-critical and currently held together with Zaps, that's worth a real conversation before it breaks in production instead of after. <a href="https://telaloom.com/contact.html">Start a project</a> with us and we'll help you figure out where the line actually is for your specific workflow.</p>

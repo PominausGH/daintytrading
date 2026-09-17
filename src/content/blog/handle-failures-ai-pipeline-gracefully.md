@@ -4,7 +4,7 @@ description: "A production AI pipeline needs validation, retries, fallbacks, and
 category: "Process"
 publishedDate: "2026-07-29"
 readTime: "5 min"
-ogImage: "https://daintytrading.com/og-card.png"
+ogImage: "https://telaloom.com/og-card.png"
 ---
 
 <p>You handle AI pipeline failures gracefully by treating each failure mode as a distinct problem with its own fix — malformed output gets schema validation and a retry, slow tool calls get timeouts and circuit breakers, context overflow gets truncation or summarization before the call, and hallucinated fields get a confidence check with a path to a human. There's no single "error handling" layer that covers all of this. Teams that ship reliable AI features build four or five small, boring systems instead of one clever one.</p>
@@ -39,4 +39,4 @@ ogImage: "https://daintytrading.com/og-card.png"
 
 <h2>Practical next step</h2>
 
-<p>This week, pick the one failure mode in your pipeline you've actually seen happen — check your logs, it's probably malformed output or a timeout — and add explicit handling for just that one: a schema validator with a single feedback-retry, or a timeout with a two-attempt backoff. Don't try to build all four systems at once. If you want a second pair of eyes on where your pipeline is most exposed, <a href="https://daintytrading.com/contact.html">start a project</a> with us and we'll walk through it together.</p>
+<p>This week, pick the one failure mode in your pipeline you've actually seen happen — check your logs, it's probably malformed output or a timeout — and add explicit handling for just that one: a schema validator with a single feedback-retry, or a timeout with a two-attempt backoff. Don't try to build all four systems at once. If you want a second pair of eyes on where your pipeline is most exposed, <a href="https://telaloom.com/contact.html">start a project</a> with us and we'll walk through it together.</p>

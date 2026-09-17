@@ -4,7 +4,7 @@ description: "Both patterns work for AI integrations. The right choice depends o
 category: "AI · Engineering"
 publishedDate: "2026-04-22"
 readTime: "6 min"
-ogImage: "https://daintytrading.com/og-card.jpg"
+ogImage: "https://telaloom.com/og-card.jpg"
 ---
 
 <h2>Why the choice matters for AI specifically</h2>

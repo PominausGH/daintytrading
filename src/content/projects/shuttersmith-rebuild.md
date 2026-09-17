@@ -1,11 +1,11 @@
 ---
 type: "case-study"
 name: "Shuttersmith Rebuild"
-title: "Shuttersmith — Full Site Rebuild, WordPress to Astro | Dainty Trading"
+title: "Shuttersmith — Full Site Rebuild, WordPress to Astro | TelaLoom"
 description: "A full rebuild of Shuttersmith's website off WordPress/Elementor onto a static Astro build served from a hardened nginx container — real migrated content, a first-party contact microservice, and performance/accessibility scores verified against real Lighthouse runs, not assumed."
 ogTitle: "Shuttersmith — Full Site Rebuild, WordPress to Astro"
 ogDescription: "Off WordPress/Elementor entirely — a static Astro rebuild with verified Lighthouse scores and a first-party contact form."
-ogImage: "https://daintytrading.com/og-card.jpg"
+ogImage: "https://telaloom.com/og-card.jpg"
 lede: "Following the SEO/GEO engagement, Shuttersmith's site itself got rebuilt — off WordPress and Elementor entirely, onto a static Astro build with real migrated content, a first-party contact service, and performance numbers checked against real Lighthouse runs rather than assumed."
 metaChips:
   - label: "Client"
@@ -49,7 +49,7 @@ schemaExtra:
   about: "Full website rebuild off WordPress onto a static Astro build, for a local plantation shutters business."
   creator:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 client: "Shuttersmith"
 ---
 
@@ -71,4 +71,4 @@ client: "Shuttersmith"
 <p>This isn't live yet. It's built and running in a preview environment, walked end to end (all pages returning 200, console clean, CSP holding), but a short list of items needs Craig before it can go live — his real ABN (currently a placeholder in the footer and privacy policy), his actual quote/deposit/cancellation terms (currently bracketed placeholders on the terms page), a decision on a likely typo in one customer review carried over verbatim from the live site, and a solicitor's pass over the privacy policy and terms before either is published as legally binding. None of that is unusual for a rebuild — a new site can match or beat the old one on every technical measure and still need a short, unglamorous list of business facts only the client can supply before it's real.</p>
 
 <h2>Why this one, and what it led to</h2>
-<p>Shuttersmith is the client Dainty Trading has now done the most work for, across three separate engagements on the same relationship: the original SEO/GEO audit and fix, this full rebuild, and — because the first two worked well enough that Craig backed a second company on the strength of it — <a href="/projects/new-shutter-business.html">a trade-price, self-install spinoff site</a> we built for that new business too. Three engagements from one relationship isn't the plan for every client. It's what happens when the first piece of work is good enough that the client keeps coming back with more of it.</p>
+<p>Shuttersmith is the client TelaLoom has now done the most work for, across three separate engagements on the same relationship: the original SEO/GEO audit and fix, this full rebuild, and — because the first two worked well enough that Craig backed a second company on the strength of it — <a href="/projects/new-shutter-business.html">a trade-price, self-install spinoff site</a> we built for that new business too. Three engagements from one relationship isn't the plan for every client. It's what happens when the first piece of work is good enough that the client keeps coming back with more of it.</p>

@@ -2,11 +2,11 @@
 type: "product"
 status: "dev"
 name: "ReceiptSnap AI"
-title: "ReceiptSnap AI — Dainty Trading"
+title: "ReceiptSnap AI — TelaLoom"
 description: "Native iOS and Android receipt scanner with on-device capture, cloud OCR, and a tidy expense log. Designed for solo operators who want speed at the till and structured data afterwards, without an SaaS subscription."
 ogTitle: "ReceiptSnap AI"
 ogDescription: "Native iOS and Android receipt scanner with on-device capture, cloud OCR, and a tidy expense log. Designed for solo operators who want speed at the till and structured data afterwards, without an SaaS subscription."
-ogImage: "https://daintytrading.com/og/receiptsnap-ai.png"
+ogImage: "https://telaloom.com/og/receiptsnap-ai.png"
 lede: "Native iOS and Android receipt scanner with on-device capture, cloud OCR, and a tidy expense log. Designed for solo operators who want speed at the till and structured data afterwards, without an SaaS subscription."
 metaChips:
   - label: "Category"
@@ -23,7 +23,7 @@ sidecard:
     - label: "Status"
       value: "In development"
     - label: "Site"
-      value: "receiptsnap.daintytrading.com"
+      value: "receiptsnap.telaloom.com"
     - label: "iOS"
       value: "Swift · SwiftUI"
     - label: "Android"
@@ -49,7 +49,7 @@ schemaExtra:
   operatingSystem: "Web"
   publisher:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 ---
 
 <h2>The problem</h2>

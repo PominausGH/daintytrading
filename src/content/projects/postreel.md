@@ -2,11 +2,11 @@
 type: "product"
 status: "live"
 name: "Post Reel"
-title: "Post Reel — AI Video Social Media Scheduler | Dainty Trading"
+title: "Post Reel — AI Video Social Media Scheduler | TelaLoom"
 description: "Post Reel is a social media management platform with an AI video studio built in. Give it a URL, it crawls your site, writes a script, synthesises a voiceover, and produces a finished short-form video — scheduled automatically across 12 platforms."
 ogTitle: "Post Reel — AI video generation meets social scheduling"
 ogDescription: "Give it a URL, get a finished social video. Scheduler, AI video studio, campaign automation, and RSS autoposter across 12 platforms."
-ogImage: "https://daintytrading.com/og-card.jpg"
+ogImage: "https://telaloom.com/og-card.jpg"
 lede: "A social media management platform with an AI video studio built in. Give it a website URL, it crawls the site with a real browser, writes a narration script, synthesises a professional voiceover, and assembles a finished short-form video — then schedules it automatically across twelve platforms. No timeline. No editing. Just a URL."
 metaChips:
   - label: "Category"
@@ -66,7 +66,7 @@ schemaExtra:
   operatingSystem: "Web"
   publisher:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 ---
 
 <h2>The problem</h2>

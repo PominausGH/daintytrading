@@ -2,11 +2,11 @@
 type: "product"
 status: "live"
 name: "TimerForge"
-title: "TimerForge — Cross-Platform Countdown Timer SaaS | Dainty Trading"
+title: "TimerForge — Cross-Platform Countdown Timer SaaS | TelaLoom"
 description: "TimerForge is a countdown timer that ships as a Windows/Mac/Linux desktop app and a web SaaS. Embeddable, shareable, billed by Stripe. Built on PyQt6 and Node."
 ogTitle: "TimerForge"
 ogDescription: "Cross-platform countdown timer — desktop and web — embeddable and shareable."
-ogImage: "https://daintytrading.com/og/timerforge.png"
+ogImage: "https://telaloom.com/og/timerforge.png"
 lede: "A countdown timer that takes itself seriously. Native desktop apps for Windows, Mac, and Linux. A web SaaS for embedding and sharing. Stripe-billed pro features. The kind of small product that quietly compounds."
 metaChips:
   - label: "Category"
@@ -58,7 +58,7 @@ schemaExtra:
   operatingSystem: "Windows, macOS, Linux, Web"
   publisher:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 ---
 
 <h2>The problem</h2>

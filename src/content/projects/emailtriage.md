@@ -2,11 +2,11 @@
 type: "product"
 status: "live"
 name: "Email Triage"
-title: "Email Triage — AI Inbox Categorization with Claude | Dainty Trading"
-description: "Email Triage uses Claude to categorize incoming Gmail and Outlook mail, score priority 1–10, and draft replies. Multi-account, offline PWA, push notifications, Stripe billing. Built by Dainty Trading."
+title: "Email Triage — AI Inbox Categorization with Claude | TelaLoom"
+description: "Email Triage uses Claude to categorize incoming Gmail and Outlook mail, score priority 1–10, and draft replies. Multi-account, offline PWA, push notifications, Stripe billing. Built by TelaLoom."
 ogTitle: "Email Triage — AI inbox categorization"
 ogDescription: "Claude-powered email triage that categorizes, scores, and drafts replies across multiple accounts."
-ogImage: "https://daintytrading.com/og/emailtriage.png"
+ogImage: "https://telaloom.com/og/emailtriage.png"
 lede: "A Claude-powered email triage system that categorizes, scores, and drafts replies across every Gmail and Outlook account you connect. Built for people whose inbox is the bottleneck."
 metaChips:
   - label: "Category"
@@ -60,8 +60,8 @@ schemaExtra:
   operatingSystem: "Web, iOS PWA, Android PWA"
   publisher:
     "@type": "Organization"
-    name: "Dainty Trading"
-    url: "https://daintytrading.com"
+    name: "TelaLoom"
+    url: "https://telaloom.com"
   offers:
     "@type": "Offer"
     price: "9.00"

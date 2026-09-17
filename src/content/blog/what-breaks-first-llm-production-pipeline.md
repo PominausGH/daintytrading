@@ -4,7 +4,7 @@ description: "Rate limits, silent format drift, and untested timeouts are what a
 category: "AI · Infrastructure"
 publishedDate: "2026-08-28"
 readTime: "4 min"
-ogImage: "https://daintytrading.com/og-card.png"
+ogImage: "https://telaloom.com/og-card.png"
 ---
 
 <p>The first thing to break in a production LLM pipeline is never the model's reasoning. It's the plumbing around it. Rate limits hit under real concurrency, not the ten requests you tested with. A prompt that returned clean JSON for three weeks suddenly returns a sentence of caveats before the JSON, because the model was updated upstream and nobody told you. A request hangs for 40 seconds instead of 4, and the timeout you copy-pasted from a tutorial kills it before the retry logic even wakes up. None of this shows up in a demo. All of it shows up in week two of real traffic.</p>
@@ -23,4 +23,4 @@ ogImage: "https://daintytrading.com/og-card.png"
 <p>None of this is free. A gateway adds a service to operate and a place for bugs to hide. Schema validation adds latency and a new class of "technically valid but semantically wrong" failures you now have to catch separately. For a two-person team shipping an MVP with low volume, a raw SDK call with a simple retry loop is genuinely fine — you don't need queueing infrastructure for a feature that gets used twice a day. The mistake isn't skipping this on day one. It's not having a plan for when volume changes, and finding out the plumbing doesn't scale at the same moment your first real customer does.</p>
 
 <h2>Practical next step</h2>
-<p>This week, pull the last 500 LLM responses your pipeline actually received in production — not your test fixtures — and run them through your parser. Count how many would have failed silently versus loudly. If you can't easily get that list, that's the actual problem: you're not logging raw model output, which means you can't tell format drift from a real bug when it happens. If you want a second set of eyes on where your pipeline is most likely to break under real load, <a href="https://daintytrading.com/contact.html">start a project</a> with us.</p>
+<p>This week, pull the last 500 LLM responses your pipeline actually received in production — not your test fixtures — and run them through your parser. Count how many would have failed silently versus loudly. If you can't easily get that list, that's the actual problem: you're not logging raw model output, which means you can't tell format drift from a real bug when it happens. If you want a second set of eyes on where your pipeline is most likely to break under real load, <a href="https://telaloom.com/contact.html">start a project</a> with us.</p>

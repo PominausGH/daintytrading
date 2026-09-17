@@ -6,7 +6,7 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description: string;
-  canonicalPath: string; // e.g. "/services.html" or "/" — appended to https://daintytrading.com
+  canonicalPath: string; // e.g. "/services.html" or "/" — appended to https://telaloom.com
   ogImage?: string; // absolute URL, defaults to og-card.jpg
   robots?: string;
   jsonLd?: object[];
@@ -21,7 +21,7 @@ const {
   title,
   description,
   canonicalPath,
-  ogImage = 'https://daintytrading.com/og-card.jpg',
+  ogImage = 'https://telaloom.com/og-card.jpg',
   robots = 'index, follow',
   jsonLd = [],
   hreflangAlternates = false,
@@ -31,7 +31,7 @@ const {
   chrome = 'full',
 } = Astro.props;
 
-const canonicalUrl = `https://daintytrading.com${canonicalPath}`;
+const canonicalUrl = `https://telaloom.com${canonicalPath}`;
 ---
 <!doctype html>
 <html lang={lang}>
@@ -47,11 +47,11 @@ const canonicalUrl = `https://daintytrading.com${canonicalPath}`;
 
   {hreflangAlternates && (
     <>
-      <link rel="alternate" hreflang="en" href="https://daintytrading.com/" />
-      <link rel="alternate" hreflang="en-AU" href="https://daintytrading.com/australia.html" />
-      <link rel="alternate" hreflang="en-GB" href="https://daintytrading.com/uk.html" />
-      <link rel="alternate" hreflang="en-US" href="https://daintytrading.com/usa.html" />
-      <link rel="alternate" hreflang="x-default" href="https://daintytrading.com/" />
+      <link rel="alternate" hreflang="en" href="https://telaloom.com/" />
+      <link rel="alternate" hreflang="en-AU" href="https://telaloom.com/australia.html" />
+      <link rel="alternate" hreflang="en-GB" href="https://telaloom.com/uk.html" />
+      <link rel="alternate" hreflang="en-US" href="https://telaloom.com/usa.html" />
+      <link rel="alternate" hreflang="x-default" href="https://telaloom.com/" />
     </>
   )}
 
@@ -63,7 +63,7 @@ const canonicalUrl = `https://daintytrading.com${canonicalPath}`;
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content={title} />
-  <meta property="og:site_name" content="Dainty Trading" />
+  <meta property="og:site_name" content="TelaLoom" />
   <meta property="og:locale" content={ogLocale} />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
@@ -75,7 +75,7 @@ const canonicalUrl = `https://daintytrading.com${canonicalPath}`;
   <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
-  <meta name="apple-mobile-web-app-title" content="Dainty Trading" />
+  <meta name="apple-mobile-web-app-title" content="TelaLoom" />
   <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 
   {jsonLd.map((block) => (

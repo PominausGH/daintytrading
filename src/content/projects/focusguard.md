@@ -2,11 +2,11 @@
 type: "product"
 status: "live"
 name: "FocusShield"
-title: "FocusShield — Cross-Platform Focus & Task App | Dainty Trading"
+title: "FocusShield — Cross-Platform Focus & Task App | TelaLoom"
 description: "FocusShield is a cross-platform task and focus app — web, iOS, Android — with productivity analytics and a Postgres backend. Built on Expo and React Native."
 ogTitle: "FocusShield"
 ogDescription: "Cross-platform task and focus app with real productivity analytics."
-ogImage: "https://daintytrading.com/og/focusguard.png"
+ogImage: "https://telaloom.com/og/focusguard.png"
 lede: "A cross-platform task and focus app that runs on web, iOS, and Android from a single codebase. Capture work, time the deep blocks, and see honest analytics over weeks — not just streaks for streaks’ sake."
 metaChips:
   - label: "Category"
@@ -58,7 +58,7 @@ schemaExtra:
   operatingSystem: "iOS, Android, Web"
   publisher:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 ---
 
 <h2>The problem</h2>

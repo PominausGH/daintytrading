@@ -4,7 +4,7 @@ description: "Hard-coding a single model provider into your app is a liability. 
 category: "AI · Infrastructure"
 publishedDate: "2026-05-06"
 readTime: "7 min"
-ogImage: "https://daintytrading.com/og-card.jpg"
+ogImage: "https://telaloom.com/og-card.jpg"
 ---
 
 <h2>The problem with a single provider</h2>

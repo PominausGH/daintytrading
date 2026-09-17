@@ -4,7 +4,7 @@ description: "Most SaaS products don't need a rebuild to get AI features. They n
 category: "AI · Engineering"
 publishedDate: "2026-05-20"
 readTime: "6 min"
-ogImage: "https://daintytrading.com/og-card.jpg"
+ogImage: "https://telaloom.com/og-card.jpg"
 ---
 
 <h2>The rewrite trap</h2>

@@ -4,7 +4,7 @@ description: "Fine-tune when you have 1,000+ labelled examples and a bounded tas
 category: "AI · Engineering"
 publishedDate: "2026-07-29"
 readTime: "5 min"
-ogImage: "https://daintytrading.com/og-card.png"
+ogImage: "https://telaloom.com/og-card.png"
 ---
 
 <p>Fine-tune when you have 1,000+ labelled examples and the task is narrow, repetitive, and stable — a fixed classification schema, a consistent output format, a single well-defined transformation. Prompt when your task is variable, your data is scarce, or the requirements are still moving. Most teams get this backwards: they reach for fine-tuning because it feels more "real" than prompt engineering, and they end up maintaining a training pipeline for a problem that a better system prompt would have solved in an afternoon.</p>
@@ -24,4 +24,4 @@ ogImage: "https://daintytrading.com/og-card.png"
 <p>The decision tree isn't absolute. Sometimes you have 1,000+ examples but the task still isn't bounded — customer support tickets, for instance, where the category taxonomy itself keeps growing. Fine-tuning there gives you a model confidently wrong about categories that didn't exist when you trained it. And sometimes you have a genuinely bounded task with only 200 examples — not enough to fine-tune reliably, but few-shot prompting with those same 200 examples as a retrieval-augmented example bank gets you most of the benefit without the training cost. Data volume and task boundedness both have to hold. One without the other, and you're better off prompting.</p>
 
 <h2>Practical next step</h2>
-<p>This week, before you fine-tune anything: build a 30-50 example eval set for the task you're considering, and run your current best prompt against it. If you're above 85% and the failures are random rather than systematic, you have a prompting problem, not a training-data problem — iterate on the prompt. If you're below that and the failures cluster around specific patterns you have hundreds of labeled examples for, that's your fine-tuning signal. If you want a second opinion on which side of the line your project falls on, <a href="https://daintytrading.com/contact.html">start a project</a> with us and we'll look at your eval numbers directly.</p>
+<p>This week, before you fine-tune anything: build a 30-50 example eval set for the task you're considering, and run your current best prompt against it. If you're above 85% and the failures are random rather than systematic, you have a prompting problem, not a training-data problem — iterate on the prompt. If you're below that and the failures cluster around specific patterns you have hundreds of labeled examples for, that's your fine-tuning signal. If you want a second opinion on which side of the line your project falls on, <a href="https://telaloom.com/contact.html">start a project</a> with us and we'll look at your eval numbers directly.</p>

@@ -2,11 +2,11 @@
 type: "product"
 status: "live"
 name: "Marketing OS"
-title: "Marketing OS — Internal Marketing Operations Platform | Dainty Trading"
-description: "Marketing OS is the internal control tower for Dainty Trading's marketing — cross-portfolio SEO/GEO audits, Search Console visibility, and per-product customer tracking, in one Next.js dashboard."
+title: "Marketing OS — Internal Marketing Operations Platform | TelaLoom"
+description: "Marketing OS is the internal control tower for TelaLoom's marketing — cross-portfolio SEO/GEO audits, Search Console visibility, and per-product customer tracking, in one Next.js dashboard."
 ogTitle: "Marketing OS"
 ogDescription: "Audits, search visibility, and customer tracking for the whole portfolio, in one dashboard."
-ogImage: "https://daintytrading.com/og/marketing-os.png"
+ogImage: "https://telaloom.com/og/marketing-os.png"
 lede: "The internal control tower for our portfolio. Four views — Audits, Search Visibility, Customers, Project Overview — give us one place to see whether every product is healthy, indexed, and actually getting used."
 metaChips:
   - label: "Category"
@@ -53,7 +53,7 @@ schemaExtra:
   operatingSystem: "Web"
   publisher:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 ---
 
 <h2>The problem</h2>

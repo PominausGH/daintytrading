@@ -32,19 +32,19 @@ export const GET: APIRoute = async () => {
 
   const urls = [
     ...STATIC_PAGES.map((p) => ({
-      loc: `https://daintytrading.com${p.path}`,
+      loc: `https://telaloom.com${p.path}`,
       lastmod: buildDate,
       changefreq: p.changefreq,
       priority: p.priority,
     })),
     ...projects.map((entry) => ({
-      loc: `https://daintytrading.com/projects/${entry.slug}.html`,
+      loc: `https://telaloom.com/projects/${entry.slug}.html`,
       lastmod: buildDate,
       changefreq: 'monthly',
       priority: entry.data.type === 'case-study' ? '0.8' : '0.7',
     })),
     ...posts.map((entry) => ({
-      loc: `https://daintytrading.com/blog/${entry.slug}.html`,
+      loc: `https://telaloom.com/blog/${entry.slug}.html`,
       lastmod: entry.data.publishedDate.toISOString().slice(0, 10),
       changefreq: 'monthly',
       priority: '0.6',

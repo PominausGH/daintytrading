@@ -2,11 +2,11 @@
 type: "product"
 status: "live"
 name: "CV Matcher"
-title: "CV Matcher — AI Job Matching from LinkedIn | Dainty Trading"
+title: "CV Matcher — AI Job Matching from LinkedIn | TelaLoom"
 description: "CV Matcher scrapes LinkedIn jobs, scores them against your CV with Claude, and explains why each match scored the way it did. Less swipe-fatigue, more actual interviews."
 ogTitle: "CV Matcher — AI job matching"
 ogDescription: "Score LinkedIn jobs against your CV with explainable AI matching."
-ogImage: "https://daintytrading.com/og/cv-matcher.png"
+ogImage: "https://telaloom.com/og/cv-matcher.png"
 lede: "Upload your CV. CV Matcher scrapes LinkedIn for relevant openings, scores each one against your actual experience with Claude, and tells you in plain English why each match scored the way it did."
 metaChips:
   - label: "Category"
@@ -58,7 +58,7 @@ schemaExtra:
   operatingSystem: "Web"
   publisher:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 ---
 
 <h2>The problem</h2>

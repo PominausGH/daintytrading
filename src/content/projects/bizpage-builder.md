@@ -2,11 +2,11 @@
 type: "product"
 status: "live"
 name: "BizPage Builder"
-title: "BizPage Builder — AI-Generated Landing Pages for Local Businesses | Dainty Trading"
+title: "BizPage Builder — AI-Generated Landing Pages for Local Businesses | TelaLoom"
 description: "BizPage Builder finds local businesses without websites, generates SEO-ready landing pages with Claude, and ships them as deployable ZIPs. Built for agencies and lead-gen operators."
 ogTitle: "BizPage Builder"
 ogDescription: "Auto-generate landing pages for businesses without websites, ready to deploy."
-ogImage: "https://daintytrading.com/og/bizpage-builder.png"
+ogImage: "https://telaloom.com/og/bizpage-builder.png"
 lede: "A lead-gen factory in a box. Discover small businesses without websites, generate Google-ready landing pages with Claude, and hand them off as zipped, deployable HTML — one workflow, hundreds of pages."
 metaChips:
   - label: "Category"
@@ -58,7 +58,7 @@ schemaExtra:
   operatingSystem: "Web"
   publisher:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 ---
 
 <h2>The problem</h2>

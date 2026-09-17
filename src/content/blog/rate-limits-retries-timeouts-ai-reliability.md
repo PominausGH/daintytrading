@@ -4,7 +4,7 @@ description: "A better model doesn't fix a flaky AI integration. Backoff, idempo
 category: "AI · Infrastructure"
 publishedDate: "2026-08-28"
 readTime: "5 min"
-ogImage: "https://daintytrading.com/og-card.png"
+ogImage: "https://telaloom.com/og-card.png"
 ---
 
 <p>Your AI feature works perfectly in the demo. Three weeks after launch, it's failing for 2% of users at random, support tickets are piling up, and nobody can reproduce the bug. That's not a model problem. It's a 429 you didn't handle, a request that hung for 90 seconds and got retried into a duplicate charge, or a timeout that took down an unrelated part of your app with it. The gap between a flaky AI integration and a reliable one is almost never the model. It's whether you built the boring plumbing around it.</p>
@@ -35,4 +35,4 @@ ogImage: "https://daintytrading.com/og-card.png"
 
 <h2>Practical next step</h2>
 
-<p>Pull up your current AI integration and check three things this week: does your retry logic use backoff with jitter (or are you relying on the SDK default, which you should verify is actually enabled)? Do any of your AI-triggered actions have side effects without an idempotency check? And what happens to the user right now when a call times out — do they see an error, or does something reasonable happen instead? If you're not sure how to answer these for your own system, or want a second set of eyes on it, <a href="https://daintytrading.com/contact.html">start a project</a> with us and we'll look at it together.</p>
+<p>Pull up your current AI integration and check three things this week: does your retry logic use backoff with jitter (or are you relying on the SDK default, which you should verify is actually enabled)? Do any of your AI-triggered actions have side effects without an idempotency check? And what happens to the user right now when a call times out — do they see an error, or does something reasonable happen instead? If you're not sure how to answer these for your own system, or want a second set of eyes on it, <a href="https://telaloom.com/contact.html">start a project</a> with us and we'll look at it together.</p>

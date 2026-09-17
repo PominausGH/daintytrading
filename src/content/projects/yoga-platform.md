@@ -2,11 +2,11 @@
 type: "product"
 status: "dev"
 name: "Yoga Platform"
-title: "Yoga Platform — 500+ Poses, Sequence Builder, Mobile + Web | Dainty Trading"
+title: "Yoga Platform — 500+ Poses, Sequence Builder, Mobile + Web | TelaLoom"
 description: "A full-stack yoga platform: 500+ poses with rich filters (chakra, prop, body part, style), a sequence builder, favourites, and progress tracking. Built on Supabase with a Vite web app and an Expo mobile app."
 ogTitle: "Yoga Platform"
 ogDescription: "500+ yoga poses, sequence builder, mobile + web."
-ogImage: "https://daintytrading.com/og/yoga-platform.png"
+ogImage: "https://telaloom.com/og/yoga-platform.png"
 lede: "A reference for yoga teachers and serious practitioners. Five hundred poses, deep filters that match how teachers actually plan classes, a sequence builder that travels, and a mobile app that works without signal."
 metaChips:
   - label: "Category"
@@ -21,7 +21,7 @@ sidecard:
     - label: "Status"
       value: "In development"
     - label: "Domain"
-      value: "yoga.daintytrading.com"
+      value: "yoga.telaloom.com"
     - label: "Web"
       value: "Vite + React 18"
     - label: "Mobile"
@@ -34,7 +34,7 @@ sidecard:
       value: "500+ poses"
   primaryCta:
     label: "Visit Yoga Platform →"
-    href: "https://yoga.daintytrading.com"
+    href: "https://yoga.telaloom.com"
   ghostCta:
     label: "Build something similar"
     href: "/contact.html"
@@ -52,7 +52,7 @@ schemaExtra:
   operatingSystem: "Web, iOS, Android"
   publisher:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 ---
 
 <h2>The problem</h2>

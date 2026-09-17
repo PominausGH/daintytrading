@@ -2,11 +2,11 @@
 type: "product"
 status: "testing"
 name: "Price Scout"
-title: "Price Scout — Dainty Trading"
+title: "Price Scout — TelaLoom"
 description: "A cost-of-living dashboard that tracks grocery, fuel, and energy prices across Australia and the UK. Households see how their spending compares week to week — without manually checking five supermarket apps."
 ogTitle: "Price Scout"
 ogDescription: "A cost-of-living dashboard that tracks grocery, fuel, and energy prices across Australia and the UK. Households see how their spending compares week to week — without manually checking five supermarket apps."
-ogImage: "https://daintytrading.com/og/price-scout.png"
+ogImage: "https://telaloom.com/og/price-scout.png"
 lede: "A cost-of-living dashboard that tracks grocery, fuel, and energy prices across Australia and the UK. Households see how their spending compares week to week — without manually checking five supermarket apps."
 metaChips:
   - label: "Category"
@@ -23,7 +23,7 @@ sidecard:
     - label: "Status"
       value: "In final testing"
     - label: "Site"
-      value: "pricescout.daintytrading.com"
+      value: "pricescout.telaloom.com"
     - label: "Frontend"
       value: "Next.js 14"
     - label: "Database"
@@ -51,7 +51,7 @@ schemaExtra:
   operatingSystem: "Web"
   publisher:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 ---
 
 <h2>The problem</h2>

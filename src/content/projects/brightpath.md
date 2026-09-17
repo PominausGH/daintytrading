@@ -2,11 +2,11 @@
 type: "product"
 status: "live"
 name: "BrightPath"
-title: "BrightPath — Personalised K-12 School with AI Tutor | Dainty Trading"
+title: "BrightPath — Personalised K-12 School with AI Tutor | TelaLoom"
 description: "BrightPath is a personalised online K-12 school with an AI tutor (Pax), gamified rewards, and progress tracking. Built on Next.js and a Node API, powered by Claude and Gemini through OpenRouter."
 ogTitle: "BrightPath — AI-tutored K-12 school"
 ogDescription: "A personalised online school for K-12 with an AI tutor and gamified progress tracking."
-ogImage: "https://daintytrading.com/og/brightpath.png"
+ogImage: "https://telaloom.com/og/brightpath.png"
 lede: "A personalised online school for kindergarten through year twelve. An AI tutor named Pax sits inside every lesson, gamified streaks make showing up the path of least resistance, and dashboards keep parents and teachers honest about progress."
 metaChips:
   - label: "Category"
@@ -56,7 +56,7 @@ schemaType: "EducationalOrganization"
 schemaExtra:
   parentOrganization:
     "@type": "Organization"
-    name: "Dainty Trading"
+    name: "TelaLoom"
 ---
 
 <h2>The problem</h2>
