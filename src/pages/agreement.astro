@@ -212,6 +212,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <label class="f">Domain name<input type="text" name="domain_name" placeholder="yourbusiness.com.au"></label>
   </div>
   <fieldset style="margin-top:14px"><legend>Domain</legend><div class="opts" data-group="domain_status" data-type="radio"></div></fieldset>
+  <!-- If domain_status = "I need one": run the domain-checker skill (prior-use/spam/crypto-scam/blacklist/handle/trademark) before registering. Bundled free into builds, no separate line item. -->
+  <p class="hint" style="margin-top:6px">If you need a new domain, we'll check it's clean &mdash; no prior spam, scam, or blacklist history &mdash; before we register it. No extra cost.</p>
   <fieldset style="margin-top:14px"><legend>Logo and branding</legend><div class="opts" data-group="logo" data-type="radio"></div></fieldset>
 
   <h3>Look and feel</h3>
