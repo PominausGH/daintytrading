@@ -9,10 +9,10 @@ const jsonLd = [
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'TelaLoom',
-    alternateName: 'TelaLoom AI Automation Studio',
+    alternateName: 'TelaLoom Website Builds, SEO & GEO, and Automation',
     url: 'https://telaloom.com',
     logo: 'https://telaloom.com/og-card.jpg',
-    description: 'AI automation studio building production AI software across email, trading, education, content, and SaaS infrastructure.',
+    description: 'Website builds, SEO & GEO optimization, and custom automation software that replaces manual work in your business — plus an in-house portfolio of production AI software across email, education, content, and SaaS infrastructure.',
     founder: { '@type': 'Person', '@id': 'https://telaloom.com/about.html#andrew-dainty', name: 'Andrew Dainty', url: 'https://telaloom.com/about.html#andrew-dainty', sameAs: ['https://www.linkedin.com/in/andrewdainty/'] },
     sameAs: [
       'https://www.linkedin.com/company/132014328/',
@@ -37,7 +37,7 @@ const jsonLd = [
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: [
-      { '@type': 'Question', name: 'What is TelaLoom?', acceptedAnswer: { '@type': 'Answer', text: `TelaLoom is an AI automation studio. We design, build, and operate production AI software — ${counts.total} products covering email, content, education, knowledge management, marketing automation, scheduling, billing, and SaaS infrastructure. Some are shipped and live; others are in final testing or active development. Each project page is honest about which.` } },
+      { '@type': 'Question', name: 'What is TelaLoom?', acceptedAnswer: { '@type': 'Answer', text: `TelaLoom builds websites, ranks them with SEO & GEO, and builds custom automation software that replaces manual work in your business — for Australian and global businesses. We also design, build, and operate production AI software across our own portfolio of ${counts.total} products (some live, others in final testing or active development), covering email, content, education, knowledge management, marketing automation, scheduling, billing, and SaaS infrastructure.` } },
       { '@type': 'Question', name: 'What kind of AI projects do you take on?', acceptedAnswer: { '@type': 'Answer', text: 'LLM-powered features (Claude, Gemini, OpenRouter), agentic workflows, content automation pipelines, AI-driven personalisation, and structured-extraction systems. We also do the boring infrastructure that keeps them up — gateways, queues, evals, billing.' } },
       { '@type': 'Question', name: 'What stack do you build on?', acceptedAnswer: { '@type': 'Answer', text: 'Python (FastAPI, Django) and Node.js (Fastify, Express) on the backend; Next.js, React, and React Native on the front; PostgreSQL and Redis for state; n8n for orchestration; Stripe for billing; LiteLLM for routing across model providers; Docker everywhere.' } },
       { '@type': 'Question', name: 'Do you only build with Claude?', acceptedAnswer: { '@type': 'Answer', text: 'No. We default to Anthropic Claude because it punches above its weight on long-context and structured tasks, but we route through OpenRouter and LiteLLM so projects can pick Gemini, OpenAI, or open-weights when the economics or latency demand it.' } },
@@ -49,8 +49,8 @@ const jsonLd = [
 ];
 ---
 <BaseLayout
-  title={`TelaLoom — AI Automation Studio | ${counts.live} Live AI Products`}
-  description="TelaLoom is an Australian AI development agency. We build production LLM software — from first demo to paying customers in weeks — and build and rank websites with SEO/GEO built in. Start a project today."
+  title="TelaLoom — Website Builds, SEO & GEO, and Business Automation"
+  description="TelaLoom builds websites, ranks them with SEO & GEO, and builds custom automation software that replaces manual work in your business. Australian studio, clients worldwide. Start a project today."
   canonicalPath="/"
   ogImage="https://telaloom.com/og-card.jpg"
   jsonLd={jsonLd}
@@ -65,11 +65,11 @@ const jsonLd = [
         </picture>
       </div>
       <div class="container">
-        <span class="eyebrow">AI Automation Studio · {counts.total} Products</span>
-        <h1>We ship AI software that earns its keep.</h1>
+        <span class="eyebrow">Website Builds &middot; SEO &amp; GEO &middot; Automation Software</span>
+        <h1>We build websites, rank them, and automate the rest.</h1>
         <p class="lead">
-          For SaaS founders and operators who need AI in production &mdash; not in a slide deck.
-          We&rsquo;ve built {counts.total} products ourselves &mdash; email triage, AI tutors, content engines, CRM tools &mdash;
+          For businesses that need a site built, found in search, or a manual process turned into software &mdash; not in a slide deck.
+          We&rsquo;ve also built {counts.total} products ourselves &mdash; email triage, AI tutors, content engines, CRM tools &mdash;
           so your project gets proven infrastructure from day one. First working demo in 1&ndash;2&nbsp;weeks.
           We also build and rank websites for local businesses &mdash; SEO and generative-engine optimisation
           shipped straight into the code, not a PDF.
@@ -351,7 +351,7 @@ const jsonLd = [
         <div class="faq-list">
           <details class="faq-item" open>
             <summary>What is TelaLoom?</summary>
-            <p>TelaLoom is an AI automation studio. We design, build, and operate production AI software — {counts.total} products covering email, content, education, knowledge management, marketing automation, scheduling, billing, and SaaS infrastructure. Some are shipped and live; others are in final testing or active development. Each project page is honest about which.</p>
+            <p>TelaLoom builds websites, ranks them with SEO &amp; GEO, and builds custom automation software that replaces manual work in your business. We also design, build, and operate production AI software across our own portfolio — {counts.total} products covering email, content, education, knowledge management, marketing automation, scheduling, billing, and SaaS infrastructure. Some are shipped and live; others are in final testing or active development. Each project page is honest about which.</p>
           </details>
 
           <details class="faq-item">

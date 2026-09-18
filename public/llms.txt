@@ -1,11 +1,11 @@
 # TelaLoom
 
-> TelaLoom is an Australian AI automation studio. We design, build, and operate production AI software — 38 products in our portfolio (live, in final testing, or in active development) covering email triage, AI content generation, education, knowledge management, marketing automation, scheduling, billing, and SaaS infrastructure. We also self-host the open-source stack we recommend (analytics, scheduling, LLM routing, document management, and more) and take on a small number of client engagements each quarter (AI product builds, automation retrofits, AI infrastructure).
+> TelaLoom builds websites, ranks them with SEO & GEO, and builds custom automation software that replaces manual work in your business — for Australian and global businesses. We also design, build, and operate production AI software across our own portfolio — 38 products (live, in final testing, or in active development) covering email triage, AI content generation, education, knowledge management, marketing automation, scheduling, billing, and SaaS infrastructure. We self-host the open-source stack we recommend (analytics, scheduling, LLM routing, document management, and more) and take on a small number of client engagements each quarter across website builds, SEO/GEO, automation software, and AI infrastructure.
 
 ## About the studio
 
-- **What we are**: A small, deliberate AI automation studio.
-- **What we do**: Build production AI software for our own portfolio (38 products) and selected clients.
+- **What we are**: A small, deliberate studio building websites, SEO/GEO, and automation software.
+- **What we do**: Build and rank websites, build custom automation software that replaces manual work, and build production AI software for our own portfolio (38 products) and selected clients.
 - **Where we are**: Australia. We work async with clients globally.
 - **What we believe**: Shipping is the only proof. Boring infrastructure is the moat. Small surface, deep stack. We run the open-source tools we recommend.
 - **Default LLM**: Anthropic Claude. We also route through OpenRouter and LiteLLM to use Google Gemini, OpenAI, Grok, Perplexity, and others when economics or latency demand it.
@@ -15,6 +15,9 @@
 
 ## Services
 
+- [Website builds](https://telaloom.com/services/website-builds.html): Instant page from a Google Business listing, or a custom-built site with Local SEO & GEO bundled in from day one.
+- [SEO & GEO optimization](https://telaloom.com/services/seo-geo-optimization.html): Fix indexing, structured data, and AI-crawler access on an existing site — audit plus the fix, not just a report.
+- [Local SEO & GEO](https://telaloom.com/services/local-seo.html): Ongoing Google Business Profile management, review generation, and local-search visibility for one business.
 - [AI product builds](https://telaloom.com/services.html): Concept-to-paid-product delivery in 6–12 weeks.
 - [Automation retrofits](https://telaloom.com/services.html): Adding AI to existing SaaS in 2–6 weeks.
 - [AI infrastructure](https://telaloom.com/services.html): LLM gateways, evals, queue workers, billing, observability.
@@ -81,7 +84,7 @@ We don't bolt onto SaaS treadmills. The same open-source tools we run for oursel
 
 ## Frequently asked
 
-- **What is TelaLoom?** An AI automation studio with 38 products (live, in final testing, and in active development), taking on selected client engagements.
+- **What is TelaLoom?** A studio that builds websites, ranks them with SEO & GEO, and builds custom automation software that replaces manual work — plus our own portfolio of 38 AI products (live, in final testing, and in active development).
 - **What stack do you use?** Python (FastAPI, Django) + Node.js (Fastify, Express) backends; Next.js, React, React Native + Expo frontends; Postgres + Redis; Stripe + Brevo + n8n + LiteLLM. Default LLM is Claude.
 - **What open-source tools do you self-host?** Umami, Cal.com, LiteLLM Proxy, Paperless-NGX, Open WebUI, Speedtest Tracker, Portainer, Syncthing — see the Supporting cast section above.
 - **How fast can you ship?** Typically a working first slice in 1–2 weeks; first paying customer in 4–8 weeks.
