@@ -8,8 +8,42 @@ const NOTES_FILE = path.join(DATA_DIR, 'status-notes.jsonl');
 
 const TOKEN_RE = /^[a-z0-9-]{6,64}$/;
 
+// Standard studio onboarding steps for a new website-build client. Internal
+// only (ticked by us in admin, not shown on the client-facing status page) —
+// this is our checklist, not theirs.
+const ONBOARDING_TEMPLATE = [
+  { id: 'contract-signed', text: 'Contract signed' },
+  { id: 'deposit-received', text: 'Deposit received' },
+  { id: 'brief-received', text: 'Brief / intake form completed' },
+  { id: 'domain-checked', text: 'Domain checked (no prior scam/spam/blacklist history)' },
+  { id: 'domain-registered', text: 'Domain registered or connected' },
+  { id: 'content-received', text: 'Content received (copy, photos)' },
+  { id: 'design-approved', text: 'Design approved' },
+  { id: 'site-live', text: 'Site live' },
+  { id: 'client-handover', text: 'Client walkthrough / handover done' },
+];
+
 function clientPath(token) {
   return path.join(CLIENTS_DIR, `${token}.json`);
+}
+
+// Merges saved progress onto the current template — so template edits (a step
+// renamed or added later) show up for every client, old and new, without a
+// migration. Not persisted here; only a toggle or create writes to disk.
+function ensureOnboarding(client) {
+  if (!client) return client;
+  const existing = Array.isArray(client.onboarding) ? client.onboarding : [];
+  const byId = new Map(existing.map((s) => [s.id, s]));
+  client.onboarding = ONBOARDING_TEMPLATE.map((step) => {
+    const prev = byId.get(step.id);
+    return {
+      id: step.id,
+      text: step.text,
+      done: prev ? !!prev.done : false,
+      doneAt: prev ? prev.doneAt || null : null,
+    };
+  });
+  return client;
 }
 
 function getClient(token) {
@@ -17,7 +51,7 @@ function getClient(token) {
   const file = clientPath(token);
   if (!fs.existsSync(file)) return null;
   try {
-    return JSON.parse(fs.readFileSync(file, 'utf8'));
+    return ensureOnboarding(JSON.parse(fs.readFileSync(file, 'utf8')));
   } catch {
     return null;
   }
@@ -49,6 +83,7 @@ function createClient({ name, project, status, phase, nextMilestone, notes }) {
     phase: phase || '',
     nextMilestone: nextMilestone || '',
     notes: notes || '',
+    onboarding: ONBOARDING_TEMPLATE.map((step) => ({ id: step.id, text: step.text, done: false, doneAt: null })),
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   };
@@ -132,6 +167,20 @@ function deleteClientNote(token, noteId) {
   if (remaining.length === records.length) return false;
   fs.writeFileSync(NOTES_FILE, remaining.length ? remaining.map((r) => JSON.stringify(r)).join('\n') + '\n' : '');
   return true;
+}
+
+function toggleOnboardingStep(token, stepId, done) {
+  const client = getClient(token);
+  if (!client) return null;
+  const step = client.onboarding.find((s) => s.id === stepId);
+  if (!step) return null;
+
+  step.done = !!done;
+  step.doneAt = done ? new Date().toISOString() : null;
+
+  client.updatedAt = new Date().toISOString();
+  fs.writeFileSync(clientPath(token), JSON.stringify(client, null, 2));
+  return step;
 }
 
 /**
@@ -231,4 +280,4 @@ function syncClientActions(token, openItems) {
   return next;
 }
 
-module.exports = { getClient, listAllClients, createClient, updateClient, saveClientNote, listClientNotes, updateClientNote, deleteClientNote, toggleClientAction, syncClientActions, TOKEN_RE };
+module.exports = { getClient, listAllClients, createClient, updateClient, saveClientNote, listClientNotes, updateClientNote, deleteClientNote, toggleClientAction, syncClientActions, toggleOnboardingStep, TOKEN_RE };

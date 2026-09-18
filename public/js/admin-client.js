@@ -8,7 +8,43 @@ function renderClient(client) {
   document.getElementById('phase').value = client.phase || '';
   document.getElementById('nextMilestone').value = client.nextMilestone || '';
   document.getElementById('notifyEmail').value = client.notifyEmail || '';
+  renderOnboarding(client.onboarding || []);
   renderNotes(client.noteHistory || []);
+}
+
+function renderOnboarding(steps) {
+  var list = document.getElementById('onboarding-list');
+  if (!steps.length) {
+    list.innerHTML = '<li class="muted">No checklist.</li>';
+    return;
+  }
+  list.innerHTML = steps.map(function (s) {
+    return (
+      '<li class="' + (s.done ? 'done' : '') + '" data-id="' + adminEscapeHtml(s.id) + '">' +
+        '<input type="checkbox" class="step-check" ' + (s.done ? 'checked' : '') + ' />' +
+        '<span class="step-text">' + adminEscapeHtml(s.text) + '</span>' +
+        (s.done && s.doneAt ? '<span class="step-date">' + adminFormatDate(s.doneAt) + '</span>' : '') +
+      '</li>'
+    );
+  }).join('');
+
+  list.querySelectorAll('.step-check').forEach(function (cb) {
+    cb.addEventListener('change', async function () {
+      var stepId = cb.closest('li').dataset.id;
+      var done = cb.checked;
+      cb.disabled = true;
+      try {
+        await adminFetch('/api/admin/clients/' + encodeURIComponent(token) + '/onboarding/' + encodeURIComponent(stepId), {
+          method: 'PATCH',
+          body: JSON.stringify({ done: done }),
+        });
+        await load();
+      } catch (err) {
+        cb.checked = !done;
+        cb.disabled = false;
+      }
+    });
+  });
 }
 
 function renderNotes(notes) {

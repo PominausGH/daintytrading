@@ -9,6 +9,7 @@ const {
   listClientNotes,
   updateClientNote,
   deleteClientNote,
+  toggleOnboardingStep,
 } = require('../lib/clients-store');
 const { checkPassword, createSessionToken, requireAdmin, setSessionCookie, clearSessionCookie, isAuthenticated } = require('../lib/auth');
 const { sanitize } = require('../lib/security');
@@ -132,6 +133,16 @@ router.delete('/clients/:token/notes/:noteId', (req, res) => {
   const deleted = deleteClientNote(req.params.token, req.params.noteId);
   if (!deleted) return res.status(404).json({ error: 'Note not found' });
   res.json({ success: true });
+});
+
+router.patch('/clients/:token/onboarding/:stepId', (req, res) => {
+  const { done } = req.body || {};
+  if (typeof done !== 'boolean') {
+    return res.status(400).json({ error: 'done must be true or false' });
+  }
+  const step = toggleOnboardingStep(req.params.token, req.params.stepId, done);
+  if (!step) return res.status(404).json({ error: 'Not found' });
+  res.json({ success: true, step });
 });
 
 module.exports = router;
