@@ -3,7 +3,11 @@
  *   1. Brevo (BREVO_API_KEY)
  *   2. Resend (RESEND_API_KEY)
  *
- * sendEmail({ to, subject, html, replyTo? })
+ * sendEmail({ to, subject, html, replyTo?, from?, fromName? })
+ * `from`/`fromName` override the default sender identity per call — needed
+ * so one feature (e.g. prospect outreach, now sending as Telaloom) can use a
+ * different verified sender than the rest of the app without changing the
+ * global default every other email flow still relies on.
  */
 
 const FROM_NAME = process.env.FROM_NAME || 'Dainty Trading';
@@ -25,15 +29,17 @@ if (!BREVO_API_KEY && !resendClient) {
   console.warn('[email] No provider configured — emails will be logged only. Set BREVO_API_KEY or RESEND_API_KEY in .env');
 }
 
-async function sendEmail({ to, subject, html, replyTo }) {
+async function sendEmail({ to, subject, html, replyTo, from, fromName }) {
   if (!to || !subject || !html) {
     return { success: false, error: 'Missing to/subject/html' };
   }
+  const senderEmail = from || FROM_EMAIL;
+  const senderName = fromName || FROM_NAME;
 
   if (BREVO_API_KEY) {
     try {
       const payload = {
-        sender: { name: FROM_NAME, email: FROM_EMAIL },
+        sender: { name: senderName, email: senderEmail },
         to: [{ email: to }],
         subject,
         htmlContent: html,
@@ -66,7 +72,7 @@ async function sendEmail({ to, subject, html, replyTo }) {
   if (resendClient) {
     try {
       await resendClient.emails.send({
-        from: `${FROM_NAME} <${FROM_EMAIL}>`,
+        from: `${senderName} <${senderEmail}>`,
         to,
         subject,
         html,

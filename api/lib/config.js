@@ -31,6 +31,19 @@ const config = {
     ),
   },
 
+  // Sender identity for prospect outreach specifically — deliberately separate from
+  // lib/email.js's global FROM_EMAIL/FROM_NAME (still Dainty Trading, used by every other
+  // email flow: client updates, agreement e-sign notifications, etc.). daintytrading.com
+  // now 301-redirects to telaloom.com (confirmed live 2026-09-20) and telaloom.com is
+  // already Brevo-authenticated (verified via /v3/senders/domains, set up 2026-09-18) — so
+  // outreach sends and signs as Telaloom instead of a domain that no longer resolves
+  // directly. NOT changing the app-wide FROM_EMAIL/FROM_NAME: the rebrand was explicitly
+  // scoped as "domain only" as of 2026-09-18, and whether every other email flow should
+  // also switch identity is a separate decision nobody's made yet — see
+  // [[daintytrading-telaloom-rebrand-2026-09-18]].
+  prospectsFromEmail: required('PROSPECTS_FROM_EMAIL', 'hello@telaloom.com'),
+  prospectsFromName: required('PROSPECTS_FROM_NAME', 'Telaloom'),
+
   // Signature appended after the AI-drafted body (not counted against prospectsMaxWords —
   // it's fixed boilerplate, not part of the pitch). A cold email claiming a defect on the
   // recipient's own site, from an unsigned business name with no way to verify the sender,
@@ -39,16 +52,16 @@ const config = {
   // (not a bare domain) so it round-trips cleanly through textToHtml's URL auto-linkifier.
   prospectsSignature: required(
     'PROSPECTS_SIGNATURE',
-    'Andrew, Dainty Trading\nhttps://daintytrading.com'
+    'Andrew, Telaloom\nhttps://telaloom.com'
   ),
 
   // Spam Act 2003 requires accurate sender-contact info the recipient can use for at least 30
   // days — a working email address satisfies this (ACMA guidance), a street address isn't
-  // required. Defaults to the same FROM_EMAIL identity lib/email.js already sends from, so
-  // this doesn't need its own separately-configured value.
+  // required. Defaults to the same identity prospect emails now actually send from (see
+  // prospectsFromEmail above), so this doesn't need its own separately-configured value.
   prospectsFooterAddress: required(
     'PROSPECTS_FOOTER_ADDRESS',
-    `Dainty Trading · ABN 65 366 917 788 · ${required('FROM_EMAIL', 'hello@daintytrading.com')}`
+    `Telaloom · ABN 65 366 917 788 · ${required('PROSPECTS_FROM_EMAIL', 'hello@telaloom.com')}`
   ),
 };
 

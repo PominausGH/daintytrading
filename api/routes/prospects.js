@@ -124,7 +124,14 @@ router.post('/:slug/send', async (req, res) => {
   const html = textToHtml(body) + footerHtml();
   const replyTo = process.env.CONTACT_NOTIFICATION_EMAIL || process.env.FROM_EMAIL || undefined;
 
-  const result = await sendEmail({ to: to.trim(), subject: cleanSubject, html, replyTo });
+  const result = await sendEmail({
+    to: to.trim(),
+    subject: cleanSubject,
+    html,
+    replyTo,
+    from: config.prospectsFromEmail,
+    fromName: config.prospectsFromName,
+  });
   if (!result.success) {
     return res.status(502).json({ error: result.error || 'Failed to send email' });
   }
