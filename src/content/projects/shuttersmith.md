@@ -75,36 +75,7 @@ with what's actually verifiable. -->
 
 <h2>What the numbers show</h2>
 <p>Since we started tracking in July, the site has had 405 real visits (as of 6 Sep 2026) — and of the ones with an identifiable source, the large majority came from Google search. Because there was no analytics before this engagement, that number isn’t a lift over a measured baseline; it’s the first traffic this business has ever had visibility into. These are sessions in analytics, not impressions or modelled reach.</p>
-<script>
-// Weekly cron (api/scripts/update-project-view-stats.py) writes real Umami
-// numbers to api/data/project-stats.json; this is a static build so we fetch
-// at runtime instead of baking the number in and needing a rebuild every week.
-// A raw <span id> embedded inline in this markdown body got mangled by
-// Astro's markdown pipeline (block HTML like <p>/<script> passes through
-// raw, but inline HTML nested mid-sentence does not) — so instead of an
-// id to target, this matches the same dated-visit-count text pattern the
-// old Python script used to sed directly into HTML. Silently no-ops if the
-// pattern isn't found (e.g. wording here changes later) or the fetch fails.
-fetch('/api/project-stats')
-.then((r) => (r.ok ? r.json() : null))
-.then((data) => {
-const s = data && data.shuttersmith;
-if (!s) return;
-const article = document.querySelector('article.prose');
-if (!article) return;
-const pattern = /[\d,]+ real visits \(as of [^)]+\)/;
-for (const p of article.querySelectorAll('p')) {
-if (pattern.test(p.textContent)) {
-p.innerHTML = p.innerHTML.replace(
-pattern,
-`${s.visits.toLocaleString()} real visits (as of ${s.asOf})`
-);
-break;
-}
-}
-})
-.catch(() => {});
-</script>
+<script src="/js/shuttersmith-stats.js"></script>
 <p>They have converted into customer inquiries rather than sitting as page views. The clearest evidence of that is second-order, and not something we could have engineered: the work brought in enough new business that the client backed a second company entirely — <a href="/projects/new-shutter-business.html">a trade-price, self-install spinoff</a> of the same shutters business — and asked us to build that site too.</p>
 
 <h2>What the client says</h2>
