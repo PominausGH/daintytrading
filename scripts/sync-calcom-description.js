@@ -18,7 +18,12 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
 const EVENT_TYPE_ID = 1156;
-const SLUG = 'daintytrading';
+// Was 'daintytrading' — Cal.com's own EventType row was renamed to 'telaloom' as part of
+// the domain rebrand (confirmed live: `SELECT slug FROM "EventType" WHERE id = 1156`
+// returns 'telaloom' as of 2026-09-21). The id stayed the same (per the rebrand's stated
+// scope), only the slug moved — this sync had been silently failing every deploy since
+// 2026-09-18 because the id+slug WHERE clause matched zero rows.
+const SLUG = 'telaloom';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ARTIFACT = path.join(__dirname, '..', 'dist', 'api', 'calcom-event-description.json');
 
