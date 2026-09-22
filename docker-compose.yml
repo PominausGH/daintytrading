@@ -7,7 +7,7 @@ services:
       - "127.0.0.1:8090:80"
     volumes:
       - ./dist:/usr/share/nginx/html:ro
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx:/etc/nginx/conf.d:ro
     # Astro migration (2026-09-09): the web root used to be the bind-mounted repo
     # root, which needed tmpfs masks over api/.git/scripts/prompts so a config
     # slip couldn't expose them (see git blame for the incident that taught us
@@ -16,6 +16,22 @@ services:
     # so there's nothing left to mask. `dist/` doesn't exist until `npm run
     # build` runs at least once; see scripts/dainty-deploy-build.sh, which also
     # needs a cron entry added (not done automatically — see PR description).
+    #
+    # 2026-09-22: nginx.conf used to be bind-mounted directly as a single file
+    # (./nginx.conf:/etc/nginx/conf.d/default.conf). Docker pins a single-file
+    # bind mount to the inode it saw at container start; git's checkout/pull
+    # replaces a changed file via unlink+rename (a new inode), so the running
+    # container kept serving the pre-change content forever afterward — no
+    # `nginx -s reload` in the world fixes that, since reload just re-reads
+    # the same stale mount, and only a full container recreate/restart
+    # re-resolves it. A CSP fix (PR #69) merged, built, and "deployed" per the
+    # script's own log, then sat invisible on the live site until manually
+    # caught and the container force-restarted by hand. Bind-mounting the
+    # whole directory instead sidesteps the inode-pinning problem entirely —
+    # a directory bind mount resolves file lookups fresh each time, so a
+    # replaced file inside it is picked up immediately, and
+    # scripts/dainty-deploy-build.sh's nginx reload (see its own history) now
+    # actually works instead of silently no-oping.
     depends_on:
       api:
         condition: service_started
