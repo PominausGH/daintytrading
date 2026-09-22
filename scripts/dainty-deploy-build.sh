@@ -36,12 +36,27 @@
 # until caught and cleared by hand. Now wiped before every build so a stale
 # cache can't silently block deploys again.
 #
-# 2026-09-15: nginx.conf is bind-mounted into daintytrading-web too, but this
-# script only ever rebuilds dist/ — a merged nginx.conf change (e.g. a cache
-# header fix) landed on disk via `git pull` but nginx kept serving its old,
-# already-running config, since nothing here ever told it to reload. Now
-# reloads (after an `nginx -t` sanity check) whenever nginx.conf changed
-# between the last deploy and this one.
+# 2026-09-15: the nginx/ config dir is bind-mounted into daintytrading-web too,
+# but this script only ever rebuilds dist/ — a merged config change (e.g. a
+# cache header fix) landed on disk via `git pull` but nginx kept serving its
+# old, already-running config, since nothing here ever told it to reload.
+# Documented as fixed at the time, but the actual reload code was never
+# written — this comment describing it is all that ever existed. Caught
+# 2026-09-22 when PR #69's CSP fix built, "deployed" per this script's own
+# log, and still sat invisible on the live site.
+#
+# 2026-09-22: two separate bugs compounded here. First, the one above — no
+# reload code actually existed. Second, even a bare `nginx -s reload` inside
+# the container wouldn't have been enough on its own: `nginx/` used to be
+# bind-mounted as a single file (nginx.conf -> conf.d/default.conf), and
+# Docker pins a single-file bind mount to the inode it saw at container
+# start. git's checkout/pull replaces a changed file via unlink+rename (a
+# new inode), so the running container kept serving pre-change content no
+# matter how many times nginx reloaded — only a full container recreate
+# re-resolves a single-file bind mount. Fixed the mount itself in
+# docker-compose.yml (now binds the whole `nginx/` directory, which re-reads
+# fresh on every access, no inode-pinning), and actually wrote the reload
+# step this comment always claimed existed.
 #
 # 2026-09-16: n8n's heartbeat monitor watches this log's mtime and alarms if
 # it goes >20min untouched — but this script only ever *writes* to it on a
@@ -115,6 +130,15 @@ rm -rf .astro
 if npm run build --silent >> "$LOG" 2>&1; then
   echo "$CURRENT" > "$STATE"
   echo "[$TS] deployed: ${LAST_DEPLOYED:-<none>} -> $CURRENT" >> "$LOG"
+
+  if [ -z "$LAST_DEPLOYED" ] || ! git diff --quiet "$LAST_DEPLOYED" "$CURRENT" -- nginx/; then
+    if docker exec daintytrading-web nginx -t >> "$LOG" 2>&1; then
+      docker exec daintytrading-web nginx -s reload >> "$LOG" 2>&1
+      echo "[$TS] nginx: config changed, reloaded" >> "$LOG"
+    else
+      echo "[$TS] nginx: ERROR — config changed but nginx -t failed, NOT reloading (old config still serving), needs manual fix" >> "$LOG"
+    fi
+  fi
 
   if node scripts/sync-calcom-description.js >> "$LOG" 2>&1; then
     echo "[$TS] calcom-sync: ok" >> "$LOG"
