@@ -12,7 +12,7 @@ metaChips:
   - label: "Category"
     value: "AI · Content automation"
   - label: "Stack"
-    value: "Python · FastAPI · Postgres"
+    value: "Python · Flask · SQLite"
   - label: "LLM"
     value: "Anthropic Claude"
   - label: "Status"
@@ -29,7 +29,7 @@ sidecard:
     - label: "Domain"
       value: "signalreads.com"
     - label: "Backend"
-      value: "Python · FastAPI"
+      value: "Python · Flask"
     - label: "Sources"
       value: "HN · Reddit · Dev.to"
     - label: "Targets"
@@ -69,7 +69,7 @@ schemaExtra:
 
 <h2>What we built</h2>
 <p>Ghost Writer scrapes Hacker News, Reddit, and Dev.to on a cron, scores topics for relevance against a per-account profile, and queues the winners for drafting. Claude writes a 1,500-word article in the configured voice with structured sections and a working hook. The draft passes through six independent quality gates — grammar, originality, AI-detector resistance, on-page SEO, link integrity, and brand-voice match — and only ships if all six pass.</p>
-<p>Publishing happens through the LinkedIn and Medium APIs with rate limiting, retry, and human approval as an optional gate. A FastAPI dashboard shows the pipeline live: topic queue, draft status, QA results, scheduled posts, and historical performance pulled back from each platform.</p>
+<p>Publishing happens through the LinkedIn and Medium APIs with rate limiting, retry, and human approval as an optional gate. A Flask dashboard shows the pipeline live: topic queue, draft status, QA results, scheduled posts, and historical performance pulled back from each platform.</p>
 
 <h2>The AI angle</h2>
 <p>Generation is the easy part. The hard part is the QA pipeline. We treat each quality check as a small, focused Claude call with its own prompt and pass/fail rubric, and we keep the prompts versioned in Git with a regression test set of articles that should pass and articles that shouldn’t. Every change to a prompt has to keep the matrix green before it ships. That’s how we keep quality from drifting as Claude itself changes underneath us.</p>

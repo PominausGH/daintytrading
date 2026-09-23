@@ -29,7 +29,7 @@
 - [Subscription Incinerator](https://telaloom.com/projects/subscription.html) — live at **subscriptionincinerator.app**. Finds subscriptions in Gmail; Claude drafts merchant-specific cancellation emails; SMS chases follow-ups.
 - [Everyring.ai](https://telaloom.com/projects/missed-calls.html) — live at **everyring.ai**. Captures missed phone calls for service businesses; Claude drafts the right follow-up SMS or email per contact.
 - [BrightPath](https://telaloom.com/projects/brightpath.html) — live at **brightpath.school**. Personalised K-12 online school with an AI tutor named Pax (routed through OpenRouter, default Gemini Flash + Claude for harder tutoring).
-- [CV Matcher](https://telaloom.com/projects/cv-matcher.html) — live at **cvmatcher.work**. Scrapes LinkedIn jobs, scores them against your CV with Claude, returns explainable match reasoning.
+- [CV Matcher](https://telaloom.com/projects/cv-matcher.html) — live at **cvmatcher.work**. AI CV screening for recruitment agencies: ranks every CV against a job description with Claude, with matched/missing skills and a one-line reason per candidate.
 - [BizPage Builder](https://telaloom.com/projects/bizpage-builder.html) — live at **bizpage.biz**. Discovers small businesses without websites via Google Maps API; generates SEO-ready landing pages with Claude; exports as deployable ZIP.
 - [FocusShield](https://telaloom.com/projects/focusguard.html) — live at **focusshield.app**. Cross-platform task and focus app — web, iOS, Android — Expo + Node + Postgres.
 - [AutoArchive](https://telaloom.com/projects/autoarchive.html) — live at **autoarchivemail.com**. Personal email archive and search. Static HTML + Node + SQLite + Brevo.

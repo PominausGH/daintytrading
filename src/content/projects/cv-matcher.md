@@ -2,15 +2,15 @@
 type: "product"
 status: "live"
 name: "CV Matcher"
-title: "CV Matcher — AI Job Matching from LinkedIn | TelaLoom"
-description: "CV Matcher scrapes LinkedIn jobs, scores them against your CV with Claude, and explains why each match scored the way it did. Less swipe-fatigue, more actual interviews."
-ogTitle: "CV Matcher — AI job matching"
-ogDescription: "Score LinkedIn jobs against your CV with explainable AI matching."
+title: "CV Matcher — AI CV Screening for Recruitment Agencies | TelaLoom"
+description: "CV Matcher ranks every CV against a job description with Claude — a match score, matched and missing skills, and a one-line reason per candidate. Built for recruitment agencies and in-house recruiters."
+ogTitle: "CV Matcher — AI CV screening"
+ogDescription: "Rank hundreds of CVs against a job description with explainable AI scoring."
 ogImage: "https://telaloom.com/og/cv-matcher.png"
-lede: "Upload your CV. CV Matcher scrapes LinkedIn for relevant openings, scores each one against your actual experience with Claude, and tells you in plain English why each match scored the way it did."
+lede: "Post a job, upload a stack of CVs. CV Matcher scores every candidate against the role with Claude and tells you in plain English which skills matched, which are missing, and why."
 metaChips:
   - label: "Category"
-    value: "AI · Careers"
+    value: "AI · Recruitment"
   - label: "Stack"
     value: "Python · Flask"
   - label: "LLM"
@@ -30,14 +30,14 @@ sidecard:
       value: "cvmatcher.work"
     - label: "Backend"
       value: "Python · Flask"
-    - label: "Source"
-      value: "LinkedIn"
+    - label: "Data"
+      value: "SQLite"
     - label: "LLM"
-      value: "Anthropic Claude"
+      value: "Claude Haiku 4.5"
     - label: "Outputs"
-      value: "Score + reasoning"
+      value: "Score · skills · reason"
     - label: "Inputs"
-      value: "PDF · text CV"
+      value: "CVs + job description"
   primaryCta:
     label: "Visit CV Matcher →"
     href: "https://cvmatcher.work"
@@ -62,23 +62,23 @@ schemaExtra:
 ---
 
 <h2>The problem</h2>
-<p>Job boards are optimised for the employer, not the candidate. The result is hundreds of vaguely-relevant postings, no real ranking, and an application process that punishes anyone who isn’t willing to apply to fifty roles a week. We wanted a system that did the reading and ranking, so the human only handled the writing and applying.</p>
+<p>A single job ad can pull in hundreds of CVs, and a recruiter still has to read each one to find the handful worth a phone call. Keyword filters miss good candidates who describe the same skill differently, and a bare score doesn’t tell you what’s actually missing. We wanted a tool that did the first-pass reading and ranking, so the recruiter only spent time on the shortlist.</p>
 
 <h2>What we built</h2>
-<p>CV Matcher takes a CV (PDF or paste-in), extracts a structured profile, and then scrapes LinkedIn for matching openings. Each posting is parsed for explicit and implicit requirements (years, stack, seniority, location, work-rights), scored against the profile, and ranked. The output isn’t just a number — each match comes with a paragraph from Claude explaining the fit and the gap.</p>
+<p>Recruiters post a job description and upload CVs in bulk. CV Matcher scores every candidate against the role and ranks them, and each result comes with the skills that matched, the skills that are missing, and a one-line reason for the score. On top of screening, it can suggest interview questions for a shortlisted candidate and help source new candidates from LinkedIn and GitHub. Teams can share jobs and results across seats.</p>
 
 <h2>The AI angle</h2>
-<p>Two prompts do the heavy lifting. The extractor turns prose CVs and prose job postings into a normalised JSON schema that both sides agree on. The matcher reads the two schemas and produces a score plus a reasoning trace. Keeping these prompts independent means we can iterate on each one in isolation and run a backtest of every change against the user’s past matches.</p>
+<p>Scoring is one narrowly-scoped Claude Haiku call per CV and job pair. The model must return a fixed JSON shape — score, matched skills, missing skills, and a short reason — and the app strips stray formatting, clamps the score to 0–100, and caps the skill lists before anything is stored. If the model call fails or returns something unparseable, scoring falls back to a deterministic TF-IDF and keyword-overlap score, so a candidate never ends up with a half-parsed result.</p>
 
 <h2>Filtering, sorting, and exporting matches</h2>
 <p>Once a match runs, a filter bar lets you set a minimum match percentage, select must-have skills from a multi-select populated from that result set, and sort by match score, candidate name, or source file — entirely client-side, no reload. Premium accounts can export the ranked list as CSV (UTF-8 BOM so Excel reads the encoding correctly, skills semicolon-joined so commas never split a column) or XLSX (bold header row, frozen top row, match percentage stored as a real number so it sorts and filters properly in Excel, not as text).</p>
 
 <h2>How it’s used</h2>
 <ul>
-<li><strong>Active job seekers</strong> who want a daily curated list instead of doom-scrolling LinkedIn.</li>
-<li><strong>Career switchers</strong> who use the gap-analysis to decide which skill to add next.</li>
-<li><strong>Recruiters and agencies</strong> who use it as a sourcing assistant.</li>
+<li><strong>Recruitment agencies</strong> screening high-volume applications across several open roles.</li>
+<li><strong>In-house recruiters and hiring managers</strong> who want a ranked shortlist with the gaps spelled out before the first call.</li>
+<li><strong>Small teams</strong> sharing jobs and results across seats instead of passing CVs around by email.</li>
 </ul>
 
 <h2>What it taught us</h2>
-<p>Explainability changes behaviour. Numerical match scores got users to ignore everything but the top five. The moment we shipped the “why” paragraph, users started exploring matches with mid-range scores — because they could see what was missing and decide whether it actually mattered. That’s the difference between a tool that ranks and a tool that helps you decide.</p>
+<p>A score on its own isn’t enough to act on. Showing the matched and missing skills next to every score lets a recruiter judge whether a gap actually matters for the role — which is the difference between a tool that ranks and a tool that helps you decide. And because the AI call has a deterministic fallback, screening keeps working even when the model doesn’t.</p>
