@@ -111,7 +111,7 @@ router.post('/clients/:token/notes', (req, res) => {
     return res.status(400).json({ error: 'Note text is required' });
   }
   const record = saveClientNote(req.params.token, {
-    name: sanitize(name) || 'Dainty Trading',
+    name: sanitize(name) || 'TelaLoom',
     note: sanitize(note),
     targetDate: targetDate ? sanitize(targetDate) : null,
     author: 'studio',

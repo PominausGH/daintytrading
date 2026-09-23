@@ -32,15 +32,14 @@ const config = {
   },
 
   // Sender identity for prospect outreach specifically — deliberately separate from
-  // lib/email.js's global FROM_EMAIL/FROM_NAME (still Dainty Trading, used by every other
-  // email flow: client updates, agreement e-sign notifications, etc.). daintytrading.com
+  // lib/email.js's global FROM_EMAIL/FROM_NAME (switched to TelaLoom 2026-09-23, used by every
+  // other email flow: client updates, agreement e-sign notifications, etc.). daintytrading.com
   // now 301-redirects to telaloom.com (confirmed live 2026-09-20) and telaloom.com is
   // already Brevo-authenticated (verified via /v3/senders/domains, set up 2026-09-18) — so
   // outreach sends and signs as Telaloom instead of a domain that no longer resolves
-  // directly. NOT changing the app-wide FROM_EMAIL/FROM_NAME: the rebrand was explicitly
-  // scoped as "domain only" as of 2026-09-18, and whether every other email flow should
-  // also switch identity is a separate decision nobody's made yet — see
-  // [[daintytrading-telaloom-rebrand-2026-09-18]].
+  // directly. The app-wide FROM_EMAIL/FROM_NAME followed on 2026-09-23 (Andrew: "remove
+  // daintytrading"); these stay separate so outreach identity can still diverge if needed —
+  // see [[daintytrading-telaloom-rebrand-2026-09-18]].
   prospectsFromEmail: required('PROSPECTS_FROM_EMAIL', 'hello@telaloom.com'),
   prospectsFromName: required('PROSPECTS_FROM_NAME', 'Telaloom'),
 

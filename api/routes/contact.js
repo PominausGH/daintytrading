@@ -76,7 +76,7 @@ router.post('/', contactRateLimiter, async (req, res) => {
       replyTo: data.email,
       subject: `${flagPrefix}New enquiry from ${data.name}`,
       html: `
-        <h2 style="margin:0 0 16px;">New Contact Enquiry — Dainty Trading</h2>
+        <h2 style="margin:0 0 16px;">New Contact Enquiry — TelaLoom</h2>
         <p><strong>Name:</strong> ${escapeHtml(data.name)}</p>
         <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
         <p><strong>Company:</strong> ${escapeHtml(data.company) || '—'}</p>
@@ -101,15 +101,15 @@ router.post('/', contactRateLimiter, async (req, res) => {
     if (!spamReason) {
       const ackResult = await sendEmail({
         to: data.email,
-        subject: "We've received your enquiry — Dainty Trading",
+        subject: "We've received your enquiry — TelaLoom",
         html: `
           <h2 style="margin:0 0 16px;">Thanks for reaching out, ${escapeHtml(data.name)}!</h2>
           <p>We've received your enquiry and will reply within <strong>one business day</strong> with our read on the project.</p>
           <blockquote style="border-left:4px solid #7c5cff;padding:12px 16px;margin:16px 0;color:#374151;background:#f9f7ff;border-radius:0 6px 6px 0;">
             ${escapeHtml(data.message.substring(0, 300))}${data.message.length > 300 ? '…' : ''}
           </blockquote>
-          <p>In the meantime, feel free to browse <a href="https://daintytrading.com/services.html" style="color:#7c5cff;">our services</a> or <a href="https://daintytrading.com/work.html" style="color:#7c5cff;">recent projects</a>.</p>
-          <p style="margin-top:32px;">— The Dainty Trading team</p>
+          <p>In the meantime, feel free to browse <a href="https://telaloom.com/services.html" style="color:#7c5cff;">our services</a> or <a href="https://telaloom.com/work.html" style="color:#7c5cff;">recent projects</a>.</p>
+          <p style="margin-top:32px;">— The TelaLoom team</p>
           <hr style="margin:24px 0;border:none;border-top:1px solid #e2e8f0;"/>
           <p style="font-size:12px;color:#94a3b8;">This is an automated acknowledgement. Please don't reply to this message — your original enquiry has a reply-to address set.</p>
         `,
