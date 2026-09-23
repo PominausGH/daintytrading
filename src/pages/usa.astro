@@ -9,7 +9,7 @@ const jsonLd = [
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
     name: 'TelaLoom',
-    description: 'Australian AI development studio serving US companies. We build production LLM software — AI products, automation retrofits, and AI infrastructure — for US startups and businesses.',
+    description: 'Australian studio serving US companies. We build websites, rank them with SEO & GEO, and build custom automation software — AI products, automation retrofits, and AI infrastructure — for US startups and businesses.',
     url: 'https://telaloom.com',
     areaServed: [
       { '@type': 'Country', name: 'United States' },
@@ -20,6 +20,8 @@ const jsonLd = [
       '@type': 'OfferCatalog',
       name: 'AI development services',
       itemListElement: [
+        { '@type': 'Offer', name: 'Website builds', url: 'https://telaloom.com/services/website-builds.html' },
+        { '@type': 'Offer', name: 'SEO & GEO optimization', url: 'https://telaloom.com/services/seo-geo-optimization.html' },
         { '@type': 'Offer', name: 'AI product builds', url: 'https://telaloom.com/services/ai-product-builds.html' },
         { '@type': 'Offer', name: 'AI automation retrofits', url: 'https://telaloom.com/services/ai-automation-retrofit.html' },
         { '@type': 'Offer', name: 'AI infrastructure', url: 'https://telaloom.com/services/ai-infrastructure.html' },
@@ -40,8 +42,8 @@ const jsonLd = [
 ];
 ---
 <BaseLayout
-  title="AI Development Agency for US Companies — Australian Studio | TelaLoom"
-  description={`TelaLoom is an Australian AI development studio serving US clients. English-first, production-grade, USD invoicing. ${counts.live} AI products live. First demo in 2 weeks. Async-first with daily updates.`}
+  title="Websites, SEO & GEO, and Automation Software for US Companies | TelaLoom"
+  description={`TelaLoom is an Australian studio building websites, SEO & GEO, and automation software for US clients. English-first, production-grade, USD invoicing. ${counts.live} AI products live. First demo in 2 weeks. Async-first with daily updates.`}
   canonicalPath="/usa.html"
   hreflangAlternates={true}
   jsonLd={jsonLd}
@@ -50,10 +52,10 @@ const jsonLd = [
   <main id="main">
     <section class="hero">
       <div class="container">
-        <span class="eyebrow">AI Development &middot; Serving US Companies &middot; {counts.live} Live AI Products</span>
-        <h1>Australian AI Development Studio for US Companies</h1>
+        <span class="eyebrow">Websites &middot; SEO &amp; GEO &middot; Automation &middot; Serving US Companies</span>
+        <h1>Websites, SEO &amp; GEO, and Automation Software for US Companies</h1>
         <p class="lead">
-          TelaLoom builds production AI software for US startups and businesses.
+          TelaLoom builds websites, gets them found on Google and by AI assistants, and builds production automation software for US startups and businesses.
           English-first team, {counts.total} shipped products, USD invoicing. We work async &mdash;
           you get a written update before your workday starts, every day. First demo in
           2&nbsp;weeks. Fraction of the cost of a US agency.
@@ -90,8 +92,10 @@ const jsonLd = [
 
     <section id="us-use-cases">
       <div class="container">
-        <div class="section-head"><h2>What US Companies Are Building With Us</h2><p>The AI engagements we run most often for US clients.</p></div>
+        <div class="section-head"><h2>What US Companies Are Building With Us</h2><p>The engagements we run most often for US clients.</p></div>
         <div class="service-grid service-grid-2col">
+          <div class="service-card"><div class="icon">&rarr;</div><h3><a href="/services/seo-geo-optimization.html" style="color:inherit;">SEO &amp; GEO optimization</a></h3><p>US sites that look fine but aren&rsquo;t found by Google or AI answer engines. We audit and fix indexing, structured data, llms.txt, and AI-crawler access &mdash; shipped directly to your codebase, not a PDF.</p></div>
+          <div class="service-card"><div class="icon">&rarr;</div><h3><a href="/services/website-builds.html" style="color:inherit;">Website builds</a></h3><p>Fast, static, search-ready sites with SEO &amp; GEO built in from day one &mdash; the same stack that scores 99&ndash;100 on PageSpeed for our own portfolio.</p></div>
           <div class="service-card"><div class="icon">01</div><h3>AI-native product builds</h3><p>US founders with ideas for LLM-powered products &mdash; tools where AI is the core feature, not a bolt-on. We take the idea from a two-paragraph brief to a live product with paying users in 4&ndash;8 weeks. Full-stack: backend, frontend, LLM integration, billing, observability.</p></div>
           <div class="service-card"><div class="icon">02</div><h3>AI feature retrofits for SaaS</h3><p>US SaaS companies adding AI features to compete with AI-native entrants. Draft generation, smart triage, structured extraction, semantic search. We bolt these onto your existing backend without a rewrite. 2&ndash;6 week sprints, feature-flagged rollout.</p></div>
           <div class="service-card"><div class="icon">03</div><h3>LLM infrastructure and evals</h3><p>US companies that have AI features in production but are struggling with cost, reliability, or quality drift. We build the infrastructure layer: LLM gateways, prompt versioning, eval pipelines, spend caps, and observability dashboards.</p></div>

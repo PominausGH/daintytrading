@@ -38,7 +38,7 @@ const jsonLd = [
     '@type': 'FAQPage',
     mainEntity: [
       { '@type': 'Question', name: 'What is TelaLoom?', acceptedAnswer: { '@type': 'Answer', text: `TelaLoom builds websites, ranks them with SEO & GEO, and builds custom automation software that replaces manual work in your business — for Australian and global businesses. We also design, build, and operate production AI software across our own portfolio of ${counts.total} products (some live, others in final testing or active development), covering email, content, education, knowledge management, marketing automation, scheduling, billing, and SaaS infrastructure.` } },
-      { '@type': 'Question', name: 'What kind of AI projects do you take on?', acceptedAnswer: { '@type': 'Answer', text: 'LLM-powered features (Claude, Gemini, OpenRouter), agentic workflows, content automation pipelines, AI-driven personalisation, and structured-extraction systems. We also do the boring infrastructure that keeps them up — gateways, queues, evals, billing.' } },
+      { '@type': 'Question', name: 'What kind of projects do you take on?', acceptedAnswer: { '@type': 'Answer', text: 'Three kinds: website builds (from an instant page to a custom site with Local SEO & GEO built in), SEO & GEO work on existing sites, and custom automation software — LLM-powered features (Claude, Gemini, OpenRouter), agentic workflows, content pipelines, and structured-extraction systems, plus the infrastructure that keeps them up.' } },
       { '@type': 'Question', name: 'What stack do you build on?', acceptedAnswer: { '@type': 'Answer', text: 'Python (FastAPI, Django) and Node.js (Fastify, Express) on the backend; Next.js, React, and React Native on the front; PostgreSQL and Redis for state; n8n for orchestration; Stripe for billing; LiteLLM for routing across model providers; Docker everywhere.' } },
       { '@type': 'Question', name: 'Do you only build with Claude?', acceptedAnswer: { '@type': 'Answer', text: 'No. We default to Anthropic Claude because it punches above its weight on long-context and structured tasks, but we route through OpenRouter and LiteLLM so projects can pick Gemini, OpenAI, or open-weights when the economics or latency demand it.' } },
       { '@type': 'Question', name: 'How fast can you ship?', acceptedAnswer: { '@type': 'Answer', text: "First demo in 1–2 weeks for most builds. A first paying customer in 4–8 weeks. We move fast because we've already built the boring parts (billing, auth, LLM routing, observability) and reuse them across every project." } },
@@ -132,22 +132,22 @@ const jsonLd = [
           <div class="for-you-card">
             <span class="for-you-check">&#10003;</span>
             <div>
-              <strong>You&rsquo;re a SaaS founder</strong>
-              <p>You have a workflow that still runs on people, not software &mdash; and you want to change that without a six-month engineering project.</p>
+              <strong>You run a local or service business</strong>
+              <p>You don&rsquo;t have a real website yet, or the one you have doesn&rsquo;t show up when people Google what you do in your area.</p>
             </div>
           </div>
           <div class="for-you-card">
             <span class="for-you-check">&#10003;</span>
             <div>
-              <strong>You&rsquo;re a CTO or technical lead</strong>
-              <p>You know where AI could help but don&rsquo;t have the team to build the eval pipeline, prompt ops, and infrastructure that make it reliable.</p>
+              <strong>Your site isn&rsquo;t being found</strong>
+              <p>It looks fine, but Google and AI assistants like ChatGPT aren&rsquo;t sending you customers &mdash; and you want the fix shipped into the site, not handed over as a PDF.</p>
             </div>
           </div>
           <div class="for-you-card">
             <span class="for-you-check">&#10003;</span>
             <div>
-              <strong>You&rsquo;ve done the research</strong>
-              <p>You know what an LLM is. You know the business case. You need a team that&rsquo;s actually shipped it in production &mdash; not just demo&rsquo;d it.</p>
+              <strong>You have work that should be software</strong>
+              <p>A workflow that still runs on people, spreadsheets, or copy-paste &mdash; and you want it automated without a six-month engineering project.</p>
             </div>
           </div>
         </div>
@@ -181,7 +181,7 @@ const jsonLd = [
       <div class="container">
         <div class="section-head">
           <h2>Why TelaLoom</h2>
-          <p>Most AI agencies spend eight weeks writing a deck. We spend it writing code.</p>
+          <p>Most agencies spend eight weeks writing a proposal. We spend it building.</p>
         </div>
         <div class="service-grid service-grid-2col">
           <div class="service-card">
@@ -286,28 +286,38 @@ const jsonLd = [
     <section id="services">
       <div class="container">
         <div class="section-head">
-          <h2>AI Development Services</h2>
-          <p>We don&rsquo;t do AI demos. We ship AI features that show up in your P&amp;L. Four things, done well.</p>
+          <h2>Services</h2>
+          <p>Websites that get found, and software that replaces manual work. Six things, done well.</p>
         </div>
 
         <div class="service-grid service-grid-2col">
           <div class="service-card">
             <div class="icon">01</div>
+            <h3><a href="/services/website-builds.html" class="link-inherit">Website builds</a></h3>
+            <p>From an instant page generated from your Google listing (from $149 USD) to a custom-built site with Local SEO &amp; GEO switched on from day one &mdash; $6,900 AUD, or $4,900 with a 12-month Growth commitment. No lock-in.</p>
+          </div>
+          <div class="service-card">
+            <div class="icon">02</div>
+            <h3><a href="/services/local-seo.html" class="link-inherit">Local SEO &amp; GEO</a></h3>
+            <p>Get found on Google Maps, in local search, and when people ask ChatGPT who to call. Google Business Profile management, review generation, local schema, and location pages for one business.</p>
+          </div>
+          <div class="service-card">
+            <div class="icon">03</div>
             <h3><a href="/services/ai-product-builds.html" class="link-inherit">AI product builds</a></h3>
             <p>Full-stack delivery. We take an idea — yours or ours — and ship a paying product. Backend, frontend, mobile, billing, observability, and the LLM glue that makes it real.</p>
           </div>
           <div class="service-card">
-            <div class="icon">02</div>
+            <div class="icon">04</div>
             <h3><a href="/services/ai-automation-retrofit.html" class="link-inherit">Automation retrofits</a></h3>
             <p>Already have a SaaS or internal tool? We bolt in AI where it earns its keep — email triage, support deflection, content generation, structured extraction — without rewriting the world.</p>
           </div>
           <div class="service-card">
-            <div class="icon">03</div>
+            <div class="icon">05</div>
             <h3><a href="/services/ai-infrastructure.html" class="link-inherit">AI infrastructure</a></h3>
             <p>LLM gateways, prompt versioning, evals, queue workers, billing plumbing, observability. The unsexy layer that decides whether your AI feature stays up at 3am.</p>
           </div>
           <div class="service-card">
-            <div class="icon">04</div>
+            <div class="icon">06</div>
             <h3><a href="/services/seo-geo-optimization.html" class="link-inherit">SEO &amp; GEO optimization</a></h3>
             <p>Get found by Google and by AI answer engines. We audit and fix meta tags, schema markup, llms.txt, and AI-crawler access — shipped directly to your codebase, not a PDF. Free audit, Setup $3,900 AUD — not the $5k&ndash;$15k-plus retainer agencies typically quote for the same audit-and-fix scope.</p>
           </div>
@@ -355,8 +365,8 @@ const jsonLd = [
           </details>
 
           <details class="faq-item">
-            <summary>What kind of AI projects do you take on?</summary>
-            <p>LLM-powered features (Claude, Gemini, OpenRouter), agentic workflows, content automation pipelines, AI-driven personalisation, and structured-extraction systems. We also do the boring infrastructure that keeps them up — gateways, queues, evals, billing.</p>
+            <summary>What kind of projects do you take on?</summary>
+            <p>Three kinds: website builds (from an instant page to a custom site with Local SEO & GEO built in), SEO & GEO work on existing sites, and custom automation software — LLM-powered features (Claude, Gemini, OpenRouter), agentic workflows, content pipelines, and structured-extraction systems, plus the infrastructure that keeps them up.</p>
           </details>
 
           <details class="faq-item">
