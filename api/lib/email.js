@@ -10,8 +10,8 @@
  * global default every other email flow still relies on.
  */
 
-const FROM_NAME = process.env.FROM_NAME || 'Dainty Trading';
-const FROM_EMAIL = process.env.FROM_EMAIL || 'hello@daintytrading.com';
+const FROM_NAME = process.env.FROM_NAME || 'TelaLoom';
+const FROM_EMAIL = process.env.FROM_EMAIL || 'hello@telaloom.com';
 
 const BREVO_API_KEY = process.env.BREVO_API_KEY || null;
 

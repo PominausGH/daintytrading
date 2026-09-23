@@ -133,7 +133,7 @@ router.post('/:token/notes', noteLimiter, async (req, res) => {
     ${data.targetDate ? `<p><strong>Target date:</strong> ${escapeHtml(data.targetDate)}</p>` : ''}
     <p style="white-space:pre-wrap;background:#f8fafc;padding:12px 16px;border-radius:6px;">${escapeHtml(data.note)}</p>
     <hr style="margin:16px 0;border:none;border-top:1px solid #e2e8f0;"/>
-    <p style="font-size:12px;color:#94a3b8;">Status page: https://daintytrading.com/status.html?token=${req.params.token}</p>
+    <p style="font-size:12px;color:#94a3b8;">Status page: https://telaloom.com/status.html?token=${req.params.token}</p>
   `;
   // Notify recipients in parallel — the default studio inbox, plus a
   // per-client extra recipient (e.g. Darren's andrew@eklawyers.com.au) when set.

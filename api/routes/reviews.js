@@ -65,7 +65,7 @@ router.post('/', reviewRateLimiter, async (req, res) => {
       replyTo: data.email || undefined,
       subject: `${flagPrefix}New review from ${data.name} (${data.rating}★) — awaiting approval`,
       html: `
-        <h2 style="margin:0 0 16px;">New Review Submitted — Dainty Trading</h2>
+        <h2 style="margin:0 0 16px;">New Review Submitted — TelaLoom</h2>
         <p>This is <strong>not published automatically</strong> — it's saved to review-submissions.jsonl for you to approve and add to the site.</p>
         <p><strong>Name:</strong> ${escapeHtml(data.name)}</p>
         <p><strong>Company:</strong> ${escapeHtml(data.company) || '—'}</p>
@@ -88,11 +88,11 @@ router.post('/', reviewRateLimiter, async (req, res) => {
     if (!spamReason && data.email) {
       const ackResult = await sendEmail({
         to: data.email,
-        subject: 'Thanks for the review — Dainty Trading',
+        subject: 'Thanks for the review — TelaLoom',
         html: `
           <h2 style="margin:0 0 16px;">Thanks, ${escapeHtml(data.name)}!</h2>
           <p>We read every review that comes in. Most end up on the site within a few days — we'll credit you by name${data.company ? ' and company' : ''} unless you tell us otherwise.</p>
-          <p style="margin-top:32px;">— The Dainty Trading team</p>
+          <p style="margin-top:32px;">— The TelaLoom team</p>
         `,
       });
       if (!ackResult.success) {

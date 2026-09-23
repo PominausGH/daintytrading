@@ -39,7 +39,7 @@ async function checkAndHeal() {
 
   await sendEmail({
     to: ALERT_EMAIL,
-    subject: `[Dainty Trading] ${WATCHED_EMAIL} was suppressed in Brevo${unblocked ? ' (auto-unblocked)' : ' — unblock FAILED, check manually'}`,
+    subject: `[TelaLoom] ${WATCHED_EMAIL} was suppressed in Brevo${unblocked ? ' (auto-unblocked)' : ' — unblock FAILED, check manually'}`,
     html: `
       <p><strong>${WATCHED_EMAIL}</strong> was found on Brevo's suppression list.</p>
       <p><strong>Reason:</strong> ${blocked.reason && blocked.reason.message ? blocked.reason.message : 'unknown'} (code: ${blocked.reason && blocked.reason.code})</p>

@@ -48,7 +48,7 @@ if (cmd === 'new') {
   console.log('Created client status record:');
   console.log(record);
   console.log('\nShareable link:');
-  console.log(`https://daintytrading.com/status.html?token=${record.token}`);
+  console.log(`https://telaloom.com/status.html?token=${record.token}`);
 } else if (cmd === 'update') {
   const [token, ...flagArgs] = rest;
   const client = getClient(token);
@@ -80,7 +80,7 @@ if (cmd === 'new') {
   }
   const flags = parseFlags(flagArgs);
   const record = saveClientNote(token, {
-    name: flags.name || 'Dainty Trading',
+    name: flags.name || 'TelaLoom',
     note: noteText,
     targetDate: flags.date || null,
     author: 'studio',
