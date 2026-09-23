@@ -3,7 +3,7 @@ type: "product"
 status: "live"
 name: "BrightPath"
 title: "BrightPath — Personalised K-12 School with AI Tutor | TelaLoom"
-description: "BrightPath is a personalised online K-12 school with an AI tutor (Pax), gamified rewards, and progress tracking. Built on Next.js and a Node API, powered by Claude and Gemini through OpenRouter."
+description: "BrightPath is a personalised online K-12 school with an AI tutor (Pax), gamified rewards, and progress tracking. Built on Astro and an Express API, with the tutor powered by Gemini through OpenRouter."
 ogTitle: "BrightPath — AI-tutored K-12 school"
 ogDescription: "A personalised online school for K-12 with an AI tutor and gamified progress tracking."
 ogImage: "https://telaloom.com/og/brightpath.png"
@@ -12,7 +12,7 @@ metaChips:
   - label: "Category"
     value: "AI · Education"
   - label: "Stack"
-    value: "Next.js · Node · Postgres"
+    value: "Astro · Express · SQLite"
   - label: "LLM"
     value: "OpenRouter (Gemini · Claude)"
   - label: "Status"
@@ -29,9 +29,9 @@ sidecard:
     - label: "Domain"
       value: "brightpath.school"
     - label: "Frontend"
-      value: "Next.js"
+      value: "Astro · static HTML"
     - label: "Backend"
-      value: "Node API · Postgres"
+      value: "Express API · SQLite"
     - label: "AI Tutor"
       value: "Pax (Gemini + Claude)"
     - label: "Routing"
@@ -63,7 +63,7 @@ schemaExtra:
 <p>Online learning largely failed because it copied a classroom format that was already failing in person. The shift we wanted to make was simple: every student gets a tutor sitting next to them, every lesson adapts to where the student actually is, and the gamification layer is honest — rewarding mastery, not minutes-on-task.</p>
 
 <h2>What we built</h2>
-<p>BrightPath is a full learning environment: a course library spanning maths, literacy, science, history, and electives; an AI tutor (Pax) embedded in every lesson; an XP-and-streak rewards system; and a dashboard for parents that shows what was learned versus what was just clicked through. The frontend is a responsive Next.js app; the backend is a Node API on Postgres; the AI tutor is routed through OpenRouter so we can pick the model with the right cost-quality trade-off per task.</p>
+<p>BrightPath is a full learning environment: a course library spanning maths, literacy, science, history, and electives; an AI tutor (Pax) embedded in every lesson; an XP-and-streak rewards system; and a dashboard for parents that shows what was learned versus what was just clicked through. The frontend is a responsive Astro and static-HTML site; the backend is an Express API on SQLite; the AI tutor is routed through OpenRouter, so the model behind Pax can be changed with a single configuration setting.</p>
 
 <h2>The AI angle</h2>
 <p>Pax has two jobs. The first is reactive — answer the student’s question without giving the answer away when the goal is comprehension. The second is proactive — notice when a student is stuck, surface a hint scaffolded to their level, and adapt the next problem. We use Gemini Flash for the cheap real-time work and Claude for the longer, harder tutoring conversations. Every interaction is logged against the curriculum node, which gives us an evals corpus to keep Pax pedagogically sound.</p>

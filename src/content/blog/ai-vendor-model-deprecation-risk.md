@@ -19,7 +19,7 @@ The problem shows up six months to a year later, when the vendor sends a depreca
 
 ## The better approach
 
-Treat the model identifier as configuration, not code. On every project where we've built this in — Email Triage and CV Matcher both run this pattern — the model name lives in one place: an environment variable, a config service, or a thin internal gateway that every call routes through. Application code asks for "the summarization model" or "the classification model," not for claude-opus-4-20250514 by name. Swapping versions becomes a config change and a redeploy, not a code archaeology exercise.
+Treat the model identifier as configuration, not code. On new builds, the model name lives in one place: an environment variable, a config service, or a thin internal gateway that every call routes through. Application code asks for "the summarization model" or "the classification model," not for claude-opus-4-20250514 by name. Swapping versions becomes a config change and a redeploy, not a code archaeology exercise.
 
 A gateway is worth the extra layer once you're calling models from more than one or two places. It doesn't need to be elaborate — a small internal service or even a shared module that wraps the provider SDK — but it should own three things: the model string, retry and timeout behavior, and logging of which model handled which request. That last part matters more than people expect. When a new model version changes behavior subtly (shorter outputs, different tone, a refusal pattern that wasn't there before), you need to be able to correlate a spike in bad outputs with the exact version that produced them.
 

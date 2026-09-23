@@ -12,7 +12,7 @@ ogImage: "https://telaloom.com/og-card.jpg"
 <p>The better question is: <strong>which one workflow in your product would be meaningfully better if an LLM touched it?</strong> Start there. Build a clean boundary around it. Swap out the old logic for an AI-powered endpoint. Ship it. Then pick the next one.</p>
 
 <h2>The three workflows worth retrofitting first</h2>
-<p>After building <a href="/projects/emailtriage.html">Email Triage</a>, <a href="/projects/missed-calls.html">Everyring.ai</a>, and several client retrofits, we keep landing on the same three categories as the highest-value first moves:</p>
+<p>After building <a href="/projects/emailtriage.html">Email Triage</a>, <a href="/projects/missed-calls.html">Everyring.ai</a>, and our other products, we keep landing on the same three categories as the highest-value first moves:</p>
 
 <h3>1. Draft generation</h3>
 <p>Anywhere your users are writing from scratch — replies, reports, summaries, proposals — an LLM can produce a first draft that your user edits down to 10 seconds of work. The AI doesn’t need to be right, it needs to be 80% right and fast. Draft generation is the single easiest retrofit because the blast radius of a bad output is low: the user sees it before it goes anywhere.</p>
@@ -49,7 +49,7 @@ Output: <code>{ priority, category, suggested_action }</code></p>
 
 <h2>Use a gateway, not direct API calls</h2>
 <p>Don’t hard-code calls to <code>api.anthropic.com</code> directly. Route through a gateway like <a href="https://litellm.ai" rel="noopener" target="_blank">LiteLLM</a> or <a href="https://openrouter.ai" rel="noopener" target="_blank">OpenRouter</a>. You get model switching without code changes, request logging, rate-limit handling, and cost tracking for free. When Anthropic releases a better model next quarter, you change one config value, not ten API call sites.</p>
-<p>We self-host LiteLLM across our entire portfolio. Every product routes through the same gateway. This is part of our <a href="/services.html">AI infrastructure work</a> for clients too — it’s the first thing we stand up.</p>
+<p>We've run a self-hosted LiteLLM gateway, and we stand one up for clients running several AI workflows; our own products mostly call Anthropic through one thin wrapper, and BrightPath routes through OpenRouter. Either way, the model name lives in one place. This is part of our <a href="/services.html">AI infrastructure work</a> for clients.</p>
 
 <h2>A realistic timeline</h2>
 <p>A single well-scoped AI workflow — from discovery to production — takes four weeks in our experience. Week one is discovery and architecture. Weeks two and three are the build. Week four is integration testing, evaluation, and deploy. If it’s taking longer than that, the scope is too broad.</p>
