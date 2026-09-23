@@ -27,6 +27,9 @@ document.getElementById('contact-form').addEventListener('submit', async functio
     engagement: document.getElementById('engagement').value,
     url: document.getElementById('url').value.trim(),
     timeline: document.getElementById('timeline').value,
+    // Optional fields — null-safe so a cached older contact.html can't break submit.
+    budget: (document.getElementById('budget') || {}).value || '',
+    source: (document.getElementById('source') || {}).value || '',
     message: document.getElementById('message').value.trim(),
     dt_website: document.getElementById('dt_website').value,
     dt_form_loaded_at: document.getElementById('dt_form_loaded_at').value,
@@ -42,7 +45,7 @@ document.getElementById('contact-form').addEventListener('submit', async functio
     if (!res.ok) throw new Error(data.error || 'Something went wrong');
     document.getElementById('contact-form-wrap').style.display = 'none';
     document.getElementById('contact-success').style.display = 'block';
-    if (window.umami) window.umami.track('lead_submitted');
+    if (window.umami) window.umami.track('lead_submitted', { budget: payload.budget || 'unset', source: payload.source || 'unset' });
   } catch (err) {
     errEl.textContent = err.message;
     errEl.style.display = 'block';

@@ -95,6 +95,28 @@ const jsonLd = [
                 </select>
               </div>
               <div>
+                <label for="budget">Rough budget, AUD (optional)</label>
+                <select id="budget" name="budget">
+                  <option value="">Prefer not to say</option>
+                  <option value="Under $5k">Under $5k</option>
+                  <option value="$5k-$10k">$5k&ndash;$10k</option>
+                  <option value="$10k-$25k">$10k&ndash;$25k</option>
+                  <option value="$25k-$50k">$25k&ndash;$50k</option>
+                  <option value="$50k+">$50k+</option>
+                </select>
+              </div>
+              <div>
+                <label for="source">How did you hear about us? (optional)</label>
+                <select id="source" name="source">
+                  <option value="">Select one</option>
+                  <option value="Google search">Google search</option>
+                  <option value="AI assistant">AI assistant (ChatGPT, Perplexity, Gemini&hellip;)</option>
+                  <option value="LinkedIn">LinkedIn</option>
+                  <option value="Referral">Referral / word of mouth</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div>
                 <label for="message">What&rsquo;s the project?</label>
                 <textarea id="message" name="message" required placeholder="One paragraph on the problem, one on what success looks like. That&rsquo;s all we need."></textarea>
               </div>
