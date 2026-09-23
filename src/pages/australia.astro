@@ -9,7 +9,7 @@ const jsonLd = [
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
     name: 'TelaLoom',
-    description: 'AI development agency in Australia. We build production LLM software — AI products, automation retrofits, and AI infrastructure — for Australian businesses and global teams.',
+    description: 'Australian studio building websites, ranking them with SEO & GEO, and building custom automation software — website builds, Local SEO, AI products, automation retrofits, and AI infrastructure — for Australian businesses.',
     url: 'https://telaloom.com',
     areaServed: [
       { '@type': 'Country', name: 'Australia' },
@@ -20,8 +20,11 @@ const jsonLd = [
     knowsAbout: ['AI development', 'LLM applications', 'AI automation', 'production AI software', 'Claude API development'],
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
-      name: 'AI development services',
+      name: 'Website, SEO & GEO, and automation services',
       itemListElement: [
+        { '@type': 'Offer', name: 'Website builds', url: 'https://telaloom.com/services/website-builds.html' },
+        { '@type': 'Offer', name: 'SEO & GEO optimization', url: 'https://telaloom.com/services/seo-geo-optimization.html' },
+        { '@type': 'Offer', name: 'Local SEO & GEO', url: 'https://telaloom.com/services/local-seo.html' },
         { '@type': 'Offer', name: 'AI product builds', url: 'https://telaloom.com/services/ai-product-builds.html' },
         { '@type': 'Offer', name: 'AI automation retrofits', url: 'https://telaloom.com/services/ai-automation-retrofit.html' },
         { '@type': 'Offer', name: 'AI infrastructure', url: 'https://telaloom.com/services/ai-infrastructure.html' },
@@ -32,7 +35,7 @@ const jsonLd = [
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: [
-      { '@type': 'Question', name: 'Is TelaLoom based in Australia?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. TelaLoom is an Australia-based AI development agency. We work async with Australian and international clients and are available in AEST timezone for real-time collaboration.' } },
+      { '@type': 'Question', name: 'Is TelaLoom based in Australia?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. TelaLoom is an Australia-based studio building websites, SEO & GEO, and automation software. We work async with Australian and international clients and are available in AEST timezone for real-time collaboration.' } },
       { '@type': 'Question', name: 'What currencies do you invoice in?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. We invoice in AUD and USD. Australian clients pay in AUD; international clients in USD.' } },
       { '@type': 'Question', name: 'What AI software have you built for Australian use cases?', acceptedAnswer: { '@type': 'Answer', text: 'Our portfolio includes BrightPath (K-12 education platform with AI tutor), Email Triage, Everyring.ai (missed call follow-up for service businesses), BizPage Builder (local business websites), and Price Scout (cost-of-living tracker for Australian households). All built and operated by our Australian team.' } },
       { '@type': 'Question', name: 'Do you work with Australian startups or only enterprise?', acceptedAnswer: { '@type': 'Answer', text: 'We work primarily with founders and product teams at startups and scale-ups — typically pre-Series B. Our sprint-based model and fixed-price engagements suit teams that need fast results without a large agency overhead.' } },
@@ -42,8 +45,8 @@ const jsonLd = [
 ];
 ---
 <BaseLayout
-  title="AI Development Agency Australia — Production AI Software | TelaLoom"
-  description={`TelaLoom is an Australian AI development agency. We build production LLM software for Australian businesses and global teams. ${counts.live} products live. First demo in 2 weeks. AEST timezone.`}
+  title="Website Builds, SEO & GEO, and Automation Software in Australia | TelaLoom"
+  description={`TelaLoom builds websites for Australian businesses, gets them found on Google and by AI assistants, and builds automation software that replaces manual work. ${counts.live} products live. First demo in 2 weeks. AEST timezone.`}
   canonicalPath="/australia.html"
   hreflangAlternates={true}
   jsonLd={jsonLd}
@@ -51,13 +54,13 @@ const jsonLd = [
   <main id="main">
     <section class="hero">
       <div class="container">
-        <span class="eyebrow">AI Development Agency &middot; Australia &middot; {counts.live} Live AI Products</span>
-        <h1>AI Development Agency in Australia</h1>
+        <span class="eyebrow">Website Builds &middot; SEO &amp; GEO &middot; Automation &middot; Australia</span>
+        <h1>Websites, SEO &amp; GEO, and Automation Software for Australian Businesses</h1>
         <p class="lead">
-          TelaLoom is an Australian AI development studio. We design, build, and run
-          production AI software &mdash; for our own {counts.total}-product portfolio and for Australian
-          businesses that need reliable AI features fast. No demos, no slide-deck AI.
-          Real software that runs in production.
+          TelaLoom is an Australian studio. We build websites for local and service businesses,
+          get them found on Google and by AI assistants like ChatGPT, and build software that
+          replaces manual work &mdash; on the same production stack behind our own {counts.total}-product
+          portfolio. Real software that runs in production, not a PDF or a slide deck.
         </p>
         <div class="cta-row">
           <a class="btn btn-primary" href="/contact.html">Start a project &rarr;</a>
@@ -126,13 +129,16 @@ const jsonLd = [
     <section id="au-services">
       <div class="container">
         <div class="section-head">
-          <h2>AI Development Services for Australian Businesses</h2>
-          <p>Three engagement types, all producing running software. Choose the one that matches where you are.</p>
+          <h2>Services for Australian Businesses</h2>
+          <p>Six engagement types, all producing something running. Choose the one that matches where you are.</p>
         </div>
         <div class="service-grid">
-          <div class="service-card"><div class="icon">01</div><h3><a href="/services/ai-product-builds.html" style="color:inherit;">AI product builds</a></h3><p>Full-stack delivery from concept to paying customers. First demo in 1&ndash;2 weeks. First paying customer in 4&ndash;8 weeks. Backend, frontend, LLM stack, billing, observability included.</p></div>
-          <div class="service-card"><div class="icon">02</div><h3><a href="/services/ai-automation-retrofit.html" style="color:inherit;">Automation retrofits</a></h3><p>Add AI to your existing SaaS or internal tool without rebuilding it. Email triage, support deflection, content generation, structured extraction. 2&ndash;6 week sprints.</p></div>
-          <div class="service-card"><div class="icon">03</div><h3><a href="/services/ai-infrastructure.html" style="color:inherit;">AI infrastructure</a></h3><p>LLM gateways, prompt versioning, eval pipelines, billing metering, observability. The stack that keeps AI features running at 3am.</p></div>
+          <div class="service-card"><div class="icon">01</div><h3><a href="/services/website-builds.html" style="color:inherit;">Website builds</a></h3><p>An instant page generated from your Google listing, or a custom-built site with Local SEO &amp; GEO switched on from day one &mdash; $6,900 AUD, or $4,900 with a 12-month Growth commitment.</p></div>
+          <div class="service-card"><div class="icon">02</div><h3><a href="/services/seo-geo-optimization.html" style="color:inherit;">SEO &amp; GEO optimization</a></h3><p>Fix indexing, structured data, and AI-crawler access on an existing site &mdash; the audit plus the fix, shipped into your codebase.</p></div>
+          <div class="service-card"><div class="icon">03</div><h3><a href="/services/local-seo.html" style="color:inherit;">Local SEO &amp; GEO</a></h3><p>Google Business Profile management, review generation, and local-search visibility for tradies, clinics, and service businesses.</p></div>
+          <div class="service-card"><div class="icon">04</div><h3><a href="/services/ai-product-builds.html" style="color:inherit;">AI product builds</a></h3><p>Full-stack delivery from concept to paying customers. First demo in 1&ndash;2 weeks. First paying customer in 4&ndash;8 weeks. Backend, frontend, LLM stack, billing, observability included.</p></div>
+          <div class="service-card"><div class="icon">05</div><h3><a href="/services/ai-automation-retrofit.html" style="color:inherit;">Automation retrofits</a></h3><p>Add AI to your existing SaaS or internal tool without rebuilding it. Email triage, support deflection, content generation, structured extraction. 2&ndash;6 week sprints.</p></div>
+          <div class="service-card"><div class="icon">06</div><h3><a href="/services/ai-infrastructure.html" style="color:inherit;">AI infrastructure</a></h3><p>LLM gateways, prompt versioning, eval pipelines, billing metering, observability. The stack that keeps AI features running at 3am.</p></div>
         </div>
       </div>
     </section>

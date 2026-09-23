@@ -1,5 +1,5 @@
 # https://telaloom.com/robots.txt
-# TelaLoom — AI Automation Studio
+# TelaLoom — Website Builds, SEO & GEO, and Automation Software
 # We welcome search engines and AI crawlers. See /llms.txt for AI-friendly summary.
 
 User-agent: *
