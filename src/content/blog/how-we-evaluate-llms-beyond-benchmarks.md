@@ -11,18 +11,18 @@ ogImage: "https://telaloom.com/og-card.jpg"
 
 <p>Most teams start LLM projects by hard-coding calls to <code>api.anthropic.com</code> or <code>api.openai.com</code>. They pick a model like <code>gpt-4o</code> or <code>claude-3-opus-20240229</code> because it's the "best" or "newest." Then they run a few manual tests in a notebook or playground. If it looks okay, they ship it. This seems reasonable initially. It gets you to a proof of concept fast. The problem is, "best" is subjective and often doesn't mean "best for your specific task at your specific price point." We've seen clients commit to one model, only to realize six months later that a cheaper, faster model could achieve 95% of the quality for 10% of the cost. The refactor then becomes a painful, low-priority engineering task.</p>
 
-<h2>The Dainty Evaluation Framework</h2>
+<h2>The TelaLoom Evaluation Framework</h2>
 
-<p>We use a structured framework whenever we need to select an LLM for a client's specific task. It's how we made decisions for projects like our Email Triage system and the Ghost Writer content generation service. This isn't about theoretical perfection; it’s about making a data-driven choice that holds up in production.</p>
+<p>We use a structured framework whenever we need to select an LLM for a client's specific task. This isn't about theoretical perfection; it’s about making a data-driven choice that holds up in production.</p>
 
 <p>Here’s our process:</p>
 
 <ol>
 <li>
-<p><b>Define the Task &amp; Success Metrics:</b> Before touching any model, we define what "good" means. For Email Triage, "good" meant accurately classifying emails into one of five categories with high precision and recall, and low latency for user experience. For Ghost Writer, it's about generating human-like, grammatically correct content that adheres to specific brand guidelines. We set clear, measurable metrics: accuracy, F1 score, specific error types to avoid, average token count, and latency targets.</p>
+<p><b>Define the Task &amp; Success Metrics:</b> Before touching any model, we define what "good" means. For an inbox classifier like <a href="/projects/emailtriage.html">Email Triage</a>, "good" means accurately classifying emails into one of ten categories with high precision and recall, and low latency for user experience. For a content engine like <a href="/projects/ghost-writer.html">Ghost Writer</a>, it's about generating human-like, grammatically correct content that adheres to specific brand guidelines. We set clear, measurable metrics: accuracy, F1 score, specific error types to avoid, average token count, and latency targets.</p>
 </li>
 <li>
-<p><b>Build a Representative Test Set:</b> This is non-negotiable. We create a JSONL or CSV file with 100-300 diverse examples of inputs and their ideal outputs. This set must cover common cases, edge cases, adversarial inputs, and data distributions expected in production. For Email Triage, this included short spam, long customer support queries, and internal memos. We don't just pull from the happy path; we actively seek out failure modes.</p>
+<p><b>Build a Representative Test Set:</b> This is non-negotiable. We create a JSONL or CSV file with 100-300 diverse examples of inputs and their ideal outputs. This set must cover common cases, edge cases, adversarial inputs, and data distributions expected in production. For an email classifier, that means short spam, long customer support queries, and internal memos. We don't just pull from the happy path; we actively seek out failure modes.</p>
 </li>
 <li>
 <p><b>Automate Evaluation &amp; Scoring:</b> We write a Python script that iterates through the test set, sends each input to a list of candidate LLMs (e.g., <code>gpt-4o</code>, <code>claude-3-sonnet-20240229</code>, <code>mixtral-8x7b-instruct-v0.1</code> via a provider like Together.ai), and captures the output. We then use a combination of programmatic checks (e.g., regex for output format, keyword presence) and a "scoring LLM" (often <code>gpt-4o</code> or <code>claude-3-opus</code>) to score the output against our defined metrics. For nuanced tasks, a small human review loop is integrated for a subset of results. Each run logs latency, token usage, and the computed quality score. Tools like Weights &amp; Biases or a custom logging solution help track these metrics over time.</p>

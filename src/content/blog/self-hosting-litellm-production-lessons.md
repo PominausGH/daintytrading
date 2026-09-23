@@ -1,37 +1,46 @@
 ---
-title: "Self-hosting LiteLLM: 6 months in production"
-description: "After half a year, we share what actually works when self-hosting LiteLLM as a unified LLM gateway, and where it adds complexity."
+title: "Self-Hosting LiteLLM: What We Learned (and Why Our Products Call Providers Directly)"
+description: "We self-hosted LiteLLM for internal tools while our products called providers directly. Here's when a gateway earns its place, and the backup lesson we learned the hard way."
 category: "AI · Engineering"
 publishedDate: "2026-06-08"
 readTime: "5 min"
 ogImage: "https://telaloom.com/og-card.jpg"
 ---
 
-<p>The moment you add a second LLM provider to your stack – maybe Anthropic for long-context tasks, Google for multimodal, or OpenAI for general-purpose – you've introduced a significant new operational headache. Suddenly, your direct API calls are tightly coupled to a single vendor's API, rate limits, and pricing model. We've seen teams hard-code provider-specific logic across their codebase, leading to brittle systems that are a nightmare to debug or switch. After six months of self-hosting LiteLLM across projects like <em>Email Triage</em> and <em>Ghost Writer</em>, we can confidently say: abstracting your LLM calls behind a unified gateway isn't optional, it's essential for any serious AI product.</p>
+<p>Should you put a self-hosted LLM gateway like LiteLLM in front of everything? Our honest answer after running one: not by default. We self-hosted LiteLLM, alongside Open WebUI, for our internal tools — one OpenAI-compatible endpoint in front of several providers, with model deployments stored in the gateway's own database. Our customer-facing products, meanwhile, call their providers directly through a thin wrapper in each codebase. When the gateway's stored configuration eventually became unusable and we shut it down, nothing a customer touches broke. That outcome shaped how we now think about gateways: useful infrastructure, but not something your product should be unable to live without.</p>
 
-<h2>The Common Wrong Approach</h2>
-<p>Most teams start simple: direct API calls to <code>api.anthropic.com</code> or <code>api.openai.com</code>. It's fast to get a proof-of-concept running. You pull in the official client library, set an API key, and you're making requests. This approach seems reasonable until you need to add another provider, implement intelligent fallbacks when one service is slow, or track token usage consistently across different billing models. We've seen <code>if/else</code> spaghetti grow around <code>provider_name</code> variables, each branch handling specific API quirks, retry logic, and error codes. This leads to vendor lock-in by inertia, makes cost optimization through dynamic model switching almost impossible, and turns observability into a bespoke integration nightmare for every single LLM endpoint.</p>
+<h2>The common wrong approach</h2>
 
-<h2>The Better Approach</h2>
-<p>Our recommendation, refined over half a year of production use, is to self-host LiteLLM as a unified API gateway. We deploy it as a Docker container, often within a Kubernetes cluster for resilience, exposing a single endpoint to our application services. Instead of direct calls, our code targets this LiteLLM gateway, treating all models as if they were behind a single, consistent OpenAI-compatible API.</p>
+<p>There are two ways to get this wrong, and they sit at opposite ends.</p>
 
-<p>The core of our setup is a <code>config.yaml</code> file. Here, we map logical model names like <code>fast-triage-model</code> or <code>creative-writer-model</code> to specific provider models (e.g., <code>anthropic/claude-3-haiku-20240307</code> or <code>openai/gpt-4o</code>). This allows our application code to request <code>fast-triage-model</code> without knowing or caring which underlying provider is serving it. We manage API keys securely as environment variables, passed directly to the LiteLLM container.</p>
+<p>The first is the one most tutorials warn about: provider calls scattered across the codebase. Every service imports its own SDK, hard-codes a model name, and grows its own retry logic. Adding a second provider turns into <code>if/else</code> branches around a <code>provider_name</code> variable, and switching models means touching every call site.</p>
 
-<p>LiteLLM handles critical infrastructure concerns out of the box:</p>
+<p>The second is the overcorrection: making a self-hosted gateway the single point every request must pass through before you have the reasons to need one. It feels like good architecture — one endpoint, central logging, provider failover in a config file. But you've added a stateful service to the critical path of every AI feature, and its configuration, keys and database are now as important as your application's own. If the gateway goes down or its config is lost, every product behind it goes down with it.</p>
+
+<h2>The better approach</h2>
+
+<p>Start with the thin wrapper, and add a gateway when the problem actually appears.</p>
+
+<p>Our products call their providers directly rather than through a shared gateway. <a href="/projects/emailtriage.html">Email Triage</a> and <a href="/projects/cv-matcher.html">CV Matcher</a> call the Anthropic SDK directly; <a href="/projects/brightpath.html">BrightPath</a> calls OpenRouter, with the provider switchable by one environment variable. The goal is one small module per app where timeouts, retries and fallbacks live, keeping the model choice out of business logic. For a single product talking to one or two providers, that's most of what a gateway gives you, with nothing extra to run.</p>
+
+<p>A gateway earns its place when several services share providers: many internal tools, a chat UI, and scripts all wanting the same keys, spend visibility and failover. That was our internal-tools situation, and it is what LiteLLM is built for — an OpenAI-compatible API that let any tool point at one URL, with models added or swapped without touching the tools themselves.</p>
+
+<p>If you do run one, three rules:</p>
 <ul>
-<li><strong>Unified API:</strong> A single <code>completion</code> interface abstracts away provider-specific nuances.</li>
-<li><strong>Automatic Retries &amp; Fallbacks:</strong> Configure <code>max_retries</code> and <code>fallback_models</code> directly in your <code>config.yaml</code>. If <code>gpt-4o</code> hits a rate limit, LiteLLM can automatically try <code>claude-3-opus-20240229</code>. This is invaluable for <em>Email Triage</em>, ensuring no customer request gets dropped.</li>
-<li><strong>Token Counting &amp; Cost Tracking:</strong> LiteLLM normalizes token counts and provides cost estimates, giving us a single source of truth for spend across all providers.</li>
-<li><strong>Caching:</strong> We leverage LiteLLM's built-in caching for common requests, reducing latency and API costs for applications like <em>BrightPath</em> where certain prompts are highly repeatable.</li>
+<li><strong>Keep a direct-call path.</strong> Anything customer-facing should be able to talk to its provider without the gateway, even if the gateway is the normal route. That's what made our shutdown a non-event.</li>
+<li><strong>Treat the gateway's config as production data.</strong> If model deployments live in its database rather than in a version-controlled file, back that database up like any other.</li>
+<li><strong>Back up the encryption key with the database.</strong> Gateways that store provider credentials in their database encrypt them with a key or salt set in the environment. Lose or change that value and the stored deployments can't be decrypted — the gateway starts, but has no usable routes. Store the key somewhere that survives a rebuild, and test a restore.</li>
 </ul>
 
-<p>This abstraction lets us dynamically route traffic based on cost, performance, or even specific model capabilities without changing application code. For <em>Ghost Writer</em>, we can send initial draft requests to a cheaper, faster model like <code>gpt-3.5-turbo</code>, then route final polish passes to <code>claude-3-opus-20240229</code>, all configured at the gateway level. If you're looking to unify your LLM infrastructure, consider Dainty's expertise to <a href="https://telaloom.com/contact.html">start a project</a> and implement a robust gateway solution.</p>
+<h2>Where this breaks</h2>
 
-<h2>Where This Breaks</h2>
-<p>While LiteLLM is powerful, it's not a silver bullet. The biggest drawback is operational overhead. You're now running another critical service that needs monitoring, scaling, and patching. This adds complexity that a small team using only one or two models from a single provider might not justify. We've also encountered situations where LiteLLM's integration with a brand new LLM provider had subtle bugs or missing features that required workarounds or waiting for upstream fixes. Debugging can be trickier, as you're adding another layer between your app and the LLM API. While <code>litellm.set_verbose(True)</code> helps, understanding network issues or provider-specific errors can sometimes require direct API calls to isolate. Furthermore, while LiteLLM offers basic caching and observability hooks, it's not a full-fledged monitoring or cost management platform. You'll still need to integrate its logs and metrics into your existing infrastructure. Don't expect it to replace your Datadog or Prometheus setup.</p>
+<p>The thin-wrapper approach has real limits. With no central gateway, cost reporting is per product, not in one place, and cross-provider failover is something each wrapper has to implement for itself. If you run many services against several providers and need central spend caps or audit logging, a gateway like LiteLLM — or a managed option like OpenRouter — is the right call, and the operational cost is worth paying. The mistake isn't running a gateway; it's running one without the backups and fallbacks that stop it becoming the thing that takes everything down.</p>
 
-<h2>Practical Next Step</h2>
-<p>If you're managing multiple LLM providers or anticipate doing so, dedicate an afternoon to a LiteLLM proof-of-concept. Start by pulling the LiteLLM Docker image: <code>docker pull ghcr.io/berriai/litellm</code>. Next, create a simple <code>config.yaml</code> to define two custom models, one mapping to OpenAI's <code>gpt-4o</code> and another to Anthropic's <code>claude-3-opus-20240229</code>. Define environment variables for your API keys (<code>OPENAI_API_KEY</code>, <code>ANTHROPIC_API_KEY</code>). Then, run the container: <code>docker run -p 4000:4000 -v ./config.yaml:/app/config.yaml -e OPENAI_API_KEY=$OPENAI_API_KEY -e ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY ghcr.io/berriai/litellm</code>. Finally, from your application, send a simple completion request to <code>http://localhost:4000/chat/completions</code>, swapping the <code>model</code> parameter between your custom names. Experiment with <code>fallback_models</code> in your <code>config.yaml</code> to see the resilience in action. This minimal setup will quickly demonstrate the power of a unified gateway.</p>
+<p>There's also a tooling limit: a gateway is not an observability or quality platform. It can log requests and estimate cost, but it won't tell you whether outputs are any good. That still needs evals and quality checks in the application.</p>
+
+<h2>Practical next step</h2>
+
+<p>List every place your code calls an LLM provider. If a customer-facing feature can only reach its model through a self-hosted gateway, add a direct fallback path this week. If you store model configuration in a gateway database, check today that both the database and its encryption key are in your backups — and restore them somewhere once to prove it. If you want help deciding whether you need a gateway at all, that's part of our <a href="/services/ai-infrastructure.html">AI infrastructure</a> work — <a href="https://telaloom.com/contact.html">start a project</a> and we'll look at your setup.</p>
 
 <div class="cast-philosophy" style="margin-top:40px;border-top:1px solid var(--border);padding-top:32px;">
 <p><strong>We build production AI, not prototypes.</strong>

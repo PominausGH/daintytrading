@@ -11,27 +11,27 @@ ogImage: "https://telaloom.com/og-card.jpg"
 
 <h2>The Common Wrong Approach</h2>
 <p>Most teams build an AI feature, test it internally with a few predefined scenarios, and then flip a global switch, exposing it to everyone. This seems reasonable initially because it's the simplest path. The thinking often goes: "It worked in staging, so it'll work in production." This approach might suffice for traditional features where you can exhaustively test known edge cases and expect consistent behavior. However, it catastrophically breaks down for AI features.</p>
-<p>Unforeseen failures are rampant. AI models, especially large language models (LLMs), fail in ways you can't predict in a test environment—hallucinations, subtle misinterpretations, or catastrophic token limit errors on specific, complex inputs. We’ve had clients call us at 2 AM after a full rollout led to immediate, widespread incidents. Beyond functionality, a sudden surge of traffic to an unoptimized prompt or an expensive model can lead to unexpected API bills within hours. A bad first impression with a broken AI feature can kill user trust and adoption. When 100% of users are affected, diagnosing the root cause under pressure is incredibly difficult, especially given AI's non-deterministic nature.</p>
+<p>Unforeseen failures are rampant. AI models, especially large language models (LLMs), fail in ways you can't predict in a test environment—hallucinations, subtle misinterpretations, or catastrophic token limit errors on specific, complex inputs. A full rollout that goes wrong becomes an immediate, widespread incident. Beyond functionality, a sudden surge of traffic to an unoptimized prompt or an expensive model can lead to unexpected API bills within hours. A bad first impression with a broken AI feature can kill user trust and adoption. When 100% of users are affected, diagnosing the root cause under pressure is incredibly difficult, especially given AI's non-deterministic nature.</p>
 
 <h2>The Better Approach</h2>
-<p>At Dainty, we treat AI feature deployment with extreme caution and recommend a multi-layered approach:</p>
+<p>At TelaLoom, we treat AI feature deployment with extreme caution and recommend a multi-layered approach:</p>
 <ol>
-<li><strong>Feature Flags for Control:</strong> Use a robust feature flagging system like LaunchDarkly or Split.io. This is non-negotiable. It provides granular control over who sees the feature and, critically, a kill switch if things go wrong.</li>
+<li><strong>Feature Flags for Control:</strong> Use a feature flag system — LaunchDarkly or Split.io, or a simple hash-based percentage check in your own code. Some form of flag is non-negotiable. It provides granular control over who sees the feature and, critically, a kill switch if things go wrong.</li>
 <li><strong>Gradual Percentage Rollouts:</strong> Start with 1% of users, then increment to 5%, 10%, 25%, 50%, and finally 100%. Monitor key metrics intently at each stage. This allows you to catch issues with a small blast radius.</li>
-<li><strong>A/B Testing:</strong> This is crucial for comparing different prompt engineering approaches, model versions, or even the AI output against a human fallback. Define clear success metrics upfront, such as user engagement, task completion rate, or reduction in support tickets. For our Email Triage project, we A/B tested several summarization prompts, finding significant differences in user satisfaction and time saved.</li>
-<li><strong>Shadow Mode:</strong> Run the AI feature in the background for a subset of users without exposing its output to them. Log its predictions and compare them against a baseline (e.g., human-generated output, existing system's output). This lets you gather real-world performance data and identify failure modes <em>before</em> any user sees a bad result. We used shadow mode extensively for BrightPath's content generation, comparing AI outputs to human editor reviews to fine-tune quality.</li>
+<li><strong>A/B Testing:</strong> This is crucial for comparing different prompt engineering approaches, model versions, or even the AI output against a human fallback. Define clear success metrics upfront, such as user engagement, task completion rate, or reduction in support tickets.</li>
+<li><strong>Shadow Mode:</strong> Run the AI feature in the background for a subset of users without exposing its output to them. Log its predictions and compare them against a baseline (e.g., human-generated output, existing system's output). This lets you gather real-world performance data and identify failure modes <em>before</em> any user sees a bad result. A related pattern: <a href="/projects/brightpath.html">BrightPath</a>'s lesson questions are generated offline and run through a separate verification pass before students ever see them.</li>
 <li><strong>Robust Instrumentation:</strong>
 <ul>
 <li><strong>Cost Tracking:</strong> Log token usage and estimated cost per API call. Alert if costs spike unexpectedly.</li>
 <li><strong>Latency:</strong> Monitor end-to-end latency, including API calls and all pre/post-processing.</li>
 <li><strong>Success/Failure Rates:</strong> Track API errors (e.g., rate limits, invalid requests) and internal logic errors.</li>
-<li><strong>Quality Metrics:</strong> This is paramount. For a summarizer, track "summaries accepted by user" vs. "summaries edited/discarded." For a content generator, track "content published" vs. "content rejected." For our CV Matcher, we track "candidate presented" vs. "candidate rejected" by the hiring manager.</li>
+<li><strong>Quality Metrics:</strong> This is paramount. For a summarizer, track "summaries accepted by user" vs. "summaries edited/discarded." For a content generator, track "content published" vs. "content rejected." For a candidate-screening tool like <a href="/projects/cv-matcher.html">CV Matcher</a>, the equivalent is "candidate shortlisted" vs. "candidate rejected" by the recruiter.</li>
 <li><strong>User Feedback Loops:</strong> Implement simple "thumbs up/down" or "was this helpful?" buttons directly in the UI. This provides immediate, invaluable qualitative data.</li>
 <li><strong>Guardrail Violations:</strong> If you have safety mechanisms (e.g., content moderation, PII detection), log every time they trigger.</li>
 </ul>
 </li>
 </ol>
-<p>This approach gives you a kill switch, allows for quick iteration, and builds confidence before wider release. We apply these principles to every AI system we build, from AutoArchive Mail to Ghost Writer.</p>
+<p>This approach gives you a kill switch, allows for quick iteration, and builds confidence before wider release.</p>
 
 <h2>Where This Breaks</h2>
 <p>While highly effective, this comprehensive approach isn't always the right fit. It adds complexity that might not be worth it for every scenario:</p>
@@ -49,7 +49,7 @@ ogImage: "https://telaloom.com/og-card.jpg"
 <li><strong>AI API call success/failure rate:</strong> Track HTTP status codes and any model-specific error messages.</li>
 <li><strong>User interaction metric:</strong> Implement a simple "thumbs up" / "thumbs down" button, or log whether the AI-generated content was ultimately saved or sent by the user.</li>
 </ol>
-<p>Monitor these metrics daily for a week. You'll quickly see if your initial assumptions about quality hold up in the wild. This small investment pays dividends in stability and user satisfaction. If you need help structuring these rollouts or setting up the right telemetry, we frequently guide teams through this process; consider a <a href="https://telaloom.com/contact.html">Start a project</a> discussion with Dainty.</p>
+<p>Monitor these metrics daily for a week. You'll quickly see if your initial assumptions about quality hold up in the wild. This small investment pays dividends in stability and user satisfaction. If you need help structuring these rollouts or setting up the right telemetry, we frequently guide teams through this process; consider a <a href="https://telaloom.com/contact.html">Start a project</a> discussion with TelaLoom.</p>
 
 <div class="cast-philosophy" style="margin-top:40px;border-top:1px solid var(--border);padding-top:32px;">
 <p><strong>We build production AI, not prototypes.</strong>

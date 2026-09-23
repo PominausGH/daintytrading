@@ -19,14 +19,14 @@ ogImage: "https://telaloom.com/og-card.jpg"
 
 <h3>Draft generation for high-volume writing tasks</h3>
 <p>Anywhere a human is writing the same type of thing repeatedly — support replies, status reports, outreach emails, job postings, product descriptions — an AI draft they edit down to a final version compresses time from minutes to seconds per item. The output per headcount number goes up measurably.</p>
-<p>This is what our <a href="/projects/ghost-writer.html">Ghost Writer</a> does for content pipelines: detect the topic, generate the draft, run it through quality checks, publish. A task that took a human two hours now takes two minutes of review.</p>
+<p>This is what our <a href="/projects/ghost-writer.html">Ghost Writer</a> does for content pipelines: detect the topic, generate the draft, run it through quality checks, publish. The human work shifts from writing to choosing what's worth writing about.</p>
 
 <h3>Lead and ticket triage</h3>
 <p>Routing and prioritisation are invisible work that adds up fast. A classifier that correctly sorts incoming leads by intent, urgency, or segment means your sales or support team is always working the highest-value item first. The downstream metric — conversion rate, response time to high-priority leads — is something you almost certainly already track.</p>
 <p>This is the core of <a href="/projects/emailtriage.html">Email Triage</a>: not replacing the human, but making sure the human is always looking at the right thing next.</p>
 
 <h3>Extraction that eliminates manual data entry</h3>
-<p>Structured data extracted from unstructured sources — receipts, invoices, call transcripts, contracts — directly replaces human hours. The metric is straightforward: how many documents does a person process per hour before and after. We built <a href="/projects/receipt-bridge.html">Receipt Bridge</a> specifically to eliminate manual expense entry for field teams. The before/after is a concrete headcount-hours number.</p>
+<p>Structured data extracted from unstructured sources — receipts, invoices, call transcripts, contracts — directly replaces human hours. The metric is straightforward: how many documents does a person process per hour before and after. We're building <a href="/projects/receipt-bridge.html">Receipt Bridge</a> to eliminate manual expense entry for field teams. The before/after is a concrete headcount-hours number.</p>
 
 <h2>Features that rarely show up in the P&amp;L</h2>
 
@@ -41,7 +41,7 @@ ogImage: "https://telaloom.com/og-card.jpg"
 
 <h2>The rule</h2>
 <p>Build AI features that replace work the system was already doing (classification, triage, first drafts, extraction) before you build AI features that add new work to the system (chat interfaces, proactive recommendations, summaries). The former improves the economics of what you already have. The latter bets on adoption that may not materialise.</p>
-<p>If you want a second opinion on which AI feature to build first, <a href="/contact.html">send us a note</a>. We have a consistent view on this after 35 products.</p>
+<p>If you want a second opinion on which AI feature to build first, <a href="/contact.html">send us a note</a>. We have a consistent view on this after 38 products.</p>
 
 
 <div class="cast-philosophy" style="margin-top:40px;border-top:1px solid var(--border);padding-top:32px;">

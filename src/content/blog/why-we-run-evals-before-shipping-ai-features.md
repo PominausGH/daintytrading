@@ -1,6 +1,6 @@
 ---
 title: "Why We Run Evals Before Shipping Any AI Feature Change"
-description: "“It looked right when I tried it” isn't a test. Here's why Dainty runs a real eval set before every prompt or model change ships."
+description: "“It looked right when I tried it” isn't a test. Here's why a real eval set should gate every prompt or model change before it ships."
 category: "AI · Engineering"
 publishedDate: "2026-09-02"
 readTime: "5 min"
@@ -19,9 +19,9 @@ ogImage: "https://telaloom.com/og-card.png"
 
 <h2>The better approach</h2>
 
-<p>We don't ship a prompt, model, or pipeline change without running it against an eval set first. Concretely, that means: a fixed set of real (or realistic, anonymized) inputs with known-good expected outputs or scoring criteria, run automatically, with a pass/fail or score delta reported before merge.</p>
+<p>The fix: don't ship a prompt, model, or pipeline change without running it against an eval set first. Concretely, that means: a fixed set of real (or realistic, anonymized) inputs with known-good expected outputs or scoring criteria, run automatically, with a pass/fail or score delta reported before merge.</p>
 
-<p>On <strong><a href="/projects/emailtriage.html">Email Triage</a></strong>, a client project that classifies and routes inbound support email, our eval set is around 200 real emails pulled from production and hand-labeled with the correct category, priority, and routing decision. Every prompt or model change runs against that set and we look at three numbers: overall accuracy, per-category accuracy (because aggregate accuracy hides category-specific regressions), and a diff of exactly which examples flipped from correct to incorrect. That last part matters more than the aggregate score — a change that keeps accuracy flat while flipping a different set of ten emails is not a neutral change, it's two regressions and two fixes disguised as no-op.</p>
+<p>On <strong><a href="/projects/emailtriage.html">Email Triage</a></strong>, our own inbox triage product, the eval set should be real emails hand-labelled with the correct category and priority. Every prompt or model change runs against that set, and you look at three numbers: overall accuracy, per-category accuracy (because aggregate accuracy hides category-specific regressions), and a diff of exactly which examples flipped from correct to incorrect. That last part matters more than the aggregate score — a change that keeps accuracy flat while flipping a different set of ten emails is not a neutral change, it's two regressions and two fixes disguised as no-op.</p>
 
 <p>For generative tasks like <strong><a href="/projects/ghost-writer.html">Ghost Writer</a></strong>, where there's no single correct output, we use an LLM-as-judge scored against a rubric (tone match, factual grounding against source material, length constraints) plus a small set of hard-fail checks that don't need a judge at all — did it hallucinate a name, did it exceed the character limit, did it drop a required disclaimer. The rubric-scored judge catches drift; the hard-fail checks catch the embarrassing stuff a judge might rate charitably.</p>
 

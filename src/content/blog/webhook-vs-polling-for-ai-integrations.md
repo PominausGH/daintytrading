@@ -14,7 +14,7 @@ ogImage: "https://telaloom.com/og-card.jpg"
 <h2>The webhook case</h2>
 <p>Use webhooks when:</p>
 <ul>
-<li><strong>Latency is user-visible.</strong> If a user takes an action and expects a result within seconds, you need to process the event as it happens. <a href="/projects/emailtriage.html">Email Triage</a> runs on webhooks from the Gmail push notification API — the AI triage result appears while the email thread is still open.</li>
+<li><strong>Latency is user-visible.</strong> If a user takes an action and expects a result within seconds, you need to process the event as it happens. <a href="/projects/emailtriage.html">Email Triage</a> is a useful counterexample: it polls each connected Gmail and Outlook account every five minutes through a Redis-backed job queue — simple and predictable, at the cost of up to five minutes' delay. Gmail push notifications are the upgrade path when that delay matters.</li>
 <li><strong>The data source supports them.</strong> Most modern SaaS APIs (Stripe, GitHub, Twilio, Shopify, Gmail) emit webhooks. If the source already pushes events, accept them — polling the same API would be wasteful and slower.</li>
 <li><strong>Event volume is moderate and spiky.</strong> Webhooks are efficient because they only fire when something happens. If you have a customer who sends 200 emails in an hour and nothing the next day, polling every minute would burn API quota for nothing.</li>
 </ul>
@@ -34,12 +34,12 @@ ogImage: "https://telaloom.com/og-card.jpg"
 <li><strong>Latency doesn’t matter.</strong> Nightly batch jobs — sentiment analysis on the day’s Telegram messages, generating tomorrow’s content queue, running your financial reconciliation — don’t need real-time triggers. A cron job at 2am is simpler and more reliable than a webhook receiver that has to be up 24/7.</li>
 <li><strong>You want to control throughput.</strong> Polling lets you decide exactly how fast you process items. This is useful when your AI cost envelope is fixed — process 500 items per hour, not however many the webhook firehose sends.</li>
 </ul>
-<p>Our <a href="/projects/telegram-crypto-sentiment.html">Telegram Crypto Sentiment</a> project polls Telegram channels on a schedule. The channels don’t emit webhooks, the analysis runs in batches, and the latency between a message being posted and the sentiment score being computed is acceptable for the use case (daily signals, not real-time trading).</p>
+<p>Our <a href="/projects/telegram-crypto-sentiment.html">Telegram Crypto Sentiment</a> project (in development) polls Telegram channels on a schedule. The channels don’t emit webhooks, the analysis runs in batches, and the latency between a message being posted and the sentiment score being computed is acceptable for the use case (daily signals, not real-time trading).</p>
 
 <h2>The hybrid: webhook to queue, polling the queue</h2>
-<p>The pattern we use most in production for AI integrations is: webhook receiver → job queue → workers polling the queue.</p>
+<p>The pattern we recommend most for AI integrations is: webhook receiver → job queue → workers polling the queue.</p>
 <p>The webhook receiver does nothing except validate the signature, persist the raw event to a queue, and return a 200. Workers poll the queue, pull items, run the AI processing, and write results. This gives you the low latency of webhooks and the controlled throughput and retry semantics of polling.</p>
-<p>We use this in <a href="/projects/missed-calls.html">Everyring.ai</a>: a missed call arrives via webhook from the telephony provider, gets queued, and the AI drafts the follow-up message within seconds. If the AI call fails, the queue retries with backoff. The webhook receiver itself is never blocked.</p>
+<p>You don't always need the full version. In <a href="/projects/missed-calls.html">Everyring.ai</a>, call events arrive as webhooks from the voice and telephony providers; the handler records the call, follow-ups run from scheduled jobs, and redelivered webhooks are safe because each downstream sync is claimed atomically in Postgres first.</p>
 
 <h2>Decision rule</h2>
 <p>Ask two questions:</p>
