@@ -56,7 +56,7 @@
 
 ## In active development
 
-- [DevTodo](https://telaloom.com/projects/devtodo.html) — staging at **todo.telaloom.com**. Pulls TODOs from code, syncs Google Calendar, n8n-orchestrated, uses Claude (via LiteLLM) to write task summaries.
+- [DevTodo](https://telaloom.com/projects/devtodo.html) — paused (no public instance). Pulls TODOs from code, syncs Google Calendar, n8n-orchestrated, uses Claude (via LiteLLM) to write task summaries.
 - [ChefForge](https://telaloom.com/projects/chefforge.html) — staging at **dinner.telaloom.com**. AI recipe and meal planning with constraint-aware verification (deterministic checker on top of LLM generation).
 - [Yoga Platform](https://telaloom.com/projects/yoga-platform.html) — staging at **yoga.telaloom.com**. 500+ poses, sequence builder, Vite web + Expo mobile, on Supabase.
 - [Recipe API](https://telaloom.com/projects/recipe-api.html) — staging at **recipe.telaloom.com**. Reference Django REST Framework backend for recipes/ingredients.

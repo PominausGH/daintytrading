@@ -16,14 +16,12 @@ metaChips:
   - label: "LLM"
     value: "LiteLLM (Claude)"
   - label: "Status"
-    value: "In development"
+    value: "Paused"
 sidecard:
   heading: "Project facts"
   rows:
     - label: "Status"
-      value: "In development"
-    - label: "Domain"
-      value: "todo.telaloom.com"
+      value: "Paused (no public instance)"
     - label: "API"
       value: "Node · Express"
     - label: "Frontend"
@@ -36,9 +34,6 @@ sidecard:
       value: "LiteLLM"
     - label: "Calendar"
       value: "Google Calendar API"
-  primaryCta:
-    label: "Visit DevTodo →"
-    href: "https://todo.telaloom.com"
   ghostCta:
     label: "Build something similar"
     href: "/contact.html"
