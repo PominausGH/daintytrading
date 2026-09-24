@@ -47,8 +47,8 @@ sidecard:
 ctaBannerHeading: "Want to build something like this?"
 ctaBannerBody: "We scope projects in 48 hours and ship a first demo in 1–2 weeks. Tell us what you need."
 prevLink:
-  label: "Meditation"
-  href: "/projects/meditation.html"
+  label: "Ghost Writer"
+  href: "/projects/ghost-writer.html"
 nextLink:
   label: "Marketing OS"
   href: "/projects/marketing-os.html"

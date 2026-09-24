@@ -1,6 +1,7 @@
 ---
 type: "product"
 status: "dev"
+unlisted: true
 name: "ReceiptSnap AI"
 title: "ReceiptSnap AI — TelaLoom"
 description: "Native iOS and Android receipt scanner with on-device capture, cloud OCR, and a tidy expense log. Designed for solo operators who want speed at the till and structured data afterwards, without an SaaS subscription."

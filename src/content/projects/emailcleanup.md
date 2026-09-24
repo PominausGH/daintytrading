@@ -1,6 +1,7 @@
 ---
 type: "product"
 status: "live"
+unlisted: true
 name: "Email Cleanup"
 title: "Email Cleanup — Bulk Email Domain Validation API | TelaLoom"
 description: "Email Cleanup is a FastAPI service for bulk email validation. Detects disposable providers, validates domains, and gives you a single endpoint for keeping your mailing lists healthy."

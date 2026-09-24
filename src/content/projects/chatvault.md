@@ -1,6 +1,7 @@
 ---
 type: "product"
 status: "testing"
+unlisted: true
 name: "ChatVault"
 title: "ChatVault — One Searchable Archive for Every LLM Conversation | TelaLoom"
 description: "ChatVault aggregates conversations from Claude, ChatGPT, Gemini, Grok, and Perplexity into a single searchable archive. Stop losing the answer you got three weeks ago in a different tab."

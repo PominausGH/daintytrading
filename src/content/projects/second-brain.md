@@ -1,6 +1,7 @@
 ---
 type: "product"
 status: "testing"
+unlisted: true
 name: "Second Brain"
 title: "Second Brain — Telegram Note-Taking with AI Recall | TelaLoom"
 description: "Second Brain is a Telegram-based note-taking system. Forward anything — text, voice, photos, links — and Claude organises, tags, and surfaces it back when you actually need it."

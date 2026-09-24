@@ -1,6 +1,7 @@
 ---
 type: "product"
 status: "testing"
+unlisted: true
 name: "StoryPulse"
 title: "StoryPulse — Instagram Growth Automation SaaS | TelaLoom"
 description: "StoryPulse automates Instagram story views and reactions on behalf of connected accounts, drives profile visits and follower growth, and publishes AI-generated captions through the Meta Graph API."

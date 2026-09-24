@@ -1,6 +1,7 @@
 ---
 type: "product"
 status: "testing"
+unlisted: true
 name: "Auto-Claude"
 title: "Auto-Claude — TelaLoom"
 description: "An autonomous multi-agent coding framework. Give it a goal — build the feature, fix the bug, spike the prototype — and it plans, builds, runs tests, and iterates until something works, with a human in the loop only when it asks."

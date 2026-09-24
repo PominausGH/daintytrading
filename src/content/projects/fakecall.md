@@ -1,6 +1,7 @@
 ---
 type: "product"
 status: "testing"
+unlisted: true
 name: "FakeCall"
 title: "FakeCall — TelaLoom"
 description: "Schedule a believable incoming call from anyone you want, with an AI on the other end having a real conversation. Useful for getting out of meetings, role-play training, or testing how a system handles unexpected calls."

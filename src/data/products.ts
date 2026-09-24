@@ -7,7 +7,7 @@
 import { getCollection } from 'astro:content';
 
 export async function getProductCounts() {
-  const entries = await getCollection('projects', ({ data }) => data.type === 'product');
+  const entries = await getCollection('projects', ({ data }) => data.type === 'product' && !data.unlisted);
   const live = entries.filter((e) => e.data.status === 'live').length;
   const testing = entries.filter((e) => e.data.status === 'testing').length;
   const dev = entries.filter((e) => e.data.status === 'dev').length;
