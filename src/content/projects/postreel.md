@@ -58,8 +58,8 @@ prevLink:
   label: "StoryPulse"
   href: "/projects/storypulse.html"
 nextLink:
-  label: "DevTodo"
-  href: "/projects/devtodo.html"
+  label: "Billing API"
+  href: "/projects/billing-api.html"
 schemaType: "SoftwareApplication"
 schemaExtra:
   applicationCategory: "BusinessApplication"

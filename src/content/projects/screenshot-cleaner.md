@@ -38,8 +38,8 @@ sidecard:
 ctaBannerHeading: "Want to build something like this?"
 ctaBannerBody: "We scope projects in 48 hours and ship a first demo in 1–2 weeks. Tell us what you need."
 prevLink:
-  label: "Telegram Crypto Sentiment"
-  href: "/projects/telegram-crypto-sentiment.html"
+  label: "Banking Alerts"
+  href: "/projects/banking-alerts.html"
 nextLink:
   label: "ReceiptSnap AI"
   href: "/projects/receiptsnap-ai.html"

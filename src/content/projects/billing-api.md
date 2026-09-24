@@ -40,11 +40,11 @@ sidecard:
 ctaBannerHeading: "Want to build something like this?"
 ctaBannerBody: "We scope projects in 48 hours and ship a first demo in 1–2 weeks. Tell us what you need."
 prevLink:
-  label: "Yoga Platform"
-  href: "/projects/yoga-platform.html"
+  label: "PostReel"
+  href: "/projects/postreel.html"
 nextLink:
-  label: "Recipe API"
-  href: "/projects/recipe-api.html"
+  label: "Screenshot to Text"
+  href: "/projects/screenshot-to-text.html"
 schemaType: "WebAPI"
 schemaExtra:
   provider:

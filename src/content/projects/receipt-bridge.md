@@ -43,8 +43,8 @@ prevLink:
   label: "Screenshot to Text"
   href: "/projects/screenshot-to-text.html"
 nextLink:
-  label: "Prompt Builder"
-  href: "/projects/prompt-builder.html"
+  label: "Finance Tracker"
+  href: "/projects/finance-tracker.html"
 schemaType: "SoftwareApplication"
 schemaExtra:
   applicationCategory: "BusinessApplication"

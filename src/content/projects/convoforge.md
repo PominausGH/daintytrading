@@ -52,8 +52,8 @@ prevLink:
   label: "Second Brain"
   href: "/projects/second-brain.html"
 nextLink:
-  label: "Solar Loan Reconciler"
-  href: "/projects/solar-loan-reconciler.html"
+  label: "Price Scout"
+  href: "/projects/price-scout.html"
 schemaType: "SoftwareApplication"
 schemaExtra:
   applicationCategory: "EducationApplication"

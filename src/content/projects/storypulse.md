@@ -45,8 +45,8 @@ prevLink:
   label: "FakeCall"
   href: "/projects/fakecall.html"
 nextLink:
-  label: "DevTodo"
-  href: "/projects/devtodo.html"
+  label: "PostReel"
+  href: "/projects/postreel.html"
 schemaType: "SoftwareApplication"
 schemaExtra:
   applicationCategory: "BusinessApplication"
