@@ -38,8 +38,8 @@ sidecard:
 ctaBannerHeading: "Want to build something like this?"
 ctaBannerBody: "We scope projects in 48 hours and ship a first demo in 1–2 weeks. Tell us what you need."
 prevLink:
-  label: "Prompt Builder"
-  href: "/projects/prompt-builder.html"
+  label: "Receipt Bridge"
+  href: "/projects/receipt-bridge.html"
 nextLink:
   label: "Banking Alerts"
   href: "/projects/banking-alerts.html"

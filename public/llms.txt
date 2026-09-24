@@ -5,7 +5,7 @@
 ## About the studio
 
 - **What we are**: A small, deliberate studio building websites, SEO/GEO, and automation software.
-- **What we do**: Build and rank websites, build custom automation software that replaces manual work, and build production AI software for our own portfolio (38 products) and selected clients.
+- **What we do**: Build and rank websites, build custom automation software that replaces manual work, and build production AI software for our own portfolio (31 products) and selected clients.
 - **Where we are**: Australia. We work async with clients globally.
 - **What we believe**: Shipping is the only proof. Boring infrastructure is the moat. Small surface, deep stack. We run the open-source tools we recommend.
 - **Default LLM**: Anthropic Claude. We also route through OpenRouter and LiteLLM to use Google Gemini, OpenAI, Grok, Perplexity, and others when economics or latency demand it.
@@ -36,7 +36,6 @@
 - [TimerForge](https://telaloom.com/projects/timerforge.html) — live at **timerforge.app**. Cross-platform countdown timer. PyQt6 desktop apps + Node web SaaS, Stripe-billed.
 - [Email Cleanup](https://telaloom.com/projects/emailcleanup.html) — live at **emailcleanup.telaloom.com**. FastAPI service for bulk email validation and disposable-provider detection.
 - [ConvoForge](https://telaloom.com/projects/convoforge.html) — live at **convoforge.app**. Multimodal communication coach. Speech analysis, body language detection, AI avatar roleplay, real-time meeting overlay.
-- [Solar Loan Reconciler](https://telaloom.com/projects/solar-loan-reconciler.html) — live, built for a financial company. Collects Mon–Fri solar loan transaction CSVs, matches them against the weekly Loan Payout Report, flags gaps, and emails a clean HTML report to the loans team every Friday.
 - [Nudgle](https://telaloom.com/projects/skeddy.html) — live at **nudgle.app**. Telegram reminder bot with Claude-powered natural-language scheduling.
 - [Marketing OS](https://telaloom.com/projects/marketing-os.html) — live, internal use only (no public domain). Marketing operations platform: campaigns, briefs, Puppeteer-based SEO/a11y audits, AI-assisted brief queue.
 - [Post Reel](https://telaloom.com/projects/postreel.html) — live. Social media scheduler with an AI video studio built in. Give it a URL, it crawls the site, writes a script, synthesises a voiceover, and produces a finished short-form video — scheduled across 12 platforms automatically.
@@ -56,16 +55,10 @@
 
 ## In active development
 
-- [DevTodo](https://telaloom.com/projects/devtodo.html) — paused (no public instance). Pulls TODOs from code, syncs Google Calendar, n8n-orchestrated, uses Claude (via LiteLLM) to write task summaries.
-- [ChefForge](https://telaloom.com/projects/chefforge.html) — staging at **dinner.telaloom.com**. AI recipe and meal planning with constraint-aware verification (deterministic checker on top of LLM generation).
-- [Yoga Platform](https://telaloom.com/projects/yoga-platform.html) — staging at **yoga.telaloom.com**. 500+ poses, sequence builder, Vite web + Expo mobile, on Supabase.
-- [Recipe API](https://telaloom.com/projects/recipe-api.html) — staging at **recipe.telaloom.com**. Reference Django REST Framework backend for recipes/ingredients.
 - [Screenshot to Text](https://telaloom.com/projects/screenshot-to-text.html) — production OCR for tables, handwriting, and complex layouts. Stack: Python/Flask, Postgres, Celery/Redis, Tesseract, GPT-4 Vision, Stripe, Cloudflare R2.
 - [Receipt Bridge](https://telaloom.com/projects/receipt-bridge.html) — field workers SMS a receipt photo, OCR extracts the data, finance reviews in a dashboard. Stack: Django 5, Celery/Redis, Google Cloud Vision, Twilio, AWS S3, Postgres.
-- [Prompt Builder](https://telaloom.com/projects/prompt-builder.html) — 3-step wizard that turns rough ideas into polished AI prompts via adaptive clarifying questions. Stack: Node.js/Express, Vanilla JS, Anthropic Claude API.
 - [Finance Tracker](https://telaloom.com/projects/finance-tracker.html) — no-frills personal finance tracker for income, expenses, budgets. Stack: Node.js/Express, React, Postgres.
 - [Banking Alerts](https://telaloom.com/projects/banking-alerts.html) — push-notification alerts when bank balances drop below thresholds. Stack: Basiq Open Banking API, n8n, ntfy.
-- [Telegram Crypto Sentiment](https://telaloom.com/projects/telegram-crypto-sentiment.html) — monitors crypto Telegram groups for sentiment, scores it with Claude, correlates against price movement. Stack: Python, Docker, Telegram Bot API.
 - [ScreenShoot Cleaner](https://telaloom.com/projects/screenshoot-cleaner.html) — batch-process a folder of screenshots and notes into a clean, deskewed PDF. Stack: Python, Streamlit, OpenCV, ReportLab.
 - [ReceiptSnap AI](https://telaloom.com/projects/receiptsnap-ai.html) — native iOS/Android receipt scanner with cloud OCR and tidy expense log. Stack: Swift/SwiftUI, Kotlin/Jetpack Compose, Firebase, Google Cloud Vision.
 
@@ -84,7 +77,7 @@ We don't bolt onto SaaS treadmills. The same open-source tools we run for oursel
 
 ## Frequently asked
 
-- **What is TelaLoom?** A studio that builds websites, ranks them with SEO & GEO, and builds custom automation software that replaces manual work — plus our own portfolio of 38 AI products (live, in final testing, and in active development).
+- **What is TelaLoom?** A studio that builds websites, ranks them with SEO & GEO, and builds custom automation software that replaces manual work — plus our own portfolio of 31 AI products (live, in final testing, and in active development).
 - **What stack do you use?** Python (FastAPI, Django) + Node.js (Fastify, Express) backends; Next.js, React, React Native + Expo frontends; Postgres + Redis; Stripe + Brevo + n8n + LiteLLM. Default LLM is Claude.
 - **What open-source tools do you self-host?** Umami, Cal.com, LiteLLM Proxy, Paperless-NGX, Open WebUI, Speedtest Tracker, Portainer, Syncthing — see the Supporting cast section above.
 - **How fast can you ship?** Typically a working first slice in 1–2 weeks; first paying customer in 4–8 weeks.

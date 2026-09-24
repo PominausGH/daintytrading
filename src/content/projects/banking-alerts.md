@@ -41,8 +41,8 @@ prevLink:
   label: "Finance Tracker"
   href: "/projects/finance-tracker.html"
 nextLink:
-  label: "Telegram Crypto Sentiment"
-  href: "/projects/telegram-crypto-sentiment.html"
+  label: "ScreenShoot Cleaner"
+  href: "/projects/screenshot-cleaner.html"
 schemaType: "SoftwareApplication"
 schemaExtra:
   applicationCategory: "BusinessApplication"

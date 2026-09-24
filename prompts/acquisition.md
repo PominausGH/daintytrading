@@ -25,8 +25,8 @@ this project, applying the studio's Dual-Path Marketing framework.
 
 DUAL-PATH FRAMEWORK
 -------------------
-For DEVELOPER projects (e.g. DevTodo, Auto-Claude, Prompt Builder, Billing API,
-Recipe API), use:
+For DEVELOPER projects (e.g. Auto-Claude, Billing API,
+ChatVault), use:
   1. Documentation-as-marketing — lead with high-quality technical guides, code
      samples, and architecture notes; not sales pitches.
   2. Low-friction trial — a free sandbox, public quickstart, or live demo that
@@ -114,6 +114,6 @@ OUTPUT RULES
 
 ## Suggested project → tier mapping
 
-**Developer-tier**: Auto-Claude, DevTodo, Prompt Builder, Billing API, Recipe API, ChatVault, Email Cleanup, LiteLLM-related work.
+**Developer-tier**: Auto-Claude, Billing API, ChatVault, Email Cleanup, LiteLLM-related work.
 
-**Consumer / SMB-tier**: Subscription Incinerator, TimerForge, Everyring.ai, BizPage Builder, Tax Prep, Receipt Bridge, ReceiptSnap AI, FakeCall, BrightPath, Meditation, Yoga Platform, ChefForge, Whisp, FocusGuard, Marketing OS (internal-facing).
+**Consumer / SMB-tier**: Subscription Incinerator, TimerForge, Everyring.ai, BizPage Builder, Tax Prep, Receipt Bridge, ReceiptSnap AI, FakeCall, BrightPath, Meditation, Whisp, FocusGuard, Marketing OS (internal-facing).

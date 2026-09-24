@@ -34,7 +34,7 @@ ogImage: "https://telaloom.com/og-card.jpg"
 <li><strong>Latency doesn’t matter.</strong> Nightly batch jobs — sentiment analysis on the day’s Telegram messages, generating tomorrow’s content queue, running your financial reconciliation — don’t need real-time triggers. A cron job at 2am is simpler and more reliable than a webhook receiver that has to be up 24/7.</li>
 <li><strong>You want to control throughput.</strong> Polling lets you decide exactly how fast you process items. This is useful when your AI cost envelope is fixed — process 500 items per hour, not however many the webhook firehose sends.</li>
 </ul>
-<p>Our <a href="/projects/telegram-crypto-sentiment.html">Telegram Crypto Sentiment</a> project (in development) polls Telegram channels on a schedule. The channels don’t emit webhooks, the analysis runs in batches, and the latency between a message being posted and the sentiment score being computed is acceptable for the use case (daily signals, not real-time trading).</p>
+<p>A Telegram sentiment-monitoring project of ours polls Telegram channels on a schedule. The channels don’t emit webhooks, the analysis runs in batches, and the latency between a message being posted and the sentiment score being computed is acceptable for the use case (daily signals, not real-time trading).</p>
 
 <h2>The hybrid: webhook to queue, polling the queue</h2>
 <p>The pattern we recommend most for AI integrations is: webhook receiver → job queue → workers polling the queue.</p>
