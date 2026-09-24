@@ -1,6 +1,6 @@
 # TelaLoom
 
-> TelaLoom builds websites, ranks them with SEO & GEO, and builds custom automation software that replaces manual work in your business — for Australian and global businesses. We also design, build, and operate production AI software across our own portfolio — 38 products (live, in final testing, or in active development) covering email triage, AI content generation, education, knowledge management, marketing automation, scheduling, billing, and SaaS infrastructure. We self-host the open-source stack we recommend (analytics, scheduling, LLM routing, document management, and more) and take on a small number of client engagements each quarter across website builds, SEO/GEO, automation software, and AI infrastructure.
+> TelaLoom builds websites, ranks them with SEO & GEO, and builds custom automation software that replaces manual work in your business — for Australian and global businesses. We also design, build, and operate production AI software across our own portfolio — 31 products (live, in final testing, or in active development) covering email triage, AI content generation, education, knowledge management, marketing automation, scheduling, billing, and SaaS infrastructure. We self-host the open-source stack we recommend (analytics, scheduling, LLM routing, document management, and more) and take on a small number of client engagements each quarter across website builds, SEO/GEO, automation software, and AI infrastructure.
 
 ## About the studio
 
