@@ -1,6 +1,7 @@
 ---
 type: "product"
 status: "dev"
+unlisted: true
 name: "Banking Alerts"
 title: "Banking Alerts — TelaLoom"
 description: "Push-notification alerts when bank balances drop below thresholds. No app to install, no SaaS subscription — just an n8n flow on top of Open Banking that pings your phone when something needs attention."

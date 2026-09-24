@@ -49,11 +49,11 @@ sidecard:
 ctaBannerHeading: "Want to build something like this?"
 ctaBannerBody: "We scope projects in 48 hours and ship a first demo in 1–2 weeks. Tell us what you need."
 prevLink:
-  label: "Second Brain"
-  href: "/projects/second-brain.html"
+  label: "Marketing OS"
+  href: "/projects/marketing-os.html"
 nextLink:
-  label: "Price Scout"
-  href: "/projects/price-scout.html"
+  label: "PostReel"
+  href: "/projects/postreel.html"
 schemaType: "SoftwareApplication"
 schemaExtra:
   applicationCategory: "EducationApplication"

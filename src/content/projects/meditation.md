@@ -1,6 +1,7 @@
 ---
 type: "product"
 status: "testing"
+unlisted: true
 name: "Meditation"
 title: "Meditation — Subscription Meditation Library | TelaLoom"
 description: "A subscription meditation library with a 7-day free trial, Stripe billing, and a content gate that doesn't feel like a content gate. Built on Next.js and FastAPI."

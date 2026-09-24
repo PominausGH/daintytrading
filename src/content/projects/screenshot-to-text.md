@@ -1,6 +1,7 @@
 ---
 type: "product"
 status: "dev"
+unlisted: true
 name: "Screenshot to Text"
 title: "Screenshot to Text — TelaLoom"
 description: "Production OCR that handles the messy stuff — tables, handwriting, complex layouts — with a high enough accuracy floor that businesses can put it in front of their customers."

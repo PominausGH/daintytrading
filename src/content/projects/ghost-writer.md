@@ -52,8 +52,8 @@ prevLink:
   label: "TimerForge"
   href: "/projects/timerforge.html"
 nextLink:
-  label: "Meditation"
-  href: "/projects/meditation.html"
+  label: "Nudgle"
+  href: "/projects/skeddy.html"
 schemaType: "SoftwareApplication"
 schemaExtra:
   applicationCategory: "BusinessApplication"

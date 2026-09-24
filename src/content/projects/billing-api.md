@@ -43,8 +43,8 @@ prevLink:
   label: "PostReel"
   href: "/projects/postreel.html"
 nextLink:
-  label: "Screenshot to Text"
-  href: "/projects/screenshot-to-text.html"
+  label: "WiseKeel"
+  href: "/projects/wisekeel.html"
 schemaType: "WebAPI"
 schemaExtra:
   provider:

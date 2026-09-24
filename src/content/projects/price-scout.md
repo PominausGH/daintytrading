@@ -1,6 +1,7 @@
 ---
 type: "product"
 status: "testing"
+unlisted: true
 name: "Price Scout"
 title: "Price Scout — TelaLoom"
 description: "A cost-of-living dashboard that tracks grocery, fuel, and energy prices across Australia and the UK. Households see how their spending compares week to week — without manually checking five supermarket apps."

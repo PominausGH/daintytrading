@@ -49,8 +49,8 @@ sidecard:
 ctaBannerHeading: "Want to build something like this?"
 ctaBannerBody: "We scope projects in 48 hours and ship a first demo in 1–2 weeks. Tell us what you need."
 prevLink:
-  label: "Email Cleanup"
-  href: "/projects/emailcleanup.html"
+  label: "BrightPath"
+  href: "/projects/brightpath.html"
 nextLink:
   label: "Everyring.ai"
   href: "/projects/missed-calls.html"

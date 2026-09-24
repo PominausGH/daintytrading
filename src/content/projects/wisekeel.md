@@ -49,8 +49,8 @@ sidecard:
 ctaBannerHeading: "Want to build something like this?"
 ctaBannerBody: "We scope projects in 48 hours and ship a first demo in 1–2 weeks. Tell us what you need."
 prevLink:
-  label: "ReceiptSnap AI"
-  href: "/projects/receiptsnap-ai.html"
+  label: "Billing API"
+  href: "/projects/billing-api.html"
 nextLink:
   label: "All projects"
   href: "/work.html"

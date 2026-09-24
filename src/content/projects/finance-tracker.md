@@ -1,6 +1,7 @@
 ---
 type: "product"
 status: "dev"
+unlisted: true
 name: "Finance Tracker"
 title: "Finance Tracker — TelaLoom"
 description: "A clean personal finance tracker for income, expenses, and budgets over time. No bank-feed wizardry, no upsells — just a place to log money in and out and see the trend."

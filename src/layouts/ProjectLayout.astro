@@ -37,6 +37,7 @@ const breadcrumbSchema = {
   description={data.description}
   canonicalPath={canonicalPath}
   ogImage={data.ogImage}
+  robots={'unlisted' in data && data.unlisted ? 'noindex, follow' : undefined}
   jsonLd={[primarySchema, breadcrumbSchema]}
 >
   <main id="main">

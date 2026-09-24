@@ -45,8 +45,8 @@ prevLink:
   label: "Nudgle"
   href: "/projects/skeddy.html"
 nextLink:
-  label: "ChatVault"
-  href: "/projects/chatvault.html"
+  label: "ConvoForge"
+  href: "/projects/convoforge.html"
 schemaType: "SoftwareApplication"
 schemaExtra:
   applicationCategory: "BusinessApplication"

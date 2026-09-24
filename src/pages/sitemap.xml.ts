@@ -26,7 +26,7 @@ const STATIC_PAGES: { path: string; changefreq: string; priority: string }[] = [
 
 export const GET: APIRoute = async () => {
   const buildDate = new Date().toISOString().slice(0, 10);
-  const projects = await getCollection('projects');
+  const projects = await getCollection('projects', ({ data }) => !('unlisted' in data && data.unlisted));
   const posts = await getCollection('blog');
 
   const urls = [

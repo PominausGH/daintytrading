@@ -1,6 +1,7 @@
 ---
 type: "product"
 status: "live"
+unlisted: true
 name: "Email Triage"
 title: "Email Triage — AI Inbox Categorization with Claude | TelaLoom"
 description: "Email Triage uses Claude to categorize incoming Gmail and Outlook mail, score priority 1–10, and draft replies. Multi-account, offline PWA, push notifications, Stripe billing. Built by TelaLoom."
