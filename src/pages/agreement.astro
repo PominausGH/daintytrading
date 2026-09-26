@@ -18,7 +18,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     attribute, e.g. ?client_name=Darren%20Smith&project_name=New%20site&total_fee=%243%2C500
     Checkbox groups take comma-separated values: ?pages=Home,About,Contact
   - ?lock=project makes the Project & fees section read-only for the client.
-  - ?countersign=1&ref=<reference>: the link n8n emails TelaLoom after a client signs.
+  - ?countersign=1&ref=<reference>&token=<countersign_token>: the link n8n emails TelaLoom after a client signs.
     Reveals the provider signature box (hidden from clients — see allowCountersign) immediately
     on load, and once countersigned, posts a minimal {event:'countersign_only', reference, ...}
     payload that the webhook merges with the original client-signed record it already has on file.
@@ -601,7 +601,7 @@ document.getElementById('counterBtn').addEventListener('click', async () => {
     // here, so send just the provider's part; the webhook merges it with the original
     // client-signed record it already has on file, keyed by reference.
     payload = {
-      event: 'countersign_only', reference: qs.get('ref'), countersigned_at: now.toISOString(),
+      event: 'countersign_only', reference: qs.get('ref'), token: qs.get('token'), countersigned_at: now.toISOString(),
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       provider_sign_name: nameEl.value.trim(), provider_sign_role: doc.querySelector('[name=provider_sign_role]').value.trim(),
       provider_signature: pv.c.toDataURL('image/png'),
