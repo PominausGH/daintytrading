@@ -114,7 +114,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     }
     @page { size:A4; margin:16mm 14mm; }
     body { background:#fff !important; font-size:11pt; }
-    .site-header, .site-footer, nav.steps, .actions, .pad-tools .btn, .no-print, .msg { display:none !important; }
+    :global(.site-header), :global(.site-footer), nav.steps, .actions, .pad-tools .btn, .no-print, .msg { display:none !important; }
     .agreement-hero { border-bottom:2px solid var(--accent); padding:0 0 8px; }
     .agreement-hero .lede, .agreement-hero .crumbs { display:none !important; }
     #doc { padding:0; max-width:none; }
