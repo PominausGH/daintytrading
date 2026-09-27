@@ -106,20 +106,25 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     /* Redefine the site's dark-theme tokens for print only — every rule above that uses
        these variables becomes print-safe (dark text on white) without needing a parallel
        set of print-specific overrides for each one. */
-    :root {
+    html:root {
+      color-scheme:light;
       --bg:#fff; --bg-elev:#fff; --bg-card:#fff;
       --text:#1D2733; --text-dim:#5A6B7B; --text-muted:#5A6B7B;
       --border:#CCD4DD; --border-strong:#CCD4DD;
       --accent:#1F3A5F; --accent-2:#1F6F5C; --accent-text:#1F3A5F; --accent-soft:transparent;
     }
     @page { size:A4; margin:16mm 14mm; }
-    body { background:#fff !important; font-size:11pt; }
+    html, body { background:#fff !important; color:#1D2733 !important; }
+    body { font-size:11pt; }
     :global(.site-header), :global(.site-footer), nav.steps, .actions, .pad-tools .btn, .no-print, .msg { display:none !important; }
     .agreement-hero { border-bottom:2px solid var(--accent); padding:0 0 8px; }
     .agreement-hero .lede, .agreement-hero .crumbs { display:none !important; }
     #doc { padding:0; max-width:none; }
-    section.sheet { border:0; padding:0; margin:0 0 10mm; border-radius:0; background:none; }
-    section.break { break-before:page; }
+    section.sheet { border:0; padding:0; margin:0 0 7mm; border-radius:0; background:none; }
+    section.break { break-before:auto; }
+    section.terms { break-before:page; }
+    section.sheet > h2 { break-after:avoid; }
+    #brief label.f:has(> .print-val:empty) { display:none; }
     h3, .terms h4, .sig { break-after:avoid; break-inside:avoid; }
     #doc textarea { display:none !important; }
     .print-val { display:block; border:1px solid var(--border); border-radius:4px; padding:6px 8px; margin-top:4px; min-height:1.6em; }
