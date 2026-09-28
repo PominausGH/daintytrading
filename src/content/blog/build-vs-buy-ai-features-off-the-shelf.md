@@ -17,7 +17,7 @@ ogImage: "https://telaloom.com/og-card.png"
 
 <p>Next, we conduct a rigorous cost-benefit analysis. Compare the monthly SaaS subscription fee against the fully loaded cost of engineering hours required to build, maintain, and iterate on a custom solution. Don't forget the hidden costs: data labeling, custom UI, API key management, rate limit handling, and ongoing monitoring. If a managed OCR or document-processing API covers most of your cases, the subscription is almost always cheaper than the engineering time to replicate it.</p>
 
-<p>This approach isn't about avoiding engineering; it's about smart engineering. We still build the integration layers, the business logic that orchestrates these services, and the custom UI/UX. For our <a href="/projects/emailtriage.html">Email Triage</a> product, we use the Gmail API and Microsoft Graph for fetching and parsing mail rather than writing our own IMAP/MIME handling, which lets us focus on the classification logic that differentiates the product.</p>
+<p>This approach isn't about avoiding engineering; it's about smart engineering. We still build the integration layers, the business logic that orchestrates these services, and the custom UI/UX. For our Email Triage product, we use the Gmail API and Microsoft Graph for fetching and parsing mail rather than writing our own IMAP/MIME handling, which lets us focus on the classification logic that differentiates the product.</p>
 
 <h2>When Off-the-Shelf Breaks Down</h2>
 

@@ -12,7 +12,7 @@ ogImage: "https://telaloom.com/og-card.jpg"
 <p>The better question is: <strong>which one workflow in your product would be meaningfully better if an LLM touched it?</strong> Start there. Build a clean boundary around it. Swap out the old logic for an AI-powered endpoint. Ship it. Then pick the next one.</p>
 
 <h2>The three workflows worth retrofitting first</h2>
-<p>After building <a href="/projects/emailtriage.html">Email Triage</a>, <a href="/projects/missed-calls.html">Everyring.ai</a>, and our other products, we keep landing on the same three categories as the highest-value first moves:</p>
+<p>After building Email Triage, <a href="/projects/missed-calls.html">Everyring.ai</a>, and our other products, we keep landing on the same three categories as the highest-value first moves:</p>
 
 <h3>1. Draft generation</h3>
 <p>Anywhere your users are writing from scratch — replies, reports, summaries, proposals — an LLM can produce a first draft that your user edits down to 10 seconds of work. The AI doesn’t need to be right, it needs to be 80% right and fast. Draft generation is the single easiest retrofit because the blast radius of a bad output is low: the user sees it before it goes anywhere.</p>

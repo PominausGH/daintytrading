@@ -21,7 +21,7 @@ ogImage: "https://telaloom.com/og-card.jpg"
 
 <p>Start with the thin wrapper, and add a gateway when the problem actually appears.</p>
 
-<p>Our products call their providers directly rather than through a shared gateway. <a href="/projects/emailtriage.html">Email Triage</a> and <a href="/projects/cv-matcher.html">CV Matcher</a> call the Anthropic SDK directly; <a href="/projects/brightpath.html">BrightPath</a> calls OpenRouter, with the provider switchable by one environment variable. The goal is one small module per app where timeouts, retries and fallbacks live, keeping the model choice out of business logic. For a single product talking to one or two providers, that's most of what a gateway gives you, with nothing extra to run.</p>
+<p>Our products call their providers directly rather than through a shared gateway. Email Triage and <a href="/projects/cv-matcher.html">CV Matcher</a> call the Anthropic SDK directly; <a href="/projects/brightpath.html">BrightPath</a> calls OpenRouter, with the provider switchable by one environment variable. The goal is one small module per app where timeouts, retries and fallbacks live, keeping the model choice out of business logic. For a single product talking to one or two providers, that's most of what a gateway gives you, with nothing extra to run.</p>
 
 <p>A gateway earns its place when several services share providers: many internal tools, a chat UI, and scripts all wanting the same keys, spend visibility and failover. That was our internal-tools situation, and it is what LiteLLM is built for — an OpenAI-compatible API that let any tool point at one URL, with models added or swapped without touching the tools themselves.</p>
 
