@@ -17,7 +17,7 @@ const jsonLd = [
       itemListElement: [
         { '@type': 'Offer', name: 'Instant page', price: String(pricing.instantPageFromUsd), priceCurrency: 'USD', description: `One-off, or from $${pricing.instantPageHostedFromUsd} USD/month hosted (from $${pricing.instantPageOwnDomainFromUsd} USD/month for your own domain). Auto-generated from your existing Google Business listing — name, address, hours, photos, and reviews. Live within days. Billed via bizpage.biz in USD.` },
         { '@type': 'Offer', name: 'Custom build', price: String(pricing.customBuild), priceCurrency: 'AUD', description: `One-off. Custom-designed site, copywriting, hosting, SSL, and Local SEO & GEO setup included — not sold separately. $${pricing.customBuildWithGrowthCommit.toLocaleString()} AUD if you commit to 12 months of the Growth plan.` },
-        { '@type': 'Offer', name: 'Care plan', price: String(pricing.carePlan), priceCurrency: 'AUD', description: 'Monthly. Hosting, security updates, and small content changes for website clients. Attached to every custom build by default. Cancel anytime.' },
+        { '@type': 'Offer', name: 'Care plan', price: String(pricing.carePlan), priceCurrency: 'AUD', description: 'Monthly, no GST. Hosting, security updates, and up to 30 minutes of small content changes per month (unused time does not roll over, billed at the standard hourly rate beyond that). 2-business-day response time, same-day for security or downtime issues. Attached to every custom build by default. Cancel anytime, effective end of the current billing month.' },
         { '@type': 'Offer', name: 'Monitor', price: String(pricing.monitor), priceCurrency: 'AUD', description: 'Monthly. Automated ranking and AI-citation monitoring, with a monthly plain-English report. No fix pass included. Cancel anytime.' },
         { '@type': 'Offer', name: 'Growth', price: String(pricing.growth), priceCurrency: 'AUD', description: 'Monthly. Everything in Monitor, plus Google Business Profile posts, review replies, and a review campaign each month. Cancel anytime.' },
         { '@type': 'Offer', name: 'Scale', price: String(pricing.scale), priceCurrency: 'AUD', description: 'Monthly. Everything in Growth, plus new suburb/service pages, full Google Business Profile management, monthly content, and a quarterly strategy call.' },
@@ -115,12 +115,13 @@ const jsonLd = [
 
             <div class="price-card">
               <span class="tier">Care plan <small style="text-transform:none;letter-spacing:0;">&mdash; monthly</small></span>
-              <div class="price">{pricing.carePlan} AUD<small>/mo</small></div>
-              <p class="note">Attached to every custom build by default &mdash; opt out if you&rsquo;d rather self-manage.</p>
+              <div class="price">{pricing.carePlan} AUD<small>/mo, no GST</small></div>
+              <p class="note">Attached to every custom build by default &mdash; opt out if you&rsquo;d rather self-manage. Cancel anytime, effective end of the current billing month.</p>
               <ul class="month-list">
                 <li>Hosting, SSL renewal, and uptime monitoring</li>
                 <li>Software and security updates</li>
-                <li>Small changes &mdash; text edits, photo swaps, a new testimonial</li>
+                <li>Up to 30 minutes/month of small changes &mdash; text edits, photo swaps, a new testimonial (unused time doesn&rsquo;t roll over; extra work billed at our standard hourly rate)</li>
+                <li>2-business-day response time &mdash; same-day for security or downtime issues</li>
               </ul>
               <a class="btn btn-ghost" href="/contact.html" style="margin-top:16px;">Talk it through &rarr;</a>
             </div>
