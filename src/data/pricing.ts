@@ -21,3 +21,32 @@ export const pricing = {
 export function aud(n: number) {
   return `$${n.toLocaleString('en-AU')}`;
 }
+
+// Approximate USD display pricing for the site's large US audience (Umami:
+// ~10x more US than AU sessions on the commercial pages, 2026-09-28) — not a
+// live rate, and not meant to be. Base mid-market rate 0.70 (XE, 2026-09-28)
+// plus a ~3% buffer to cover the cost of converting incoming USD back to AUD
+// (Stripe's cross-border/currency-conversion fee runs ~2%). Revisit this
+// constant if AUD/USD moves materially; the buffer gives headroom before
+// that's actually necessary. Figures round to the nearest $50 for clean,
+// marketing-legible numbers rather than exact conversion precision.
+const AUD_TO_USD_DISPLAY_RATE = 0.721;
+
+function usdApprox(audAmount: number): number {
+  return Math.round((audAmount * AUD_TO_USD_DISPLAY_RATE) / 50) * 50;
+}
+
+export const pricingUsd = {
+  customBuild: usdApprox(pricing.customBuild),
+  customBuildWithGrowthCommit: usdApprox(pricing.customBuildWithGrowthCommit),
+  carePlan: usdApprox(pricing.carePlan),
+  setupSingleTemplate: usdApprox(pricing.setupSingleTemplate),
+  setupMultiTemplate: usdApprox(pricing.setupMultiTemplate),
+  monitor: usdApprox(pricing.monitor),
+  growth: usdApprox(pricing.growth),
+  scale: usdApprox(pricing.scale),
+} as const;
+
+export function usd(n: number) {
+  return `$${n.toLocaleString('en-US')}`;
+}

@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { pricing } from '../../data/pricing.ts';
+import { pricing, pricingUsd } from '../../data/pricing.ts';
 
 const jsonLd = [
   {
@@ -10,7 +10,7 @@ const jsonLd = [
     provider: { '@type': 'Organization', name: 'TelaLoom', url: 'https://telaloom.com' },
     serviceType: 'Local search engine optimization and generative engine optimization',
     description: 'Local SEO and GEO for service businesses — Google Business Profile setup, review generation, LocalBusiness schema, service-area pages, llms.txt and AI-crawler access — so a local business is found on Google Maps, in local search, and cited by AI assistants.',
-    areaServed: 'AU',
+    areaServed: 'Worldwide',
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'Local SEO & GEO packages',
@@ -101,7 +101,7 @@ const jsonLd = [
             <div class="price-card featured">
               <span class="price-badge">Most popular</span>
               <span class="tier">Setup</span>
-              <div class="price">{pricing.setupSingleTemplate.toLocaleString()} <small>one-off</small></div>
+              <div class="price">{pricing.setupSingleTemplate.toLocaleString()} AUD <small>one-off &middot; ~{pricingUsd.setupSingleTemplate.toLocaleString()} USD</small></div>
               <p class="note">We fix it. Done properly, no lock-in.</p>
               <ul>
                 <li>Everything in the audit &mdash; then we implement it</li>
@@ -120,7 +120,7 @@ const jsonLd = [
           <div class="price-grid">
             <div class="price-card">
               <span class="tier">Monitor <small style="text-transform:none;letter-spacing:0;">&mdash; monthly</small></span>
-              <div class="price">{pricing.monitor}<small>/mo</small></div>
+              <div class="price">{pricing.monitor} AUD<small>/mo &middot; ~{pricingUsd.monitor} USD</small></div>
               <p class="note">Watch it, report on it, no fix pass included.</p>
               <ul class="month-list">
                 <li>Automated ranking &amp; AI-citation monitoring</li>
@@ -133,7 +133,7 @@ const jsonLd = [
             <div class="price-card featured">
               <span class="price-badge">Most popular</span>
               <span class="tier">Growth <small style="text-transform:none;letter-spacing:0;">&mdash; monthly</small></span>
-              <div class="price">{pricing.growth}<small>/mo</small></div>
+              <div class="price">{pricing.growth} AUD<small>/mo &middot; ~{pricingUsd.growth} USD</small></div>
               <p class="note">Monitor, plus we keep working your listing.</p>
               <p style="font-size:13px;color:var(--text-muted);margin:0 0 4px;">Everything in Monitor, plus:</p>
               <ul class="month-list">
@@ -145,7 +145,7 @@ const jsonLd = [
 
             <div class="price-card">
               <span class="tier">Scale <small style="text-transform:none;letter-spacing:0;">&mdash; monthly</small></span>
-              <div class="price">{pricing.scale.toLocaleString()}<small>/mo</small></div>
+              <div class="price">{pricing.scale.toLocaleString()} AUD<small>/mo &middot; ~{pricingUsd.scale.toLocaleString()} USD</small></div>
               <p class="note">For businesses actively expanding into new areas.</p>
               <p style="font-size:13px;color:var(--text-muted);margin:0 0 4px;">Everything in Growth, plus:</p>
               <ul class="month-list">
@@ -196,10 +196,10 @@ const jsonLd = [
           <h4>Local SEO &amp; GEO</h4>
           <div class="label-row"><span>Best for</span><span>Local service businesses</span></div>
           <div class="label-row"><span>Audit</span><span>Free</span></div>
-          <div class="label-row"><span>Setup</span><span>{pricing.setupSingleTemplate.toLocaleString()}</span></div>
-          <div class="label-row"><span>Monitor</span><span>{pricing.monitor}/mo</span></div>
-          <div class="label-row"><span>Growth</span><span>{pricing.growth}/mo</span></div>
-          <div class="label-row"><span>Scale</span><span>{pricing.scale.toLocaleString()}/mo</span></div>
+          <div class="label-row"><span>Setup</span><span>{pricing.setupSingleTemplate.toLocaleString()} AUD</span></div>
+          <div class="label-row"><span>Monitor</span><span>{pricing.monitor} AUD/mo</span></div>
+          <div class="label-row"><span>Growth</span><span>{pricing.growth} AUD/mo</span></div>
+          <div class="label-row"><span>Scale</span><span>{pricing.scale.toLocaleString()} AUD/mo</span></div>
           <div class="label-row"><span>Lock-in</span><span>None</span></div>
           <p style="font-size:12px;color:var(--text-muted);margin:10px 0 16px;">Found on Google Maps, in local search, and by AI assistants &mdash; without a lock-in contract or a &ldquo;#1 ranking&rdquo; promise nobody can keep.</p>
           <a class="btn btn-primary" href="/contact.html" data-umami-event="cta_click" data-umami-event-target="start_with_audit" data-umami-event-source="local_seo_sidecard">Start with an audit &rarr;</a>
