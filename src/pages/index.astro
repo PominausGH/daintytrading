@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getProductCounts } from '../data/products';
+import { pricingUsd } from '../data/pricing.ts';
 
 const counts = await getProductCounts();
 
@@ -282,17 +283,17 @@ const jsonLd = [
           <div class="service-card">
             <div class="icon">01</div>
             <h3><a href="/services/website-builds.html" class="link-inherit">Website builds</a></h3>
-            <p>From an instant page generated from your Google listing (from $149 USD) to a custom-built site with Local SEO &amp; GEO switched on from day one &mdash; $6,900 AUD, or $4,900 with a 12-month Growth commitment. No lock-in.</p>
+            <p>From an instant page generated from your Google listing (from $149 USD) to a custom-built site with Local SEO &amp; GEO switched on from day one &mdash; $6,900 AUD (~${pricingUsd.customBuild.toLocaleString()} USD), or $4,900 (~${pricingUsd.customBuildWithGrowthCommit.toLocaleString()} USD) with a 12-month Growth commitment. No lock-in.</p>
           </div>
           <div class="service-card">
             <div class="icon">02</div>
             <h3><a href="/services/local-seo.html" class="link-inherit">Local SEO &amp; GEO</a></h3>
-            <p>Get found on Google Maps, in local search, and when people ask ChatGPT who to call. Google Business Profile management, review generation, local schema, and location pages for one business. Setup from $3,900 AUD, then $450&ndash;$1,950 AUD/mo. No lock-in.</p>
+            <p>Get found on Google Maps, in local search, and when people ask ChatGPT who to call. Google Business Profile management, review generation, local schema, and location pages for one business. Setup from $3,900 AUD (~${pricingUsd.setupSingleTemplate.toLocaleString()} USD), then $450&ndash;$1,950 AUD/mo (~${pricingUsd.monitor}&ndash;${pricingUsd.scale.toLocaleString()} USD/mo). No lock-in.</p>
           </div>
           <div class="service-card">
             <div class="icon">03</div>
             <h3><a href="/services/seo-geo-optimization.html" class="link-inherit">SEO &amp; GEO optimization</a></h3>
-            <p>Get found by Google and by AI answer engines. We audit and fix meta tags, schema markup, llms.txt, and AI-crawler access — shipped directly to your codebase, not a PDF. Free audit, Setup $3,900 AUD — not the $5k&ndash;$15k-plus retainer agencies typically quote for the same audit-and-fix scope.</p>
+            <p>Get found by Google and by AI answer engines. We audit and fix meta tags, schema markup, llms.txt, and AI-crawler access — shipped directly to your codebase, not a PDF. Free audit, Setup $3,900 AUD (~${pricingUsd.setupSingleTemplate.toLocaleString()} USD) — not the $5k&ndash;$15k-plus retainer agencies typically quote for the same audit-and-fix scope.</p>
           </div>
           <div class="service-card">
             <div class="icon">04</div>

@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { pricing } from '../../data/pricing.ts';
+import { pricing, pricingUsd } from '../../data/pricing.ts';
 
 const jsonLd = [
   {
@@ -109,7 +109,7 @@ const jsonLd = [
             <div class="price-card featured">
               <span class="price-badge">Most popular</span>
               <span class="tier">Setup</span>
-              <div class="price">{pricing.setupSingleTemplate.toLocaleString()} <small>one-off</small></div>
+              <div class="price">{pricing.setupSingleTemplate.toLocaleString()} AUD <small>one-off &middot; ~{pricingUsd.setupSingleTemplate.toLocaleString()} USD</small></div>
               <p class="note">We fix it. Shipped to code, not a report. Not the $5k&ndash;$15k-plus retainer agencies typically quote for the same audit-and-fix scope.</p>
               <ul>
                 <li>Everything in the audit &mdash; then we implement it</li>
@@ -127,7 +127,7 @@ const jsonLd = [
           <div class="price-grid">
             <div class="price-card">
               <span class="tier">Monitor <small style="text-transform:none;letter-spacing:0;">&mdash; monthly</small></span>
-              <div class="price">{pricing.monitor}<small>/mo</small></div>
+              <div class="price">{pricing.monitor} AUD<small>/mo &middot; ~{pricingUsd.monitor} USD</small></div>
               <p class="note">Watch it, report on it, no fix pass included.</p>
               <ul class="month-list">
                 <li>Automated ranking &amp; AI-citation monitoring</li>
@@ -140,7 +140,7 @@ const jsonLd = [
             <div class="price-card featured">
               <span class="price-badge">Most popular</span>
               <span class="tier">Growth <small style="text-transform:none;letter-spacing:0;">&mdash; monthly</small></span>
-              <div class="price">{pricing.growth}<small>/mo</small></div>
+              <div class="price">{pricing.growth} AUD<small>/mo &middot; ~{pricingUsd.growth} USD</small></div>
               <p class="note">Monitor, plus we keep fixing.</p>
               <p style="font-size:13px;color:var(--text-muted);margin:0 0 4px;">Everything in Monitor, plus:</p>
               <ul class="month-list">
@@ -152,7 +152,7 @@ const jsonLd = [
 
             <div class="price-card">
               <span class="tier">Scale <small style="text-transform:none;letter-spacing:0;">&mdash; monthly</small></span>
-              <div class="price">{pricing.scale.toLocaleString()}<small>/mo</small></div>
+              <div class="price">{pricing.scale.toLocaleString()} AUD<small>/mo &middot; ~{pricingUsd.scale.toLocaleString()} USD</small></div>
               <p class="note">For sites actively investing in growth.</p>
               <p style="font-size:13px;color:var(--text-muted);margin:0 0 4px;">Everything in Growth, plus:</p>
               <ul class="month-list">
@@ -290,10 +290,10 @@ const jsonLd = [
         <aside class="sidecard">
           <h4>SEO &amp; GEO Optimization</h4>
           <div class="label-row"><span>Audit</span><span>Free</span></div>
-          <div class="label-row"><span>Setup</span><span>{pricing.setupSingleTemplate.toLocaleString()}</span></div>
-          <div class="label-row"><span>Monitor</span><span>{pricing.monitor}/mo</span></div>
-          <div class="label-row"><span>Growth</span><span>{pricing.growth}/mo</span></div>
-          <div class="label-row"><span>Scale</span><span>{pricing.scale.toLocaleString()}/mo</span></div>
+          <div class="label-row"><span>Setup</span><span>{pricing.setupSingleTemplate.toLocaleString()} AUD</span></div>
+          <div class="label-row"><span>Monitor</span><span>{pricing.monitor} AUD/mo</span></div>
+          <div class="label-row"><span>Growth</span><span>{pricing.growth} AUD/mo</span></div>
+          <div class="label-row"><span>Scale</span><span>{pricing.scale.toLocaleString()} AUD/mo</span></div>
           <div class="label-row"><span>Typical timeline</span><span>1&ndash;3 weeks</span></div>
           <div class="label-row"><span>Delivery</span><span>Shipped to code</span></div>
           <p style="font-size:12px;color:var(--text-muted);margin:10px 0 16px;">Setup covers single-template sites; {pricing.setupMultiTemplate.toLocaleString()} for e-commerce, multi-language, or larger template counts. Not the $5k&ndash;$15k-plus retainer agencies typically quote for the same audit-and-fix scope.</p>
