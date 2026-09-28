@@ -41,7 +41,7 @@ ogImage: "https://telaloom.com/og-card.jpg"
 
 <h2>The rule</h2>
 <p>Build AI features that replace work the system was already doing (classification, triage, first drafts, extraction) before you build AI features that add new work to the system (chat interfaces, proactive recommendations, summaries). The former improves the economics of what you already have. The latter bets on adoption that may not materialise.</p>
-<p>If you want a second opinion on which AI feature to build first, <a href="/contact.html">send us a note</a>. We have a consistent view on this after 38 products.</p>
+<p>If you want a second opinion on which AI feature to build first, <a href="/contact.html">send us a note</a>. We have a consistent view on this across our own product portfolio.</p>
 
 
 <div class="cast-philosophy" style="margin-top:40px;border-top:1px solid var(--border);padding-top:32px;">
