@@ -101,8 +101,8 @@ const jsonLd = [
             <div class="price-card featured">
               <span class="price-badge">Most popular</span>
               <span class="tier">Custom build</span>
-              <div class="price">{pricing.customBuild.toLocaleString()} AUD <small>one-off &middot; ~{pricingUsd.customBuild.toLocaleString()} USD</small></div>
-              <p class="note">Designed and written around your business, no lock-in. {pricing.customBuildWithGrowthCommit.toLocaleString()} AUD (~{pricingUsd.customBuildWithGrowthCommit.toLocaleString()} USD) if you commit to 12 months of the Growth plan below &mdash; less money down, not a cheaper total: 12 months of Growth is ${(pricing.growth * 12).toLocaleString()}, so you end up paying more overall in exchange for a lower price today.</p>
+              <div class="price">{pricing.customBuild.toLocaleString()} AUD <small>one-off, or {pricingUsd.customBuild.toLocaleString()} USD</small></div>
+              <p class="note">Designed and written around your business, no lock-in. {pricing.customBuildWithGrowthCommit.toLocaleString()} AUD ({pricingUsd.customBuildWithGrowthCommit.toLocaleString()} USD) if you commit to 12 months of the Growth plan below &mdash; less money down, not a cheaper total: 12 months of Growth is ${(pricing.growth * 12).toLocaleString()}, so you end up paying more overall in exchange for a lower price today.</p>
               <ul>
                 <li>Custom design and copywriting &mdash; not a template</li>
                 <li>Hosting, SSL, and your domain &mdash; connected if you already have one, or registered in your name if you don&rsquo;t (first year included)</li>
@@ -115,7 +115,7 @@ const jsonLd = [
 
             <div class="price-card">
               <span class="tier">Care plan <small style="text-transform:none;letter-spacing:0;">&mdash; monthly</small></span>
-              <div class="price">{pricing.carePlan} AUD<small>/mo, no GST &middot; ~{pricingUsd.carePlan} USD/mo</small></div>
+              <div class="price">{pricing.carePlan} AUD<small>/mo, no GST, or {pricingUsd.carePlan} USD/mo</small></div>
               <p class="note">Attached to every custom build by default &mdash; opt out if you&rsquo;d rather self-manage. Cancel anytime, effective end of the current billing month.</p>
               <ul class="month-list">
                 <li>Hosting, SSL renewal, and uptime monitoring</li>
@@ -132,7 +132,7 @@ const jsonLd = [
           <div class="price-grid">
             <div class="price-card">
               <span class="tier">Monitor <small style="text-transform:none;letter-spacing:0;">&mdash; monthly</small></span>
-              <div class="price">{pricing.monitor} AUD<small>/mo</small></div>
+              <div class="price">{pricing.monitor} AUD<small>/mo, or {pricingUsd.monitor} USD/mo</small></div>
               <p class="note">Watch it, report on it, no fix pass included.</p>
               <ul class="month-list">
                 <li>Automated ranking &amp; AI-citation monitoring</li>
@@ -144,8 +144,8 @@ const jsonLd = [
             <div class="price-card featured">
               <span class="price-badge">Most popular</span>
               <span class="tier">Growth <small style="text-transform:none;letter-spacing:0;">&mdash; monthly</small></span>
-              <div class="price">{pricing.growth} AUD<small>/mo</small></div>
-              <p class="note">Monitor, plus we keep working your listing. 12-month commitment drops your Custom build to {pricing.customBuildWithGrowthCommit.toLocaleString()} AUD &mdash; less money down, not a lower total (see the Custom build note above).</p>
+              <div class="price">{pricing.growth} AUD<small>/mo, or {pricingUsd.growth} USD/mo</small></div>
+              <p class="note">Monitor, plus we keep working your listing. 12-month commitment drops your Custom build to {pricing.customBuildWithGrowthCommit.toLocaleString()} AUD ({pricingUsd.customBuildWithGrowthCommit.toLocaleString()} USD) &mdash; less money down, not a lower total (see the Custom build note above).</p>
               <ul class="month-list">
                 <li>Google Business Profile posts &amp; review replies</li>
                 <li>A review campaign to that month&rsquo;s customers</li>
@@ -155,7 +155,7 @@ const jsonLd = [
 
             <div class="price-card">
               <span class="tier">Scale <small style="text-transform:none;letter-spacing:0;">&mdash; monthly</small></span>
-              <div class="price">{pricing.scale.toLocaleString()} AUD<small>/mo</small></div>
+              <div class="price">{pricing.scale.toLocaleString()} AUD<small>/mo, or {pricingUsd.scale.toLocaleString()} USD/mo</small></div>
               <p class="note">For businesses actively expanding into new areas.</p>
               <ul class="month-list">
                 <li>New suburb/service pages each month</li>
