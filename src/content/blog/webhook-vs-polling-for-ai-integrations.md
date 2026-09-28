@@ -14,7 +14,7 @@ ogImage: "https://telaloom.com/og-card.jpg"
 <h2>The webhook case</h2>
 <p>Use webhooks when:</p>
 <ul>
-<li><strong>Latency is user-visible.</strong> If a user takes an action and expects a result within seconds, you need to process the event as it happens. <a href="/projects/emailtriage.html">Email Triage</a> is a useful counterexample: it polls each connected Gmail and Outlook account every five minutes through a Redis-backed job queue — simple and predictable, at the cost of up to five minutes' delay. Gmail push notifications are the upgrade path when that delay matters.</li>
+<li><strong>Latency is user-visible.</strong> If a user takes an action and expects a result within seconds, you need to process the event as it happens. Email Triage is a useful counterexample: it polls each connected Gmail and Outlook account every five minutes through a Redis-backed job queue — simple and predictable, at the cost of up to five minutes' delay. Gmail push notifications are the upgrade path when that delay matters.</li>
 <li><strong>The data source supports them.</strong> Most modern SaaS APIs (Stripe, GitHub, Twilio, Shopify, Gmail) emit webhooks. If the source already pushes events, accept them — polling the same API would be wasteful and slower.</li>
 <li><strong>Event volume is moderate and spiky.</strong> Webhooks are efficient because they only fire when something happens. If you have a customer who sends 200 emails in an hour and nothing the next day, polling every minute would burn API quota for nothing.</li>
 </ul>

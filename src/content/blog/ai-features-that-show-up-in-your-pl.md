@@ -23,10 +23,10 @@ ogImage: "https://telaloom.com/og-card.jpg"
 
 <h3>Lead and ticket triage</h3>
 <p>Routing and prioritisation are invisible work that adds up fast. A classifier that correctly sorts incoming leads by intent, urgency, or segment means your sales or support team is always working the highest-value item first. The downstream metric — conversion rate, response time to high-priority leads — is something you almost certainly already track.</p>
-<p>This is the core of <a href="/projects/emailtriage.html">Email Triage</a>: not replacing the human, but making sure the human is always looking at the right thing next.</p>
+<p>This is the core of Email Triage: not replacing the human, but making sure the human is always looking at the right thing next.</p>
 
 <h3>Extraction that eliminates manual data entry</h3>
-<p>Structured data extracted from unstructured sources — receipts, invoices, call transcripts, contracts — directly replaces human hours. The metric is straightforward: how many documents does a person process per hour before and after. We're building <a href="/projects/receipt-bridge.html">Receipt Bridge</a> to eliminate manual expense entry for field teams. The before/after is a concrete headcount-hours number.</p>
+<p>Structured data extracted from unstructured sources — receipts, invoices, call transcripts, contracts — directly replaces human hours. The metric is straightforward: how many documents does a person process per hour before and after. We're building Receipt Bridge to eliminate manual expense entry for field teams. The before/after is a concrete headcount-hours number.</p>
 
 <h2>Features that rarely show up in the P&amp;L</h2>
 

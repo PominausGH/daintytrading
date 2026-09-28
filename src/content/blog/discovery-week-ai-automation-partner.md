@@ -19,7 +19,7 @@ ogImage: "https://telaloom.com/og-card.png"
 
 <h2>What we actually do</h2>
 
-<p>Day one is data, not tools. We ask for real samples — actual emails, actual support tickets, actual documents — not descriptions of them. When we built <strong><a href="/projects/emailtriage.html">Email Triage</a></strong>, the category list came from reading real inboxes, not from guessing — people's mental model of their inbox and the inbox itself are usually two different things. You cannot scope an automation against a description of data. You scope it against the data.</p>
+<p>Day one is data, not tools. We ask for real samples — actual emails, actual support tickets, actual documents — not descriptions of them. When we built <strong>Email Triage</strong>, the category list came from reading real inboxes, not from guessing — people's mental model of their inbox and the inbox itself are usually two different things. You cannot scope an automation against a description of data. You scope it against the data.</p>
 
 <p>Day two and three, we map the workflow as it's actually performed, not as it's documented. We sit with whoever does the task today — a recruiter screening CVs, an editor reviewing drafts — and watch where they hesitate, where they override the "standard" process, and where judgment calls happen that no SOP mentions. A phrase like "good fit" can mean different things depending on which hiring manager is asking — the kind of thing that never shows up in a requirements doc but breaks an automation on day one of production.</p>
 

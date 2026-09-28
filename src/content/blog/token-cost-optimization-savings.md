@@ -19,7 +19,7 @@ ogImage: "https://telaloom.com/og-card.jpg"
 
 <h2>The Better Approach</h2>
 
-<p>Here is what actually works. At TelaLoom, our own products like <a href="/projects/cv-matcher.html">CV Matcher</a> and <a href="/projects/emailtriage.html">Email Triage</a> run on Claude Haiku. We don't host our own models. We aggressively optimize how we use the big ones.</p>
+<p>Here is what actually works. At TelaLoom, our own products like <a href="/projects/cv-matcher.html">CV Matcher</a> and Email Triage run on Claude Haiku. We don't host our own models. We aggressively optimize how we use the big ones.</p>
 
 <p>First: <strong>Prompt Caching.</strong> If you are passing the same 50-page PDF, dense system instructions, or extensive few-shot examples into every request, you are burning money on every call. Both Anthropic and OpenAI support prompt caching. By moving static context to the absolute top of your prompt and structuring your calls to reuse that cached prefix, you stop paying full price for the same tokens on every call. Email Triage caches its system prompt this way. For a high-volume feature, this single architectural change is transformative.</p>
 

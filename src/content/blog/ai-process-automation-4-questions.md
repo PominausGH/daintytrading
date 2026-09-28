@@ -23,7 +23,7 @@ ogImage: "https://telaloom.com/og-card.png"
 
 <h3>2. Is the Logic Describable?</h3>
 
-<p>Can you write down the rules for how the process works? Even if those rules are complex and involve many branches, if a human can articulate them, an AI can likely learn them or be prompted to follow them. If the process relies heavily on intuition, non-quantifiable judgment, or "gut feeling," AI will struggle. For our <a href="https://telaloom.com/projects/cv-matcher.html" target="_blank">CV Matcher</a>, we could describe what a match means: which required skills a CV shows, which are missing, and why. For <a href="https://telaloom.com/projects/emailtriage.html" target="_blank">Email Triage</a>, we defined clear criteria for "urgent" versus "informational" emails. If you can't describe the decision-making process to another human, an AI won't magically figure it out correctly.</p>
+<p>Can you write down the rules for how the process works? Even if those rules are complex and involve many branches, if a human can articulate them, an AI can likely learn them or be prompted to follow them. If the process relies heavily on intuition, non-quantifiable judgment, or "gut feeling," AI will struggle. For our <a href="https://telaloom.com/projects/cv-matcher.html" target="_blank">CV Matcher</a>, we could describe what a match means: which required skills a CV shows, which are missing, and why. For Email Triage, we defined clear criteria for "urgent" versus "informational" emails. If you can't describe the decision-making process to another human, an AI won't magically figure it out correctly.</p>
 
 <h3>3. Is the Output Verifiable?</h3>
 

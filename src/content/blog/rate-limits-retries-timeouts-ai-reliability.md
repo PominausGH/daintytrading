@@ -9,7 +9,7 @@ ogImage: "https://telaloom.com/og-card.png"
 
 <p>Your AI feature works perfectly in the demo. Three weeks after launch, it's failing for 2% of users at random, support tickets are piling up, and nobody can reproduce the bug. That's not a model problem. It's a 429 you didn't handle, a request that hung for 90 seconds and got retried into a duplicate charge, or a timeout that took down an unrelated part of your app with it. The gap between a flaky AI integration and a reliable one is almost never the model. It's whether you built the boring plumbing around it.</p>
 
-<p>We've shipped enough production AI features — <a href="/projects/emailtriage.html">Email Triage</a>, <a href="/projects/cv-matcher.html">CV Matcher</a>, BrightPath's Pax tutor — to know that model choice gets 90% of the design discussion and causes maybe 10% of the incidents. The other 90% of incidents come from treating an LLM API call like a normal function call: assume it succeeds, assume it's fast, assume calling it twice is harmless.</p>
+<p>We've shipped enough production AI features — Email Triage, <a href="/projects/cv-matcher.html">CV Matcher</a>, BrightPath's Pax tutor — to know that model choice gets 90% of the design discussion and causes maybe 10% of the incidents. The other 90% of incidents come from treating an LLM API call like a normal function call: assume it succeeds, assume it's fast, assume calling it twice is harmless.</p>
 
 <h2>The common wrong approach</h2>
 
