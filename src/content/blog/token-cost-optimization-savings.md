@@ -11,19 +11,19 @@ ogImage: "https://telaloom.com/og-card.jpg"
 
 <h2>The Common Wrong Approach</h2>
 
-<p>The standard progression goes like this: you launch a feature using Claude 3.5 Sonnet or GPT-4o. It works great. Usage scales. Then you get your first $5,000 API bill, and the finance team starts asking questions. The immediate reaction from engineering is usually a knee-jerk pivot to hosting Llama 3 or Mistral locally, or trying to fine-tune a smaller model to handle the exact same workload.</p>
+<p>The standard progression goes like this: you launch a feature using Claude Sonnet 5 or a comparable frontier OpenAI model. It works great. Usage scales. Then you get your first $5,000 API bill, and the finance team starts asking questions. The immediate reaction from engineering is usually a knee-jerk pivot to hosting an open-weights model locally, or trying to fine-tune a smaller model to handle the exact same workload.</p>
 
 <p>This is almost always a mistake for small teams. The moment you decide to host your own inference, you trade a predictable API bill for DevOps salaries, GPU instance costs, and massive latency spikes. You spend six weeks wrestling with vLLM, TensorRT, and batching infrastructure instead of shipping product features.</p> 
 
-<p>Or worse, you blindly swap your premium model for a cheaper one (like Claude 3.5 Haiku or GPT-4o-mini) across the board to save money quickly, only to watch your pipeline's accuracy tank. Customers complain, edge cases fail, and you realize the smaller model simply cannot handle the complex reasoning required for your core tasks without heavy hand-holding.</p>
+<p>Or worse, you blindly swap your premium model for a cheaper one (like Claude Haiku 4.5 or a smaller OpenAI model) across the board to save money quickly, only to watch your pipeline's accuracy tank. Customers complain, edge cases fail, and you realize the smaller model simply cannot handle the complex reasoning required for your core tasks without heavy hand-holding.</p>
 
 <h2>The Better Approach</h2>
 
-<p>Here is what actually works. At TelaLoom, our own products like <a href="/projects/cv-matcher.html">CV Matcher</a> and Email Triage run on Claude Haiku. We don't host our own models. We aggressively optimize how we use the big ones.</p>
+<p>Here is what actually works. At TelaLoom, our own products like <a href="/projects/cv-matcher.html">CV Matcher</a> and Email Triage run on Claude Haiku 4.5. We don't host our own models. We aggressively optimize how we use the big ones.</p>
 
 <p>First: <strong>Prompt Caching.</strong> If you are passing the same 50-page PDF, dense system instructions, or extensive few-shot examples into every request, you are burning money on every call. Both Anthropic and OpenAI support prompt caching. By moving static context to the absolute top of your prompt and structuring your calls to reuse that cached prefix, you stop paying full price for the same tokens on every call. Email Triage caches its system prompt this way. For a high-volume feature, this single architectural change is transformative.</p>
 
-<p>Second: <strong>Model Routing by Task Complexity.</strong> Not every request needs a frontier model. In a document extraction pipeline, route the heavy lifting—like analyzing a contract for subtle indemnification clauses—to Claude 3.5 Sonnet. But the subsequent tasks, like formatting the extracted entities into JSON, classifying the document type, or summarizing the output, get routed to Claude 3.5 Haiku. Haiku is dramatically cheaper and faster. Use a router abstraction in your code to split the workflow based on the cognitive load required for each step.</p>
+<p>Second: <strong>Model Routing by Task Complexity.</strong> Not every request needs a frontier model. In a document extraction pipeline, route the heavy lifting—like analyzing a contract for subtle indemnification clauses—to Claude Sonnet 5. But the subsequent tasks, like formatting the extracted entities into JSON, classifying the document type, or summarizing the output, get routed to Claude Haiku 4.5. Haiku is dramatically cheaper and faster. Use a router abstraction in your code to split the workflow based on the cognitive load required for each step.</p>
 
 <p>Third: <strong>Context Trimming.</strong> LLMs do not need the entire 50-message conversation history to answer a simple follow-up question. Implement a strict rolling window or a summarization step for chat applications. For RAG (Retrieval-Augmented Generation), strictly enforce a top-K limit on retrieved chunks. We mandate that no RAG payload exceeds 4,000 tokens unless the task specifically requires long-context synthesis. Filter your context before you pay to send it.</p>
 
