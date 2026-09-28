@@ -1,5 +1,5 @@
 ---
-title: "Why We Run Evals Before Shipping Any AI Feature Change"
+title: "Why 'It Looked Right When I Tried It' Isn't a Test"
 description: "“It looked right when I tried it” isn't a test. Here's why a real eval set should gate every prompt or model change before it ships."
 category: "AI · Engineering"
 publishedDate: "2026-09-02"
