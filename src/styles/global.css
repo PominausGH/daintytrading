@@ -142,7 +142,7 @@ a:hover { text-decoration: underline; }
 }
 .nav-toggle:hover { color: var(--text); border-color: var(--border-strong); }
 
-@media (max-width: 720px) {
+@media (max-width: 1080px) {
   .nav-toggle { display: flex; align-items: center; }
   .nav-links a:not(.nav-cta) { display: none; }
   .nav-links.nav-open {
