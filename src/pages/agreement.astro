@@ -567,6 +567,7 @@ document.getElementById('signBtn').addEventListener('click', async () => {
     signatures: { client: cp.c.toDataURL('image/png'), provider: null },
   };
   document.getElementById('signBtn').hidden = true;
+  window.umami?.track('agreement_signed', { reference: ref });
   if (WEBHOOK_URL) {
     say('Signed. Sending your copy to TelaLoom…');
     await sendRecord();
@@ -591,6 +592,7 @@ document.getElementById('counterBtn').addEventListener('click', async () => {
   const audit = document.getElementById('audit');
   audit.innerHTML = audit.innerHTML.replace('Awaiting countersignature by TelaLoom.', 'Countersigned ' + now.toISOString());
   document.getElementById('counterBtn').hidden = true; refreshPrintImages();
+  window.umami?.track('agreement_countersigned', { reference: signedRecord?.reference || qs.get('ref') || 'unknown' });
 
   // Same-session case (client and provider signed in one sitting, e.g. together on a call):
   // the full record with the client's signature is already in memory — merge and resend it.
