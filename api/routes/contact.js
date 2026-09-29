@@ -38,7 +38,7 @@ router.post('/', contactRateLimiter, async (req, res) => {
   if (!message || typeof message !== 'string' || message.trim().length < 10) {
     errors.push('Project description is required (minimum 10 characters)');
   }
-  if (engagement === 'SEO/GEO audit and fix') {
+  if (engagement === 'SEO/GEO audit and fix' || engagement === 'Free SEO/GEO audit (no obligation)') {
     if (!url || typeof url !== 'string' || !/^https?:\/\/.+\..+/i.test(url.trim())) {
       errors.push('A website URL is required for SEO/GEO enquiries');
     }
