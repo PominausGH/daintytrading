@@ -681,7 +681,10 @@ section { padding: 84px 0; }
    sideways), so the sidecard kept rendering next to the article instead of
    stacking under it on mobile. 1080px covers phone landscape widths while
    still giving real desktop/laptop viewports the two-column layout. */
-@media (max-width: 1080px) { .detail-body { grid-template-columns: 1fr; } }
+/* minmax(0,1fr): plain 1fr has an auto min, so a long unbreakable string in the
+   article widened the column past the viewport on phones (/services.html, 390px). */
+@media (max-width: 1080px) { .detail-body { grid-template-columns: minmax(0, 1fr); } }
+.prose { overflow-wrap: anywhere; }
 
 .prose h2 {
   font-size: 26px;
