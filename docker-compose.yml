@@ -46,6 +46,7 @@ services:
     env_file: ./api/.env
     environment:
       - TZ=Australia/Sydney
+      - SITECHECK_URL=http://site-checker:8000
     volumes:
       - ./api/data:/app/data
       - ../customer-web_check/reports:/app/prospects-reports:ro
@@ -55,8 +56,33 @@ services:
     networks:
       - dainty-net
       - litellm_default
+      - sitecheck-net
+
+  # Public site checker (2026-09): fetches websites that strangers type into a form, so it runs
+  # as its own locked-down container on a private network that only the API shares. It has no
+  # published port, no volumes, no secrets, no access to postgres or any other service, and every
+  # outbound request is validated in code (site-checker/app/safefetch.py: public IPs only,
+  # ports 80/443, re-checked on every redirect).
+  site-checker:
+    build: ./site-checker
+    container_name: daintytrading-site-checker
+    restart: unless-stopped
+    environment:
+      - SITECHECK_MAX_CONCURRENT=3
+    mem_limit: 384m
+    pids_limit: 256
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - sitecheck-net
 
 networks:
+  sitecheck-net:
   dainty-net:
   postgres-main-network:
     external: true
