@@ -3,7 +3,7 @@
 The outcome is deliberately coarse and price-agnostic; the API owns the wording and the
 numbers. Thresholds are first-pass guesses to be tuned against real sites (see task #1028).
 """
-from .findings import GROUPS, REBUILD_IDS
+from .findings import GROUPS, REBUILD_IDS, clean
 
 CHECKER_VERSION = "1.0"
 
@@ -41,8 +41,8 @@ def build_report(site, domain: str, status: str, *, started: float, finished: fl
         "domain": domain,
         "checkedAt": checked_at,
         "status": status,
-        "statusReason": reason,
-        "finalUrl": final_url,
+        "statusReason": clean(reason, 400),
+        "finalUrl": clean(final_url, 300),   # comes from redirects, i.e. from the scanned site
         "platform": site.platform,
         "findings": [f.to_dict() for f in findings],
         "good": list(site.good),

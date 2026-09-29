@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 from urllib.parse import urljoin, urlsplit
 
 from .context import Site
+from .findings import clean
 
 _BUSINESS_TYPES = {
     "organization", "localbusiness", "corporation", "onlinestore", "onlinebusiness", "store", "person",
@@ -170,7 +171,8 @@ def check_page_seo(site: Site) -> None:
     else:
         lower = {t.lower() for t in types}
         if lower & _BUSINESS_TYPES or any(t.endswith("business") for t in lower):
-            site.ok("Structured data found describing the business (" + ", ".join(sorted(types)[:4]) + ")")
+            shown = ", ".join(clean(t, 40) for t in sorted(types)[:4])   # @type values are site-controlled
+            site.ok("Structured data found describing the business (" + shown + ")")
         else:
             site.add("no_business_schema", "findability", "low", "Structured data doesn't describe your business",
                      "There's some schema markup, but nothing that says who you are, what you do or where.",

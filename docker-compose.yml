@@ -70,10 +70,11 @@ services:
     environment:
       - SITECHECK_MAX_CONCURRENT=3
     mem_limit: 384m
+    cpus: 1.0
     pids_limit: 256
     read_only: true
     tmpfs:
-      - /tmp
+      - /tmp:size=16m
     cap_drop:
       - ALL
     security_opt:

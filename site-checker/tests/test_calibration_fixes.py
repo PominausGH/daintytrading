@@ -157,6 +157,18 @@ def test_four_significant_findings_across_two_areas_is_a_setup_sized_job():
     assert r["outcome"] == "setup_scale"
 
 
+def test_hostile_site_content_cannot_bloat_or_poison_the_report():
+    import json
+    huge_type = "Organization" + "X" * 1_000_000
+    html = GOOD_HTML.replace('"@type":"Plumber"', f'"@type":"{huge_type}"')
+    long_redirect = f"https://{HOST}/" + "a" * 5000
+    routes = healthy_routes()
+    routes[f"{BASE}/"] = resp(long_redirect, body=html, headers=SECURE_HEADERS)
+    r = run(routes)
+    assert len(json.dumps(r)) < 20_000                 # nothing site-controlled is unbounded
+    assert all(len(g) <= 300 for g in r["good"]) and len(r["finalUrl"]) <= 300
+
+
 def test_only_minor_findings_do_not_trigger_a_pitch():
     from app.findings import Finding
     from app.report import compute_outcome

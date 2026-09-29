@@ -44,6 +44,28 @@ def test_sitemaps_and_comments():
     assert robots.sitemaps(OPEN) == ["https://x.example/sitemap.xml", "https://x.example/s2.xml"]
 
 
+def test_crafted_robots_txt_cannot_freeze_the_parser():
+    # A backtracking regex was quadratic on this (~1e12 steps, holding the GIL for the whole process).
+    import time
+    evil = "a:x" + " " * 1_500_000 + "y\n"
+    many = ("user-agent: *\n" + "disallow: " + "/a" * 490 + "\n") * 5000
+    t0 = time.monotonic()
+    assert robots.blocks_all_for(evil, "GPTBot") == ""
+    assert robots.sitemaps(evil) == []
+    robots.blocks_all_for(many, "GPTBot")
+    robots.sitemaps(many)
+    assert time.monotonic() - t0 < 1.0
+
+
+def test_overlong_lines_and_line_count_are_bounded():
+    long_line = "sitemap: https://x.example/" + "a" * 2000
+    assert robots.sitemaps(long_line) == []
+    lines = "\n".join(f"sitemap: https://x.example/{i}.xml" for i in range(100))
+    assert len(robots.sitemaps(lines)) == 10
+    hidden = "\n" * robots.MAX_LINES + "user-agent: *\ndisallow: /\n"
+    assert robots.blocks_all_for(hidden, "GPTBot") == ""   # beyond the line cap, never read
+
+
 def test_garbage_is_safe():
     assert robots.blocks_all_for("<html>404</html>\x00\xff", "GPTBot") == ""
     assert robots.sitemaps("") == []

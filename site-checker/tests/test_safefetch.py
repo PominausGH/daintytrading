@@ -2,6 +2,9 @@ import gzip
 import http.server
 import socket
 import threading
+import time
+import tracemalloc
+import zlib
 
 import pytest
 
@@ -24,6 +27,7 @@ def test_public_ips_allowed(ip):
     "2002:7f00:0001::", "2002:0a00:0001::",          # 6to4 wrapping 127.0.0.1 / 10.0.0.1
     "64:ff9b::7f00:1", "64:ff9b::a00:1",            # NAT64 wrapping 127.0.0.1 / 10.0.0.1
     "2001::1",                                       # Teredo
+    "::7f00:1", "::a00:1", "::1:2", "100::1",       # IPv4-compatible, discard prefix: outside 2000::/3
     "not-an-ip", "",
 ])
 def test_private_ips_rejected(ip):
@@ -140,13 +144,32 @@ class _Handler(http.server.BaseHTTPRequestHandler):
         elif self.path == "/image":
             self._ok(b"\x89PNG" + b"0" * 5000, "image/png")
         elif self.path == "/gz":
-            data = gzip.compress(b"<html>" + b"x" * 5000 + b"</html>")
+            self._encoded(gzip.compress(b"<html>" + b"x" * 5000 + b"</html>"), "gzip")
+        elif self.path == "/bomb":
+            self._encoded(_BOMB, "gzip")   # ~60 KB on the wire, 60 MB when expanded
+        elif self.path == "/deflate-zlib":
+            self._encoded(zlib.compress(b"<html>zlib-deflate</html>"), "deflate")
+        elif self.path == "/deflate-raw":
+            c = zlib.compressobj(wbits=-zlib.MAX_WBITS)
+            self._encoded(c.compress(b"<html>raw-deflate</html>") + c.flush(), "deflate")
+        elif self.path == "/badgzip":
+            self._encoded(b"this is definitely not gzip data" * 10, "gzip")
+        elif self.path == "/br":
+            self._encoded(b"whatever", "br")
+        elif self.path == "/stacked":
+            self._encoded(gzip.compress(gzip.compress(b"<html>x</html>")), "gzip, gzip")
+        elif self.path == "/drip":
             self.send_response(200)
             self.send_header("Content-Type", "text/html")
-            self.send_header("Content-Encoding", "gzip")
-            self.send_header("Content-Length", str(len(data)))
+            self.send_header("Content-Length", "1000000")
             self.end_headers()
-            self.wfile.write(data)
+            try:
+                for _ in range(200):
+                    self.wfile.write(b"x")
+                    self.wfile.flush()
+                    time.sleep(0.2)
+            except OSError:
+                pass
         else:
             self.send_response(404)
             self.send_header("Content-Length", "0")
@@ -159,8 +182,20 @@ class _Handler(http.server.BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
+    def _encoded(self, data, encoding):
+        self.send_response(200)
+        self.send_header("Content-Type", "text/html")
+        self.send_header("Content-Encoding", encoding)
+        self.send_header("Content-Length", str(len(data)))
+        self.end_headers()
+        self.wfile.write(data)
+
 
 seen_ua, seen_host = [], []
+
+# Built once at import so the memory measurement in the bomb test only sees the fetcher, not the
+# test server compressing 60 MB in the same process.
+_BOMB = gzip.compress(b"0" * 60_000_000, compresslevel=9)
 
 
 @pytest.fixture(scope="module")
@@ -214,6 +249,51 @@ def test_connection_refused_is_connect_error():
         with pytest.raises(FetchError) as e:
             f.get(f"http://127.0.0.1:{port}/")
     assert e.value.kind == "connect"
+
+
+def test_decompression_bomb_is_capped_in_memory_and_time(local_server):
+    tracemalloc.start()
+    t0 = time.monotonic()
+    with SafeFetcher(allow_private=True) as f:
+        r = f.get(local_server + "/bomb", max_bytes=200_000)
+    peak = tracemalloc.get_traced_memory()[1]
+    tracemalloc.stop()
+    assert r.truncated and len(r.body) == 200_000
+    assert r.transfer_bytes < 200_000            # ~60 KB on the wire for 60 MB of content
+    assert peak < 15_000_000                     # never expanded the 60 MB
+    assert time.monotonic() - t0 < 3
+
+
+def test_deflate_variants_and_transfer_size(local_server):
+    with SafeFetcher(allow_private=True) as f:
+        assert f.get(local_server + "/deflate-zlib").text == "<html>zlib-deflate</html>"
+        assert f.get(local_server + "/deflate-raw").text == "<html>raw-deflate</html>"
+        gz = f.get(local_server + "/gz")
+    assert gz.transfer_bytes < len(gz.body)
+
+
+def test_corrupt_and_unsupported_encodings_are_protocol_errors(local_server):
+    with SafeFetcher(allow_private=True) as f:
+        for path in ("/badgzip", "/br", "/stacked"):   # stacked encodings multiply a bomb; refuse them
+            with pytest.raises(FetchError) as e:
+                f.get(local_server + path)
+            assert e.value.kind == "protocol", path
+
+
+def test_slow_drip_response_is_cut_off(local_server, monkeypatch):
+    monkeypatch.setattr(safefetch, "MAX_REQUEST_SECONDS", 1.0)
+    t0 = time.monotonic()
+    with SafeFetcher(allow_private=True) as f:
+        r = f.get(local_server + "/drip")
+    assert r.truncated and len(r.body) < 20
+    assert time.monotonic() - t0 < 4
+
+
+@pytest.mark.parametrize("url", ["http://example.com:abc/", "http://example.com:99999/", "http://[::1/", "http://[bad]/"])
+def test_junk_urls_from_hostile_redirects_are_fetch_errors_not_crashes(url):
+    with pytest.raises(FetchError) as e:
+        SafeFetcher()._one(url, {}, 1000, True)
+    assert e.value.kind in ("scheme", "blocked")
 
 
 def test_tls_message_mapping():

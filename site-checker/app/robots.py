@@ -3,21 +3,34 @@
 1. Does the site ask our own checker (a specific `TelaLoomSiteCheck` group) not to visit?
 2. Does a crawler token (e.g. GPTBot) - or the wildcard group - disallow the whole site?
 3. Which sitemaps does it declare?
-"""
-import re
 
-_LINE_RE = re.compile(r"^\s*([A-Za-z-]+)\s*:\s*(.*?)\s*$")
+robots.txt is attacker-controlled, so parsing is regex-free (str.partition/strip only - a backtracking
+regex on a crafted line could freeze the whole checker process) and bounded: overlong lines are
+ignored and only the first MAX_LINES lines are read.
+"""
+
+MAX_LINES = 5000
+MAX_LINE_CHARS = 1000
+
+
+def _directives(text: str):
+    """Yield (key, value) for every well-formed, reasonably sized line."""
+    for raw in (text or "").splitlines()[:MAX_LINES]:
+        if len(raw) > MAX_LINE_CHARS:
+            continue
+        line = raw.split("#", 1)[0]
+        key, sep, value = line.partition(":")
+        if not sep:
+            continue
+        key = key.strip().lower()
+        if key:
+            yield key, value.strip()
 
 
 def _groups(text: str):
     """Yield (agents, rules) where rules is a list of (directive, value)."""
     agents, rules, seen_rule = [], [], False
-    for raw in (text or "").splitlines():
-        line = raw.split("#", 1)[0]
-        m = _LINE_RE.match(line)
-        if not m:
-            continue
-        key, value = m.group(1).lower(), m.group(2)
+    for key, value in _directives(text):
         if key == "user-agent":
             if seen_rule:
                 yield agents, rules
@@ -63,9 +76,4 @@ def blocks_all_for(text: str, token: str) -> str:
 
 
 def sitemaps(text: str) -> list:
-    out = []
-    for raw in (text or "").splitlines():
-        m = _LINE_RE.match(raw.split("#", 1)[0])
-        if m and m.group(1).lower() == "sitemap" and m.group(2):
-            out.append(m.group(2))
-    return out
+    return [value for key, value in _directives(text) if key == "sitemap" and value][:10]

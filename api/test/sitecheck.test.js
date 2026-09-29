@@ -315,6 +315,88 @@ test('rebuild signals are flagged in the lead alert for Andrew', async () => {
   assert.match(alert.html, /Review by hand/);
 });
 
+// ---- abuse resistance (from the independent security review) ---------------------------------
+
+test('canonicalEmailKey collapses plus-tags, Gmail dots and googlemail.com', () => {
+  const { canonicalEmailKey: k } = require('../lib/sitecheck');
+  assert.equal(k('v.ic.tim+1@gmail.com'), 'victim@gmail.com');
+  assert.equal(k('VICTIM+spam@googlemail.com'), 'victim@gmail.com');
+  assert.equal(k('a.b+c@example.com'), 'a.b@example.com');     // dots only matter (are ignored) on Gmail
+  assert.equal(k('+x@example.com'), '+x@example.com');          // a leading + is part of the name
+});
+
+test('plus-addressed and dotted variants of one Gmail mailbox share one daily limit', async () => {
+  const { svc } = harness();
+  const variants = ['victim@gmail.com', 'v.ictim@gmail.com', 'victim+1@gmail.com'];
+  for (const email of variants) await svc.start({ ...good, email, domain: 'site' + variants.indexOf(email) + '.com' });
+  await assert.rejects(svc.start({ ...good, email: 'vi.ctim+zzz@googlemail.com', domain: 'other.com' }), (e) => e.code === 'email_limit');
+});
+
+test('a global hourly cap on code emails (start and resend both count)', async () => {
+  const { svc, emails, clock } = harness({ hourlyCodeCap: 3 });
+  const a = await svc.start({ ...good, email: 'a@x.com' });
+  await svc.start({ ...good, email: 'b@x.com' });
+  clock.t += 61000;
+  await svc.resend({ sessionId: a.sessionId });                 // third code email
+  await assert.rejects(svc.start({ ...good, email: 'c@x.com' }), (e) => e.code === 'busy' && e.status === 503);
+  clock.t += 61000;
+  await assert.rejects(svc.resend({ sessionId: a.sessionId }), (e) => e.code === 'busy');
+  assert.equal(emails.length, 3);
+  clock.t += 3600 * 1000;
+  await svc.start({ ...good, email: 'c@x.com' });               // window has passed
+});
+
+test('one visitor (IP) cannot use up the day: 5 verified checks then a friendly stop', async () => {
+  const { svc } = harness({ ipDailyChecks: 2 });
+  for (let i = 0; i < 2; i += 1) {
+    const s = await svc.start({ ...good, email: `p${i}@x.com`, domain: `d${i}.com`, ip: '203.0.113.5' });
+    await svc.verify({ sessionId: s.sessionId, code: '123456' });
+  }
+  const s3 = await svc.start({ ...good, email: 'p3@x.com', domain: 'd3.com', ip: '203.0.113.5' });
+  await assert.rejects(svc.verify({ sessionId: s3.sessionId, code: '123456' }), (e) => e.code === 'ip_limit' && /contact form/.test(e.message));
+  const other = await svc.start({ ...good, email: 'p4@x.com', domain: 'd4.com', ip: '203.0.113.6' });
+  await svc.verify({ sessionId: other.sessionId, code: '123456' });   // a different visitor is unaffected
+});
+
+test('simultaneous requests for the same domain share one check', async () => {
+  let calls = 0;
+  let release;
+  const gate = new Promise((r) => { release = r; });
+  const { svc } = harness({
+    fetchImpl: async () => { calls += 1; await gate; return { status: 200, ok: true, json: async () => REPORT }; },
+  });
+  const jobs = [];
+  for (const email of ['a@x.com', 'b@y.com', 'c@z.com']) {
+    const s = await svc.start({ ...good, email, ip: `198.51.100.${jobs.length + 1}` });
+    jobs.push((await svc.verify({ sessionId: s.sessionId, code: '123456' })).jobId);
+  }
+  release();
+  const results = await Promise.all(jobs.map((id) => svc.status(id, { wait: true })));
+  assert.deepEqual(results.map((r) => r.status), ['done', 'done', 'done']);
+  assert.equal(calls, 1);
+});
+
+test('when sessions are full new requests are turned away, live ones are not evicted', async () => {
+  const { svc } = harness({ sessionMax: 2 });
+  const a = await svc.start({ ...good, email: 'a@x.com' });
+  const b = await svc.start({ ...good, email: 'b@x.com' });
+  await assert.rejects(svc.start({ ...good, email: 'c@x.com' }), (e) => e.code === 'busy' && e.status === 503);
+  assert.ok(svc._state.sessions.has(a.sessionId) && svc._state.sessions.has(b.sessionId));
+});
+
+test('an oversized or absurd report from the checker is rejected, not stored or emailed', async () => {
+  const huge = { ...REPORT, good: ['x'.repeat(300 * 1024)] };
+  const many = { ...REPORT, findings: Array.from({ length: 101 }, (_, i) => ({ ...REPORT.findings[0], id: 'f' + i })) };
+  for (const bad of [huge, many]) {
+    const { svc, emails } = harness({ fetchImpl: async () => ({ status: 200, ok: true, json: async () => bad }) });
+    const s = await svc.start(good);
+    const out = await svc.status((await svc.verify({ sessionId: s.sessionId, code: '123456' })).jobId, { wait: true });
+    assert.equal(out.status, 'error');
+    await settle();
+    assert.equal(emails.filter((m) => m.subject.startsWith('Your site check for')).length, 0);
+  }
+});
+
 test('health reflects the checker', async () => {
   assert.deepEqual(await harness().svc.health(), { ok: true });
   assert.deepEqual(await harness({ fetchImpl: async () => { throw new Error('x'); } }).svc.health(), { ok: false });

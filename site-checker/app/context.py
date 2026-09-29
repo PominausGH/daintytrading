@@ -3,7 +3,7 @@ from typing import Optional
 
 from bs4 import BeautifulSoup
 
-from .findings import Finding
+from .findings import Finding, clean
 from .safefetch import Response, SafeFetcher
 
 
@@ -28,14 +28,19 @@ class Site:
     def add(self, id: str, group: str, severity: str, title: str, detail: str, evidence: str = ""):
         self.findings.append(Finding(id, group, severity, title, detail, evidence))
 
+    # Anything that can contain text taken from the scanned site is passed through clean() here, so
+    # no code path can put an unbounded or control-character-laden string into a report.
+
     def ok(self, text: str):
+        text = clean(text, 300)
         if text not in self.good:
             self.good.append(text)
 
     def skip(self, check: str, reason: str):
-        self.not_tested.append({"check": check, "reason": reason})
+        self.not_tested.append({"check": clean(check, 120), "reason": clean(reason, 400)})
 
     def note(self, text: str):
+        text = clean(text, 400)
         if text not in self.notes:
             self.notes.append(text)
 

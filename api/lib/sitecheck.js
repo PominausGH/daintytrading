@@ -25,6 +25,8 @@ const EMAIL_DAILY_LIMIT = 3;
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000;
 const JOB_TTL_MS = 60 * 60 * 1000;
 const STATUS_WAIT_MS = 8000;
+const MAX_REPORT_BYTES = 256 * 1024;
+const MAX_FINDINGS = 100;
 const SESSION_MAX = 500;
 const JOB_MAX = 300;
 const CAL_URL = 'https://cal.daintytrading.com/andrewdainty/telaloom';
@@ -92,6 +94,20 @@ function normalizeEmail(raw) {
   }
   if (DISPOSABLE.has(e.split('@')[1])) throw bad('Please use a real email address, not a disposable one');
   return e;
+}
+
+// Key used for rate limiting only (never for sending): collapses the common ways one mailbox gets
+// many addresses - plus-tags everywhere, dots and googlemail.com on Gmail - so "v.ictim+1@gmail.com"
+// and "victim@gmail.com" share one limit instead of being separate victims.
+function canonicalEmailKey(email) {
+  const [rawLocal, rawDomain] = email.normalize('NFKC').toLowerCase().split('@');
+  let local = rawLocal;
+  let domain = rawDomain;
+  if (domain === 'googlemail.com') domain = 'gmail.com';
+  const plus = local.indexOf('+');
+  if (plus > 0) local = local.slice(0, plus);
+  if (domain === 'gmail.com') local = local.replace(/\./g, '');
+  return `${local}@${domain}`;
 }
 
 function maskEmail(email) {
@@ -181,6 +197,10 @@ function createService(opts = {}) {
     randomCode = () => String(crypto.randomInt(0, 1000000)).padStart(6, '0'),
     notifyEmail = process.env.CONTACT_NOTIFICATION_EMAIL || 'hello@daintytrading.com',
     dailyCap = Number(process.env.SITECHECK_DAILY_CAP || 100),
+    hourlyCodeCap = Number(process.env.SITECHECK_HOURLY_CODE_CAP || 60),
+    ipDailyChecks = Number(process.env.SITECHECK_IP_DAILY_CHECKS || 5),
+    sessionMax = SESSION_MAX,
+    jobMax = JOB_MAX,
     retryDelayMs = 4000,
     checkTimeoutMs = 110000,
     log = console,
@@ -188,7 +208,10 @@ function createService(opts = {}) {
 
   const sessions = new Map();
   const jobs = new Map();
-  const emailStarts = new Map();
+  const emailStarts = new Map();     // canonical email key -> session start times (24h)
+  const ipChecks = new Map();        // client ip -> verified check times (24h)
+  const inflight = new Map();        // domain -> Promise<report> of a check already running
+  let codeSends = [];                // times of every code email sent (1h), start + resend
   let daily = { day: '', count: 0 };
   const leadsFile = path.join(dataDir, 'sitecheck-leads.jsonl');
   const cacheDir = path.join(dataDir, 'sitecheck-cache');
@@ -214,12 +237,21 @@ function createService(opts = {}) {
     const ts = now();
     for (const [id, s] of sessions) if (s.expiresAt + 5 * 60000 < ts) sessions.delete(id);
     for (const [id, j] of jobs) if (j.createdAt + JOB_TTL_MS < ts) jobs.delete(id);
-    for (const [k, arr] of emailStarts) {
-      const keep = arr.filter((t) => ts - t < 24 * 3600 * 1000);
-      if (keep.length) emailStarts.set(k, keep); else emailStarts.delete(k);
+    for (const map of [emailStarts, ipChecks]) {
+      for (const [k, arr] of map) {
+        const keep = arr.filter((t) => ts - t < 24 * 3600 * 1000);
+        if (keep.length) map.set(k, keep); else map.delete(k);
+      }
     }
-    while (sessions.size > SESSION_MAX) sessions.delete(sessions.keys().next().value);
-    while (jobs.size > JOB_MAX) jobs.delete(jobs.keys().next().value);
+    codeSends = codeSends.filter((t) => ts - t < 3600 * 1000);
+    // Deliberately no eviction of live sessions/jobs: if we're full, new requests are turned away
+    // (see start/verify) instead of letting a flood push legitimate users out.
+  }
+
+  function checkCodeBudget() {
+    if (codeSends.length >= hourlyCodeCap) {
+      throw new ServiceError('busy', 503, "We're sending a lot of codes right now. Please try again in a little while, or use the contact form and we'll do it by hand.");
+    }
   }
 
   async function sendCode(session, code) {
@@ -252,10 +284,16 @@ function createService(opts = {}) {
     if (dailyCount() >= dailyCap) {
       throw new ServiceError('busy', 503, "We're running a lot of checks today. Please try again tomorrow, or use the contact form and we'll do it by hand.");
     }
-    const recent = (emailStarts.get(e) || []).filter((t) => ts - t < 24 * 3600 * 1000);
+    if (sessions.size >= sessionMax) {
+      throw new ServiceError('busy', 503, "We're busy right now. Please try again in a few minutes.");
+    }
+    checkCodeBudget();
+    const emailKey = canonicalEmailKey(e);
+    const recent = (emailStarts.get(emailKey) || []).filter((t) => ts - t < 24 * 3600 * 1000);
     if (recent.length >= EMAIL_DAILY_LIMIT) {
       throw new ServiceError('email_limit', 429, 'That email address has already been used for several checks today. Please try again tomorrow.');
     }
+    codeSends.push(ts);
     const id = crypto.randomBytes(16).toString('hex');
     const code = randomCode();
     const salt = crypto.randomBytes(8).toString('hex');
@@ -264,12 +302,12 @@ function createService(opts = {}) {
       attempts: 0, resends: 0, sentAt: ts, expiresAt: ts + CODE_TTL_MS, createdAt: ts,
     };
     sessions.set(id, session);
-    emailStarts.set(e, [...recent, ts]);
+    emailStarts.set(emailKey, [...recent, ts]);
     let sent = false;
     try { sent = await sendCode(session, code); } catch (err) { log.error('[sitecheck] code email threw:', err.message); }
     if (!sent) {
       sessions.delete(id);
-      emailStarts.set(e, recent);
+      emailStarts.set(emailKey, recent);
       throw new ServiceError('email_failed', 502, "We couldn't send the code just now. Please try again in a minute.");
     }
     return { sessionId: id, emailMasked: maskEmail(e), expiresInSeconds: CODE_TTL_MS / 1000 };
@@ -294,6 +332,9 @@ function createService(opts = {}) {
       const wait = Math.ceil((RESEND_GAP_MS - (ts - s.sentAt)) / 1000);
       throw new ServiceError('resend_too_soon', 429, `Please wait ${wait} seconds before asking for another code.`, { retryAfterSeconds: wait });
     }
+    prune();
+    checkCodeBudget();
+    codeSends.push(ts);
     const code = randomCode();
     s.salt = crypto.randomBytes(8).toString('hex');
     s.codeHash = hash(s.salt, code);
@@ -323,9 +364,20 @@ function createService(opts = {}) {
       throw new ServiceError('wrong_code', 400, "That code isn't right.", { attemptsLeft: MAX_ATTEMPTS - s.attempts });
     }
     sessions.delete(s.id);
+    prune();
     if (dailyCount() >= dailyCap) {
       throw new ServiceError('busy', 503, "We're running a lot of checks today. Please try again tomorrow.");
     }
+    if (jobs.size >= jobMax) {
+      throw new ServiceError('busy', 503, "We're busy right now. Please try again in a few minutes.");
+    }
+    // One visitor can't use up the whole day's allowance (each check costs us real work).
+    const ipKey = s.ip || 'unknown';
+    const ipRecent = (ipChecks.get(ipKey) || []).filter((t) => now() - t < 24 * 3600 * 1000);
+    if (ipRecent.length >= ipDailyChecks) {
+      throw new ServiceError('ip_limit', 429, "You've run several checks today already. Please try again tomorrow, or use the contact form and we'll look at it by hand.");
+    }
+    ipChecks.set(ipKey, [...ipRecent, now()]);
     daily.count += 1;
     const job = {
       id: crypto.randomBytes(16).toString('hex'), domain: s.domain, email: s.email, optin: s.optin,
@@ -383,8 +435,11 @@ function createService(opts = {}) {
       let body = null;
       try { body = await res.json(); } catch (_e) { body = null; }
       if (res.status === 400 && body && body.code === 'bad_domain') throw new ServiceError('bad_domain', 400, body.error);
-      if (!res.ok || !body || !Array.isArray(body.findings) || typeof body.outcome !== 'string') {
-        log.error('[sitecheck] checker returned', res.status);
+      if (!res.ok || !body || !Array.isArray(body.findings) || typeof body.outcome !== 'string'
+          || body.findings.length > MAX_FINDINGS || JSON.stringify(body).length > MAX_REPORT_BYTES) {
+        // Also guards the 128MB api container: an oversized report would be held in memory, cached,
+        // emailed twice and sent to the browser.
+        log.error('[sitecheck] checker returned an unusable report, status', res.status);
         throw new ServiceError('checker_error', 502, 'Something went wrong running the check. Please try again in a few minutes.');
       }
       return body;
@@ -393,7 +448,14 @@ function createService(opts = {}) {
   }
 
   async function run(job) {
-    const report = await callChecker(job.domain);
+    // If the same domain is already being checked (many people asking about one site at once), share that
+    // check instead of running it again and holding another of the checker's three slots.
+    let pending = inflight.get(job.domain);
+    if (!pending) {
+      pending = callChecker(job.domain).finally(() => inflight.delete(job.domain));
+      inflight.set(job.domain, pending);
+    }
+    const report = await pending;
     if (report.status !== 'unreachable' && report.status !== 'opted_out') writeCache(job.domain, report);
     finish(job, report, false);
   }
@@ -487,6 +549,6 @@ function createService(opts = {}) {
 }
 
 module.exports = {
-  createService, ServiceError, normalizeDomain, normalizeEmail, ownerSignal, maskEmail, renderReportEmail,
+  createService, ServiceError, normalizeDomain, normalizeEmail, canonicalEmailKey, ownerSignal, maskEmail, renderReportEmail,
   renderAlertEmail, CODE_TTL_MS, MAX_ATTEMPTS, MAX_RESENDS, RESEND_GAP_MS,
 };

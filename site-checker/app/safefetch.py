@@ -22,6 +22,7 @@ import socket
 import ssl
 import threading
 import time
+import zlib
 from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeout
 from dataclasses import dataclass, field
 from typing import Optional
@@ -34,6 +35,7 @@ MAX_REDIRECTS = 5
 DEFAULT_MAX_BYTES = 1_500_000
 DEFAULT_MAX_REQUESTS = 30
 DEFAULT_DEADLINE_SECONDS = 55.0
+MAX_REQUEST_SECONDS = 20.0   # one slow-drip server can't hold a worker for the whole check
 _DNS_TIMEOUT = 5.0
 _TEXTY = ("text/", "application/xml", "application/xhtml", "application/json",
           "application/ld+json", "application/rss", "application/atom", "image/svg")
@@ -94,6 +96,10 @@ def is_public_ip(ip_str: str) -> bool:
         if ip in ipaddress.ip_network("64:ff9b::/96"):
             return is_public_ip(str(ipaddress.IPv4Address(int(ip) & 0xFFFFFFFF)))
         if ip in ipaddress.ip_network("64:ff9b:1::/48"):
+            return False
+        # Only global unicast (2000::/3) is ever a public website. This also rejects odd forms such as
+        # IPv4-compatible ::7f00:1, which Python's is_global doesn't catch.
+        if ip not in ipaddress.ip_network("2000::/3"):
             return False
     return bool(ip.is_global) and not ip.is_multicast
 
@@ -199,6 +205,58 @@ class SafeFetcher:
             return resp
         raise FetchError("protocol", "Too many redirects")
 
+    @staticmethod
+    def _read_body(r, content_encoding: str, max_bytes: int, stop_at: float):
+        """Read a response body with hard limits on *decoded* size and time.
+
+        We decompress ourselves (httpx's own decoder has no output cap, so one small compressed chunk
+        could expand to tens of MB before any size check runs - a decompression bomb). Returns
+        (body, truncated, raw_bytes_received).
+        """
+        enc = (content_encoding or "").strip().lower()
+        if enc in ("", "identity"):
+            dec = None
+        elif enc in ("gzip", "x-gzip"):
+            dec = zlib.decompressobj(16 + zlib.MAX_WBITS)
+        elif enc == "deflate":
+            dec = zlib.decompressobj()
+        else:
+            raise FetchError("protocol", "The site used a content encoding we can't read")
+        out = bytearray()
+        raw_total = 0
+        truncated = False
+        first = True
+        try:
+            for chunk in r.iter_raw():  # no chunk_size: httpx would buffer until a full chunk, defeating the time cutoff
+                raw_total += len(chunk)
+                if dec is None:
+                    room = max_bytes - len(out)
+                    out += chunk[:room]
+                    if len(chunk) > room:
+                        truncated = True
+                else:
+                    data = chunk
+                    while data and len(out) < max_bytes:
+                        try:
+                            piece = dec.decompress(data, max_bytes - len(out))
+                        except zlib.error:
+                            if first and enc == "deflate":  # some servers send raw deflate, no zlib header
+                                dec = zlib.decompressobj(-zlib.MAX_WBITS)
+                                first = False
+                                continue
+                            raise FetchError("protocol", "The site sent corrupted compressed data")
+                        first = False
+                        out += piece
+                        data = dec.unconsumed_tail
+                    if len(out) >= max_bytes:
+                        truncated = True
+                if truncated or raw_total > max_bytes * 4 or time.monotonic() > stop_at:
+                    truncated = True
+                    break
+        except zlib.error:
+            raise FetchError("protocol", "The site sent corrupted compressed data")
+        return bytes(out), truncated, raw_total
+
     def _one(self, url: str, headers: dict, max_bytes: int, read_body: bool) -> Response:
         if self.requests_made >= self.max_requests:
             raise FetchError("budget", "Request budget for this check used up")
@@ -206,7 +264,11 @@ class SafeFetcher:
         if remaining <= 0:
             raise FetchError("budget", "Time budget for this check used up")
 
-        parts = urlsplit(url)
+        try:
+            parts = urlsplit(url)
+            parsed_port = parts.port  # raises ValueError for junk like ":abc" or ":99999"
+        except ValueError:
+            raise FetchError("scheme", "That address isn't a valid web address")
         if parts.scheme not in ("http", "https"):
             raise FetchError("scheme", "Only http and https are supported")
         if parts.username or parts.password:
@@ -214,7 +276,7 @@ class SafeFetcher:
         host = parts.hostname
         if not host:
             raise FetchError("scheme", "Missing host")
-        port = parts.port or (443 if parts.scheme == "https" else 80)
+        port = parsed_port or (443 if parts.scheme == "https" else 80)
         if not self.allow_private:
             if port not in (80, 443):
                 raise FetchError("blocked", "Only ports 80 and 443 can be checked")
@@ -258,22 +320,13 @@ class SafeFetcher:
                     truncated = False
                     ct = hdrs.get("content-type", "").lower()
                     is_text = ct == "" or any(ct.startswith(t) or t in ct for t in _TEXTY)
+                    raw_total = 0
                     if read_body and is_text and r.status_code not in (204, 304):
-                        chunks, size = [], 0
-                        for chunk in r.iter_bytes():
-                            size += len(chunk)
-                            if size > max_bytes:
-                                chunks.append(chunk[: max(0, max_bytes - (size - len(chunk)))])
-                                truncated = True
-                                break
-                            chunks.append(chunk)
-                            if time.monotonic() > self.deadline:
-                                truncated = True
-                                break
-                        body = b"".join(chunks)
+                        body, truncated, raw_total = self._read_body(
+                            r, hdrs.get("content-encoding", ""), max_bytes, min(t0 + MAX_REQUEST_SECONDS, self.deadline))
                     return Response(url=url, status=r.status_code, headers=hdrs, body=body,
                                     ttfb=ttfb, truncated=truncated, ip=ip, rtt=rtt,
-                                    transfer_bytes=r.num_bytes_downloaded)
+                                    transfer_bytes=raw_total)
             except (httpx.ConnectTimeout, httpx.ReadTimeout, httpx.WriteTimeout, httpx.PoolTimeout):
                 last_err = FetchError("timeout", "The site took too long to respond")
             except httpx.ConnectError as e:
