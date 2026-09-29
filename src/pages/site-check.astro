@@ -1,0 +1,200 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'Free website check',
+    url: 'https://telaloom.com/site-check.html',
+    description: 'A free check of what Google and AI assistants can read on your website: HTTPS, sitemap, structured data, AI-crawler access, speed and more.',
+    isPartOf: { '@type': 'WebSite', name: 'TelaLoom', url: 'https://telaloom.com' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      { '@type': 'Question', name: 'Is the website check really free?', acceptedAnswer: { '@type': 'Answer', text: "Yes. There's no charge and no obligation. If the check shows something worth fixing we'll say what it would involve, but you don't have to do anything with it." } },
+      { '@type': 'Question', name: 'Why do you ask for my email?', acceptedAnswer: { '@type': 'Answer', text: "So the report goes to you and nobody else, and so we can send you a copy. We email a 6-digit code first to confirm the address is yours. We won't add you to a mailing list; you only hear from us if you reply or tick the optional box for occasional tips." } },
+      { '@type': 'Question', name: 'What does the checker look at?', acceptedAnswer: { '@type': 'Answer', text: "Only what any visitor or search engine can already see: your homepage, robots.txt, sitemap, llms.txt and a few pages. It doesn't log in, submit forms, scan ports or look for vulnerabilities." } },
+      { '@type': 'Question', name: 'My site blocked the checker. What now?', acceptedAnswer: { '@type': 'Answer', text: "That's common with bot protection. The report will say we couldn't see the page. It's also worth knowing, because search engines and AI assistants may be turned away too. Ask us and we'll look by hand." } },
+      { '@type': 'Question', name: 'Does this replace a full audit?', acceptedAnswer: { '@type': 'Answer', text: "No. It's a fast, honest first look at the basics. A full audit also uses Search Console data, your Google Business Profile and a deeper crawl." } },
+    ],
+  },
+];
+---
+<BaseLayout
+  title="Free Website Check — Can Google and AI Read Your Site? | TelaLoom"
+  description="Free check of what Google and AI assistants can read on your website: HTTPS, sitemap, structured data, AI-crawler access, speed and more. Report in about a minute, no sales call."
+  canonicalPath="/site-check.html"
+  jsonLd={jsonLd}
+>
+  <style>
+    .form-grid { display: grid; gap: 16px; max-width: 560px; }
+    .form-grid label { display: block; font-size: 14px; color: var(--text-dim); margin-bottom: 6px; }
+    .form-grid input[type="text"], .form-grid input[type="email"] {
+      width: 100%; padding: 12px 14px; border-radius: 10px;
+      background: var(--bg-elev); border: 1px solid var(--border); color: var(--text); font: inherit;
+    }
+    .form-grid input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(124,92,255,0.18); }
+    .form-grid button { justify-self: start; }
+  </style>
+
+  <!-- Global on purpose: /js/site-check.js builds the report with DOM APIs at runtime, and Astro's scoped
+       styles only match elements present in this template. Prefixed sc- to stay collision-free. -->
+  <style is:global>
+    /* Programmatic focus targets (step containers), not controls: no ring, and leave room under the sticky header. */
+    [tabindex="-1"]:focus { outline: none; }
+    [tabindex="-1"] { scroll-margin-top: 100px; }
+    .prose pre code { background: none; border: 0; padding: 0; }
+    .sc-code-input { letter-spacing: 6px; font-size: 22px; text-align: center; max-width: 220px; }
+    .sc-check { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--text-dim); }
+    .sc-check input { margin-top: 3px; }
+    .sc-error { font-size: 14px; margin: 0; color: #f87171; }
+    .sc-error[hidden], [hidden] { display: none !important; }
+    .sc-muted { font-size: 13px; color: var(--text-muted); margin: 0; }
+    .sc-link-btn { background: none; border: 0; padding: 0; font: inherit; color: var(--text-muted); text-decoration: underline; cursor: pointer; }
+    .sc-spinner { width: 28px; height: 28px; border-radius: 50%; border: 3px solid var(--border); border-top-color: var(--accent); animation: sc-spin 0.9s linear infinite; margin: 8px 0 16px; }
+    @keyframes sc-spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .sc-spinner { animation: none; border-top-color: var(--border); } }
+    .sc-report-title { margin: 0 0 4px; }
+    .sc-summary { margin: 0 0 16px; font-size: 14px; color: var(--text-muted); }
+    .sc-reco { background: var(--accent-soft); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 16px 18px; margin: 0 0 8px; }
+    .sc-reco-headline { display: block; font-size: 18px; margin-bottom: 6px; color: var(--text); }
+    .sc-reco-body { margin: 0 0 14px; color: var(--text-dim); }
+    .sc-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .sc-group { margin: 28px 0 10px; font-size: 17px; }
+    .sc-finding { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 14px; margin: 0 0 10px; display: block; }
+    .sc-finding-title { display: block; margin: 6px 0 4px; color: var(--text); }
+    .sc-finding-detail { display: block; font-size: 14px; color: var(--text-dim); }
+    .sc-finding-evidence { display: block; font-size: 12.5px; color: var(--text-muted); margin-top: 6px; word-break: break-word; }
+    .sc-pill { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 700; letter-spacing: .03em; text-transform: uppercase; color: var(--text-dim); border: 1px solid var(--border); border-radius: 999px; padding: 2px 9px; }
+    .sc-pill::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #94a3b8; }
+    .sc-pill-high::before { background: #ef4444; }
+    .sc-pill-medium::before { background: #f59e0b; }
+    .sc-list { margin: 0; padding-left: 20px; color: var(--text-dim); }
+    .sc-list li { margin: 4px 0; }
+    .sc-list-muted { color: var(--text-muted); font-size: 14px; }
+    .sc-footnote { margin: 24px 0 0; font-size: 13px; color: var(--text-muted); }
+  </style>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; Free website check</div>
+        <h1>Can Google and AI assistants actually read your website?</h1>
+        <p class="lede">Enter your address and get a plain-English report in about a minute: HTTPS, sitemap, structured data, whether AI crawlers are blocked, speed and more. No sales call, no obligation, and we'll tell you straight if there's nothing worth fixing.</p>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+
+          <!-- Step 1: domain + email -->
+          <section id="sc-step-start" aria-labelledby="sc-start-title">
+            <h2 id="sc-start-title" style="margin-top:0;">Run your free check</h2>
+            <form class="form-grid" id="sc-start-form" novalidate>
+              <div>
+                <label for="sc-domain">Your website address</label>
+                <input id="sc-domain" name="domain" type="text" inputmode="url" placeholder="yourbusiness.com" autocomplete="url" autocapitalize="off" spellcheck="false" required />
+              </div>
+              <div>
+                <label for="sc-email">Your email</label>
+                <input id="sc-email" name="email" type="email" autocomplete="email" placeholder="you@yourbusiness.com" required />
+              </div>
+              <label class="sc-check" for="sc-optin" style="margin:0;">
+                <input id="sc-optin" type="checkbox" />
+                <span>Send me the occasional website tip too (optional, and you can stop any time)</span>
+              </label>
+
+              <!-- Honeypot: invisible to people, bots fill it in -->
+              <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">
+                <label for="dt_website">Work phone</label>
+                <input type="text" id="dt_website" name="dt_website" tabindex="-1" autocomplete="off" />
+              </div>
+              <input type="hidden" id="dt_form_loaded_at" name="dt_form_loaded_at" />
+
+              <button type="submit" id="sc-start-btn" class="btn btn-primary">Send my code</button>
+              <p id="sc-start-error" class="sc-error" role="alert" hidden></p>
+              <p class="sc-muted">We email you a 6-digit code first so the report goes to you and nobody else. &#128274; Your details are never sold or shared &middot; <a href="/privacy.html" style="color:var(--text-muted);text-decoration:underline;">Privacy policy</a></p>
+            </form>
+          </section>
+
+          <!-- Step 2: code -->
+          <section id="sc-step-code" aria-labelledby="sc-code-title" hidden>
+            <h2 id="sc-code-title" style="margin-top:0;">Check your email</h2>
+            <p>We sent a 6-digit code to <strong id="sc-sent-to"></strong>. It expires in 10 minutes. If it doesn't arrive in a minute, check your spam folder.</p>
+            <form class="form-grid" id="sc-code-form" novalidate>
+              <div>
+                <label for="sc-code">6-digit code</label>
+                <input id="sc-code" name="code" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="8" autocomplete="one-time-code" class="sc-code-input" required />
+              </div>
+              <button type="submit" id="sc-code-btn" class="btn btn-primary">Run my check</button>
+              <p id="sc-code-error" class="sc-error" role="alert" hidden></p>
+              <p class="sc-muted">
+                <button type="button" id="sc-resend-btn" class="sc-link-btn">Send a new code</button>
+                &nbsp;&middot;&nbsp;
+                <button type="button" id="sc-change-btn" class="sc-link-btn">Use a different email or address</button>
+              </p>
+            </form>
+          </section>
+
+          <!-- Step 3: running -->
+          <section id="sc-step-running" aria-live="polite" hidden>
+            <h2 style="margin-top:0;">Checking <span id="sc-running-domain"></span></h2>
+            <div class="sc-spinner" aria-hidden="true"></div>
+            <p id="sc-progress">Looking at your homepage…</p>
+            <p class="sc-muted">This usually takes 10 to 40 seconds. We're only looking at what any visitor or search engine can see.</p>
+            <p id="sc-running-error" class="sc-error" role="alert" hidden></p>
+          </section>
+
+          <!-- Step 4: report (built with DOM APIs by /js/site-check.js) -->
+          <section id="sc-step-report" aria-label="Your site check report" hidden>
+            <div id="sc-report-body"></div>
+            <p style="margin-top:24px;"><button type="button" id="sc-again-btn" class="btn btn-ghost">Check another site</button></p>
+          </section>
+
+          <script is:inline defer src="/js/site-check.js?v=20260929"></script>
+
+          <h2 id="about" style="margin-top:56px;">About this checker</h2>
+          <p><strong>What it looks at.</strong> Only public information: your homepage, <code>robots.txt</code>, sitemap, <code>llms.txt</code> and a handful of pages. It checks HTTPS and security headers, whether search engines and AI crawlers (GPTBot, ClaudeBot, PerplexityBot, CCBot) can reach your site, structured data, page basics, speed and analytics.</p>
+          <p><strong>What it never does.</strong> It doesn't log in, fill in forms, scan ports or hunt for vulnerabilities. It makes about 15 requests, once per site per day.</p>
+          <p><strong>How to spot it, or stop it.</strong> Visits come from a user-agent that starts with <code>TelaLoomSiteCheck/1.0</code> and points back to this page. To stop us visiting, add these two lines to your <code>robots.txt</code> and we'll respect them:</p>
+          <pre style="background:var(--bg-elev);border:1px solid var(--border);border-radius:8px;padding:12px 14px;overflow:auto;"><code>User-agent: TelaLoomSiteCheck
+Disallow: /</code></pre>
+          <p><strong>What we keep.</strong> Your email, the address you checked and the result, so we can send the report and follow up if you ask us to. We don't add you to a mailing list unless you tick the optional box. Questions or want it deleted? Email <a href="mailto:hello@telaloom.com">hello@telaloom.com</a>.</p>
+
+          <h2>Frequently asked questions</h2>
+          <details class="faq-item">
+            <summary>Is it really free?</summary>
+            <p>Yes. No charge, no obligation. If the check shows something worth fixing we'll say roughly what it would involve, and if it doesn't we'll say that too.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Why do you need my email?</summary>
+            <p>So the report goes to you and nobody else, and so you have a copy. We email a 6-digit code first to confirm the address is yours. You only hear from us again if you reply, or if you ticked the optional tips box.</p>
+          </details>
+          <details class="faq-item">
+            <summary>My site blocked the checker. What now?</summary>
+            <p>That's common with bot protection. The report will say we couldn't see the page. It's also useful to know, because search engines and AI assistants may be turned away too. <a href="/contact.html">Ask us</a> and we'll look at it by hand.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Does this replace a full audit?</summary>
+            <p>No. It's a fast, honest first look at the basics. A full audit also uses Google Search Console data, your Google Business Profile and a deeper crawl. <a href="/contact.html">Get in touch</a> if you'd like one.</p>
+          </details>
+        </article>
+
+        <aside class="sidecard">
+          <h4>Free website check</h4>
+          <div class="label-row"><span>Cost</span><span>Free</span></div>
+          <div class="label-row"><span>Takes</span><span>About a minute</span></div>
+          <div class="label-row"><span>Looks at</span><span>Public pages only</span></div>
+          <div class="label-row"><span>Report</span><span>On screen + emailed</span></div>
+          <div class="label-row"><span>Sales call</span><span>Not required</span></div>
+          <p style="font-size:12px;color:var(--text-muted);margin:10px 0 16px;">Prefer to talk it through? Tell us about your site and we'll look at it by hand.</p>
+          <a class="btn btn-ghost" href="/contact.html" data-umami-event="cta_click" data-umami-event-target="contact" data-umami-event-source="site_check_sidecard">Ask us to look at it &rarr;</a>
+        </aside>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

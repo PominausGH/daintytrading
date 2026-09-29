@@ -304,6 +304,19 @@ test('recommendation copy follows the pricing rules', () => {
   assert.ok(!/AUD|USD/.test(buildRecommendation({ outcome: 'nothing_major' }).body));
 });
 
+test('recommendation wording reads correctly on a web page too (the same text is shown on screen and emailed)', () => {
+  const cases = [
+    { outcome: 'nothing_major' }, { outcome: 'small_fixes' }, { outcome: 'setup_scale', groupsAffected: ['findability'] },
+    { outcome: 'rebuild_signal' }, { outcome: 'not_enough_data', status: 'blocked' },
+    { outcome: 'not_enough_data', status: 'unreachable' }, { outcome: 'not_enough_data', status: 'opted_out' },
+    { outcome: 'not_enough_data', status: 'partial' },
+  ];
+  for (const c of cases) {
+    const r = buildRecommendation(c);
+    assert.ok(!/\breply\b|this email/i.test(r.body), `"${c.outcome}/${c.status}" mentions replying/email: ${r.body}`);
+  }
+});
+
 test('rebuild signals are flagged in the lead alert for Andrew', async () => {
   const rebuild = { ...REPORT, outcome: 'rebuild_signal', rebuildSignals: ['eol_software'] };
   const { svc, emails } = harness({ fetchImpl: async () => ({ status: 200, ok: true, json: async () => rebuild }) });
