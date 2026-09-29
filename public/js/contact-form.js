@@ -4,7 +4,7 @@ var engagementEl = document.getElementById('engagement');
 var urlFieldWrap = document.getElementById('url-field-wrap');
 var urlInput = document.getElementById('url');
 function toggleUrlField() {
-  var needsUrl = engagementEl.value === 'SEO/GEO audit and fix';
+  var needsUrl = engagementEl.value === 'SEO/GEO audit and fix' || engagementEl.value === 'Free SEO/GEO audit (no obligation)';
   urlFieldWrap.style.display = needsUrl ? 'block' : 'none';
   urlInput.required = needsUrl;
 }
