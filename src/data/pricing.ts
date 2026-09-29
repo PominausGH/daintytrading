@@ -16,6 +16,7 @@ export const pricing = {
   customBuild: 6900,
   customBuildWithGrowthCommit: 4900,
   carePlan: 290,
+  fixDay: 1000,
 } as const;
 
 export function aud(n: number) {
@@ -43,6 +44,7 @@ export const pricingUsd = {
   customBuild: usdApprox(pricing.customBuild),
   customBuildWithGrowthCommit: usdApprox(pricing.customBuildWithGrowthCommit),
   carePlan: usdApprox(pricing.carePlan),
+  fixDay: usdApprox(pricing.fixDay),
   setupSingleTemplate: usdApprox(pricing.setupSingleTemplate),
   setupMultiTemplate: usdApprox(pricing.setupMultiTemplate),
   monitor: usdApprox(pricing.monitor),
