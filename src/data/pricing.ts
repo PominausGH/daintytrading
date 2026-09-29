@@ -45,7 +45,10 @@ export const pricingUsd = {
   customBuildWithGrowthCommit: usdApprox(pricing.customBuildWithGrowthCommit),
   carePlan: usdApprox(pricing.carePlan),
   fixDay: usdApprox(pricing.fixDay),
-  setupSingleTemplate: usdApprox(pricing.setupSingleTemplate),
+  // Set by hand, not by formula (which gives 2,800): Setup is ~4 fix days, and
+  // the AUD price is 4 x 1,000 minus a 100 bundle discount (3,900). Keep the same
+  // 100 discount in USD: 4 x 700 = 2,800, so 2,700. Don't "correct" this back.
+  setupSingleTemplate: 2700,
   setupMultiTemplate: usdApprox(pricing.setupMultiTemplate),
   monitor: usdApprox(pricing.monitor),
   growth: usdApprox(pricing.growth),
