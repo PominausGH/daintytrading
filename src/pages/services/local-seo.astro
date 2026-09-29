@@ -16,6 +16,7 @@ const jsonLd = [
       name: 'Local SEO & GEO packages',
       itemListElement: [
         { '@type': 'Offer', name: 'Audit', price: '0', priceCurrency: 'AUD', description: 'Full local SEO and AI-search audit with a prioritised, plain-English fix list.' },
+        { '@type': 'Offer', name: 'Fix days', price: String(pricing.fixDay), priceCurrency: 'AUD', description: 'Per day. Small fixes estimated up front, one-day minimum, approved before work starts.' },
         { '@type': 'Offer', name: 'Setup', price: String(pricing.setupSingleTemplate), priceCurrency: 'AUD', description: `One-off. Audit plus fixes shipped: LocalBusiness schema, service areas, llms.txt, AI-crawler access, Google Business Profile, and a review-generation system. No lock-in. ${pricing.setupMultiTemplate.toLocaleString()} AUD for multi-location or multi-language businesses.` },
         { '@type': 'Offer', name: 'Monitor', price: String(pricing.monitor), priceCurrency: 'AUD', description: 'Monthly. Automated ranking and AI-citation monitoring, with a monthly plain-English report. No fix pass included. Cancel anytime.' },
         { '@type': 'Offer', name: 'Growth', price: String(pricing.growth), priceCurrency: 'AUD', description: 'Monthly. Everything in Monitor, plus Google Business Profile posts, review replies, and a review campaign each month. Cancel anytime.' },
@@ -83,7 +84,7 @@ const jsonLd = [
           <p>Most local businesses are invisible where it now counts. Not just on Google &mdash; but in the answer an AI assistant gives when someone asks it to recommend someone. We fix both, and we tell you plainly when there&rsquo;s nothing left worth paying for.</p>
 
           <h2>Packages</h2>
-          <div class="price-grid price-grid-2">
+          <div class="price-grid">
             <div class="price-card">
               <span class="tier">Audit</span>
               <div class="price">Free</div>
@@ -98,11 +99,24 @@ const jsonLd = [
               <a class="btn btn-primary" href="/contact.html" data-umami-event="cta_click" data-umami-event-target="start_with_audit" data-umami-event-source="local_seo_audit_tier">Start with an audit &rarr;</a>
             </div>
 
+            <div class="price-card">
+              <span class="tier">Fix days</span>
+              <div class="price">{pricing.fixDay.toLocaleString()} AUD <small>per day, or {pricingUsd.fixDay} USD</small></div>
+              <p class="note">For small jobs. We estimate the days up front and you approve before we start.</p>
+              <ul>
+                <li>Take the audit&rsquo;s fix list, or tell us what needs doing</li>
+                <li>One-day minimum</li>
+                <li>A day is a fixed block of work with a defined result, not open-ended hours</li>
+                <li>Bigger than about four days? Setup is the better value</li>
+              </ul>
+              <a class="btn btn-ghost" href="/contact.html" data-umami-event="cta_click" data-umami-event-target="get_a_quote" data-umami-event-source="local_seo_fix_days_tier">Get a quote &rarr;</a>
+            </div>
+
             <div class="price-card featured">
               <span class="price-badge">Most popular</span>
               <span class="tier">Setup</span>
               <div class="price">{pricing.setupSingleTemplate.toLocaleString()} AUD <small>one-off, or {pricingUsd.setupSingleTemplate.toLocaleString()} USD</small></div>
-              <p class="note">We fix it. Done properly, no lock-in.</p>
+              <p class="note">We fix it. Done properly, no lock-in. Roughly four days of work &mdash; anything beyond this scope, like cleaning up an old site, is {pricing.fixDay.toLocaleString()} AUD a day on top.</p>
               <ul>
                 <li>Everything in the audit &mdash; then we implement it</li>
                 <li>LocalBusiness schema + your service areas</li>
@@ -196,6 +210,7 @@ const jsonLd = [
           <h4>Local SEO &amp; GEO</h4>
           <div class="label-row"><span>Best for</span><span>Local service businesses</span></div>
           <div class="label-row"><span>Audit</span><span>Free</span></div>
+          <div class="label-row"><span>Fix days</span><span>{pricing.fixDay.toLocaleString()} AUD/day</span></div>
           <div class="label-row"><span>Setup</span><span>{pricing.setupSingleTemplate.toLocaleString()} AUD</span></div>
           <div class="label-row"><span>Monitor</span><span>{pricing.monitor} AUD/mo</span></div>
           <div class="label-row"><span>Growth</span><span>{pricing.growth} AUD/mo</span></div>

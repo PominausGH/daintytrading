@@ -16,6 +16,7 @@ const jsonLd = [
       name: 'SEO & GEO packages',
       itemListElement: [
         { '@type': 'Offer', name: 'Audit', price: '0', priceCurrency: 'AUD', description: 'Full technical SEO and GEO audit with a prioritised, plain-English fix list.' },
+        { '@type': 'Offer', name: 'Fix days', price: String(pricing.fixDay), priceCurrency: 'AUD', description: 'Per day. Small fixes estimated up front, one-day minimum, approved before work starts.' },
         { '@type': 'Offer', name: 'Setup', price: String(pricing.setupSingleTemplate), priceCurrency: 'AUD', description: `One-off. Audit plus fixes shipped to code: meta tags, schema markup, llms.txt, AI-crawler-aware robots.txt, sitemap and page-speed fixes. Single-template sites; ${pricing.setupMultiTemplate.toLocaleString()} AUD for multi-template, e-commerce, or multi-language sites.` },
         { '@type': 'Offer', name: 'Monitor', price: String(pricing.monitor), priceCurrency: 'AUD', description: 'Monthly. Automated ranking and AI-citation monitoring, with a monthly plain-English report. No fix pass included. Cancel anytime.' },
         { '@type': 'Offer', name: 'Growth', price: String(pricing.growth), priceCurrency: 'AUD', description: 'Monthly. Everything in Monitor, plus one optimization pass and schema/llms.txt updates as content changes. Cancel anytime.' },
@@ -90,7 +91,7 @@ const jsonLd = [
           <p><strong>SEO</strong> is the classic discipline: does Google understand your pages, index them correctly, and rank them for what they&rsquo;re actually about. <strong>GEO</strong> (generative engine optimization) is the newer half &mdash; whether an AI answer engine can find your content, trust it, and quote it correctly when someone asks it a question your business can answer. Both run on the same underlying signal: structured, crawlable, unambiguous content. We treat them as one engagement, not two.</p>
 
           <h2>Packages</h2>
-          <div class="price-grid price-grid-2">
+          <div class="price-grid">
             <div class="price-card">
               <span class="tier">Audit</span>
               <div class="price">Free</div>
@@ -106,11 +107,24 @@ const jsonLd = [
               <a class="btn btn-primary" href="/contact.html">Start with an audit &rarr;</a>
             </div>
 
+            <div class="price-card">
+              <span class="tier">Fix days</span>
+              <div class="price">{pricing.fixDay.toLocaleString()} AUD <small>per day, or {pricingUsd.fixDay} USD</small></div>
+              <p class="note">For small jobs. We estimate the days up front and you approve before we start.</p>
+              <ul>
+                <li>Take the audit&rsquo;s fix list, or tell us what needs doing</li>
+                <li>One-day minimum</li>
+                <li>A day is a fixed block of work with a defined result, not open-ended hours</li>
+                <li>Bigger than about four days? Setup is the better value</li>
+              </ul>
+              <a class="btn btn-ghost" href="/contact.html">Get a quote &rarr;</a>
+            </div>
+
             <div class="price-card featured">
               <span class="price-badge">Most popular</span>
               <span class="tier">Setup</span>
               <div class="price">{pricing.setupSingleTemplate.toLocaleString()} AUD <small>one-off, or {pricingUsd.setupSingleTemplate.toLocaleString()} USD</small></div>
-              <p class="note">We fix it. Shipped to code, not a report. Not the $5k&ndash;$15k-plus retainer agencies typically quote for the same audit-and-fix scope.</p>
+              <p class="note">We fix it. Shipped to code, not a report. Roughly four days of work &mdash; anything beyond this scope, like cleaning up an old site, is {pricing.fixDay.toLocaleString()} AUD a day on top. Not the $5k&ndash;$15k-plus retainer agencies typically quote for the same audit-and-fix scope.</p>
               <ul>
                 <li>Everything in the audit &mdash; then we implement it</li>
                 <li>Meta tags, canonicals, OG images, sitemap/robots.txt</li>
@@ -290,6 +304,7 @@ const jsonLd = [
         <aside class="sidecard">
           <h4>SEO &amp; GEO Optimization</h4>
           <div class="label-row"><span>Audit</span><span>Free</span></div>
+          <div class="label-row"><span>Fix days</span><span>{pricing.fixDay.toLocaleString()} AUD/day</span></div>
           <div class="label-row"><span>Setup</span><span>{pricing.setupSingleTemplate.toLocaleString()} AUD</span></div>
           <div class="label-row"><span>Monitor</span><span>{pricing.monitor} AUD/mo</span></div>
           <div class="label-row"><span>Growth</span><span>{pricing.growth} AUD/mo</span></div>
