@@ -163,7 +163,7 @@ function renderReportEmail({ domain, report, recommendation, optin }) {
     <div style="background:#f5f3ff;border-left:4px solid #7c5cff;border-radius:0 8px 8px 0;padding:14px 16px;margin:0 0 8px;">
       <strong style="display:block;font-size:17px;margin-bottom:6px;">${e(recommendation.headline)}</strong>
       <span style="color:#334155;">${e(recommendation.body)}</span>
-      <p style="margin:12px 0 0;"><a href="${CAL_URL}" style="color:#7c5cff;font-weight:600;">Book a free 20-minute call &rarr;</a></p>
+      <p style="margin:12px 0 0;"><a href="${CAL_URL}" style="color:#7c5cff;font-weight:600;">Book a free 20-minute call &rarr;</a> &nbsp;&middot;&nbsp; <a href="https://telaloom.com/contact.html" style="color:#7c5cff;">Send us a message</a> (or just reply to this email)</p>
     </div>
     ${groups}${good}${notTested}
     <hr style="margin:28px 0 12px;border:none;border-top:1px solid #e2e8f0;"/>
