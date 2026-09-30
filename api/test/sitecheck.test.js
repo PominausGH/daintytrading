@@ -303,7 +303,7 @@ test('booking prominence follows the outcome, in copy and in the report email', 
   assert.ok(html('setup_scale').includes(cal) && html('setup_scale').includes('Book a free call &rarr;'));
   assert.ok(html('small_fixes').includes(cal) && html('small_fixes').includes('Rather talk it through?'));
   assert.ok(!html('not_enough_data', 'blocked').includes(cal));
-  assert.ok(html('setup_scale').includes('notes=Free%20site%20check%20for%20example.com'));
+  assert.ok(html('setup_scale').includes('Website_Ideas=example.com%20-%20'));
 });
 
 test('recommendation copy follows the pricing rules', () => {

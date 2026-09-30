@@ -159,7 +159,7 @@ function renderReportEmail({ domain, report, recommendation, optin }) {
     : 'No issues found';
   // Same rule as the on-page report (recommendation.booking): the call leads for Setup-sized/rebuild
   // results, is a quiet line for small/none results, and is left out when we couldn't check the site.
-  const bookUrl = `${CAL_URL}?notes=${encodeURIComponent('Free site check for ' + domain)}`;
+  const bookUrl = `${CAL_URL}?Website_Ideas=${encodeURIComponent(domain + ' - ')}&notes=${encodeURIComponent('Booked from the free site check')}`;
   const msgLink = '<a href="https://telaloom.com/contact.html" style="color:#7c5cff;">Send us a message</a> (or just reply to this email)';
   const actionsHtml = recommendation.booking === 'primary'
     ? `<p style="margin:12px 0 0;"><a href="${e(bookUrl)}" style="color:#7c5cff;font-weight:600;">Book a free call &rarr;</a> &nbsp;&middot;&nbsp; ${msgLink}</p>`
