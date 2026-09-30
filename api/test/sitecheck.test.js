@@ -290,6 +290,22 @@ test('report email escapes everything that came from the scanned site', () => {
   assert.ok(html.includes('&lt;script&gt;'));
 });
 
+test('booking prominence follows the outcome, in copy and in the report email', () => {
+  const rec = (outcome, status) => buildRecommendation({ outcome, status, groupsAffected: [] });
+  assert.equal(rec('setup_scale').booking, 'primary');
+  assert.equal(rec('rebuild_signal').booking, 'primary');
+  assert.equal(rec('small_fixes').booking, 'secondary');
+  assert.equal(rec('nothing_major').booking, 'secondary');
+  assert.equal(rec('not_enough_data', 'blocked').booking, 'none');
+
+  const html = (outcome, status) => renderReportEmail({ domain: 'example.com', report: REPORT, recommendation: rec(outcome, status), optin: false });
+  const cal = 'cal.daintytrading.com';
+  assert.ok(html('setup_scale').includes(cal) && html('setup_scale').includes('Book a free call &rarr;'));
+  assert.ok(html('small_fixes').includes(cal) && html('small_fixes').includes('Rather talk it through?'));
+  assert.ok(!html('not_enough_data', 'blocked').includes(cal));
+  assert.ok(html('setup_scale').includes('notes=Free%20site%20check%20for%20example.com'));
+});
+
 test('recommendation copy follows the pricing rules', () => {
   const small = buildRecommendation({ outcome: 'small_fixes', groupsAffected: [] });
   assert.ok(!/AUD|USD|\$/.test(small.body), 'small fixes must not show a price');
