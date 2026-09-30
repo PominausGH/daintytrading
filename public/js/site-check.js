@@ -278,7 +278,7 @@
     // couldn't check the site. Every booking link carries the domain (Cal.com notes prefill) and the
     // report outcome as Umami properties, so book_from_report shows which outcomes lead to calls.
     var booking = rec.booking || 'secondary';
-    var bookHref = CAL_URL + '?notes=' + encodeURIComponent('Free site check for ' + (report.domain || state.domain));
+    var bookHref = CAL_URL + '?Website_Ideas=' + encodeURIComponent((report.domain || state.domain) + ' - ') + '&notes=' + encodeURIComponent('Booked from the free site check');
     function bookLink(text, className) {
       var a = link(bookHref, text, className, 'book_call');
       a.setAttribute('data-umami-event', 'book_from_report');
