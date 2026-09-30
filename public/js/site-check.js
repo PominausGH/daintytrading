@@ -273,9 +273,31 @@
     reco.appendChild(el('strong', 'sc-reco-headline', rec.headline || ''));
     reco.appendChild(el('p', 'sc-reco-body', rec.body || ''));
     var actions = el('div', 'sc-actions');
-    actions.appendChild(link(CAL_URL, 'Book a free 20-minute call →', 'btn btn-primary', 'book_call'));
-    actions.appendChild(link('/contact.html', 'Send us a message', 'btn btn-ghost', 'contact'));
+    // Booking prominence comes from the server (recommendation.booking): the call is the main action
+    // for Setup-sized and rebuild results, a quiet link for small/none results, and absent when we
+    // couldn't check the site. Every booking link carries the domain (Cal.com notes prefill) and the
+    // report outcome as Umami properties, so book_from_report shows which outcomes lead to calls.
+    var booking = rec.booking || 'secondary';
+    var bookHref = CAL_URL + '?notes=' + encodeURIComponent('Free site check for ' + (report.domain || state.domain));
+    function bookLink(text, className) {
+      var a = link(bookHref, text, className, 'book_call');
+      a.setAttribute('data-umami-event', 'book_from_report');
+      a.setAttribute('data-umami-event-outcome', rec.outcome || 'unknown');
+      a.setAttribute('data-umami-event-prominence', booking);
+      return a;
+    }
+    if (booking === 'primary') {
+      actions.appendChild(bookLink('Book a free call \u2192', 'btn btn-primary'));
+      actions.appendChild(link('/contact.html', 'Send us a message', 'btn btn-ghost', 'contact'));
+    } else {
+      actions.appendChild(link('/contact.html', 'Send us a message', 'btn btn-primary', 'contact'));
+    }
     reco.appendChild(actions);
+    if (booking === 'secondary') {
+      var quiet = el('p', 'sc-summary sc-quiet', 'Rather talk it through? ');
+      quiet.appendChild(bookLink('Book a free call', ''));
+      reco.appendChild(quiet);
+    }
     body.appendChild(reco);
 
     Object.keys(GROUPS).forEach(function (g) {

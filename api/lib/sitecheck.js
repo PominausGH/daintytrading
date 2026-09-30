@@ -157,13 +157,22 @@ function renderReportEmail({ domain, report, recommendation, optin }) {
   const summary = report.findings && report.findings.length
     ? `${c.high || 0} important, ${c.medium || 0} worth fixing, ${c.low || 0} minor`
     : 'No issues found';
+  // Same rule as the on-page report (recommendation.booking): the call leads for Setup-sized/rebuild
+  // results, is a quiet line for small/none results, and is left out when we couldn't check the site.
+  const bookUrl = `${CAL_URL}?notes=${encodeURIComponent('Free site check for ' + domain)}`;
+  const msgLink = '<a href="https://telaloom.com/contact.html" style="color:#7c5cff;">Send us a message</a> (or just reply to this email)';
+  const actionsHtml = recommendation.booking === 'primary'
+    ? `<p style="margin:12px 0 0;"><a href="${e(bookUrl)}" style="color:#7c5cff;font-weight:600;">Book a free call &rarr;</a> &nbsp;&middot;&nbsp; ${msgLink}</p>`
+    : recommendation.booking === 'none'
+      ? `<p style="margin:12px 0 0;">${msgLink}</p>`
+      : `<p style="margin:12px 0 0;">${msgLink}</p><p style="margin:6px 0 0;color:#64748b;font-size:14px;">Rather talk it through? <a href="${e(bookUrl)}" style="color:#7c5cff;">Book a free call</a></p>`;
   return `<div style="font-family:-apple-system,Segoe UI,Helvetica,Arial,sans-serif;max-width:640px;margin:0 auto;color:#0f172a;">
     <h2 style="margin:0 0 4px;">Your site check: ${e(domain)}</h2>
     <p style="margin:0 0 16px;color:#64748b;font-size:14px;">${e(summary)}${report.platform ? ` · Looks like ${e(report.platform)}` : ''}</p>
     <div style="background:#f5f3ff;border-left:4px solid #7c5cff;border-radius:0 8px 8px 0;padding:14px 16px;margin:0 0 8px;">
       <strong style="display:block;font-size:17px;margin-bottom:6px;">${e(recommendation.headline)}</strong>
       <span style="color:#334155;">${e(recommendation.body)}</span>
-      <p style="margin:12px 0 0;"><a href="${CAL_URL}" style="color:#7c5cff;font-weight:600;">Book a free 20-minute call &rarr;</a> &nbsp;&middot;&nbsp; <a href="https://telaloom.com/contact.html" style="color:#7c5cff;">Send us a message</a> (or just reply to this email)</p>
+      ${actionsHtml}
     </div>
     ${groups}${good}${notTested}
     <hr style="margin:28px 0 12px;border:none;border-top:1px solid #e2e8f0;"/>
