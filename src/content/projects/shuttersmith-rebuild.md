@@ -6,6 +6,10 @@ description: "A full rebuild of Shuttersmith's website off WordPress/Elementor o
 ogTitle: "Shuttersmith — Full Site Rebuild, WordPress to Astro"
 ogDescription: "Off WordPress/Elementor entirely — a static Astro rebuild with verified Lighthouse scores and a first-party contact form."
 ogImage: "https://telaloom.com/og-card.jpg"
+screenshot:
+  image: "/screenshots/clients/shuttersmith-after-desktop.png"
+  imageWebp: "/screenshots/clients/shuttersmith-after-desktop.webp"
+  alt: "Shuttersmith rebuild homepage: Custom Blinds Gold Coast hero with quote and call buttons, preview build awaiting client sign-off"
 lede: "Following the SEO/GEO engagement, Shuttersmith's site itself got rebuilt — off WordPress and Elementor entirely, onto a static Astro build with real migrated content, a first-party contact service, and performance numbers checked against real Lighthouse runs rather than assumed."
 metaChips:
   - label: "Client"
@@ -56,6 +60,29 @@ client: "Shuttersmith"
 <h2>The problem</h2>
 <p>The <a href="/projects/shuttersmith.html">SEO/GEO engagement</a> fixed what could be fixed without touching the platform underneath: analytics, structured data, a hosting-level block on AI crawlers, a Google Business Profile that risked suspension. All of that was real, and it worked. None of it changed what the site was actually built on — WordPress, running Elementor for layout and NitroPack for performance, the standard stack a local trade business ends up on because someone sets it up once and nobody revisits the decision.</p>
 <p>That stack has its own failure modes, and they don't show up in an SEO audit. A plugin conflict between Elementor and NitroPack had, at one point, silently broken a JS-gated content reveal on the live site — leaving whole sections permanently blank, with no error, no console warning, nothing an SEO crawl would ever catch. The site could have perfect schema and a perfect crawl policy and still be quietly failing visitors in a way none of that measures. Fixing findings one at a time on a fragile platform has a ceiling. At some point the more honest fix is to stop patching the platform and replace it.</p>
+
+<h2>Before and after</h2>
+<p>Same business, same headline, same phone number. The old homepage is the live WordPress/Elementor site at the time of writing; the rebuild is the preview build, not yet live.</p>
+<div class="before-after">
+  <figure>
+    <img src="/screenshots/clients/shuttersmith-before-desktop.webp" alt="Old Shuttersmith WordPress homepage on desktop: washed-out hero photo behind dark headline text" width="1280" height="800" loading="lazy" decoding="async" />
+    <figcaption>Before: WordPress + Elementor (live site)</figcaption>
+  </figure>
+  <figure>
+    <img src="/screenshots/clients/shuttersmith-after-desktop.webp" alt="Rebuilt Shuttersmith homepage on desktop: high-contrast hero, quote and call buttons, trust strip underneath" width="1280" height="800" loading="lazy" decoding="async" />
+    <figcaption>After: static Astro rebuild (preview)</figcaption>
+  </figure>
+</div>
+<div class="before-after mobile">
+  <figure>
+    <img src="/screenshots/clients/shuttersmith-before-mobile.webp" alt="Old Shuttersmith homepage on a phone" width="780" height="1688" loading="lazy" decoding="async" />
+    <figcaption>Before, on a phone</figcaption>
+  </figure>
+  <figure>
+    <img src="/screenshots/clients/shuttersmith-after-mobile.webp" alt="Rebuilt Shuttersmith homepage on a phone" width="780" height="1688" loading="lazy" decoding="async" />
+    <figcaption>After, on a phone</figcaption>
+  </figure>
+</div>
 
 <h2>What we built</h2>
 <p>A full rebuild in static Astro, output as plain HTML/CSS/JS with no server-side rendering and no database — served by nginx from a multi-stage Docker image that never even contains Node, npm, or <code>node_modules</code> in the shipped container. There is no admin panel to compromise, no PHP runtime to patch, no plugin ecosystem to silently conflict with itself. The attack surface of a WordPress install and the attack surface of static files served by nginx are not close to comparable.</p>
