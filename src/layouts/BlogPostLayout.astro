@@ -6,9 +6,11 @@ interface Props {
   entry: CollectionEntry<'blog'>;
   prevLink?: { label: string; href: string };
   nextLink?: { label: string; href: string };
+  related?: { title: string; href: string; category: string }[];
+  services?: { label: string; href: string; blurb: string }[];
 }
 
-const { entry, prevLink, nextLink } = Astro.props;
+const { entry, prevLink, nextLink, related = [], services = [] } = Astro.props;
 const { title, description, category, publishedDate, readTime, ogImage } = entry.data;
 const { Content } = await entry.render();
 
@@ -62,6 +64,24 @@ const jsonLd = [
           <a class="btn btn-ghost" href="/services.html">See our services</a>
         </aside>
       </div>
+
+      {related.length > 0 && (
+        <section class="related-posts" aria-labelledby="related-heading">
+          <h2 id="related-heading">Related posts</h2>
+          <ul>
+            {related.map((r) => (
+              <li><a href={r.href}><div class="lbl">{r.category}</div><div class="ttl">{r.title}</div></a></li>
+            ))}
+          </ul>
+          {services.length > 0 && (
+            <p class="related-services">
+              How we can help:
+              {services.map((s, i) => (<>{i > 0 && ' · '} <a href={s.href}>{s.label}</a> <span>— {s.blurb}</span></>))}
+              · <a href="/site-check.html">Free site check</a>
+            </p>
+          )}
+        </section>
+      )}
 
       <nav class="next-prev" aria-label="Blog navigation">
         {prevLink ? (
