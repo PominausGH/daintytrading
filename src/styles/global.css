@@ -757,6 +757,24 @@ section { padding: 84px 0; }
 .next-prev .lbl { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
 .next-prev .ttl { font-weight: 600; margin-top: 2px; }
 
+.related-posts { margin-top: 30px; padding-top: 30px; border-top: 1px solid var(--border); }
+.related-posts h2 { font-size: 20px; margin: 0 0 16px; }
+.related-posts ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+.related-posts li a {
+  display: block;
+  height: 100%;
+  padding: 16px 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+  color: var(--text);
+}
+.related-posts li a:hover { background: var(--bg-card-hover); text-decoration: none; }
+.related-posts .lbl { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.related-posts .ttl { font-weight: 600; margin-top: 2px; }
+.related-services { margin: 16px 0 0; color: var(--text-muted); font-size: 14px; }
+.related-services span { color: var(--text-muted); }
+
 /* Utility */
 .center { text-align: center; }
 .muted { color: var(--text-muted); }
