@@ -38,7 +38,7 @@ prevLink:
   label: "Shuttersmith Rebuild"
   href: "/projects/shuttersmith-rebuild.html"
 nextLink:
-  label: "Edwards Kirby Lawyers"
+  label: "Sydney Insolvency Law Firm"
   href: "/projects/edwards-kirby-lawyers.html"
 schemaType: "CreativeWork"
 schemaExtra:
@@ -68,7 +68,7 @@ for it to be stated more precisely than "roughly 20%". -->
 <p>The product range is deliberately narrow: one frame material, one louvre size. That is not a limitation we’re working around — it is the decision that makes the DIY tier possible at all. Every extra option in a made-to-order product is another way for a self-measured window to come back wrong, and on a kit the customer cuts nothing and returns nothing, so the measurement has to be right the first time. Narrowing the range narrows what can go wrong with it. Pricing itself is never computed in the browser: postcode and dimensions go to the server, which is the only thing allowed to decide a price, and both tiers are priced together so switching between “measured &amp; installed” and “do it yourself” is an instant comparison rather than a second wait. Postcode also decides which tiers are even on offer — installation isn’t viable everywhere delivery is, so the site checks coverage before it lets someone quote a tier it can’t actually deliver.</p>
 
 <h2>Launching with SEO/GEO already in place</h2>
-<p>SEO/GEO was built in from the start, the same way it was for Shuttersmith and Edwards Kirby: full metadata, <code>sitemap.xml</code>, <code>robots.txt</code>, an <code>llms.txt</code> for AI-search visibility, and structured data throughout.</p>
+<p>SEO/GEO was built in from the start, the same way it was for Shuttersmith and the Sydney law firm: full metadata, <code>sitemap.xml</code>, <code>robots.txt</code>, an <code>llms.txt</code> for AI-search visibility, and structured data throughout.</p>
 <p>Doing it at launch rather than later is the cheapest this work ever gets. A new site has no legacy URLs to preserve, no accumulated content written without schema in mind, and no existing rankings to protect while things move — every argument for deferring it disappears. It also means the business isn’t starting from zero on search the way most launches do, and that when an AI assistant is asked about trade-price shutters, there is something legible for it to read on day one instead of six months in.</p>
 <p>There is a second reason we’re paying attention to this one. Same owner, same product category, same market — but one site was retrofitted and the other launched clean. Over the next few months that gives us an unusually direct comparison of what building it in is worth against bolting it on, on data we own rather than on a case study someone else published.</p>
 
