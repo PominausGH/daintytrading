@@ -709,13 +709,6 @@ section { padding: 84px 0; }
 }
 .prose ul li { margin-bottom: 6px; }
 .prose strong { color: var(--text); }
-/* Before/after screenshot pairs on client case studies */
-.before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0 28px; }
-.before-after.mobile { grid-template-columns: 1fr 1fr; max-width: 520px; }
-.before-after figure { margin: 0; }
-.before-after img { width: 100%; height: auto; display: block; border: 1px solid var(--border); border-radius: 10px; }
-.before-after figcaption { font-size: 13px; color: var(--text-dim); margin-top: 8px; }
-@media (max-width: 640px) { .before-after:not(.mobile) { grid-template-columns: 1fr; } }
 
 .sidecard {
   position: sticky;
