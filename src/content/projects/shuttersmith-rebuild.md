@@ -7,8 +7,8 @@ ogTitle: "Shuttersmith — Full Site Rebuild, WordPress to Astro"
 ogDescription: "Off WordPress/Elementor entirely — a static Astro rebuild with verified Lighthouse scores and a first-party contact form."
 ogImage: "https://telaloom.com/og-card.jpg"
 screenshot:
-  image: "/screenshots/clients/shuttersmith-after-desktop.png"
-  imageWebp: "/screenshots/clients/shuttersmith-after-desktop.webp"
+  image: "/screenshots/clients/shuttersmith-rebuild-home.png"
+  imageWebp: "/screenshots/clients/shuttersmith-rebuild-home.webp"
   alt: "Shuttersmith rebuild homepage: Custom Blinds Gold Coast hero with quote and call buttons, preview build awaiting client sign-off"
 lede: "Following the SEO/GEO engagement, Shuttersmith's site itself got rebuilt — off WordPress and Elementor entirely, onto a static Astro build with real migrated content, a first-party contact service, and performance numbers checked against real Lighthouse runs rather than assumed."
 metaChips:
