@@ -31,7 +31,7 @@
     start: $('sc-step-start'), code: $('sc-step-code'), running: $('sc-step-running'), report: $('sc-step-report'),
     startForm: $('sc-start-form'), domain: $('sc-domain'), email: $('sc-email'), optin: $('sc-optin'),
     honeypot: $('dt_website'), startBtn: $('sc-start-btn'), startError: $('sc-start-error'),
-    codeForm: $('sc-code-form'), codeInput: $('sc-code'), codeBtn: $('sc-code-btn'), codeError: $('sc-code-error'),
+    codeForm: $('sc-code-form'), codeInput: $('sc-code'), competitor: $('sc-competitor'), codeBtn: $('sc-code-btn'), codeError: $('sc-code-error'),
     sentTo: $('sc-sent-to'), resendBtn: $('sc-resend-btn'), changeBtn: $('sc-change-btn'),
     runningDomain: $('sc-running-domain'), progress: $('sc-progress'), runningError: $('sc-running-error'),
     reportBody: $('sc-report-body'), againBtn: $('sc-again-btn')
@@ -156,8 +156,9 @@
     var code = els.codeInput.value.replace(/\s+/g, '');
     if (!/^\d{6}$/.test(code)) { setError(els.codeError, 'Enter the 6-digit code from your email.'); return; }
     busy(els.codeBtn, true, 'Checking…');
-    api('POST', '/verify', { sessionId: state.sessionId, code: code }).then(function (data) {
-      track('sitecheck_verified');
+    var competitor = els.competitor ? els.competitor.value.trim() : '';
+    api('POST', '/verify', { sessionId: state.sessionId, code: code, competitor: competitor }).then(function (data) {
+      track('sitecheck_verified', { competitor: !!competitor });
       runCheck(data.jobId);
     }).catch(function (err) {
       if (err.code === 'locked' || err.code === 'expired') { goBackToStart(err.message); return; }
@@ -338,6 +339,7 @@
 
   els.againBtn.addEventListener('click', function () {
     els.domain.value = '';
+    if (els.competitor) els.competitor.value = '';
     goBackToStart('');
   });
 })();

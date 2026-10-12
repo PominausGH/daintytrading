@@ -333,6 +333,42 @@ test('recommendation wording reads correctly on a web page too (the same text is
   }
 });
 
+test('normalizeCompetitor keeps a short single line of text and drops anything else', () => {
+  const { normalizeCompetitor: n } = require('../lib/sitecheck');
+  assert.equal(n('  Rival  Web\tCo \n'), 'Rival Web Co');
+  assert.equal(n('rivalweb.com.au'), 'rivalweb.com.au');
+  assert.equal(n('a\u0000b\u2028c'), 'a b c');
+  assert.equal(n('x'.repeat(500)).length, 120);
+  for (const v of [undefined, null, 42, {}, ['Rival'], '', '   ']) assert.equal(n(v), '');
+});
+
+test('an optional competitor named at the code step reaches the lead alert and lead log, and is never checked', async () => {
+  const { svc, emails, checkerCalls, dataDir } = harness();
+  const a = await svc.start(good);
+  const { jobId } = await svc.verify({ sessionId: a.sessionId, code: '123456', competitor: ' <b>Rival</b> Web  Co ' });
+  const done = await svc.status(jobId, { wait: true });
+  assert.ok(!JSON.stringify(done).includes('Rival'), 'the competitor is for us, not echoed back in the report');
+  await settle();
+  const alert = emails.find((m) => m.subject.startsWith('[Site check'));
+  assert.ok(alert.html.includes('Competitor they lose work to:</strong> &lt;b&gt;Rival&lt;/b&gt; Web Co'));
+  const report = emails.find((m) => m.subject.startsWith('Your site check for'));
+  assert.ok(!report.html.includes('Rival'));
+  assert.deepEqual(checkerCalls, ['www.acme.com.au'], 'only the visitor\'s own site is fetched');
+  const lead = JSON.parse(fs.readFileSync(path.join(dataDir, 'sitecheck-leads.jsonl'), 'utf8').trim());
+  assert.equal(lead.competitor, '<b>Rival</b> Web Co');
+});
+
+test('leaving the competitor blank changes nothing: no alert line, empty in the lead log', async () => {
+  const { svc, emails, dataDir } = harness();
+  const a = await svc.start(good);
+  await svc.status((await svc.verify({ sessionId: a.sessionId, code: '123456', competitor: { $ne: 1 } })).jobId, { wait: true });
+  await settle();
+  const alert = emails.find((m) => m.subject.startsWith('[Site check'));
+  assert.ok(!alert.html.includes('Competitor'));
+  const lead = JSON.parse(fs.readFileSync(path.join(dataDir, 'sitecheck-leads.jsonl'), 'utf8').trim());
+  assert.equal(lead.competitor, '');
+});
+
 test('rebuild signals are flagged in the lead alert for Andrew', async () => {
   const rebuild = { ...REPORT, outcome: 'rebuild_signal', rebuildSignals: ['eol_software'] };
   const { svc, emails } = harness({ fetchImpl: async () => ({ status: 200, ok: true, json: async () => rebuild }) });

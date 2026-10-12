@@ -59,6 +59,19 @@ test('rate limits are per real visitor, not one shared bucket for everyone', asy
   await s.close();
 });
 
+test('verify forwards the code and the optional competitor', async () => {
+  const seen = [];
+  const s = await serve({ verify: async (a) => { seen.push(a); return { jobId: 'j1' }; } });
+  const r = await post(s.base, '/verify', { sessionId: 'abc', code: '123456', competitor: 'Rival Web Co' });
+  assert.equal(r.status, 200);
+  await post(s.base, '/verify', { sessionId: 'abc', code: '123456' });
+  assert.deepEqual(seen, [
+    { sessionId: 'abc', code: '123456', competitor: 'Rival Web Co' },
+    { sessionId: 'abc', code: '123456', competitor: undefined },
+  ]);
+  await s.close();
+});
+
 test('ServiceErrors become JSON with their status, code and extras', async () => {
   const s = await serve({
     verify: async () => { throw new ServiceError('wrong_code', 400, "That code isn't right.", { attemptsLeft: 3 }); },
