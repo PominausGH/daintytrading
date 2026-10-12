@@ -14,6 +14,7 @@ const SUPPRESSION_FILE = path.join(DATA_DIR, 'prospects-suppression.json');
 const DRAFT_LOG_FILE = path.join(DATA_DIR, 'prospects-draft-log.jsonl');
 const VARIANT_COUNTER_FILE = path.join(DATA_DIR, 'prospects-variant-counter.json');
 const HEARTBEAT_FILE = path.join(DATA_DIR, 'prospects-heartbeat.json');
+const DRAFTS_FILE = path.join(DATA_DIR, 'prospects-drafts.json');
 
 // `run` and `slug` become filesystem path segments under the read-only mount, so they're
 // validated strictly before ever touching fs — no '.', '/', or '\' allowed at all, which
@@ -466,6 +467,58 @@ function isConcreteSubject(subject, findingMessage) {
   return false;
 }
 
+// The auto-reject gates, as a function of the draft alone so a saved draft can be judged again
+// against today's thresholds without calling the model.
+function gateReasons({ subject, body, confidence, subjectContext }) {
+  const words = wordCount(body);
+  const reasons = [];
+  if (confidence < config.prospectsConfidenceThreshold) reasons.push(`confidence ${confidence} below ${config.prospectsConfidenceThreshold}`);
+  if (words > config.prospectsMaxWords) reasons.push(`body is ${words} words (max ${config.prospectsMaxWords})`);
+  if (!subject || !body) reasons.push('missing subject or body');
+  if (subject && !isConcreteSubject(subject, subjectContext)) reasons.push('subject reads generic, not tied to the actual finding');
+  return reasons;
+}
+
+// Every generated draft is kept, keyed by run and prospect, so opening a prospect again shows the
+// email already written instead of paying for a new model call (and getting a different email).
+// Only "Regenerate" (fresh) writes a new one. Stored without the signature, which is added on
+// the way out so a signature change applies to saved drafts too.
+function getSavedDraft(run, slug) {
+  const saved = readJsonSafe(DRAFTS_FILE, {})[`${run}:${slug}`];
+  return saved && typeof saved.subject === 'string' && typeof saved.body === 'string' ? saved : null;
+}
+
+function saveDraft(run, slug, draft) {
+  try {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+    const all = readJsonSafe(DRAFTS_FILE, {});
+    all[`${run}:${slug}`] = draft;
+    fs.writeFileSync(DRAFTS_FILE, JSON.stringify(all, null, 2));
+  } catch (err) {
+    // Losing the saved copy only costs a regeneration later; it must not fail the draft itself.
+    console.error('prospects: could not save draft:', err.message);
+  }
+}
+
+function draftResponse(draft, contactEmail, extra = {}) {
+  const reasons = gateReasons(draft);
+  return {
+    status: reasons.length ? 'auto_rejected' : 'pending',
+    subject: draft.subject,
+    // Signature appended after the gates (which must judge only the AI's actual pitch, not fixed
+    // boilerplate) but included in what's returned for review/edit/send.
+    body: draft.body ? `${draft.body}\n\n${config.prospectsSignature}` : draft.body,
+    confidence: draft.confidence,
+    variant: draft.variant,
+    reason: reasons.join('; ') || null,
+    contactEmail,
+    leadsWith: draft.leadsWith || null,
+    siteCheck: draft.siteCheck || null,
+    generatedAt: draft.generatedAt || null,
+    ...extra,
+  };
+}
+
 // Set once by routes/prospects.js. Left unset (tests, or the checker not wired), drafts use the
 // audit's findings alone, as they did before.
 let siteCheck = null;
@@ -487,7 +540,9 @@ function siteHost(siteUrl, fallbackDomain) {
 // subject/body are '' when status isn't 'pending' or 'auto_rejected' — there's nothing to send.
 // 'checking' means the site check for this prospect is still running: ask again in
 // retryAfterSeconds (the dashboard does this itself).
-async function buildDraft(run, slug) {
+// A draft already written for this prospect is returned as saved (`saved: true`, no model call)
+// unless `fresh` is set, which is what the dashboard's Regenerate button sends.
+async function buildDraft(run, slug, { fresh = false } = {}) {
   const data = readProspectJson(run, slug);
   if (!data) return null;
 
@@ -517,6 +572,11 @@ async function buildDraft(run, slug) {
       reason: `Already emailed this domain ${Math.floor(daysSince(recentSend.sentAt))} days ago (cooldown is ${config.prospectsCooldownDays} days).`,
       contactEmail,
     };
+  }
+
+  if (!fresh) {
+    const saved = getSavedDraft(run, slug);
+    if (saved) return draftResponse(saved, contactEmail, { saved: true });
   }
 
   // Deliberately picks ONE finding, not two — the spec is explicit that two dilutes an
@@ -592,13 +652,22 @@ async function buildDraft(run, slug) {
     throw err;
   }
 
-  const words = wordCount(draft.body);
-  const reasons = [];
-  if (draft.confidence < config.prospectsConfidenceThreshold) reasons.push(`confidence ${draft.confidence} below ${config.prospectsConfidenceThreshold}`);
-  if (words > config.prospectsMaxWords) reasons.push(`body is ${words} words (max ${config.prospectsMaxWords})`);
-  if (!draft.subject || !draft.body) reasons.push('missing subject or body');
-  if (draft.subject && !isConcreteSubject(draft.subject, findingMessage)) reasons.push('subject reads generic, not tied to the actual finding');
-
+  // A site-check finding's title is short and generic by design ("AI assistants may not be able
+  // to read your site"), so a good subject often uses the words from its explanation instead
+  // ("your site blocks ChatGPT and Claude"). Compare against both, or that subject is wrongly
+  // rejected as generic (seen live 2026-10-12).
+  const subjectContext = fromSiteCheck ? `${findingMessage} ${top.finding.detail || ''}` : findingMessage;
+  const record = {
+    subject: draft.subject,
+    body: draft.body,
+    confidence: draft.confidence,
+    variant,
+    subjectContext,
+    leadsWith,
+    siteCheck: siteCheckState,
+    generatedAt: new Date().toISOString(),
+  };
+  const reasons = gateReasons(record);
   const status = reasons.length ? 'auto_rejected' : 'pending';
 
   appendDraftLog({
@@ -615,23 +684,9 @@ async function buildDraft(run, slug) {
     reasons: reasons.length ? reasons : undefined,
   });
   touchHeartbeat(status);
+  if (draft.subject && draft.body) saveDraft(run, slug, record);
 
-  // Signature appended after the word-count/subject checks above (which must judge only
-  // the AI's actual pitch, not fixed boilerplate) — but still included in what's returned
-  // for review/edit/send, so it's never missing from what actually goes out.
-  const bodyWithSignature = draft.body ? `${draft.body}\n\n${config.prospectsSignature}` : draft.body;
-
-  return {
-    status,
-    subject: draft.subject,
-    body: bodyWithSignature,
-    confidence: draft.confidence,
-    variant,
-    reason: reasons.join('; ') || null,
-    contactEmail,
-    leadsWith,
-    siteCheck: siteCheckState,
-  };
+  return draftResponse(record, contactEmail, { saved: false });
 }
 
 module.exports = {
@@ -643,6 +698,9 @@ module.exports = {
   markSent,
   cleanSiteUrl,
   rephraseFinding,
+  isConcreteSubject,
+  gateReasons,
+  getSavedDraft,
   selectTopFinding,
   findingScore,
   setSiteCheck,

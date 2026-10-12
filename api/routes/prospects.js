@@ -39,7 +39,8 @@ router.get('/:slug/draft', async (req, res) => {
   }
   let draft;
   try {
-    draft = await store.buildDraft(run, slug);
+    // fresh=1 is the dashboard's Regenerate button; without it a saved draft is returned as is.
+    draft = await store.buildDraft(run, slug, { fresh: req.query.fresh === '1' });
   } catch (err) {
     return res.status(502).json({ error: `Drafting failed: ${err.message}` });
   }
