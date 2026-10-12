@@ -14,7 +14,6 @@ export const pricing = {
   instantPageHostedFromUsd: 39,
   instantPageOwnDomainFromUsd: 79,
   customBuild: 6900,
-  customBuildWithGrowthCommit: 4900,
   carePlan: 290,
   fixDay: 1000,
 } as const;
@@ -42,7 +41,6 @@ function usdApprox(audAmount: number): number {
 
 export const pricingUsd = {
   customBuild: usdApprox(pricing.customBuild),
-  customBuildWithGrowthCommit: usdApprox(pricing.customBuildWithGrowthCommit),
   carePlan: usdApprox(pricing.carePlan),
   fixDay: usdApprox(pricing.fixDay),
   // Set by hand, not by formula (which gives 2,800): Setup is ~4 fix days, and

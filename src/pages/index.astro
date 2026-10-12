@@ -2,7 +2,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getProductCounts } from '../data/products';
 import Price from '../components/Price.astro';
-import { pricingUsd } from '../data/pricing.ts';
 
 const counts = await getProductCounts();
 
@@ -286,7 +285,7 @@ const jsonLd = [
           <div class="service-card">
             <div class="icon">01</div>
             <h3><a href="/services/website-builds.html" class="link-inherit">Website builds</a></h3>
-            <p>From an instant page generated from your Google listing (from $149 USD) to a custom-built site with Local SEO &amp; GEO switched on from day one &mdash; <Price item="customBuild" symbol />, or $4,900 (${pricingUsd.customBuildWithGrowthCommit.toLocaleString()} USD) with a 12-month Growth commitment. No lock-in.</p>
+            <p>From an instant page generated from your Google listing (from $149 USD) to a custom-built site with Local SEO &amp; GEO switched on from day one &mdash; <Price item="customBuild" symbol />. No lock-in.</p>
           </div>
           <div class="service-card">
             <div class="icon">02</div>

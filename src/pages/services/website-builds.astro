@@ -18,7 +18,7 @@ const jsonLd = [
       name: 'Website build packages',
       itemListElement: [
         { '@type': 'Offer', name: 'Instant page', price: String(pricing.instantPageFromUsd), priceCurrency: 'USD', description: `One-off, or from $${pricing.instantPageHostedFromUsd} USD/month hosted (from $${pricing.instantPageOwnDomainFromUsd} USD/month for your own domain). Auto-generated from your existing Google Business listing — name, address, hours, photos, and reviews. Live within days. Billed via bizpage.biz in USD.` },
-        { '@type': 'Offer', name: 'Custom build', price: String(pricing.customBuild), priceCurrency: 'AUD', description: `One-off. Custom-designed site, copywriting, hosting, SSL, and Local SEO & GEO setup included — not sold separately. $${pricing.customBuildWithGrowthCommit.toLocaleString()} AUD if you commit to 12 months of the Growth plan.` },
+        { '@type': 'Offer', name: 'Custom build', price: String(pricing.customBuild), priceCurrency: 'AUD', description: `One-off. Custom-designed site, copywriting, hosting, SSL, and Local SEO & GEO setup included — not sold separately.` },
         { '@type': 'Offer', name: 'Care plan', price: String(pricing.carePlan), priceCurrency: 'AUD', description: 'Monthly, no GST. Hosting, security updates, and up to 30 minutes of small content changes per month (unused time does not roll over, billed at the standard hourly rate beyond that). 2-business-day response time, same-day for security or downtime issues. Attached to every custom build by default. Cancel anytime, effective end of the current billing month.' },
         { '@type': 'Offer', name: 'Monitor', price: String(pricing.monitor), priceCurrency: 'AUD', description: 'Monthly. Automated ranking and AI-citation monitoring, with a monthly plain-English report. No fix pass included. Cancel anytime.' },
         { '@type': 'Offer', name: 'Growth', price: String(pricing.growth), priceCurrency: 'AUD', description: 'Monthly. Everything in Monitor, plus Google Business Profile posts, review replies, and a review campaign each month. Cancel anytime.' },
@@ -30,8 +30,7 @@ const jsonLd = [
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: [
-      { '@type': 'Question', name: "What's the difference between the instant page and the custom build?", acceptedAnswer: { '@type': 'Answer', text: `The instant page is generated automatically from your existing Google Business listing and can be live within days, from $${pricing.instantPageFromUsd} USD (billed via bizpage.biz). The custom build is designed and written around your business specifically, with Local SEO & GEO included, for $${pricing.customBuild.toLocaleString()} AUD ($${pricing.customBuildWithGrowthCommit.toLocaleString()} AUD if you commit to 12 months of the Growth plan). Same underlying quality bar, different amount of hands-on work.` } },
-      { '@type': 'Question', name: 'Why is the custom build cheaper if I commit to 12 months of Growth?', acceptedAnswer: { '@type': 'Answer', text: `It isn't cheaper overall — it's less money down. The $${(pricing.customBuild - pricing.customBuildWithGrowthCommit).toLocaleString()} off the build ($${pricing.customBuild.toLocaleString()} to $${pricing.customBuildWithGrowthCommit.toLocaleString()}) is smaller than the $${(pricing.growth * 12).toLocaleString()} you'll spend on 12 months of Growth at $${pricing.growth}/month, so the combined path costs more across the year, not less. It's there for businesses that would rather pay less upfront and spread the rest out monthly, not a way to get the same work for a lower total price.` } },
+      { '@type': 'Question', name: "What's the difference between the instant page and the custom build?", acceptedAnswer: { '@type': 'Answer', text: `The instant page is generated automatically from your existing Google Business listing and can be live within days, from $${pricing.instantPageFromUsd} USD (billed via bizpage.biz). The custom build is designed and written around your business specifically, with Local SEO & GEO included, for $${pricing.customBuild.toLocaleString()} AUD. Same underlying quality bar, different amount of hands-on work.` } },
       { '@type': 'Question', name: 'Do I need the custom build, or is the instant page enough?', acceptedAnswer: { '@type': 'Answer', text: "If you just need to stop being invisible online today, the instant page usually does the job. The custom build makes sense once you want a site that says something specific about your business, or you're ready to actively invest in being found — we'll tell you honestly which one you actually need." } },
       { '@type': 'Question', name: 'Is Local SEO really included in the Custom build price, or is that extra?', acceptedAnswer: { '@type': 'Answer', text: "It's included in the Custom build price — Google Business Profile setup, LocalBusiness schema, llms.txt and AI-crawler access, and a review-generation system, the same scope as our standalone Local SEO & GEO service. You're not paying for the site and then paying again to make it findable." } },
       { '@type': 'Question', name: 'What if I need customer accounts, bookings, or a database?', acceptedAnswer: { '@type': 'Answer', text: `We build those. It's the same work as a website with more moving parts, and the size varies a lot: a simple booking form is a small job, a customer portal is a big one. That's why a fixed website price can't honestly cover it. Tell us what it needs to do, and we'll estimate the days up front and give you the price in writing. You approve it before we start. Bigger work is priced from ${pricing.fixDay.toLocaleString()} AUD (${pricingUsd.fixDay.toLocaleString()} USD) per day of work.` } },
@@ -44,7 +43,7 @@ const jsonLd = [
 <BaseLayout
   currencySwitch
   title="Website Builds for Local Businesses — Custom Sites with Local SEO Built In | TelaLoom"
-  description="Website builds for local businesses without one. Start with an instant page generated from your Google listing from $149 USD, or a custom-built site with Local SEO &amp; GEO included for $6,900 AUD ($4,900 with a 12-month Growth commitment). No lock-in."
+  description="Website builds for local businesses without one. Start with an instant page generated from your Google listing from $149 USD, or a custom-built site with Local SEO &amp; GEO included for $6,900 AUD. No lock-in."
   canonicalPath="/services/website-builds.html"
   jsonLd={jsonLd}
 >
@@ -106,7 +105,7 @@ const jsonLd = [
               <span class="price-badge">Most popular</span>
               <span class="tier">Custom build</span>
               <div class="price"><Price item="customBuild" /> <small>one-off</small></div>
-              <p class="note">Designed and written around your business, no lock-in. {pricing.customBuildWithGrowthCommit.toLocaleString()} AUD ({pricingUsd.customBuildWithGrowthCommit.toLocaleString()} USD) if you commit to 12 months of the Growth plan below &mdash; less money down, not a cheaper total: 12 months of Growth is ${(pricing.growth * 12).toLocaleString()}, so you end up paying more overall in exchange for a lower price today.</p>
+              <p class="note">Designed and written around your business, no lock-in.</p>
               <ul>
                 <li>Custom design and copywriting &mdash; not a template</li>
                 <li>Hosting, SSL, and your domain &mdash; connected if you already have one, or registered in your name if you don&rsquo;t (first year included)</li>
@@ -132,7 +131,7 @@ const jsonLd = [
           </div>
 
           <h3 style="margin-top:28px;">Then, optional Local SEO &amp; GEO plans</h3>
-          <p style="font-size:14px;color:var(--text-dim);margin:0 0 16px;">Same product as our <a href="/services/local-seo.html">standalone Local SEO &amp; GEO service</a> &mdash; three tiers, cancel anytime. Commit to 12 months of Growth and your Custom build drops to {pricing.customBuildWithGrowthCommit.toLocaleString()} AUD &mdash; lower money down, not a lower total (see the Custom build note above).</p>
+          <p style="font-size:14px;color:var(--text-dim);margin:0 0 16px;">Same product as our <a href="/services/local-seo.html">standalone Local SEO &amp; GEO service</a> &mdash; three tiers, cancel anytime.</p>
           <div class="price-grid">
             <div class="price-card">
               <span class="tier">Monitor <small style="text-transform:none;letter-spacing:0;">&mdash; monthly</small></span>
@@ -149,7 +148,7 @@ const jsonLd = [
               <span class="price-badge">Most popular</span>
               <span class="tier">Growth <small style="text-transform:none;letter-spacing:0;">&mdash; monthly</small></span>
               <div class="price"><Price item="growth" /><small>/mo</small></div>
-              <p class="note">Monitor, plus we keep working your listing. 12-month commitment drops your Custom build to {pricing.customBuildWithGrowthCommit.toLocaleString()} AUD ({pricingUsd.customBuildWithGrowthCommit.toLocaleString()} USD) &mdash; less money down, not a lower total (see the Custom build note above).</p>
+              <p class="note">Monitor, plus we keep working your listing.</p>
               <ul class="month-list">
                 <li>Google Business Profile posts &amp; review replies</li>
                 <li>A review campaign to that month&rsquo;s customers</li>
@@ -194,11 +193,7 @@ const jsonLd = [
           <h2>Frequently asked questions</h2>
           <details class="faq-item">
             <summary>What's the difference between the instant page and the custom build?</summary>
-            <p>The instant page is generated automatically from your existing Google Business listing and can be live within days, from {pricing.instantPageFromUsd} USD (billed via bizpage.biz). The custom build is designed and written around your business specifically, with Local SEO &amp; GEO included, for {pricing.customBuild.toLocaleString()} AUD ({pricing.customBuildWithGrowthCommit.toLocaleString()} AUD if you commit to 12 months of the Growth plan). Same underlying quality bar, different amount of hands-on work.</p>
-          </details>
-          <details class="faq-item">
-            <summary>Why is the custom build cheaper if I commit to 12 months of Growth?</summary>
-            <p>It isn&rsquo;t cheaper overall &mdash; it&rsquo;s less money down. The ${(pricing.customBuild - pricing.customBuildWithGrowthCommit).toLocaleString()} off the build ({pricing.customBuild.toLocaleString()} to {pricing.customBuildWithGrowthCommit.toLocaleString()}) is smaller than the ${(pricing.growth * 12).toLocaleString()} you&rsquo;ll spend on 12 months of Growth at {pricing.growth}/month, so the combined path costs more across the year, not less. It&rsquo;s there for businesses that would rather pay less upfront and spread the rest out monthly, not a way to get the same work for a lower total price.</p>
+            <p>The instant page is generated automatically from your existing Google Business listing and can be live within days, from {pricing.instantPageFromUsd} USD (billed via bizpage.biz). The custom build is designed and written around your business specifically, with Local SEO &amp; GEO included, for <Price item="customBuild" />. Same underlying quality bar, different amount of hands-on work.</p>
           </details>
           <details class="faq-item">
             <summary>Do I need the custom build, or is the instant page enough?</summary>
@@ -227,7 +222,6 @@ const jsonLd = [
           <div class="label-row"><span>Best for</span><span>Local businesses without a site</span></div>
           <div class="label-row"><span>Instant page</span><span>from {pricing.instantPageFromUsd} USD</span></div>
           <div class="label-row"><span>Custom build</span><span><Price item="customBuild" /></span></div>
-          <div class="label-row"><span>Custom build + 12mo Growth</span><span>{pricing.customBuildWithGrowthCommit.toLocaleString()} AUD</span></div>
           <div class="label-row"><span>Care plan</span><span><Price item="carePlan" suffix="/mo" /></span></div>
           <div class="label-row"><span>Local SEO/GEO plans</span><span><Price item="monitor" to="scale" suffix="/mo" /></span></div>
           <div class="label-row"><span>Lock-in</span><span>None</span></div>
