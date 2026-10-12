@@ -59,6 +59,9 @@ function buildRouter(service) {
   return router;
 }
 
-const router = buildRouter(createService({ sendEmail }));
+const service = createService({ sendEmail });
+const router = buildRouter(service);
 router.buildRouter = buildRouter;
+// The one live service, so routes/prospects.js shares its cache and in-flight checks.
+router.service = service;
 module.exports = router;

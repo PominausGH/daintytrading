@@ -18,7 +18,7 @@ const config = {
   // field (set by customer-web_check's sourcing pipeline — see sourcing/seed_queries.py),
   // falling back to `default` for manually-authored runs that don't set one. Add a new
   // vertical here once there's a real case study to back it (see seed_queries.py's
-  // docstring for the current plan: lawyers, once that site is live). Each entry is
+  // docstring). Each entry is
   // individually overridable via PROSPECTS_PROOF_LINE_<VERTICAL_UPPERCASE>.
   prospectsProofLines: {
     default: required(
@@ -28,6 +28,13 @@ const config = {
     shutters_blinds_awnings: required(
       'PROSPECTS_PROOF_LINE_SHUTTERS_BLINDS_AWNINGS',
       'We rebuilt two shutters and blinds businesses\' sites for the same client, one fix at a time, no downtime.'
+    ),
+    // The Sydney insolvency law firm case study (src/content/projects/edwards-kirby-lawyers.md).
+    // The client is not named publicly, so neither is it here, and the line claims only the work
+    // done, not results: the case study's status is still "about to go live".
+    legal_services: required(
+      'PROSPECTS_PROOF_LINE_LEGAL_SERVICES',
+      'We rebuilt a Sydney law firm\'s website and built a secure client portal to go with it.'
     ),
   },
 
