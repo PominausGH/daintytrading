@@ -597,7 +597,12 @@ async function buildDraft(run, slug) {
   if (draft.confidence < config.prospectsConfidenceThreshold) reasons.push(`confidence ${draft.confidence} below ${config.prospectsConfidenceThreshold}`);
   if (words > config.prospectsMaxWords) reasons.push(`body is ${words} words (max ${config.prospectsMaxWords})`);
   if (!draft.subject || !draft.body) reasons.push('missing subject or body');
-  if (draft.subject && !isConcreteSubject(draft.subject, findingMessage)) reasons.push('subject reads generic, not tied to the actual finding');
+  // A site-check finding's title is short and generic by design ("AI assistants may not be able
+  // to read your site"), so a good subject often uses the words from its explanation instead
+  // ("your site blocks ChatGPT and Claude"). Compare against both, or that subject is wrongly
+  // rejected as generic (seen live 2026-10-12).
+  const subjectContext = fromSiteCheck ? `${findingMessage} ${top.finding.detail || ''}` : findingMessage;
+  if (draft.subject && !isConcreteSubject(draft.subject, subjectContext)) reasons.push('subject reads generic, not tied to the actual finding');
 
   const status = reasons.length ? 'auto_rejected' : 'pending';
 
@@ -643,6 +648,7 @@ module.exports = {
   markSent,
   cleanSiteUrl,
   rephraseFinding,
+  isConcreteSubject,
   selectTopFinding,
   findingScore,
   setSiteCheck,

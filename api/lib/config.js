@@ -7,11 +7,17 @@ const config = {
   aiosModel: required('AIOS_MODEL', 'anthropic/claude-sonnet-5'),
 
   // Cold-outreach drafting gates — see lib/prospects-store.js.
-  prospectsConfidenceThreshold: parseFloat(required('PROSPECTS_CONFIDENCE_THRESHOLD', '0.7')),
+  // 0.6, down from 0.7 (2026-10-12). Confidence is the drafting model's own guess, and it sits
+  // just under 0.7 even for a good draft: 27 of 66 logged attempts were 0.6 to 0.7, the highest
+  // ever was 0.72, and a strong site-check draft scored 0.62. Every draft is reviewed by a person
+  // before it is sent, so this gate only needs to catch the clearly weak ones (median was 0.55).
+  prospectsConfidenceThreshold: parseFloat(required('PROSPECTS_CONFIDENCE_THRESHOLD', '0.6')),
   prospectsMinFindingScore: parseFloat(required('PROSPECTS_MIN_FINDING_SCORE', '0.5')),
   prospectsCooldownDays: parseInt(required('PROSPECTS_COOLDOWN_DAYS', '90'), 10),
   prospectsRateLimitPerWeek: parseInt(required('PROSPECTS_RATE_LIMIT_PER_WEEK', '25'), 10),
-  prospectsMaxWords: parseInt(required('PROSPECTS_MAX_WORDS', '90'), 10),
+  // The prompt still asks for about 90 words. The gate allows 100 so a draft that runs a few
+  // words over (97 on the first live site-check draft) is trimmed in review, not rejected.
+  prospectsMaxWords: parseInt(required('PROSPECTS_MAX_WORDS', '100'), 10),
 
   // Per-vertical case-study proof lines, referenced in the drafted email as social proof.
   // prospects-store.js's buildDraft() picks the entry matching the prospect's `vertical`
