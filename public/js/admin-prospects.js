@@ -143,7 +143,33 @@ var STATUS_BANNER = {
   auto_rejected: null, // reason string from the API says why
 };
 
+// Bumped on every loadDraft so a slow or polling request for a prospect you've since moved away
+// from can't write its result into the modal for the one you're now looking at.
+var draftRequestToken = 0;
+var DRAFT_CHECK_MAX_TRIES = 30; // x retryAfterSeconds (5s) = up to ~2.5 minutes for the site check
+
+function wait(ms) {
+  return new Promise(function (resolve) { setTimeout(resolve, ms); });
+}
+
+// The first draft for a prospect has to wait for a site check (10 to 40 seconds), which the API
+// reports as status "checking" rather than holding the request open. Ask again until it's done.
+async function fetchDraftWhenReady(row, token, meta) {
+  var url = '/api/admin/prospects/' + encodeURIComponent(row.slug) + '/draft?run=' + encodeURIComponent(currentRun);
+  for (var attempt = 0; attempt < DRAFT_CHECK_MAX_TRIES; attempt += 1) {
+    var draft = await adminFetch(url);
+    if (token !== draftRequestToken) return null;
+    if (draft.status !== 'checking') return draft;
+    meta.textContent = (draft.reason || 'Checking their site…') + (attempt ? ' Still checking…' : '');
+    await wait((draft.retryAfterSeconds || 5) * 1000);
+    // Stop asking if you've opened another prospect or closed the modal in the meantime.
+    if (token !== draftRequestToken || !document.getElementById('draft-backdrop').classList.contains('open')) return null;
+  }
+  throw new Error('The site check is taking too long. Close this and try again in a minute.');
+}
+
 async function loadDraft(row) {
+  var token = ++draftRequestToken;
   var meta = document.getElementById('draft-meta');
   var alreadySent = document.getElementById('already-sent-note');
   var noEmailNote = document.getElementById('no-email-note');
@@ -182,9 +208,12 @@ async function loadDraft(row) {
   }
 
   try {
-    var draft = await adminFetch('/api/admin/prospects/' + encodeURIComponent(row.slug) + '/draft?run=' + encodeURIComponent(currentRun));
+    var draft = await fetchDraftWhenReady(row, token, meta);
+    if (!draft) return;
     var scoreLabel = (row.business_name && row.business_name.trim() ? row.business_name : row.url) + ' — score ' + (row.score == null ? '?' : row.score);
     if (draft.confidence != null) scoreLabel += ' · confidence ' + draft.confidence + ' · variant ' + draft.variant;
+    if (draft.leadsWith) scoreLabel += ' · leads with (' + draft.leadsWith.source + '): ' + draft.leadsWith.title;
+    if (draft.siteCheck && draft.siteCheck.indexOf('unavailable') === 0) scoreLabel += ' · site check ' + draft.siteCheck;
     meta.textContent = scoreLabel;
     document.getElementById('subject').value = draft.subject || '';
     document.getElementById('body').value = draft.body || '';
@@ -200,6 +229,7 @@ async function loadDraft(row) {
       sendSubmit.disabled = true;
     }
   } catch (err) {
+    if (token !== draftRequestToken) return;
     meta.textContent = '';
     errEl.textContent = err.message;
     errEl.style.display = 'block';

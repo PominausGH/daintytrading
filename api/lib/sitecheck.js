@@ -467,17 +467,29 @@ function createService(opts = {}) {
     throw new ServiceError('busy', 503, 'The checker is busy right now. Please try again in a few minutes.');
   }
 
-  async function run(job) {
+  async function fetchReport(domain) {
     // If the same domain is already being checked (many people asking about one site at once), share that
     // check instead of running it again and holding another of the checker's three slots.
-    let pending = inflight.get(job.domain);
+    let pending = inflight.get(domain);
     if (!pending) {
-      pending = callChecker(job.domain).finally(() => inflight.delete(job.domain));
-      inflight.set(job.domain, pending);
+      pending = callChecker(domain).finally(() => inflight.delete(domain));
+      inflight.set(domain, pending);
     }
     const report = await pending;
-    if (report.status !== 'unreachable' && report.status !== 'opted_out') writeCache(job.domain, report);
-    finish(job, report, false);
+    if (report.status !== 'unreachable' && report.status !== 'opted_out') writeCache(domain, report);
+    return report;
+  }
+
+  async function run(job) {
+    finish(job, await fetchReport(job.domain), false);
+  }
+
+  // A report with no visitor behind it: no code, session, job, emails or lead. For our own tools
+  // (prospect drafts, lib/prospects-sitecheck.js), which are admin-only, so the public caps don't
+  // apply. Same checker, same 24h cache and same sharing of in-flight checks as a visitor's run.
+  async function checkOnly(domain) {
+    const d = normalizeDomain(domain);
+    return readCache(d) || fetchReport(d);
   }
 
   function settle(job) {
@@ -566,7 +578,7 @@ function createService(opts = {}) {
     }
   }
 
-  return { start, resend, verify, status, health, _state: { sessions, jobs, emailStarts } };
+  return { start, resend, verify, status, health, checkOnly, _state: { sessions, jobs, emailStarts } };
 }
 
 module.exports = {

@@ -4,6 +4,12 @@ const { sanitize, escapeHtml } = require('../lib/security');
 const { sendEmail } = require('../lib/email');
 const store = require('../lib/prospects-store');
 const config = require('../lib/config');
+const { createProspectSiteCheck } = require('../lib/prospects-sitecheck');
+const siteCheckRouter = require('./site-check');
+
+// Drafts ask our own site checker about the prospect's site, through the same live service the
+// public checker uses (shared 24h cache and in-flight checks).
+store.setSiteCheck(createProspectSiteCheck({ checkDomain: (host) => siteCheckRouter.service.checkOnly(host) }));
 
 const router = express.Router();
 

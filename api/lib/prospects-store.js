@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const config = require('./config');
+const { toOpenerFindings } = require('./prospects-sitecheck');
 const { draftProspectEmail } = require('./prospects-aios');
 
 // Read-only mount from customer-web_check's `reports/` dir (see docker-compose.yml).
@@ -287,9 +288,41 @@ const DEFAULT_CATEGORY_META = { visibility: 2, effortMins: 30 };
 // accusation. It still appears in the full audit report.
 const NON_OPENER_CATEGORIES = new Set(['accc_claims']);
 
+// Findings from our own site checker (lib/prospects-sitecheck.js) are the SEO/GEO side, which is
+// what we sell, so a medium findability problem is weighted to outrank a broken link (1.0+ vs
+// 0.8). Same coarse visibility/effort heuristic as above, by checker group, with a few ids set
+// by hand: the three that take a site out of search altogether, and an order among the common
+// medium ones so the strongest leads when a site has several. Security only leads when it is
+// `high` (no HTTPS, a broken certificate, end-of-life software); speed and measurement never
+// clear prospectsMinFindingScore, since one request can't prove a site is slow and missing
+// analytics is not something the owner feels.
+const SITECHECK_GROUP_META = {
+  findability: { visibility: 5, effortMins: 15 },
+  security: { visibility: 4, effortMins: 30 },
+  speed: { visibility: 4, effortMins: 30 },
+  measurement: { visibility: 2, effortMins: 15 },
+};
+const SITECHECK_ID_META = {
+  noindex_home: { visibility: 5, effortMins: 10 },
+  robots_blocks_all: { visibility: 5, effortMins: 10 },
+  missing_title: { visibility: 5, effortMins: 10 },
+  ai_crawlers_blocked: { visibility: 5, effortMins: 10 },
+  missing_description: { visibility: 5, effortMins: 12 },
+  no_viewport: { visibility: 5, effortMins: 12 },
+  sitemap_broken: { visibility: 4, effortMins: 10 },
+  canonical_mismatch: { visibility: 3, effortMins: 15 },
+};
+
+function findingMeta(finding) {
+  if (finding.source === 'sitecheck') {
+    return SITECHECK_ID_META[finding.id] || SITECHECK_GROUP_META[finding.group] || DEFAULT_CATEGORY_META;
+  }
+  return CATEGORY_META[finding.category] || DEFAULT_CATEGORY_META;
+}
+
 function findingScore(finding) {
   const severityWeight = SEVERITY_WEIGHT[finding.severity] || 0;
-  const meta = CATEGORY_META[finding.category] || DEFAULT_CATEGORY_META;
+  const meta = findingMeta(finding);
   return (severityWeight * meta.visibility) / meta.effortMins;
 }
 
@@ -433,9 +466,27 @@ function isConcreteSubject(subject, findingMessage) {
   return false;
 }
 
-// Returns { status: 'pending' | 'auto_rejected' | 'skipped_below_threshold' | 'suppressed' | 'cooldown',
-//           subject, body, confidence, variant, reason, contactEmail }
+// Set once by routes/prospects.js. Left unset (tests, or the checker not wired), drafts use the
+// audit's findings alone, as they did before.
+let siteCheck = null;
+function setSiteCheck(provider) {
+  siteCheck = provider;
+}
+
+// The host the checker should look at: the prospect's address as audited, www and all.
+function siteHost(siteUrl, fallbackDomain) {
+  try {
+    return new URL(/^https?:\/\//i.test(siteUrl) ? siteUrl : `https://${siteUrl}`).hostname.toLowerCase() || fallbackDomain;
+  } catch {
+    return fallbackDomain;
+  }
+}
+
+// Returns { status: 'pending' | 'auto_rejected' | 'skipped_below_threshold' | 'suppressed' | 'cooldown' | 'checking',
+//           subject, body, confidence, variant, reason, contactEmail, leadsWith, siteCheck }
 // subject/body are '' when status isn't 'pending' or 'auto_rejected' — there's nothing to send.
+// 'checking' means the site check for this prospect is still running: ask again in
+// retryAfterSeconds (the dashboard does this itself).
 async function buildDraft(run, slug) {
   const data = readProspectJson(run, slug);
   if (!data) return null;
@@ -473,14 +524,48 @@ async function buildDraft(run, slug) {
   // logic this replaces) since selectTopFinding operates on raw findings, and a recurring
   // check produces one finding per page with identical .message text; scoring the same
   // message twice doesn't change which message wins, just how loudly.
-  const findings = Array.isArray(data.findings) ? data.findings : [];
+  //
+  // SEO/GEO findings from our own site checker join the audit's findings here. After the
+  // suppression and cooldown checks on purpose: no point checking a site we won't email.
+  let siteFindings = [];
+  let siteCheckState = 'not used';
+  if (siteCheck) {
+    const sc = await siteCheck.get(siteHost(data.site_url || '', domain));
+    if (sc.state === 'pending') {
+      return {
+        status: 'checking',
+        subject: '',
+        body: '',
+        confidence: null,
+        variant: null,
+        reason: 'Checking their site for SEO and AI-search problems. This takes 10 to 40 seconds.',
+        retryAfterSeconds: 5,
+        contactEmail,
+      };
+    }
+    if (sc.state === 'ready') {
+      siteFindings = toOpenerFindings(sc.report);
+      siteCheckState = sc.report.status === 'complete' ? 'used' : `used (${sc.report.status})`;
+    } else {
+      siteCheckState = `unavailable: ${sc.reason}`;
+    }
+  }
+
+  const findings = [...(Array.isArray(data.findings) ? data.findings : []), ...siteFindings];
   const top = selectTopFinding(findings);
   if (!top) {
     touchHeartbeat('skipped_below_threshold');
-    return { status: 'skipped_below_threshold', subject: '', body: '', confidence: null, variant: null, reason: 'No finding scored high enough to justify an email.', contactEmail };
+    return { status: 'skipped_below_threshold', subject: '', body: '', confidence: null, variant: null, reason: 'No finding scored high enough to justify an email.', contactEmail, siteCheck: siteCheckState };
   }
 
-  const findingMessage = rephraseFinding(top.finding.message);
+  // A site-check title is already a plain sentence written for the site owner; rephraseFinding
+  // is for the audit's messages and would strip the useful bracket off e.g. "No structured data
+  // (schema markup)".
+  const fromSiteCheck = top.finding.source === 'sitecheck';
+  const findingMessage = fromSiteCheck
+    ? `${top.finding.message}${top.finding.evidence ? ` (what our check saw: ${top.finding.evidence})` : ''}`
+    : rephraseFinding(top.finding.message);
+  const leadsWith = { source: fromSiteCheck ? 'site check' : 'audit', title: fromSiteCheck ? top.finding.message : findingMessage };
   const variant = nextVariant();
 
   // Not every finding's .url is a real page — customer_web_check's broken_link check in
@@ -496,6 +581,7 @@ async function buildDraft(run, slug) {
       businessName: label,
       niche: data.platform,
       findingMessage,
+      findingDetail: fromSiteCheck ? top.finding.detail : '',
       findingUrl,
       proofLine: selectProofLine(data.vertical),
       variant,
@@ -523,7 +609,9 @@ async function buildDraft(run, slug) {
     variant,
     confidence: draft.confidence,
     findingCategory: top.finding.category,
+    findingId: top.finding.id,
     findingScore: top.score,
+    siteCheck: siteCheckState,
     reasons: reasons.length ? reasons : undefined,
   });
   touchHeartbeat(status);
@@ -541,6 +629,8 @@ async function buildDraft(run, slug) {
     variant,
     reason: reasons.join('; ') || null,
     contactEmail,
+    leadsWith,
+    siteCheck: siteCheckState,
   };
 }
 
@@ -554,6 +644,9 @@ module.exports = {
   cleanSiteUrl,
   rephraseFinding,
   selectTopFinding,
+  findingScore,
+  setSiteCheck,
+  siteHost,
   selectProofLine,
   getDomain,
   isSuppressed,

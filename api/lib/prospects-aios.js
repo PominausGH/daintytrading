@@ -118,7 +118,7 @@ async function callOnce(userContent) {
   };
 }
 
-async function draftProspectEmail({ businessName, niche, findingMessage, findingUrl, proofLine, variant }) {
+async function draftProspectEmail({ businessName, niche, findingMessage, findingDetail, findingUrl, proofLine, variant }) {
   const variantBrief =
     variant === 'B'
       ? 'Variant B: open with the cost line before the defect line — lead with what it\'s costing them, then name the defect.'
@@ -128,6 +128,9 @@ async function draftProspectEmail({ businessName, niche, findingMessage, finding
     `Business: ${businessName}`,
     `Niche/platform: ${niche || 'unknown'}`,
     `Finding to write about: ${findingMessage}`,
+    // Our own checker's plain-English explanation of the finding. Background so the cost line is
+    // accurate; the model is told not to lift it, since it was written for a report, not an email.
+    ...(findingDetail ? [`Background on that finding (for your understanding, do not quote it): ${findingDetail}`] : []),
     `Affected page: ${findingUrl || 'not specified — describe the defect without naming a specific page'}`,
     `Proof line to use: ${proofLine}`,
     variantBrief,
