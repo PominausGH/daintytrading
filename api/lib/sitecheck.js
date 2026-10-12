@@ -30,6 +30,7 @@ const MAX_FINDINGS = 100;
 const SESSION_MAX = 500;
 const JOB_MAX = 300;
 const CAL_URL = 'https://cal.daintytrading.com/andrewdainty/telaloom';
+const COMPETITOR_MAX = 120;
 
 const DISPOSABLE = new Set([
   'mailinator.com', 'guerrillamail.com', 'guerrillamail.net', '10minutemail.com', 'tempmail.com', 'temp-mail.org',
@@ -122,6 +123,14 @@ function ownerSignal(email, domain) {
   return a === b || a.endsWith('.' + b) || b.endsWith('.' + a) ? 'same-domain' : 'other';
 }
 
+// Optional free text from the code step ("a competitor you often lose work to"): a business name or
+// an address. Sales context only - it is stored and shown to us, never fetched or checked, and a bad
+// value is dropped rather than failing the visitor's check.
+function normalizeCompetitor(raw) {
+  if (typeof raw !== 'string') return '';
+  return raw.replace(/[\u0000-\u001f\u007f-\u009f\u2028\u2029]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, COMPETITOR_MAX).trim();
+}
+
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 // ---- report email --------------------------------------------------------------------------
@@ -189,6 +198,7 @@ function renderAlertEmail({ job, report, recommendation }) {
     <p><strong>Outcome:</strong> ${e(OUTCOME_LABELS[report.outcome] || report.outcome)} &middot; status ${e(report.status)}${job.cached ? ' (cached report from the last 24h)' : ''}</p>
     <p><strong>Platform:</strong> ${e(report.platform || 'unknown')} &middot; <strong>Opted in to tips:</strong> ${job.optin ? 'yes' : 'no'}</p>
     <p><strong>Recommendation sent:</strong> ${e(recommendation.headline)}</p>
+    ${job.competitor ? `<p><strong>Competitor they lose work to:</strong> ${e(job.competitor)} <span style="color:#64748b;">(typed by the visitor, not checked)</span></p>` : ''}
     ${report.outcome === 'rebuild_signal' ? `<p style="background:#fef2f2;padding:8px 12px;border-radius:6px;"><strong>Rebuild signal:</strong> ${e((report.rebuildSignals || []).join(', '))}. Review by hand before following up; the report only says "we'd recommend a rebuild".</p>` : ''}
     <p><strong>Top findings:</strong></p><ul>${top || '<li>None</li>'}</ul>
     <p style="font-size:12px;color:#94a3b8;">Requested ${new Date(job.createdAt).toISOString()} &middot; IP ${e(job.ip || '')}</p>`;
@@ -356,7 +366,7 @@ function createService(opts = {}) {
     return { ok: true, expiresInSeconds: CODE_TTL_MS / 1000, resendsLeft: MAX_RESENDS - s.resends };
   }
 
-  async function verify({ sessionId, code }) {
+  async function verify({ sessionId, code, competitor }) {
     const s = liveSession(sessionId);
     const given = String(code == null ? '' : code).trim();
     if (!/^\d{6}$/.test(given)) {
@@ -390,7 +400,8 @@ function createService(opts = {}) {
     daily.count += 1;
     const job = {
       id: crypto.randomBytes(16).toString('hex'), domain: s.domain, email: s.email, optin: s.optin,
-      ip: s.ip, ownerSignal: ownerSignal(s.email, s.domain), status: 'running', createdAt: now(),
+      ip: s.ip, ownerSignal: ownerSignal(s.email, s.domain), competitor: normalizeCompetitor(competitor),
+      status: 'running', createdAt: now(),
       report: null, recommendation: null, error: null, cached: false, waiters: [],
     };
     jobs.set(job.id, job);
@@ -516,6 +527,7 @@ function createService(opts = {}) {
         day: today(), at: new Date(now()).toISOString(), email: job.email, domain: job.domain,
         ownerSignal: job.ownerSignal, optin: job.optin, status: report.status, outcome: report.outcome,
         counts: report.counts, platform: report.platform || '', cached: job.cached, ip: job.ip,
+        competitor: job.competitor || '',
       };
       fs.appendFileSync(leadsFile, JSON.stringify(line) + '\n', { mode: 0o600 });
     } catch (err) { log.error('[sitecheck] lead log failed:', err.message); }
@@ -558,6 +570,7 @@ function createService(opts = {}) {
 }
 
 module.exports = {
-  createService, ServiceError, normalizeDomain, normalizeEmail, canonicalEmailKey, ownerSignal, maskEmail, renderReportEmail,
+  createService, ServiceError, normalizeDomain, normalizeEmail, normalizeCompetitor, canonicalEmailKey, ownerSignal, maskEmail,
+  renderReportEmail,
   renderAlertEmail, CODE_TTL_MS, MAX_ATTEMPTS, MAX_RESENDS, RESEND_GAP_MS,
 };

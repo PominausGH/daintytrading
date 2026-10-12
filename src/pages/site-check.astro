@@ -130,6 +130,11 @@ const jsonLd = [
                 <label for="sc-code">6-digit code</label>
                 <input id="sc-code" name="code" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="8" autocomplete="one-time-code" class="sc-code-input" required />
               </div>
+              <div>
+                <label for="sc-competitor">A competitor you often lose work to (optional)</label>
+                <input id="sc-competitor" name="competitor" type="text" maxlength="120" placeholder="Their business name or website" autocomplete="off" />
+                <p class="sc-muted" style="margin-top:6px;">We don't contact them or check their site. It only gives us context if you ask us to follow up.</p>
+              </div>
               <button type="submit" id="sc-code-btn" class="btn btn-primary">Run my check</button>
               <p id="sc-code-error" class="sc-error" role="alert" hidden></p>
               <p class="sc-muted">
@@ -155,7 +160,7 @@ const jsonLd = [
             <p style="margin-top:24px;"><button type="button" id="sc-again-btn" class="btn btn-ghost">Check another site</button></p>
           </section>
 
-          <script is:inline defer src="/js/site-check.js?v=20260930b"></script>
+          <script is:inline defer src="/js/site-check.js?v=20261012a"></script>
 
           <h2 id="about" style="margin-top:56px;">About this checker</h2>
           <p><strong>What it looks at.</strong> Only public information: your homepage, <code>robots.txt</code>, sitemap, <code>llms.txt</code> and a handful of pages. It checks HTTPS and security headers, whether search engines and AI crawlers (GPTBot, ClaudeBot, PerplexityBot, CCBot) can reach your site, structured data, page basics, speed and analytics.</p>
@@ -163,7 +168,7 @@ const jsonLd = [
           <p><strong>How to spot it, or stop it.</strong> Visits come from a user-agent that starts with <code>TelaLoomSiteCheck/1.0</code> and points back to this page. To stop us visiting, add these two lines to your <code>robots.txt</code> and we'll respect them:</p>
           <pre style="background:var(--bg-elev);border:1px solid var(--border);border-radius:8px;padding:12px 14px;overflow:auto;"><code>User-agent: TelaLoomSiteCheck
 Disallow: /</code></pre>
-          <p><strong>What we keep.</strong> Your email, the address you checked and the result, so we can send the report and follow up if you ask us to. We don't add you to a mailing list unless you tick the optional box. Questions or want it deleted? Email <a href="mailto:hello@telaloom.com">hello@telaloom.com</a>.</p>
+          <p><strong>What we keep.</strong> Your email, the address you checked, the result and the competitor you named (if you named one), so we can send the report and follow up if you ask us to. We don't add you to a mailing list unless you tick the optional box. Questions or want it deleted? Email <a href="mailto:hello@telaloom.com">hello@telaloom.com</a>.</p>
 
           <h2>Frequently asked questions</h2>
           <details class="faq-item">

@@ -48,6 +48,7 @@ function buildRouter(service) {
   router.post('/verify', verifyLimiter, handle((req) => service.verify({
     sessionId: req.body.sessionId,
     code: req.body.code,
+    competitor: req.body.competitor,
   })));
 
   router.get('/status/:jobId', statusLimiter, handle((req) => service.status(req.params.jobId, {
