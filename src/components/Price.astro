@@ -1,0 +1,22 @@
+---
+// One price, rendered in both currencies with only one visible at a time (see /js/currency.js
+// and the .cur-* rules in global.css). AUD is what shows without JavaScript, so it is also what
+// crawlers read; it matches the AUD prices in each page's JSON-LD.
+import { pricing, pricingUsd } from '../data/pricing.ts';
+
+type Item = keyof typeof pricingUsd;
+interface Props {
+  item: Item;
+  to?: Item; // upper end of a range, e.g. item="monitor" to="scale"
+  suffix?: string; // "/mo", "/day"
+  symbol?: boolean; // "$6,900 AUD" for running copy; price cards use the bare "6,900 AUD"
+}
+
+const { item, to, suffix = '', symbol = false } = Astro.props;
+const s = symbol ? '$' : '';
+const show = (src: Record<Item, number>, locale: string) =>
+  s + src[item].toLocaleString(locale) + (to ? `–${s}${src[to].toLocaleString(locale)}` : '');
+const audText = `${show(pricing, 'en-AU')} AUD${suffix}`;
+const usdText = `${show(pricingUsd, 'en-US')} USD${suffix}`;
+---
+<span class="cur-aud">{audText}</span><span class="cur-usd">{usdText}</span>

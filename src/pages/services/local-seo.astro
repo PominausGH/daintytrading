@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Price from '../../components/Price.astro';
+import CurrencySwitch from '../../components/CurrencySwitch.astro';
 import { pricing, pricingUsd } from '../../data/pricing.ts';
 
 const jsonLd = [
@@ -38,6 +40,7 @@ const jsonLd = [
 ];
 ---
 <BaseLayout
+  currencySwitch
   title="Local SEO &amp; GEO for Service Businesses — Get Found on Google and by AI | TelaLoom"
   description="Local SEO and GEO for tradies and service businesses. We get you found on Google Maps, in local search, and by AI assistants like ChatGPT and Claude — Google Business Profile, reviews, local schema, and location pages. Free audit, no lock-in."
   canonicalPath="/services/local-seo.html"
@@ -84,6 +87,7 @@ const jsonLd = [
           <p>Most local businesses are invisible where it now counts. Not just on Google &mdash; but in the answer an AI assistant gives when someone asks it to recommend someone. We fix both, and we tell you plainly when there&rsquo;s nothing left worth paying for.</p>
 
           <h2>Packages</h2>
+          <CurrencySwitch />
           <div class="price-grid">
             <div class="price-card">
               <span class="tier">Audit</span>
@@ -101,7 +105,7 @@ const jsonLd = [
 
             <div class="price-card">
               <span class="tier">Fix days</span>
-              <div class="price">{pricing.fixDay.toLocaleString()} AUD <small>per day, or {pricingUsd.fixDay} USD</small></div>
+              <div class="price"><Price item="fixDay" /> <small>per day</small></div>
               <p class="note">For small jobs. We estimate the days up front and you approve before we start.</p>
               <ul>
                 <li>Take the audit&rsquo;s fix list, or tell us what needs doing</li>
@@ -115,8 +119,8 @@ const jsonLd = [
             <div class="price-card featured">
               <span class="price-badge">Most popular</span>
               <span class="tier">Setup</span>
-              <div class="price">{pricing.setupSingleTemplate.toLocaleString()} AUD <small>one-off, or {pricingUsd.setupSingleTemplate.toLocaleString()} USD</small></div>
-              <p class="note">We fix it. Done properly, no lock-in. Roughly four days of work &mdash; anything beyond this scope, like cleaning up an old site, is {pricing.fixDay.toLocaleString()} AUD a day on top.</p>
+              <div class="price"><Price item="setupSingleTemplate" /> <small>one-off</small></div>
+              <p class="note">We fix it. Done properly, no lock-in. Roughly four days of work &mdash; anything beyond this scope, like cleaning up an old site, is <Price item="fixDay" /> a day on top.</p>
               <ul>
                 <li>Everything in the audit &mdash; then we implement it</li>
                 <li>LocalBusiness schema + your service areas</li>
@@ -134,7 +138,7 @@ const jsonLd = [
           <div class="price-grid">
             <div class="price-card">
               <span class="tier">Monitor <small style="text-transform:none;letter-spacing:0;">&mdash; monthly</small></span>
-              <div class="price">{pricing.monitor} AUD<small>/mo, or {pricingUsd.monitor} USD/mo</small></div>
+              <div class="price"><Price item="monitor" /><small>/mo</small></div>
               <p class="note">Watch it, report on it, no fix pass included.</p>
               <ul class="month-list">
                 <li>Automated ranking &amp; AI-citation monitoring</li>
@@ -147,7 +151,7 @@ const jsonLd = [
             <div class="price-card featured">
               <span class="price-badge">Most popular</span>
               <span class="tier">Growth <small style="text-transform:none;letter-spacing:0;">&mdash; monthly</small></span>
-              <div class="price">{pricing.growth} AUD<small>/mo, or {pricingUsd.growth} USD/mo</small></div>
+              <div class="price"><Price item="growth" /><small>/mo</small></div>
               <p class="note">Monitor, plus we keep working your listing.</p>
               <p style="font-size:13px;color:var(--text-muted);margin:0 0 4px;">Everything in Monitor, plus:</p>
               <ul class="month-list">
@@ -159,7 +163,7 @@ const jsonLd = [
 
             <div class="price-card">
               <span class="tier">Scale <small style="text-transform:none;letter-spacing:0;">&mdash; monthly</small></span>
-              <div class="price">{pricing.scale.toLocaleString()} AUD<small>/mo, or {pricingUsd.scale.toLocaleString()} USD/mo</small></div>
+              <div class="price"><Price item="scale" /><small>/mo</small></div>
               <p class="note">For businesses actively expanding into new areas.</p>
               <p style="font-size:13px;color:var(--text-muted);margin:0 0 4px;">Everything in Growth, plus:</p>
               <ul class="month-list">
@@ -190,7 +194,7 @@ const jsonLd = [
           </details>
           <details class="faq-item">
             <summary>What do the monthly plans actually include?</summary>
-            <p>Three tiers. Monitor ({pricing.monitor}/mo) is ranking and AI-citation monitoring plus a report, no fix pass. Growth ({pricing.growth}/mo) adds Google Business Profile posts, review replies, and a monthly review campaign. Scale ({pricing.scale.toLocaleString()}/mo) adds new suburb/service pages, full Google Business Profile management, monthly content, and a quarterly strategy call. Month-to-month, cancel anytime, and if there&rsquo;s genuinely nothing useful to do that month, we tell you.</p>
+            <p>Three tiers. Monitor (<Price item="monitor" suffix="/mo" />) is ranking and AI-citation monitoring plus a report, no fix pass. Growth (<Price item="growth" suffix="/mo" />) adds Google Business Profile posts, review replies, and a monthly review campaign. Scale (<Price item="scale" suffix="/mo" />) adds new suburb/service pages, full Google Business Profile management, monthly content, and a quarterly strategy call. Month-to-month, cancel anytime, and if there&rsquo;s genuinely nothing useful to do that month, we tell you.</p>
           </details>
           <details class="faq-item">
             <summary>Is there a lock-in contract?</summary>
@@ -210,11 +214,11 @@ const jsonLd = [
           <h4>Local SEO &amp; GEO</h4>
           <div class="label-row"><span>Best for</span><span>Local service businesses</span></div>
           <div class="label-row"><span>Audit</span><span>Free</span></div>
-          <div class="label-row"><span>Fix days</span><span>{pricing.fixDay.toLocaleString()} AUD/day</span></div>
-          <div class="label-row"><span>Setup</span><span>{pricing.setupSingleTemplate.toLocaleString()} AUD</span></div>
-          <div class="label-row"><span>Monitor</span><span>{pricing.monitor} AUD/mo</span></div>
-          <div class="label-row"><span>Growth</span><span>{pricing.growth} AUD/mo</span></div>
-          <div class="label-row"><span>Scale</span><span>{pricing.scale.toLocaleString()} AUD/mo</span></div>
+          <div class="label-row"><span>Fix days</span><span><Price item="fixDay" suffix="/day" /></span></div>
+          <div class="label-row"><span>Setup</span><span><Price item="setupSingleTemplate" /></span></div>
+          <div class="label-row"><span>Monitor</span><span><Price item="monitor" suffix="/mo" /></span></div>
+          <div class="label-row"><span>Growth</span><span><Price item="growth" suffix="/mo" /></span></div>
+          <div class="label-row"><span>Scale</span><span><Price item="scale" suffix="/mo" /></span></div>
           <div class="label-row"><span>Lock-in</span><span>None</span></div>
           <p style="font-size:12px;color:var(--text-muted);margin:10px 0 16px;">Found on Google Maps, in local search, and by AI assistants &mdash; without a lock-in contract or a &ldquo;#1 ranking&rdquo; promise nobody can keep.</p>
           <a class="btn btn-primary" href="/site-check.html" data-umami-event="cta_click" data-umami-event-target="start_with_audit" data-umami-event-source="local_seo_sidecard">Start with an audit &rarr;</a>

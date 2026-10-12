@@ -15,6 +15,7 @@ interface Props {
   lang?: string; // "en", "en-GB" for uk.html
   ogLocale?: string; // "en_AU", "en_GB", "en_US"
   chrome?: 'full' | 'none'; // 'none' skips <Header>/<Footer> for pages that build their own minimal shell (status.html)
+  currencySwitch?: boolean; // pages that show prices: loads /js/currency.js so <Price> shows one currency
 }
 
 const {
@@ -29,6 +30,7 @@ const {
   lang = 'en',
   ogLocale = 'en_AU',
   chrome = 'full',
+  currencySwitch = false,
 } = Astro.props;
 
 const canonicalUrl = `https://telaloom.com${canonicalPath}`;
@@ -81,6 +83,8 @@ const canonicalUrl = `https://telaloom.com${canonicalPath}`;
   {jsonLd.map((block) => (
     <script type="application/ld+json" set:html={JSON.stringify(block)} />
   ))}
+
+  {currencySwitch && <script is:inline src="/js/currency.js?v=20261012a"></script>}
 
   {chrome === 'full' && (
     <>
