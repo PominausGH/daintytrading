@@ -27,3 +27,10 @@ test('gate defaults: confidence 0.6, body up to 100 words', () => {
   assert.equal(config.prospectsConfidenceThreshold, 0.6);
   assert.equal(config.prospectsMaxWords, 100);
 });
+
+test('the model is asked for fewer words than the gate allows, so a small overshoot still passes', () => {
+  const { PROMPT_WORD_TARGET, SYSTEM_PROMPT } = require('../lib/prospects-aios');
+  assert.equal(PROMPT_WORD_TARGET, config.prospectsMaxWords - 20);
+  assert.ok(SYSTEM_PROMPT.includes(`${PROMPT_WORD_TARGET} words maximum for the body`));
+  assert.ok(!SYSTEM_PROMPT.includes(`${config.prospectsMaxWords} words maximum`));
+});

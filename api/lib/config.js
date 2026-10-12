@@ -15,8 +15,9 @@ const config = {
   prospectsMinFindingScore: parseFloat(required('PROSPECTS_MIN_FINDING_SCORE', '0.5')),
   prospectsCooldownDays: parseInt(required('PROSPECTS_COOLDOWN_DAYS', '90'), 10),
   prospectsRateLimitPerWeek: parseInt(required('PROSPECTS_RATE_LIMIT_PER_WEEK', '25'), 10),
-  // The prompt still asks for about 90 words. The gate allows 100 so a draft that runs a few
-  // words over (97 on the first live site-check draft) is trimmed in review, not rejected.
+  // The gate: a body over this many words is auto-rejected. The drafting prompt asks the model
+  // for 20 fewer (PROMPT_WORD_TARGET in lib/prospects-aios.js), because the model runs a few
+  // words over whatever limit it is given.
   prospectsMaxWords: parseInt(required('PROSPECTS_MAX_WORDS', '100'), 10),
 
   // Per-vertical case-study proof lines, referenced in the drafted email as social proof.
