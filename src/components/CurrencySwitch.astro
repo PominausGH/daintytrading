@@ -1,0 +1,9 @@
+---
+// AUD/USD switch for pages that show prices. Hidden until /js/currency.js runs, because without
+// JavaScript there is nothing to switch (AUD shows).
+---
+<div class="cur-switch" hidden>
+  <span>Prices in</span>
+  <button type="button" data-set-currency="aud" aria-pressed="true">AUD</button>
+  <button type="button" data-set-currency="usd" aria-pressed="false">USD</button>
+</div>

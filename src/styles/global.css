@@ -1009,3 +1009,19 @@ code, kbd {
   color: var(--text-muted);
 }
 
+/* Prices show in one currency at a time (src/components/Price.astro, /js/currency.js).
+   AUD is the default, so it is what shows without JavaScript and what crawlers read. */
+.cur-usd { display: none; }
+html[data-currency="usd"] .cur-usd { display: inline; }
+html[data-currency="usd"] .cur-aud { display: none; }
+/* .sidecard .label-row styles its first and last <span> differently; the two currency spans
+   nested inside the value must not pick that up. */
+.sidecard .label-row span.cur-aud, .sidecard .label-row span.cur-usd { color: inherit; font-weight: inherit; text-align: inherit; }
+.cur-switch { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-muted); margin: 0 0 14px; }
+.cur-switch[hidden] { display: none; }
+.cur-switch button {
+  background: none; border: 1px solid var(--border); color: var(--text-dim);
+  padding: 4px 12px; border-radius: 999px; font: inherit; cursor: pointer;
+}
+.cur-switch button:hover { border-color: var(--border-strong); color: var(--text); }
+.cur-switch button[aria-pressed="true"] { border-color: var(--accent); color: var(--text); }

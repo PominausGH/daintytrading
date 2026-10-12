@@ -1,0 +1,182 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Price from '../components/Price.astro';
+import CurrencySwitch from '../components/CurrencySwitch.astro';
+import { pricing } from '../data/pricing.ts';
+
+// Every number and inclusion here is taken from the three service pages (website-builds,
+// seo-geo-optimization, local-seo), which stay the detailed source. This page is the short version.
+const n = (v: number) => v.toLocaleString('en-AU');
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'TelaLoom pricing',
+    url: 'https://telaloom.com/pricing.html',
+    description: `Published prices for website builds and SEO & GEO work: fix days ${n(pricing.fixDay)} AUD, Setup ${n(pricing.setupSingleTemplate)} AUD, custom website build ${n(pricing.customBuild)} AUD, optional monthly plans from ${n(pricing.monitor)} AUD.`,
+    isPartOf: { '@type': 'WebSite', name: 'TelaLoom', url: 'https://telaloom.com' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      { '@type': 'Question', name: 'How much does a website cost?', acceptedAnswer: { '@type': 'Answer', text: `A custom build is ${n(pricing.customBuild)} AUD, one-off. That covers design and copywriting, hosting, SSL, your domain (first year included) and Local SEO & GEO setup. Customer logins, bookings or payments are extra, estimated in days up front and priced from ${n(pricing.fixDay)} AUD per day.` } },
+      { '@type': 'Question', name: 'Is there a lock-in contract?', acceptedAnswer: { '@type': 'Answer', text: 'No. The one-off prices are one-off, and the monthly plans are month-to-month. Cancel anytime. You own the domain and the site.' } },
+      { '@type': 'Question', name: 'What if my job is smaller than a Setup?', acceptedAnswer: { '@type': 'Answer', text: `Book fix days at ${n(pricing.fixDay)} AUD a day. We estimate the days up front and you approve before we start. Once a job passes about four days, Setup at ${n(pricing.setupSingleTemplate)} AUD is the better value.` } },
+      { '@type': 'Question', name: 'Do I need a monthly plan?', acceptedAnswer: { '@type': 'Answer', text: "Often not. Setup is a one-time audit-and-fix, and the monthly plans are optional. If there's nothing useful to do in a given month, we tell you." } },
+      { '@type': 'Question', name: 'What currency will I be invoiced in?', acceptedAnswer: { '@type': 'Answer', text: 'Australian clients are invoiced in AUD and international clients in USD. UK clients can be invoiced in GBP.' } },
+    ],
+  },
+];
+---
+<BaseLayout
+  currencySwitch
+  title="Pricing — Website Builds, SEO & GEO | TelaLoom"
+  description={`Published prices, no lock-in. Fix days ${n(pricing.fixDay)} AUD, SEO & GEO Setup ${n(pricing.setupSingleTemplate)} AUD, custom website build ${n(pricing.customBuild)} AUD, optional monthly plans from ${n(pricing.monitor)} AUD. Free website check first.`}
+  canonicalPath="/pricing.html"
+  jsonLd={jsonLd}
+>
+  <style>
+    .price-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; margin:10px 0; }
+    @media (max-width:760px) { .price-grid { grid-template-columns:1fr; } }
+    .price-card { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:24px; display:flex; flex-direction:column; }
+    .price-card .tier { font-size:13px; letter-spacing:.04em; text-transform:uppercase; color:var(--text-muted); }
+    .price-card .price { font-size:30px; font-weight:700; margin:6px 0 2px; color:var(--text); }
+    .price-card .price small { font-size:14px; font-weight:500; color:var(--text-muted); }
+    .price-card .note { font-size:14px; color:var(--text-dim); margin:6px 0 16px; flex:1; }
+    .price-card .more { font-size:14px; }
+    .plan-list { margin:10px 0 0; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; }
+    .plan-row { display:grid; grid-template-columns:110px 150px 1fr; gap:16px; padding:14px 18px; border-top:1px solid var(--border); background:var(--bg-card); align-items:baseline; }
+    .plan-row:first-child { border-top:none; }
+    .plan-row .plan-name { font-weight:600; color:var(--text); }
+    .plan-row .plan-price { color:var(--text); font-weight:500; white-space:nowrap; }
+    .plan-row .plan-what { font-size:14px; color:var(--text-dim); }
+    @media (max-width:760px) { .plan-row { grid-template-columns:1fr; gap:2px; } }
+    .honest-note { background:var(--accent-soft); border:1px solid var(--border); border-radius:var(--radius-sm); padding:14px 16px; font-size:14px; color:var(--text-dim); margin:22px 0; }
+    .honest-note strong { color:var(--text); }
+  </style>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; Pricing</div>
+        <h1>Pricing</h1>
+        <p class="lede">Four prices cover most of what we do. They&rsquo;re published, they&rsquo;re fixed, and none of them comes with a lock-in. If you don&rsquo;t know what you need yet, the <a href="/site-check.html">website check</a> is free.</p>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <h2 style="margin-top:0;">The four prices</h2>
+          <CurrencySwitch />
+          <div class="price-grid">
+            <div class="price-card">
+              <span class="tier">Fix day</span>
+              <div class="price"><Price item="fixDay" /> <small>per day</small></div>
+              <p class="note">For small jobs on a site you already have. We estimate the days up front and you approve before we start. One-day minimum.</p>
+              <a class="more" href="/services/seo-geo-optimization.html">What a fix day covers &rarr;</a>
+            </div>
+
+            <div class="price-card">
+              <span class="tier">SEO &amp; GEO Setup</span>
+              <div class="price"><Price item="setupSingleTemplate" /> <small>one-off</small></div>
+              <p class="note">The audit, then we fix what it finds: schema, meta tags, sitemap, <code>llms.txt</code> and AI-crawler access. Roughly four days of work. <Price item="setupMultiTemplate" /> for e-commerce, multi-language, multi-template or multi-location sites.</p>
+              <div class="more"><a href="/services/seo-geo-optimization.html">SEO &amp; GEO</a> <span style="color:var(--text-muted);">or</span> <a href="/services/local-seo.html">Local SEO &amp; GEO &rarr;</a></div>
+            </div>
+
+            <div class="price-card">
+              <span class="tier">Website build</span>
+              <div class="price"><Price item="customBuild" /> <small>one-off</small></div>
+              <p class="note">A custom site, designed and written around your business. Hosting, SSL, your domain (first year included) and Local SEO &amp; GEO setup are in the price, not sold to you afterwards.</p>
+              <a class="more" href="/services/website-builds.html">What&rsquo;s in a build &rarr;</a>
+            </div>
+
+            <div class="price-card">
+              <span class="tier">Ongoing SEO &amp; GEO</span>
+              <div class="price">from <Price item="monitor" /><small>/mo</small></div>
+              <p class="note">Optional and month-to-month. Three levels, listed below. Plenty of sites only need the Setup, and we&rsquo;ll say so.</p>
+              <a class="more" href="#monthly">See the monthly plans &darr;</a>
+            </div>
+          </div>
+
+          <div class="honest-note">
+            <strong>Not sure which one?</strong> Run the <a href="/site-check.html">free website check</a>. It takes about a minute and tells you whether you&rsquo;re looking at a fix day, a Setup or a rebuild &mdash; or nothing worth paying for.
+          </div>
+
+          <h2 id="monthly">Monthly plans</h2>
+          <p>All optional, all cancel-anytime. Care keeps a site we built running. Monitor, Growth and Scale are about being found, and each one includes the one before it.</p>
+          <div class="plan-list">
+            <div class="plan-row">
+              <span class="plan-name">Care</span>
+              <span class="plan-price"><Price item="carePlan" suffix="/mo" /></span>
+              <span class="plan-what">Hosting, SSL renewal, uptime monitoring, software and security updates, and up to 30 minutes a month of small changes. No GST. Attached to every custom build by default; opt out if you&rsquo;d rather self-manage.</span>
+            </div>
+            <div class="plan-row">
+              <span class="plan-name">Monitor</span>
+              <span class="plan-price"><Price item="monitor" suffix="/mo" /></span>
+              <span class="plan-what">Ranking and AI-citation monitoring, with a plain-English report each month. No fix pass included.</span>
+            </div>
+            <div class="plan-row">
+              <span class="plan-name">Growth</span>
+              <span class="plan-price"><Price item="growth" suffix="/mo" /></span>
+              <span class="plan-what">Monitor, plus monthly work. For local businesses: Google Business Profile posts, review replies and a review campaign. For other sites: an optimization pass, and schema and <code>llms.txt</code> updates as content changes.</span>
+            </div>
+            <div class="plan-row">
+              <span class="plan-name">Scale</span>
+              <span class="plan-price"><Price item="scale" suffix="/mo" /></span>
+              <span class="plan-what">Growth, plus new pages each month and a quarterly strategy call. For local businesses that also means full Google Business Profile management.</span>
+            </div>
+          </div>
+
+          <h2>What isn&rsquo;t on this list</h2>
+          <p><strong>Logins, bookings, payments.</strong> Anything with real application logic is estimated in days up front and priced from <Price item="fixDay" /> per day. You get the price in writing and approve it before we start.</p>
+          <p><strong>A simple page, live this week.</strong> Our instant page is a separate self-serve product, generated from your Google Business listing, from ${pricing.instantPageFromUsd} USD at <a href="https://bizpage.biz" target="_blank" rel="noopener" data-umami-event="cta_click" data-umami-event-target="bizpage_preview" data-umami-event-source="pricing_page">bizpage.biz</a>. <a href="/services/website-builds.html">Instant page or custom build?</a></p>
+          <p><strong>AI product builds, automation retrofits and AI infrastructure.</strong> These are scoped and quoted per engagement. <a href="/services.html">See services</a>.</p>
+
+          <h2>Frequently asked questions</h2>
+          <details class="faq-item">
+            <summary>How much does a website cost?</summary>
+            <p>A custom build is <Price item="customBuild" />, one-off. That covers design and copywriting, hosting, SSL, your domain (first year included) and Local SEO &amp; GEO setup. Customer logins, bookings or payments are extra, estimated in days up front and priced from <Price item="fixDay" /> per day.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Is there a lock-in contract?</summary>
+            <p>No. The one-off prices are one-off, and the monthly plans are month-to-month. Cancel anytime. You own the domain and the site.</p>
+          </details>
+          <details class="faq-item">
+            <summary>What if my job is smaller than a Setup?</summary>
+            <p>Book fix days at <Price item="fixDay" /> a day. We estimate the days up front and you approve before we start. Once a job passes about four days, Setup at <Price item="setupSingleTemplate" /> is the better value.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Do I need a monthly plan?</summary>
+            <p>Often not. Setup is a one-time audit-and-fix, and the monthly plans are optional. If there&rsquo;s nothing useful to do in a given month, we tell you.</p>
+          </details>
+          <details class="faq-item">
+            <summary>What currency will I be invoiced in?</summary>
+            <p>Australian clients are invoiced in AUD and international clients in USD. UK clients can be invoiced in GBP.</p>
+          </details>
+        </article>
+
+        <aside class="sidecard">
+          <h4>At a glance</h4>
+          <div class="label-row"><span>Website check</span><span>Free</span></div>
+          <div class="label-row"><span>Fix day</span><span><Price item="fixDay" suffix="/day" /></span></div>
+          <div class="label-row"><span>SEO &amp; GEO Setup</span><span><Price item="setupSingleTemplate" /></span></div>
+          <div class="label-row"><span>Website build</span><span><Price item="customBuild" /></span></div>
+          <div class="label-row"><span>Monthly plans</span><span><Price item="carePlan" to="scale" suffix="/mo" /></span></div>
+          <div class="label-row"><span>Lock-in</span><span>None</span></div>
+          <p style="font-size:12px;color:var(--text-muted);margin:10px 0 16px;">Tell us what you need and we&rsquo;ll say which of these it is before you pay for anything.</p>
+          <a class="btn btn-primary" href="/contact.html" data-umami-event="cta_click" data-umami-event-target="get_a_quote" data-umami-event-source="pricing_sidecard">Get a quote &rarr;</a>
+          <a class="btn btn-ghost" href="/site-check.html" data-umami-event="cta_click" data-umami-event-target="start_with_audit" data-umami-event-source="pricing_sidecard">Free website check</a>
+        </aside>
+      </div>
+
+      <div class="cta-banner" style="margin-top:72px;">
+        <h2>Not sure what it&rsquo;ll cost?</h2>
+        <p>Send us your site, or your business name if you don&rsquo;t have one yet. We&rsquo;ll tell you which price applies, in writing, before anything starts.</p>
+        <a class="btn btn-primary" href="/contact.html" data-umami-event="cta_click" data-umami-event-target="get_a_quote" data-umami-event-source="pricing_bottom_banner">Get a quote &rarr;</a>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
