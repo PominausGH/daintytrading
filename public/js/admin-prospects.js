@@ -154,8 +154,8 @@ function wait(ms) {
 
 // The first draft for a prospect has to wait for a site check (10 to 40 seconds), which the API
 // reports as status "checking" rather than holding the request open. Ask again until it's done.
-async function fetchDraftWhenReady(row, token, meta) {
-  var url = '/api/admin/prospects/' + encodeURIComponent(row.slug) + '/draft?run=' + encodeURIComponent(currentRun);
+async function fetchDraftWhenReady(row, token, meta, fresh) {
+  var url = '/api/admin/prospects/' + encodeURIComponent(row.slug) + '/draft?run=' + encodeURIComponent(currentRun) + (fresh ? '&fresh=1' : '');
   for (var attempt = 0; attempt < DRAFT_CHECK_MAX_TRIES; attempt += 1) {
     var draft = await adminFetch(url);
     if (token !== draftRequestToken) return null;
@@ -168,7 +168,9 @@ async function fetchDraftWhenReady(row, token, meta) {
   throw new Error('The site check is taking too long. Close this and try again in a minute.');
 }
 
-async function loadDraft(row) {
+// `fresh` asks for a newly written draft (a model call). Without it, a draft already written for
+// this prospect is shown as saved.
+async function loadDraft(row, fresh) {
   var token = ++draftRequestToken;
   var meta = document.getElementById('draft-meta');
   var alreadySent = document.getElementById('already-sent-note');
@@ -208,10 +210,11 @@ async function loadDraft(row) {
   }
 
   try {
-    var draft = await fetchDraftWhenReady(row, token, meta);
+    var draft = await fetchDraftWhenReady(row, token, meta, fresh);
     if (!draft) return;
     var scoreLabel = (row.business_name && row.business_name.trim() ? row.business_name : row.url) + ' — score ' + (row.score == null ? '?' : row.score);
     if (draft.confidence != null) scoreLabel += ' · confidence ' + draft.confidence + ' · variant ' + draft.variant;
+    if (draft.saved && draft.generatedAt) scoreLabel += ' · saved draft from ' + adminFormatDate(draft.generatedAt);
     if (draft.leadsWith) scoreLabel += ' · leads with (' + draft.leadsWith.source + '): ' + draft.leadsWith.title;
     if (draft.siteCheck && draft.siteCheck.indexOf('unavailable') === 0) scoreLabel += ' · site check ' + draft.siteCheck;
     meta.textContent = scoreLabel;
@@ -287,9 +290,9 @@ document.getElementById('logout-btn').addEventListener('click', async function (
 
 document.getElementById('reload-draft-btn').addEventListener('click', function () {
   if (!currentSlug) return;
-  if (!window.confirm('Regenerate the draft? This will discard your current edits.')) return;
+  if (!window.confirm('Write a new draft? This is a new model call. It replaces the saved draft and discards your current edits.')) return;
   var row = currentProspects.find(function (r) { return r.slug === currentSlug; });
-  if (row) loadDraft(row);
+  if (row) loadDraft(row, true);
 });
 
 document.getElementById('send-form').addEventListener('submit', async function (e) {
