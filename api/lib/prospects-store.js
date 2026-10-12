@@ -271,7 +271,6 @@ const CATEGORY_META = {
   product_sanity: { visibility: 5, effortMins: 45 },
   placeholder_copy: { visibility: 5, effortMins: 20 },
   broken_link: { visibility: 4, effortMins: 15 },
-  accc_claims: { visibility: 3, effortMins: 30 },
   page_bloat: { visibility: 3, effortMins: 60 },
   social_meta: { visibility: 3, effortMins: 15 },
   wp_plugins: { visibility: 2, effortMins: 20 },
@@ -279,6 +278,14 @@ const CATEGORY_META = {
   security_headers: { visibility: 1, effortMins: 15 },
 };
 const DEFAULT_CATEGORY_META = { visibility: 2, effortMins: 30 };
+
+// Categories an email never leads with, whatever their severity. accc_claims ("Australian Made"
+// with no certification mentioned nearby) is the only check the audit rates `high`, and it fires
+// once per mention, so it used to win the opener on any site without a broken link (11 of 44
+// audited sites, 2026-10-12). It is a compliance question for the business, not something we
+// fix; the audit can't tell whether the claim is true; and it opens a cold email with an
+// accusation. It still appears in the full audit report.
+const NON_OPENER_CATEGORIES = new Set(['accc_claims']);
 
 function findingScore(finding) {
   const severityWeight = SEVERITY_WEIGHT[finding.severity] || 0;
@@ -293,6 +300,7 @@ function findingScore(finding) {
 function selectTopFinding(findings) {
   const candidates = (Array.isArray(findings) ? findings : [])
     .filter((f) => f && (f.severity === 'medium' || f.severity === 'high' || f.severity === 'critical'))
+    .filter((f) => !NON_OPENER_CATEGORIES.has(f.category))
     .map((f) => ({ finding: f, score: findingScore(f) }))
     .sort((a, b) => b.score - a.score);
 
@@ -545,6 +553,7 @@ module.exports = {
   markSent,
   cleanSiteUrl,
   rephraseFinding,
+  selectTopFinding,
   selectProofLine,
   getDomain,
   isSuppressed,
