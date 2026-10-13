@@ -58,15 +58,21 @@ function parseModelJson(message) {
 // model treats a word limit as a target and runs a few words over it: asked for 90 it wrote 97,
 // asked for 100 it wrote 102, and each was rejected by a gate set to the same number. Asking
 // for 20 fewer leaves room for that overshoot.
+//
+// A total alone doesn't hold, though: asked for 80 the model still wrote 89 to 103, because the
+// greeting, four paragraphs and proof line come to about 100 words however it is told to count.
+// What does hold is the per-sentence limit in the prompt below (one sentence of 18 words per
+// line). Measured on the live model 2026-10-13, three drafts each for the same prospect: 96, 93,
+// 89 words without it; 74, 77, 76 with it.
 const PROMPT_WORD_TARGET = Math.max(40, config.prospectsMaxWords - 20);
 
-const SYSTEM_PROMPT = `You write short technical emails to Australian tradies and small business owners on behalf of a one-person web dev studio (Telaloom, formerly Dainty Trading — rebranded 2026-09, domain/name only, same person and work). No marketing language, no "I hope this finds you well", no adjectives. Australian spelling. ${PROMPT_WORD_TARGET} words maximum for the body.
+const SYSTEM_PROMPT = `You write short technical emails to Australian tradies and small business owners on behalf of a one-person web dev studio (Telaloom, formerly Dainty Trading — rebranded 2026-09, domain/name only, same person and work). No marketing language, no "I hope this finds you well", no adjectives. Australian spelling. The whole body, greeting included, must be ${PROMPT_WORD_TARGET} words or fewer. Count the words before you answer and cut until it fits.
 
 Open with a one-line greeting before anything else — never dive straight into the pitch, that reads as a scraped mail-merge, not a real person who looked at their site. Use the business name given to you, adapted to how a human would actually greet them:
 - A real trading/brand name greets naturally: "Hi Decorama," "Hi Watson Blinds,"
 - A formal registered entity (ALL CAPS, or ending in "PTY LTD"/"LTD"/"PTY") does not get greeted by its legal name verbatim — either extract the natural brand name from inside it (e.g. "OUTDOOR AUSSIE BLINDS PTY LTD" -> "Hi Outdoor Aussie Blinds,") or, if nothing reads naturally, use "Hi there,".
 
-Then structure the rest of the body as exactly four short lines/paragraphs, in this order:
+Then structure the rest of the body as exactly four short lines/paragraphs, in this order. Each one is a single sentence of 18 words or fewer (the proof line plus the ask may be two short sentences):
 1. What's broken — one line, concrete, naming the actual defect. If an affected page URL is given, name that specific page naturally (e.g. "on your /products/roller-shutters page") — a checkable claim reads as real diligence, a vague one ("your site", "a product page") reads as a guess or a scare tactic from a stranger.
 2. What it costs them — one line, the real business consequence (lost sales, lost trust, wasted ad spend), not a vague "this hurts SEO".
 3. The fix you'd ship — name the *category* of fix concretely (e.g. "add schema markup", "fix the redirect", "rewrite that page's copy") so it's clear you actually understand the problem, not "we can help improve this". But do NOT describe the implementation in enough detail that their current web designer could just go do it — no specific tool/plugin/badge names, no step-by-step. The reader should still need to hire you to get it done.
