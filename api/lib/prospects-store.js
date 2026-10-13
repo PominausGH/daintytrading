@@ -629,22 +629,32 @@ function wordCount(text) {
   return (text || '').trim().split(/\s+/).filter(Boolean).length;
 }
 
-// A generic subject ("Quick question", "Noticed something") defeats the whole point of
-// naming the defect concretely — reject a subject that doesn't share any real vocabulary
-// with the finding it's supposedly about.
+// A generic subject ("Quick question", "Noticed something") defeats the whole point of naming
+// the defect concretely, so those are rejected.
+//
+// This used to require the subject to share a word with the finding's text. That rejected good
+// subjects, twice in two days: "your site blocks ChatGPT and Claude" (the finding says "AI
+// assistants") and "your Brisbane locations page shows a blank preview when shared" (the finding
+// says "missing og:image"). A good subject restates a technical label in the owner's words, so
+// sharing no word with it is normal, not a sign of being generic.
+//
+// So it now rejects what is actually generic: nothing there, too long, a stock filler phrase, or
+// too few real words to say anything. Sharing a word with the finding still passes a subject
+// outright, filler phrase or not ("quick note about your broken link").
+const GENERIC_SUBJECT = /\b(quick (question|note|one|chat|word|thought)|noticed something|just checking|checking in|touching base|following up|hello|hi there|an idea|a thought|opportunity|partnership|collaboration|introduction)\b/i;
+const SUBJECT_STOPWORDS = new Set(['your', 'site', 'about', 'quick', 'note', 'website', 'the', 'a', 'an', 'and', 'for', 'with', 'this', 'that']);
+
+function subjectWords(text) {
+  return ((text || '').toLowerCase().match(/[a-z0-9]{4,}/g) || []).filter((w) => !SUBJECT_STOPWORDS.has(w));
+}
+
 function isConcreteSubject(subject, findingMessage) {
   if (!subject || subject.length > 120) return false;
-  const stopwords = new Set(['your', 'site', 'about', 'quick', 'note', 'website', 'the', 'a', 'an', 'and', 'for', 'with', 'this', 'that']);
-  const subjectWords = new Set(
-    subject.toLowerCase().match(/[a-z0-9]{4,}/g)?.filter((w) => !stopwords.has(w)) || []
-  );
-  const findingWords = new Set(
-    (findingMessage || '').toLowerCase().match(/[a-z0-9]{4,}/g)?.filter((w) => !stopwords.has(w)) || []
-  );
-  for (const w of subjectWords) {
-    if (findingWords.has(w)) return true;
-  }
-  return false;
+  const words = subjectWords(subject);
+  const findingWords = new Set(subjectWords(findingMessage));
+  if (words.some((w) => findingWords.has(w))) return true;
+  if (GENERIC_SUBJECT.test(subject)) return false;
+  return words.length >= 3;
 }
 
 // The auto-reject gates, as a function of the draft alone so a saved draft can be judged again
