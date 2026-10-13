@@ -31,6 +31,47 @@ router.get('/', (req, res) => {
   res.json({ run, prospects });
 });
 
+// What still needs a second email, and how the outreach is going overall.
+router.get('/follow-ups', (req, res) => {
+  res.json({ followUps: store.listFollowUps(), stats: store.outreachStats() });
+});
+
+function validRunSlug(req, res) {
+  const { run } = req.query;
+  const { slug } = req.params;
+  if (!store.isValidName(run) || !store.isValidName(slug)) {
+    res.status(400).json({ error: 'Invalid "run" or "slug" parameter' });
+    return null;
+  }
+  return { run, slug };
+}
+
+// The follow-up draft for a prospect, or why there isn't one (not due yet, replied, opted out,
+// already sent). Never a model call.
+router.get('/:slug/follow-up', (req, res) => {
+  const ids = validRunSlug(req, res);
+  if (!ids) return;
+  res.json(store.buildFollowUp(ids.run, ids.slug));
+});
+
+// Replies land in our own inbox, so a person records them here. `replied: false` undoes a slip.
+router.post('/:slug/replied', (req, res) => {
+  const ids = validRunSlug(req, res);
+  if (!ids) return;
+  const record = store.markReplied(ids.run, ids.slug, !(req.body && req.body.replied === false));
+  if (!record) return res.status(404).json({ error: 'No email has been sent to this prospect.' });
+  res.json({ success: true, replied: !!record.repliedAt });
+});
+
+// "Don't email me again": suppresses the address we wrote to and the business's website.
+router.post('/:slug/opt-out', (req, res) => {
+  const ids = validRunSlug(req, res);
+  if (!ids) return;
+  const result = store.optOut(ids.run, ids.slug);
+  if (!result) return res.status(404).json({ error: 'No email has been sent to this prospect.' });
+  res.json({ success: true, suppressed: result.suppressed });
+});
+
 router.get('/:slug/draft', async (req, res) => {
   const { run } = req.query;
   const { slug } = req.params;
@@ -107,7 +148,7 @@ router.post('/:slug/send', async (req, res) => {
     return res.status(404).json({ error: 'Prospect not found' });
   }
 
-  const { to, subject, body, variant } = req.body || {};
+  const { to, subject, body, variant, followUp } = req.body || {};
   if (!to || typeof to !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(to.trim())) {
     return res.status(400).json({ error: 'A valid "to" email address is required' });
   }
@@ -119,8 +160,17 @@ router.post('/:slug/send', async (req, res) => {
   }
 
   const domain = (to.trim().split('@')[1] || '').toLowerCase() || null;
-  if (store.isSuppressed(domain, to.trim())) {
+  const siteDomain = store.siteDomainFor(run, slug);
+  if (store.isSuppressed(domain, to.trim(), siteDomain)) {
     return res.status(409).json({ error: 'This domain or address is on the suppression list.' });
+  }
+  // A follow-up only goes when it is due: first email sent, the wait is over, and they haven't
+  // replied, opted out or already had one. Checked here, not just in the dashboard.
+  if (followUp) {
+    const state = store.followUpState(store.getSentRecord(run, slug));
+    if (state !== 'due') {
+      return res.status(409).json({ error: store.buildFollowUp(run, slug).reason || 'A follow-up is not due for this prospect.' });
+    }
   }
   const sentThisWeek = store.countSentInLastDays(7);
   if (sentThisWeek >= config.prospectsRateLimitPerWeek) {
@@ -143,8 +193,10 @@ router.post('/:slug/send', async (req, res) => {
     return res.status(502).json({ error: result.error || 'Failed to send email' });
   }
 
-  const record = store.markSent(run, slug, { to: to.trim(), subject: cleanSubject, domain, variant: variant || null });
-  res.json({ success: true, sent: record });
+  const record = followUp
+    ? store.markFollowUpSent(run, slug, { subject: cleanSubject })
+    : store.markSent(run, slug, { to: to.trim(), subject: cleanSubject, domain, siteDomain, variant: variant || null });
+  res.json({ success: true, sent: record, followUp: !!followUp });
 });
 
 module.exports = router;
