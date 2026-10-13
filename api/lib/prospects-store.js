@@ -469,10 +469,18 @@ function isConcreteSubject(subject, findingMessage) {
 
 // The auto-reject gates, as a function of the draft alone so a saved draft can be judged again
 // against today's thresholds without calling the model.
-function gateReasons({ subject, body, confidence, subjectContext }) {
+function isLowConfidence(confidence) {
+  return typeof confidence === 'number' && confidence < config.prospectsConfidenceThreshold;
+}
+
+function gateReasons({ subject, body, subjectContext }) {
   const words = wordCount(body);
   const reasons = [];
-  if (confidence < config.prospectsConfidenceThreshold) reasons.push(`confidence ${confidence} below ${config.prospectsConfidenceThreshold}`);
+  // Confidence is not a gate any more (2026-10-13). It is the drafting model's own guess and it
+  // doesn't separate good drafts from weak ones: the same prospect and finding scored 0.58 to
+  // 0.74 across nine live drafts, while weak broken-link drafts scored 0.5 to 0.62. Any
+  // cut-off in that band rejects good drafts at random. It is shown to the reviewer as a label
+  // instead (isLowConfidence), and a person approves every email before it is sent.
   if (words > config.prospectsMaxWords) reasons.push(`body is ${words} words (max ${config.prospectsMaxWords})`);
   if (!subject || !body) reasons.push('missing subject or body');
   if (subject && !isConcreteSubject(subject, subjectContext)) reasons.push('subject reads generic, not tied to the actual finding');
@@ -509,6 +517,7 @@ function draftResponse(draft, contactEmail, extra = {}) {
     // boilerplate) but included in what's returned for review/edit/send.
     body: draft.body ? `${draft.body}\n\n${config.prospectsSignature}` : draft.body,
     confidence: draft.confidence,
+    lowConfidence: isLowConfidence(draft.confidence),
     variant: draft.variant,
     reason: reasons.join('; ') || null,
     contactEmail,

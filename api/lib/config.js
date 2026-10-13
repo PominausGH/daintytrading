@@ -7,10 +7,10 @@ const config = {
   aiosModel: required('AIOS_MODEL', 'anthropic/claude-sonnet-5'),
 
   // Cold-outreach drafting gates — see lib/prospects-store.js.
-  // 0.6, down from 0.7 (2026-10-12). Confidence is the drafting model's own guess, and it sits
-  // just under 0.7 even for a good draft: 27 of 66 logged attempts were 0.6 to 0.7, the highest
-  // ever was 0.72, and a strong site-check draft scored 0.62. Every draft is reviewed by a person
-  // before it is sent, so this gate only needs to catch the clearly weak ones (median was 0.55).
+  // Below this, the dashboard labels a draft's confidence "(low)". It no longer rejects the draft
+  // (2026-10-13): confidence is the drafting model's own guess and the same prospect scored 0.58
+  // to 0.74 across nine live drafts, so no cut-off separates good drafts from weak ones. A
+  // person reviews every draft before it is sent.
   prospectsConfidenceThreshold: parseFloat(required('PROSPECTS_CONFIDENCE_THRESHOLD', '0.6')),
   prospectsMinFindingScore: parseFloat(required('PROSPECTS_MIN_FINDING_SCORE', '0.5')),
   prospectsCooldownDays: parseInt(required('PROSPECTS_COOLDOWN_DAYS', '90'), 10),
