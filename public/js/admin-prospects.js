@@ -1,6 +1,12 @@
 var currentRun = null;
 var currentProspects = [];
 var currentSlug = null;
+// The email window does two jobs: the first email ('draft') and the one follow-up ('followup').
+// modalTarget is the prospect it is open for, which for a follow-up opened from the panel at the
+// top may be in a different run from the one on screen.
+var modalMode = 'draft';
+var modalTarget = null;
+var sendLocked = false;
 
 function openModal(backdropId) {
   document.getElementById(backdropId).classList.add('open');
@@ -49,6 +55,27 @@ function attrEscape(str) {
   return adminEscapeHtml(str).replace(/"/g, '&quot;');
 }
 
+function shortDate(iso) {
+  return iso ? String(iso).slice(0, 10) : '';
+}
+
+// What a sent row shows: where the two-email sequence is up to, and the two things only a person
+// can record (they replied, or they asked not to be emailed).
+function sentCellHtml(row, idx) {
+  var state = row.followUpState;
+  var html = '<span class="sent-pill">Sent</span>';
+  if (state === 'replied') html += '<span class="seq-pill replied">Replied</span>';
+  else if (state === 'opted_out') html += '<span class="seq-pill optout">Opted out</span>';
+  else if (state === 'done') html += '<span class="seq-note">Follow-up sent ' + adminEscapeHtml(shortDate(row.followUpSentAt)) + '. No more emails.</span>';
+  else if (state === 'due') html += ' <button type="button" class="btn btn-ghost row-followup-btn" data-idx="' + idx + '">Follow-up due →</button>';
+  else if (state === 'not_due') html += '<span class="seq-note">Follow-up due ' + adminEscapeHtml(shortDate(row.followUpDueAt)) + '</span>';
+  var actions = '';
+  if (state === 'replied') actions += '<button type="button" class="seq-link row-unreply-btn" data-idx="' + idx + '">Undo replied</button>';
+  else if (state !== 'opted_out') actions += '<button type="button" class="seq-link row-replied-btn" data-idx="' + idx + '">They replied</button>';
+  if (state !== 'opted_out') actions += '<button type="button" class="seq-link row-optout-btn" data-idx="' + idx + '">Opt out</button>';
+  return html + (actions ? '<span class="seq-actions">' + actions + '</span>' : '');
+}
+
 function renderProspects(prospects) {
   currentProspects = prospects;
   var table = document.getElementById('prospect-table');
@@ -79,7 +106,7 @@ function renderProspects(prospects) {
       '<td>' + (row.high_severity_count == null ? '—' : adminEscapeHtml(String(row.high_severity_count))) + '</td>' +
       '<td>' + statusPillHtml(row) + '</td>' +
       '<td>' + (row.sent
-        ? '<span class="sent-pill">Sent</span>'
+        ? sentCellHtml(row, idx)
         : '<button type="button" class="btn btn-ghost row-action-btn" data-idx="' + idx + '">Draft email →</button>') +
       '</td>' +
       '</tr>';
@@ -107,6 +134,134 @@ function renderProspects(prospects) {
       selectProspect(parseInt(btn.dataset.idx, 10));
     });
   });
+  function onRowButton(selector, handler) {
+    body.querySelectorAll(selector).forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var row = currentProspects[parseInt(btn.dataset.idx, 10)];
+        if (row) handler(row, parseInt(btn.dataset.idx, 10));
+      });
+    });
+  }
+  onRowButton('.row-followup-btn', function (row, idx) { markSelectedRow(idx); openFollowUp(currentRun, row.slug, rowLabel(row)); });
+  onRowButton('.row-replied-btn', function (row) { recordReply(row, true); });
+  onRowButton('.row-unreply-btn', function (row) { recordReply(row, false); });
+  onRowButton('.row-optout-btn', function (row) { recordOptOut(row); });
+}
+
+function rowLabel(row) {
+  return row.business_name && row.business_name.trim() ? row.business_name : row.url;
+}
+
+function prospectUrl(run, slug, action) {
+  return '/api/admin/prospects/' + encodeURIComponent(slug) + '/' + action + '?run=' + encodeURIComponent(run);
+}
+
+// Re-reads the rows and the follow-up panel after anything that changes a sequence, without
+// closing whatever window is open.
+async function refreshOutreach() {
+  if (currentRun) {
+    var data = await adminFetch('/api/admin/prospects?run=' + encodeURIComponent(currentRun));
+    renderProspects(data.prospects || []);
+  }
+  await loadFollowUps();
+}
+
+async function recordReply(row, replied) {
+  try {
+    await adminFetch(prospectUrl(currentRun, row.slug, 'replied'), { method: 'POST', body: JSON.stringify({ replied: replied }) });
+    await refreshOutreach();
+  } catch (err) {
+    window.alert(err.message);
+  }
+}
+
+async function recordOptOut(row) {
+  if (!window.confirm('Opt out ' + rowLabel(row) + '? Their address and website go on the suppression list and they are never emailed again.')) return;
+  try {
+    await adminFetch(prospectUrl(currentRun, row.slug, 'opt-out'), { method: 'POST', body: '{}' });
+    await refreshOutreach();
+  } catch (err) {
+    window.alert(err.message);
+  }
+}
+
+// The panel above the table: how the outreach is going, and every first email still waiting on
+// its one follow-up, across all runs.
+async function loadFollowUps() {
+  var panel = document.getElementById('outreach-panel');
+  var data;
+  try {
+    data = await adminFetch('/api/admin/prospects/follow-ups');
+  } catch (err) {
+    panel.style.display = 'none';
+    return;
+  }
+  var st = data.stats || {};
+  if (!st.sent) { panel.style.display = 'none'; return; }
+  panel.style.display = 'block';
+  document.getElementById('outreach-stats').textContent =
+    st.sent + ' emailed · ' + st.replied + ' replied · ' + st.optedOut + ' opted out · ' + st.followUpsSent + ' follow-ups sent · ' +
+    st.sentLast7Days + ' of ' + st.weeklyLimit + ' sent in the last 7 days';
+  var list = document.getElementById('followups-list');
+  var items = data.followUps || [];
+  list.innerHTML = items.map(function (f, i) {
+    var due = f.state === 'due';
+    return '<div class="followup-item">' +
+      '<span>' + adminEscapeHtml(f.label || f.to || '') + ' <span class="when">' + (due ? 'follow-up due since ' : 'follow-up due ') + adminEscapeHtml(shortDate(f.dueAt)) + '</span></span>' +
+      (due ? '<button type="button" class="btn btn-ghost followup-open-btn" data-i="' + i + '">Write follow-up →</button>' : '') +
+      '</div>';
+  }).join('');
+  list.querySelectorAll('.followup-open-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var f = items[parseInt(btn.dataset.i, 10)];
+      if (f) openFollowUp(f.run, f.slug, f.label);
+    });
+  });
+}
+
+// The follow-up is a fixed short note the server fills in (no model call). If it isn't due, the
+// window says why and Send stays locked: the server refuses it too.
+async function openFollowUp(run, slug, label) {
+  var token = ++draftRequestToken;
+  modalMode = 'followup';
+  modalTarget = { run: run, slug: slug };
+  sendLocked = true;
+  var meta = document.getElementById('draft-meta');
+  var banner = document.getElementById('draft-status-banner');
+  var errEl = document.getElementById('send-error');
+  var okEl = document.getElementById('send-success');
+  var sendSubmit = document.getElementById('send-submit');
+  ['already-sent-note', 'no-email-note'].forEach(function (id) { document.getElementById(id).style.display = 'none'; });
+  document.getElementById('reload-draft-btn').style.display = 'none';
+  errEl.style.display = 'none';
+  okEl.style.display = 'none';
+  banner.style.display = 'none';
+  document.getElementById('draft-title').textContent = 'Follow-up email';
+  meta.textContent = 'Loading…';
+  ['to', 'subject', 'body'].forEach(function (id) { document.getElementById(id).value = ''; });
+  sendSubmit.disabled = true;
+  openModal('draft-backdrop');
+  try {
+    var fu = await adminFetch(prospectUrl(run, slug, 'follow-up'));
+    if (token !== draftRequestToken) return;
+    meta.textContent = (label || '') + (fu.sentAt ? ' · first email sent ' + shortDate(fu.sentAt) : '');
+    if (fu.state === 'due') {
+      document.getElementById('to').value = fu.to || '';
+      document.getElementById('subject').value = fu.subject || '';
+      document.getElementById('body').value = fu.body || '';
+      sendLocked = false;
+      sendSubmit.disabled = false;
+    } else {
+      banner.textContent = fu.reason || 'A follow-up is not available for this prospect.';
+      banner.style.display = 'block';
+    }
+  } catch (err) {
+    if (token !== draftRequestToken) return;
+    meta.textContent = '';
+    errEl.textContent = err.message;
+    errEl.style.display = 'block';
+  }
 }
 
 function markSelectedRow(idx) {
@@ -131,6 +286,12 @@ async function selectProspect(idx) {
     return;
   }
   currentSlug = row.slug;
+  // Once the first email has gone, the row is about the follow-up. Opening the first-email draft
+  // again would invite a second "first" email and overwrite the sent record.
+  if (row.sent) {
+    await openFollowUp(currentRun, row.slug, rowLabel(row));
+    return;
+  }
   await loadDraft(row);
 }
 
@@ -172,6 +333,10 @@ async function fetchDraftWhenReady(row, token, meta, fresh) {
 // this prospect is shown as saved.
 async function loadDraft(row, fresh) {
   var token = ++draftRequestToken;
+  modalMode = 'draft';
+  modalTarget = { run: currentRun, slug: row.slug };
+  sendLocked = false;
+  document.getElementById('reload-draft-btn').style.display = '';
   var meta = document.getElementById('draft-meta');
   var alreadySent = document.getElementById('already-sent-note');
   var noEmailNote = document.getElementById('no-email-note');
@@ -271,6 +436,7 @@ async function loadRuns() {
   });
 
   await loadProspects(select.value);
+  await loadFollowUps();
 }
 
 requireAdminAuth().then(loadRuns);
@@ -285,7 +451,8 @@ document.getElementById('logout-btn').addEventListener('click', async function (
 // re-enables Send rather than locking the admin out of overriding a flagged draft entirely.
 ['subject', 'body'].forEach(function (id) {
   document.getElementById(id).addEventListener('input', function () {
-    document.getElementById('send-submit').disabled = false;
+    // Not for a follow-up that isn't due: typing in the box must not unlock that.
+    if (!sendLocked) document.getElementById('send-submit').disabled = false;
   });
 });
 
@@ -298,7 +465,8 @@ document.getElementById('reload-draft-btn').addEventListener('click', function (
 
 document.getElementById('send-form').addEventListener('submit', async function (e) {
   e.preventDefault();
-  if (!currentSlug) return;
+  if (!modalTarget || sendLocked) return;
+  var isFollowUp = modalMode === 'followup';
   var btn = document.getElementById('send-submit');
   var errEl = document.getElementById('send-error');
   var okEl = document.getElementById('send-success');
@@ -307,31 +475,31 @@ document.getElementById('send-form').addEventListener('submit', async function (
   btn.disabled = true;
   btn.textContent = 'Sending…';
   try {
-    var result = await adminFetch('/api/admin/prospects/' + encodeURIComponent(currentSlug) + '/send?run=' + encodeURIComponent(currentRun), {
+    await adminFetch(prospectUrl(modalTarget.run, modalTarget.slug, 'send'), {
       method: 'POST',
       body: JSON.stringify({
         to: document.getElementById('to').value.trim(),
         subject: document.getElementById('subject').value.trim(),
         body: document.getElementById('body').value,
-        variant: currentVariant,
+        variant: isFollowUp ? null : currentVariant,
+        followUp: isFollowUp,
       }),
     });
-    okEl.textContent = 'Sent.';
+    okEl.textContent = isFollowUp ? 'Follow-up sent. That is the last email to this business.' : 'Sent.';
     okEl.style.display = 'block';
-    // Update the in-memory row + table without reloading (a reload would hide the
-    // draft card and lose the confirmation message the user just triggered it to see).
-    var idx = currentProspects.findIndex(function (r) { return r.slug === currentSlug; });
-    if (idx !== -1) {
-      currentProspects[idx].sent = true;
-      currentProspects[idx].sentAt = result.sent && result.sent.sentAt;
-      renderProspects(currentProspects);
-      markSelectedRow(idx);
-    }
+    // One follow-up only: lock the window so a second click can't send another.
+    if (isFollowUp) sendLocked = true;
+    // Refresh the rows and the panel behind the window without closing it (closing would lose
+    // the confirmation the user just triggered it to see).
+    var sentSlug = modalTarget.slug;
+    await refreshOutreach();
+    var idx = currentProspects.findIndex(function (r) { return r.slug === sentSlug; });
+    if (idx !== -1) markSelectedRow(idx);
   } catch (err) {
     errEl.textContent = err.message;
     errEl.style.display = 'block';
   } finally {
-    btn.disabled = false;
+    btn.disabled = sendLocked;
     btn.textContent = 'Send';
   }
 });

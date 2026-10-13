@@ -148,21 +148,42 @@ function readSentLog() {
   }
 }
 
-function markSent(run, slug, { to, subject, domain, variant }) {
+// `domain` is the recipient address's domain (kept for old records); `siteDomain` is the
+// business's website. They differ whenever a business uses a Gmail or ISP address, and it is the
+// website that identifies the business for the cooldown and opt-out checks.
+function markSent(run, slug, { to, subject, domain, siteDomain, variant }) {
   fs.mkdirSync(DATA_DIR, { recursive: true });
   const log = readSentLog();
-  const record = { sentAt: new Date().toISOString(), to, subject, domain: domain || null, variant: variant || null };
+  const record = {
+    sentAt: new Date().toISOString(), to, subject, domain: domain || null, siteDomain: siteDomain || null, variant: variant || null,
+  };
   log[`${run}:${slug}`] = record;
   fs.writeFileSync(SENT_LOG_FILE, JSON.stringify(log, null, 2));
   return record;
 }
 
+function getSentRecord(run, slug) {
+  return readSentLog()[`${run}:${slug}`] || null;
+}
+
+function updateSentRecord(run, slug, patch) {
+  const log = readSentLog();
+  const key = `${run}:${slug}`;
+  if (!log[key]) return null;
+  log[key] = { ...log[key], ...patch };
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+  fs.writeFileSync(SENT_LOG_FILE, JSON.stringify(log, null, 2));
+  return log[key];
+}
+
 // Used by the /send route's rate-limit guard — 25/week is well under anything that would
 // trip email-provider reputation limits, but is enforced here rather than left to Brevo.
+// A follow-up is an email too, so it counts toward the same cap.
 function countSentInLastDays(days) {
   const log = readSentLog();
   const cutoff = Date.now() - days * 24 * 60 * 60 * 1000;
-  return Object.values(log).filter((r) => new Date(r.sentAt).getTime() >= cutoff).length;
+  const recent = (iso) => !!iso && new Date(iso).getTime() >= cutoff;
+  return Object.values(log).reduce((n, r) => n + (recent(r.sentAt) ? 1 : 0) + (recent(r.followUp && r.followUp.sentAt) ? 1 : 0), 0);
 }
 
 // Returns null if the run directory itself doesn't exist (caller should 404);
@@ -197,6 +218,7 @@ function getRunProspects(run) {
       slug,
       sent: !!sentRecord,
       sentAt: sentRecord ? sentRecord.sentAt : null,
+      ...(sentRecord ? sequenceSummary(sentRecord) : {}),
     };
   });
 }
@@ -385,7 +407,9 @@ function findRecentSendForDomain(domain) {
   const log = readSentLog();
   let mostRecent = null;
   for (const record of Object.values(log)) {
-    if (record.domain !== domain) continue;
+    // siteDomain is the business's website; `domain` alone (the recipient's address) let a
+    // business on a Gmail address through the cooldown.
+    if (record.siteDomain !== domain && record.domain !== domain) continue;
     if (!mostRecent || record.sentAt > mostRecent.sentAt) mostRecent = record;
   }
   return mostRecent;
@@ -393,6 +417,162 @@ function findRecentSendForDomain(domain) {
 
 function daysSince(isoDate) {
   return (Date.now() - new Date(isoDate).getTime()) / (1000 * 60 * 60 * 24);
+}
+
+// ---- after the first email: replies, opt-outs and the one follow-up -------------------------
+//
+// The sequence is two emails at most: the first, then one follow-up a week of working days
+// later if they haven't replied or opted out. After that we don't email the business again.
+// Replies arrive in our own inbox and there is no inbound pipeline here, so "replied" and "opted
+// out" are recorded by a person in the dashboard.
+
+function siteDomainFor(run, slug) {
+  const row = findSummaryRow(run, slug);
+  const data = row && row.url ? null : readProspectJson(run, slug);
+  return getDomain((row && row.url) || (data && data.site_url) || '');
+}
+
+function markReplied(run, slug, replied = true) {
+  return updateSentRecord(run, slug, { repliedAt: replied ? new Date().toISOString() : null });
+}
+
+function addToSuppression(values) {
+  const list = readSuppressionList().map((v) => String(v).toLowerCase());
+  const added = [];
+  for (const v of values.filter(Boolean).map((x) => String(x).trim().toLowerCase())) {
+    if (v && !list.includes(v)) { list.push(v); added.push(v); }
+  }
+  if (added.length) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+    fs.writeFileSync(SUPPRESSION_FILE, JSON.stringify(list, null, 2));
+  }
+  return added;
+}
+
+// Suppresses the address we wrote to and the business's website. Never the address's own domain
+// unless it is their website: suppressing "gmail.com" would block every prospect on Gmail.
+function optOut(run, slug) {
+  const record = getSentRecord(run, slug);
+  if (!record) return null;
+  const site = record.siteDomain || siteDomainFor(run, slug);
+  const added = addToSuppression([record.to, site]);
+  const updated = updateSentRecord(run, slug, { optedOutAt: new Date().toISOString(), siteDomain: site || record.siteDomain || null });
+  return { record: updated, suppressed: added };
+}
+
+function addBusinessDays(from, days) {
+  const d = new Date(from);
+  let left = days;
+  while (left > 0) {
+    d.setUTCDate(d.getUTCDate() + 1);
+    const weekday = d.getUTCDay();
+    if (weekday !== 0 && weekday !== 6) left -= 1;
+  }
+  return d;
+}
+
+function followUpDueAt(record) {
+  return addBusinessDays(record.sentAt, config.prospectsFollowUpBusinessDays);
+}
+
+// 'not_sent' | 'opted_out' | 'replied' | 'done' (follow-up sent) | 'not_due' | 'due'
+function followUpState(record, now = Date.now()) {
+  if (!record) return 'not_sent';
+  if (record.optedOutAt || isSuppressed(record.to, record.siteDomain)) return 'opted_out';
+  if (record.repliedAt) return 'replied';
+  if (record.followUp && record.followUp.sentAt) return 'done';
+  return now >= followUpDueAt(record).getTime() ? 'due' : 'not_due';
+}
+
+function sequenceSummary(record) {
+  return {
+    replied: !!record.repliedAt,
+    optedOut: !!record.optedOutAt,
+    followUpState: followUpState(record),
+    followUpDueAt: followUpDueAt(record).toISOString(),
+    followUpSentAt: (record.followUp && record.followUp.sentAt) || null,
+  };
+}
+
+const day = (iso) => String(iso || '').slice(0, 10);
+const FOLLOW_UP_REASON = {
+  not_sent: () => 'No first email has been sent to this prospect.',
+  opted_out: () => "They opted out. We don't email them again.",
+  replied: (r) => `They replied (marked ${day(r.repliedAt)}). No follow-up.`,
+  done: (r) => `Follow-up already sent on ${day(r.followUp.sentAt)}. Two emails is the limit.`,
+  not_due: (r) => `Follow-up is due on ${day(followUpDueAt(r).toISOString())}, ${config.prospectsFollowUpBusinessDays} working days after the first email.`,
+  due: () => null,
+};
+
+// The follow-up is a fixed short note, not a model call: it makes no new claim about their site,
+// so there is nothing for a model to get wrong, and it costs nothing. The greeting is lifted from
+// the first email so both address the business the same way.
+function buildFollowUp(run, slug) {
+  const record = getSentRecord(run, slug);
+  const state = followUpState(record);
+  const base = {
+    state,
+    to: record ? record.to : null,
+    sentAt: record ? record.sentAt : null,
+    dueAt: record ? followUpDueAt(record).toISOString() : null,
+    reason: FOLLOW_UP_REASON[state](record),
+  };
+  if (state !== 'due') return { ...base, subject: '', body: '' };
+
+  const saved = getSavedDraft(run, slug);
+  const firstLine = ((saved && saved.body) || '').split('\n')[0].trim();
+  const greeting = /^Hi\b.{0,80},$/.test(firstLine) ? firstLine : 'Hi,';
+  const subject = /^re:/i.test(record.subject || '') ? record.subject : `Re: ${record.subject || 'your website'}`;
+  const body = [
+    greeting,
+    `Following up on my earlier note about your website${record.subject ? ` ("${record.subject}")` : ''}.`,
+    "Happy to send the full report: no cost, and no call needed. If it's not of interest, just say so and I won't email again.",
+    config.prospectsSignature,
+  ].join('\n\n');
+  return { ...base, subject, body };
+}
+
+function markFollowUpSent(run, slug, { subject }) {
+  return updateSentRecord(run, slug, { followUp: { sentAt: new Date().toISOString(), subject } });
+}
+
+// Every first email still waiting on its follow-up, soonest first, across all runs.
+function listFollowUps() {
+  return Object.entries(readSentLog())
+    .map(([key, record]) => {
+      const i = key.indexOf(':');
+      const run = key.slice(0, i);
+      const slug = key.slice(i + 1);
+      const state = followUpState(record);
+      if (state !== 'due' && state !== 'not_due') return null;
+      const row = isValidName(run) && isValidName(slug) ? findSummaryRow(run, slug) : null;
+      return {
+        run, slug, state, to: record.to, sentAt: record.sentAt, dueAt: followUpDueAt(record).toISOString(),
+        label: (row && row.business_name && row.business_name.trim()) || (row && row.url) || record.siteDomain || record.to,
+      };
+    })
+    .filter(Boolean)
+    .sort((a, b) => a.dueAt.localeCompare(b.dueAt));
+}
+
+function outreachStats() {
+  const records = Object.values(readSentLog());
+  return {
+    sent: records.length,
+    replied: records.filter((r) => r.repliedAt).length,
+    optedOut: records.filter((r) => r.optedOutAt).length,
+    followUpsSent: records.filter((r) => r.followUp && r.followUp.sentAt).length,
+    followUpsDue: records.filter((r) => followUpState(r) === 'due').length,
+    sentLast7Days: countSentInLastDays(7),
+    weeklyLimit: config.prospectsRateLimitPerWeek,
+  };
+}
+
+// Two emails with no reply ends it for good, not just for the cooldown window.
+function findFinishedSequenceForDomain(domain) {
+  if (!domain) return null;
+  return Object.values(readSentLog()).find((r) =>
+    (r.siteDomain === domain || r.domain === domain) && r.followUp && r.followUp.sentAt && !r.repliedAt) || null;
 }
 
 // Alternates A/B globally across all drafts (not per-domain) so the split stays even
@@ -569,6 +749,19 @@ async function buildDraft(run, slug, { fresh = false } = {}) {
     return { status: 'suppressed', subject: '', body: '', confidence: null, variant: null, reason: 'Domain or contact is on the suppression list.', contactEmail };
   }
 
+  if (findFinishedSequenceForDomain(domain)) {
+    touchHeartbeat('cooldown');
+    return {
+      status: 'finished',
+      subject: '',
+      body: '',
+      confidence: null,
+      variant: null,
+      reason: "Two emails already went to this business with no reply. We don't email them again.",
+      contactEmail,
+    };
+  }
+
   const recentSend = findRecentSendForDomain(domain);
   if (recentSend && daysSince(recentSend.sentAt) < config.prospectsCooldownDays) {
     touchHeartbeat('cooldown');
@@ -705,6 +898,16 @@ module.exports = {
   prospectExists,
   buildDraft,
   markSent,
+  getSentRecord,
+  siteDomainFor,
+  markReplied,
+  optOut,
+  addBusinessDays,
+  followUpState,
+  buildFollowUp,
+  markFollowUpSent,
+  listFollowUps,
+  outreachStats,
   cleanSiteUrl,
   rephraseFinding,
   isConcreteSubject,
