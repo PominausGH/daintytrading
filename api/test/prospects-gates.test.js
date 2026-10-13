@@ -31,6 +31,8 @@ test('gate defaults: confidence 0.6, body up to 100 words', () => {
 test('the model is asked for fewer words than the gate allows, so a small overshoot still passes', () => {
   const { PROMPT_WORD_TARGET, SYSTEM_PROMPT } = require('../lib/prospects-aios');
   assert.equal(PROMPT_WORD_TARGET, config.prospectsMaxWords - 20);
-  assert.ok(SYSTEM_PROMPT.includes(`${PROMPT_WORD_TARGET} words maximum for the body`));
-  assert.ok(!SYSTEM_PROMPT.includes(`${config.prospectsMaxWords} words maximum`));
+  assert.ok(SYSTEM_PROMPT.includes(`must be ${PROMPT_WORD_TARGET} words or fewer`));
+  assert.ok(!SYSTEM_PROMPT.includes(`must be ${config.prospectsMaxWords} words`));
+  // The per-sentence limit is what actually keeps drafts short; the total alone did not.
+  assert.ok(SYSTEM_PROMPT.includes('single sentence of 18 words or fewer'));
 });
