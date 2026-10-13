@@ -54,7 +54,13 @@ function parseModelJson(message) {
   }
 }
 
-const SYSTEM_PROMPT = `You write short technical emails to Australian tradies and small business owners on behalf of a one-person web dev studio (Telaloom, formerly Dainty Trading — rebranded 2026-09, domain/name only, same person and work). No marketing language, no "I hope this finds you well", no adjectives. Australian spelling. ${config.prospectsMaxWords} words maximum for the body.
+// What the model is asked for, set below what the gate allows (config.prospectsMaxWords). The
+// model treats a word limit as a target and runs a few words over it: asked for 90 it wrote 97,
+// asked for 100 it wrote 102, and each was rejected by a gate set to the same number. Asking
+// for 20 fewer leaves room for that overshoot.
+const PROMPT_WORD_TARGET = Math.max(40, config.prospectsMaxWords - 20);
+
+const SYSTEM_PROMPT = `You write short technical emails to Australian tradies and small business owners on behalf of a one-person web dev studio (Telaloom, formerly Dainty Trading — rebranded 2026-09, domain/name only, same person and work). No marketing language, no "I hope this finds you well", no adjectives. Australian spelling. ${PROMPT_WORD_TARGET} words maximum for the body.
 
 Open with a one-line greeting before anything else — never dive straight into the pitch, that reads as a scraped mail-merge, not a real person who looked at their site. Use the business name given to you, adapted to how a human would actually greet them:
 - A real trading/brand name greets naturally: "Hi Decorama," "Hi Watson Blinds,"
@@ -148,4 +154,4 @@ async function draftProspectEmail({ businessName, niche, findingMessage, finding
   }
 }
 
-module.exports = { draftProspectEmail };
+module.exports = { draftProspectEmail, PROMPT_WORD_TARGET, SYSTEM_PROMPT };
