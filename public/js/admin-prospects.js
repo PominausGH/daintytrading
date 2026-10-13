@@ -213,7 +213,8 @@ async function loadDraft(row, fresh) {
     var draft = await fetchDraftWhenReady(row, token, meta, fresh);
     if (!draft) return;
     var scoreLabel = (row.business_name && row.business_name.trim() ? row.business_name : row.url) + ' — score ' + (row.score == null ? '?' : row.score);
-    if (draft.confidence != null) scoreLabel += ' · confidence ' + draft.confidence + ' · variant ' + draft.variant;
+    // Confidence is the model's own guess: a label for you to weigh, not a reason to block.
+    if (draft.confidence != null) scoreLabel += ' · confidence ' + draft.confidence + (draft.lowConfidence ? ' (low)' : '') + ' · variant ' + draft.variant;
     if (draft.saved && draft.generatedAt) scoreLabel += ' · saved draft from ' + adminFormatDate(draft.generatedAt);
     if (draft.leadsWith) scoreLabel += ' · leads with (' + draft.leadsWith.source + '): ' + draft.leadsWith.title;
     if (draft.siteCheck && draft.siteCheck.indexOf('unavailable') === 0) scoreLabel += ' · site check ' + draft.siteCheck;

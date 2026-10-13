@@ -68,21 +68,34 @@ test('Regenerate (fresh) calls the model once more and replaces the saved draft'
 test('a saved draft is judged against the current gates, not the ones it was written under', async () => {
   nextDraft = { subject: 'broken link on your site', body: 'Short body about the broken link.', confidence: 0.65 };
   const d = await store.buildDraft(RUN, SLUG, { fresh: true });
-  assert.equal(d.status, 'pending', '0.65 clears the 0.6 gate');
-  const original = config.prospectsConfidenceThreshold;
-  config.prospectsConfidenceThreshold = 0.7;
+  assert.equal(d.status, 'pending');
+  const original = config.prospectsMaxWords;
+  config.prospectsMaxWords = 3;
   try {
     const stricter = await store.buildDraft(RUN, SLUG);
     assert.equal(stricter.saved, true);
     assert.equal(stricter.status, 'auto_rejected');
-    assert.match(stricter.reason, /confidence 0.65 below 0.7/);
+    assert.match(stricter.reason, /body is 6 words \(max 3\)/);
   } finally {
-    config.prospectsConfidenceThreshold = original;
+    config.prospectsMaxWords = original;
   }
   assert.equal(modelCalls.length, 3, 'no model call for the re-judged saved draft');
 });
 
+test('low confidence is a label on the draft, not a reason to reject it', async () => {
+  nextDraft = { subject: 'broken link on your site', body: 'Short body about the broken link.', confidence: 0.4 };
+  const low = await store.buildDraft(RUN, SLUG, { fresh: true });
+  assert.equal(low.status, 'pending');
+  assert.equal(low.lowConfidence, true);
+  assert.equal(low.reason, null);
+  nextDraft = { ...nextDraft, confidence: 0.8 };
+  const fine = await store.buildDraft(RUN, SLUG, { fresh: true });
+  assert.equal(fine.lowConfidence, false);
+  assert.equal(modelCalls.length, 5);
+});
+
 test('an unknown prospect is still null and never calls the model', async () => {
+  const before = modelCalls.length;
   assert.equal(await store.buildDraft(RUN, 'nobody'), null);
-  assert.equal(modelCalls.length, 3);
+  assert.equal(modelCalls.length, before);
 });
