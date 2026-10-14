@@ -32,7 +32,7 @@ sidecard:
     - label: "Status"
       value: "Active engagement"
     - label: "Visits since July"
-      value: "405 · majority via Google"
+      value: "{{stat:shuttersmith.visits}} · majority via Google"
   ghostCta:
     label: "See the SEO/GEO service"
     href: "/services/seo-geo-optimization.html"
@@ -74,7 +74,7 @@ with what's actually verifiable. -->
 <p>Alongside the technical work sit two things that aren’t code at all: converting the Google Business Profile to a proper service-area listing, and starting a review-generation process. For a local trade, the profile and the reviews attached to it routinely do more work than the website does — skipping straight to on-site polish while leaving those two undone is the most common way this kind of engagement wastes a client’s money, and we didn’t want to make that mistake on our own first client.</p>
 
 <h2>What the numbers show</h2>
-<p>Since we started tracking in July, the site has had 405 real visits (as of 6 Sep 2026) — and of the ones with an identifiable source, the large majority came from Google search. Because there was no analytics before this engagement, that number isn’t a lift over a measured baseline; it’s the first traffic this business has ever had visibility into. These are sessions in analytics, not impressions or modelled reach.</p>
+<p>Since we started tracking in July, the site has had {{stat:shuttersmith.visits}} real visits (as of {{stat:shuttersmith.asOf}}) — and of the ones with an identifiable source, the large majority came from Google search. Because there was no analytics before this engagement, that number isn’t a lift over a measured baseline; it’s the first traffic this business has ever had visibility into. These are sessions in analytics, not impressions or modelled reach.</p>
 <p>The pace is the more useful number. Craig’s own estimate is that the old site got about 7 visitors a week — his figure, not a measurement, since there was no analytics to check it against. Across the four weeks to 4 October, analytics shows roughly 57 visits a week (229 visits between 6 Sep and 4 Oct). On Craig’s estimate, that is around eight times the traffic, from the original audit-and-fix work alone, before any rebuild. The goal for the new site is a minimum of 100 visits a week; we’ll report whether it gets there.</p>
 <script src="/js/shuttersmith-stats.js"></script>
 <p>They have converted into customer inquiries rather than sitting as page views. The clearest evidence of that is second-order, and not something we could have engineered: the work brought in enough new business that the client backed a second company entirely — <a href="/projects/new-shutter-business.html">a trade-price, self-install spinoff</a> of the same shutters business — and asked us to build that site too.</p>

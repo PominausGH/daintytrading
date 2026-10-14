@@ -1,6 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import type { CollectionEntry } from 'astro:content';
+import { statTokensToHtml } from '../data/project-stats.mjs';
 
 interface Props {
   entry: CollectionEntry<'projects'>;
@@ -15,7 +16,8 @@ const canonicalPath = `/projects/${slug}.html`;
 
 const primarySchema: Record<string, unknown> = {
   '@context': 'https://schema.org',
-  '@type': data.schemaType,
+  // case-study entries have no schemaType in the collection schema; an untyped node is ignored by parsers
+  '@type': data.type === 'case-study' ? 'CreativeWork' : data.schemaType,
   name: data.name,
   description: data.description,
   ...(data.type === 'case-study' ? { url: `https://telaloom.com${canonicalPath}` } : {}),
@@ -91,7 +93,7 @@ const breadcrumbSchema = {
         <aside class="sidecard">
           <h4>{data.sidecard.heading}</h4>
           {data.sidecard.rows.map((row) => (
-            <div class="label-row"><span>{row.label}</span><span>{row.value}</span></div>
+            <div class="label-row"><span>{row.label}</span><span set:html={statTokensToHtml(row.value)} /></div>
           ))}
           {data.sidecard.primaryCta && (
             <a class="btn btn-primary" href={data.sidecard.primaryCta.href} rel={data.sidecard.primaryCta.href.startsWith('http') ? 'noopener' : undefined}>{data.sidecard.primaryCta.label}</a>

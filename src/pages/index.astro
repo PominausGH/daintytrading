@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getProductCounts } from '../data/products';
 import Price from '../components/Price.astro';
+import Stat from '../components/Stat.astro';
 
 const counts = await getProductCounts();
 
@@ -38,7 +39,7 @@ const jsonLd = [
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: [
-      { '@type': 'Question', name: 'What is TelaLoom?', acceptedAnswer: { '@type': 'Answer', text: `TelaLoom builds websites, ranks them with SEO & GEO, and builds custom automation software that replaces manual work in your business — for Australian and global businesses. We also design, build, and operate production AI software across our own portfolio of ${counts.total} live products, covering email, content, education, knowledge management, marketing automation, scheduling, billing, and SaaS infrastructure.` } },
+      { '@type': 'Question', name: 'What is TelaLoom?', acceptedAnswer: { '@type': 'Answer', text: `TelaLoom builds websites, ranks them with SEO & GEO, and builds custom automation software that replaces manual work in your business. We also design, build, and operate production AI software across our own portfolio — ${counts.total} products covering email, content, education, knowledge management, marketing automation, scheduling, billing, and SaaS infrastructure. Each project page shows the real stack and build story.` } },
       { '@type': 'Question', name: 'What kind of projects do you take on?', acceptedAnswer: { '@type': 'Answer', text: 'Three kinds: website builds (from an instant page to a custom site with Local SEO & GEO built in), SEO & GEO work on existing sites, and custom automation software — LLM-powered features (Claude, Gemini, OpenRouter), agentic workflows, content pipelines, and structured-extraction systems, plus the infrastructure that keeps them up.' } },
       { '@type': 'Question', name: 'What stack do you build on?', acceptedAnswer: { '@type': 'Answer', text: 'Python (FastAPI, Django) and Node.js (Fastify, Express) on the backend; Next.js, React, and React Native on the front; PostgreSQL and Redis for state; n8n for orchestration; Stripe for billing; LiteLLM for routing across model providers; Docker everywhere.' } },
       { '@type': 'Question', name: 'Do you only build with Claude?', acceptedAnswer: { '@type': 'Answer', text: 'No. We default to Anthropic Claude because it punches above its weight on long-context and structured tasks, but we route through OpenRouter and LiteLLM so projects can pick Gemini, OpenAI, or open-weights when the economics or latency demand it.' } },
@@ -72,7 +73,7 @@ const jsonLd = [
         <p class="lead">
           For businesses that need a site built, need to actually show up in Google and AI answer engines, or have a
           manual process that should be software instead &mdash; not in a slide deck. Shuttersmith&rsquo;s SEO/GEO work
-          is already sending them real Google traffic, 405 visits and counting, and led to a second business built off
+          is already sending them real Google traffic, <Stat k="shuttersmith.visits" /> visits and counting, and led to a second business built off
           the results. Local SEO and generative-engine optimisation get shipped straight into your code, not handed
           over as a PDF. First working site or demo in 1&ndash;2&nbsp;weeks &mdash; and if you&rsquo;ve also got a
           manual workflow to automate, we&rsquo;ve built {counts.total} production AI products ourselves, so that work
@@ -109,7 +110,7 @@ const jsonLd = [
             <span class="tag">Client · SEO/GEO</span>
             <h3>Shuttersmith</h3>
             <p>The first client on our productised SEO + GEO service &mdash; technical audit, structured data, and generative-engine optimisation so the business is found by Google and by AI assistants.</p>
-            <span class="outcome-line">405 real visits, majority via Google &middot; led to a second business</span>
+            <span class="outcome-line"><Stat k="shuttersmith.visits" /> real visits, majority via Google &middot; led to a second business</span>
             <span class="arrow">Read the story →</span>
           </a>
           <a class="project-card" href="/projects/shuttersmith-rebuild.html">
@@ -192,7 +193,7 @@ const jsonLd = [
           <div class="service-card">
             <div class="icon">01</div>
             <h3>Real client sites, not a pitch deck</h3>
-            <p>Every website and SEO/GEO engagement gets its own project page &mdash; the real before/after, the actual traffic numbers, what broke along the way. Shuttersmith&rsquo;s story is public: 405 real visits and a second business launched off the results.</p>
+            <p>Every website and SEO/GEO engagement gets its own project page &mdash; the real before/after, the actual traffic numbers, what broke along the way. Shuttersmith&rsquo;s story is public: <Stat k="shuttersmith.visits" /> real visits and a second business launched off the results.</p>
           </div>
           <div class="service-card">
             <div class="icon">02</div>

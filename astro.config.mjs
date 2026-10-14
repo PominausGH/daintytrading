@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import { rehypeStatTokens } from './src/data/project-stats.mjs';
 
 // Sitemap is NOT generated via @astrojs/sitemap — that integration outputs
 // sitemap-index.xml/sitemap-0.xml, but every page's <link rel="sitemap"> and
@@ -9,6 +10,9 @@ export default defineConfig({
   site: 'https://telaloom.com',
   output: 'static',
   trailingSlash: 'never',
+  markdown: {
+    rehypePlugins: [rehypeStatTokens], // {{stat:project.field}} tokens, see src/data/project-stats.mjs
+  },
   build: {
     format: 'file', // keep /foo.html output paths, not /foo/index.html — preserves every existing URL
   },
