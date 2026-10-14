@@ -1,6 +1,7 @@
 ---
 type: "product"
 status: "live"
+main: true
 name: "CV Matcher"
 title: "CV Matcher — AI CV Screening for Recruitment Agencies | TelaLoom"
 description: "CV Matcher ranks every CV against a job description with Claude — a match score, matched and missing skills, and a one-line reason per candidate. Built for recruitment agencies and in-house recruiters."

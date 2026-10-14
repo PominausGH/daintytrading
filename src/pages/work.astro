@@ -5,18 +5,10 @@ import Stat from '../components/Stat.astro';
 
 const counts = await getProductCounts();
 
+// Main products only (`main: true`), to match numberOfItems and the counts quoted sitewide.
 const products = [
-  ['BrightPath', 'brightpath'], 
-  ['Subscription Incinerator', 'subscription'], ['Everyring.ai', 'missed-calls'], ['CV Matcher', 'cv-matcher'],
-  ['BizPage Builder', 'bizpage-builder'], ['FocusShield', 'focusguard'], ['AutoArchive', 'autoarchive'],
-  ['TimerForge', 'timerforge'], ['Ghost Writer', 'ghost-writer'], 
-  ['Nudgle', 'skeddy'], ['Marketing OS', 'marketing-os'], 
-  ['ConvoForge', 'convoforge'],
-  
-  ['Post Reel', 'postreel'],
-  ['Billing API', 'billing-api'], 
-  
-  
+  ['BrightPath', 'brightpath'], ['Everyring.ai', 'missed-calls'], ['CV Matcher', 'cv-matcher'],
+  ['AutoArchive', 'autoarchive'], ['Ghost Writer', 'ghost-writer'], ['Post Reel', 'postreel'],
   ['WiseKeel', 'wisekeel'],
 ];
 
@@ -103,20 +95,29 @@ const jsonLd = [
           </h3>
           <div class="project-grid">
           <a class="project-card" href="/projects/brightpath.html"><span class="tag">AI · Education</span><h3>BrightPath</h3><p>Personalised K-12 online school with an AI tutor named Pax, gamified rewards, and progress tracking that actually nudges kids.</p><span class="outcome-line">AI tutor in production &middot; K&ndash;12 students on-platform daily</span><span class="arrow">Read the story →</span></a>
-          <a class="project-card" href="/projects/subscription.html"><span class="tag">AI · Consumer</span><h3>Subscription Incinerator</h3><p>Finds the subscriptions you forgot, ranks them, and burns the ones you don&rsquo;t want. Claude drafts merchant-specific cancellation emails; SMS chases the rest.</p><span class="arrow">Read the story →</span></a>
           <a class="project-card" href="/projects/missed-calls.html"><span class="tag">AI · CRM</span><h3>Everyring.ai</h3><p>Captures missed phone calls, prioritises follow-ups, and uses Claude to draft the right next message for each contact &mdash; in seconds.</p><span class="arrow">Read the story →</span></a>
           <a class="project-card" href="/projects/cv-matcher.html"><span class="tag">AI · Careers</span><h3>CV Matcher</h3><p>Scrapes LinkedIn job postings, scores them against your CV with Claude, and tells you why each match scored the way it did.</p><span class="arrow">Read the story →</span></a>
+          <a class="project-card" href="/projects/autoarchive.html"><span class="tag">Email · Automation</span><h3>AutoArchive</h3><p>Built for a Big 4 Australian bank. Backs up 45 shared email boxes four times a day to a secure local disk — each email named by message ID for instant retrieval, no database needed.</p><span class="arrow">Read the story →</span></a>
+          <a class="project-card" href="/projects/ghost-writer.html"><span class="tag">AI · Content</span><h3>Ghost Writer</h3><p>End-to-end content engine: detects trending topics, writes 1,500-word articles, runs 6-layer quality checks, and auto-publishes to LinkedIn and Medium.</p><span class="outcome-line">3 articles/week published &middot; No human writer in the loop</span><span class="arrow">Read the story →</span></a>
+          <a class="project-card" href="/projects/postreel.html"><span class="tag">AI · Social media</span><h3>Post Reel</h3><p>Social media scheduler with an AI video studio built in. Give it a URL, it crawls the site, writes a script, synthesises a voiceover, and produces a finished short-form video — scheduled across 12 platforms automatically.</p><span class="arrow">Read the story →</span></a>
+          <a class="project-card" href="/projects/wisekeel.html"><span class="tag">AI · Agent Deployment</span><h3>WiseKeel</h3><p>Fixed-price AI agent deployment engagements, run inside a client&rsquo;s own infrastructure &mdash; scoped identity, human approval gates, full audit trail. No platform fee.</p><span class="arrow">Read the story →</span></a>
+          </div>
+        </div>
+
+        <div class="project-group">
+          <h3 class="group-heading group-test">
+            <span class="group-label"><span class="group-dot" aria-hidden="true"></span>Also built</span>
+            <span class="group-count">{counts.all - counts.total} projects</span>
+          </h3>
+          <div class="project-grid">
+          <a class="project-card" href="/projects/subscription.html"><span class="tag">AI · Consumer</span><h3>Subscription Incinerator</h3><p>Finds the subscriptions you forgot, ranks them, and burns the ones you don&rsquo;t want. Claude drafts merchant-specific cancellation emails; SMS chases the rest.</p><span class="arrow">Read the story →</span></a>
           <a class="project-card" href="/projects/bizpage-builder.html"><span class="tag">AI · Local SEO</span><h3>BizPage Builder</h3><p>Discovers small businesses without websites, generates SEO-ready landing pages with Claude, and ships them as deployable ZIPs.</p><span class="arrow">Read the story →</span></a>
           <a class="project-card" href="/projects/focusguard.html"><span class="tag">Productivity · Mobile</span><h3>FocusShield</h3><p>Cross-platform focus and task app — web, iOS, Android — with productivity analytics and JWT auth wired into a Postgres backend.</p><span class="arrow">Read the story →</span></a>
-          <a class="project-card" href="/projects/autoarchive.html"><span class="tag">Email · Automation</span><h3>AutoArchive</h3><p>Built for a Big 4 Australian bank. Backs up 45 shared email boxes four times a day to a secure local disk — each email named by message ID for instant retrieval, no database needed.</p><span class="arrow">Read the story →</span></a>
           <a class="project-card" href="/projects/timerforge.html"><span class="tag">SaaS · Cross-platform</span><h3>TimerForge</h3><p>Countdown timer that ships as a desktop app for Windows/Mac/Linux and a web SaaS — embeddable, shareable, billed by Stripe.</p><span class="arrow">Read the story →</span></a>
-          <a class="project-card" href="/projects/ghost-writer.html"><span class="tag">AI · Content</span><h3>Ghost Writer</h3><p>End-to-end content engine: detects trending topics, writes 1,500-word articles, runs 6-layer quality checks, and auto-publishes to LinkedIn and Medium.</p><span class="outcome-line">3 articles/week published &middot; No human writer in the loop</span><span class="arrow">Read the story →</span></a>
           <a class="project-card" href="/projects/convoforge.html"><span class="tag">AI · Coaching</span><h3>ConvoForge</h3><p>Multimodal AI communication coach. Speech analysis, body-language feedback, AI avatar roleplay, and a live meeting overlay.</p><span class="arrow">Read the story →</span></a>
           <a class="project-card" href="/projects/skeddy.html"><span class="tag">AI · Bots</span><h3>Nudgle</h3><p>Telegram reminder bot with natural-language scheduling. Quiet hours, vacation mode, recurring tasks — all parsed by Claude.</p><span class="arrow">Read the story →</span></a>
           <a class="project-card" href="/projects/marketing-os.html"><span class="tag">AI · Marketing Ops</span><h3>Marketing OS</h3><p>The internal control tower for our marketing — cross-portfolio SEO/GEO audits, Search Console visibility, and per-product customer tracking, in one dashboard.</p><span class="arrow">Read the story →</span></a>
-          <a class="project-card" href="/projects/postreel.html"><span class="tag">AI · Social media</span><h3>Post Reel</h3><p>Social media scheduler with an AI video studio built in. Give it a URL, it crawls the site, writes a script, synthesises a voiceover, and produces a finished short-form video — scheduled across 12 platforms automatically.</p><span class="arrow">Read the story →</span></a>
           <a class="project-card" href="/projects/billing-api.html"><span class="tag">Infrastructure · SaaS</span><h3>Billing API</h3><p>Shared billing service across our portfolio. Stripe, Brevo, Postgres, and a Fastify core that lets every product launch on day one with payments wired in.</p><span class="arrow">Read the story →</span></a>
-          <a class="project-card" href="/projects/wisekeel.html"><span class="tag">AI · Agent Deployment</span><h3>WiseKeel</h3><p>Fixed-price AI agent deployment engagements, run inside a client&rsquo;s own infrastructure &mdash; scoped identity, human approval gates, full audit trail. No platform fee.</p><span class="arrow">Read the story →</span></a>
           </div>
         </div>
 

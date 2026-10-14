@@ -1,6 +1,7 @@
 ---
 type: "product"
 status: "live"
+main: true
 name: "WiseKeel"
 title: "WiseKeel — Secure AI Agent Deployment for Business | TelaLoom"
 description: "WiseKeel designs, deploys, and governs AI agents inside a client's own infrastructure — scoped access, human approval gates, full audit trail. Fixed-price engagements, no platform fee."
