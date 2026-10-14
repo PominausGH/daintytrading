@@ -1,0 +1,10 @@
+---
+// A live project stat, e.g. <Stat k="shuttersmith.visits" />. See src/data/project-stats.mjs.
+import { statText } from '../data/project-stats.mjs';
+
+interface Props {
+  k: string;
+}
+const { k } = Astro.props;
+---
+<span data-stat={k}>{statText(k)}</span>

@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getProductCounts } from '../data/products';
 import Price from '../components/Price.astro';
+import Stat from '../components/Stat.astro';
 
 const counts = await getProductCounts();
 
@@ -72,7 +73,7 @@ const jsonLd = [
         <p class="lead">
           For businesses that need a site built, need to actually show up in Google and AI answer engines, or have a
           manual process that should be software instead &mdash; not in a slide deck. Shuttersmith&rsquo;s SEO/GEO work
-          is already sending them real Google traffic, 405 visits and counting, and led to a second business built off
+          is already sending them real Google traffic, <Stat k="shuttersmith.visits" /> visits and counting, and led to a second business built off
           the results. Local SEO and generative-engine optimisation get shipped straight into your code, not handed
           over as a PDF. First working site or demo in 1&ndash;2&nbsp;weeks &mdash; and if you&rsquo;ve also got a
           manual workflow to automate, we&rsquo;ve built {counts.total} production AI products ourselves, so that work
@@ -109,7 +110,7 @@ const jsonLd = [
             <span class="tag">Client · SEO/GEO</span>
             <h3>Shuttersmith</h3>
             <p>The first client on our productised SEO + GEO service &mdash; technical audit, structured data, and generative-engine optimisation so the business is found by Google and by AI assistants.</p>
-            <span class="outcome-line">405 real visits, majority via Google &middot; led to a second business</span>
+            <span class="outcome-line"><Stat k="shuttersmith.visits" /> real visits, majority via Google &middot; led to a second business</span>
             <span class="arrow">Read the story →</span>
           </a>
           <a class="project-card" href="/projects/shuttersmith-rebuild.html">
@@ -192,7 +193,7 @@ const jsonLd = [
           <div class="service-card">
             <div class="icon">01</div>
             <h3>Real client sites, not a pitch deck</h3>
-            <p>Every website and SEO/GEO engagement gets its own project page &mdash; the real before/after, the actual traffic numbers, what broke along the way. Shuttersmith&rsquo;s story is public: 405 real visits and a second business launched off the results.</p>
+            <p>Every website and SEO/GEO engagement gets its own project page &mdash; the real before/after, the actual traffic numbers, what broke along the way. Shuttersmith&rsquo;s story is public: <Stat k="shuttersmith.visits" /> real visits and a second business launched off the results.</p>
           </div>
           <div class="service-card">
             <div class="icon">02</div>
