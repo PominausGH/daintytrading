@@ -16,7 +16,8 @@ const canonicalPath = `/projects/${slug}.html`;
 
 const primarySchema: Record<string, unknown> = {
   '@context': 'https://schema.org',
-  '@type': data.schemaType,
+  // case-study entries have no schemaType in the collection schema; an untyped node is ignored by parsers
+  '@type': data.type === 'case-study' ? 'CreativeWork' : data.schemaType,
   name: data.name,
   description: data.description,
   ...(data.type === 'case-study' ? { url: `https://telaloom.com${canonicalPath}` } : {}),
