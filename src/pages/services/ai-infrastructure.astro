@@ -1,5 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getProductCounts } from '../../data/products';
+
+const counts = await getProductCounts();
 
 const jsonLd = [
   {
@@ -50,7 +53,7 @@ const jsonLd = [
 
           <h2>Why AI features fail in production</h2>
           <p>Most AI feature failures aren&rsquo;t model failures. The models are good. The failures happen in the surrounding infrastructure: no retry logic when the provider times out, prompts that drift without version control, costs that compound silently, no graceful degradation, no eval pipeline to catch regressions before they hit users.</p>
-          <p>We&rsquo;ve run 35 products on the same AI stack. We&rsquo;ve hit these failure modes ourselves. The infrastructure work we offer to clients is the same layer we self-host for our own portfolio.</p>
+          <p>We run our {counts.total} main products on the same AI stack. We&rsquo;ve hit these failure modes ourselves. The infrastructure work we offer to clients is the same layer we self-host for our own portfolio.</p>
 
           <h2>What we build</h2>
 

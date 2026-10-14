@@ -4,12 +4,18 @@
 // hardcoded numbers, so the same drift could happen again. Every product's true status now
 // lives once, in that product's own content-collection frontmatter (`status:` in its .md file);
 // this file just counts it.
+//
+// 2026-10-14: the public claim counts only the main products (`main: true` in frontmatter —
+// the ones actually getting visitors per Umami, plus WiseKeel), not every listed product, so
+// the studio doesn't read as too busy to take on client work. The rest keep their pages and
+// show under "Also built" on /work.html; `all` is the full listed set for that page only.
 import { getCollection } from 'astro:content';
 
 export async function getProductCounts() {
-  const entries = await getCollection('projects', ({ data }) => data.type === 'product' && !data.unlisted);
+  const listed = await getCollection('projects', ({ data }) => data.type === 'product' && !data.unlisted);
+  const entries = listed.filter((e) => e.data.main);
   const live = entries.filter((e) => e.data.status === 'live').length;
   const testing = entries.filter((e) => e.data.status === 'testing').length;
   const dev = entries.filter((e) => e.data.status === 'dev').length;
-  return { total: entries.length, live, testing, dev };
+  return { total: entries.length, live, testing, dev, all: listed.length };
 }

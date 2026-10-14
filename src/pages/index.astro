@@ -39,7 +39,7 @@ const jsonLd = [
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: [
-      { '@type': 'Question', name: 'What is TelaLoom?', acceptedAnswer: { '@type': 'Answer', text: `TelaLoom builds websites, ranks them with SEO & GEO, and builds custom automation software that replaces manual work in your business. We also design, build, and operate production AI software across our own portfolio — ${counts.total} products covering email, content, education, knowledge management, marketing automation, scheduling, billing, and SaaS infrastructure. Each project page shows the real stack and build story.` } },
+      { '@type': 'Question', name: 'What is TelaLoom?', acceptedAnswer: { '@type': 'Answer', text: `TelaLoom builds websites, ranks them with SEO & GEO, and builds custom automation software that replaces manual work in your business. We also design, build, and operate production AI software across our own portfolio — ${counts.total} main products covering AI content, education, missed-call capture, social video scheduling, CV screening, email archiving, and AI agent deployment. Each project page shows the real stack and build story.` } },
       { '@type': 'Question', name: 'What kind of projects do you take on?', acceptedAnswer: { '@type': 'Answer', text: 'Three kinds: website builds (from an instant page to a custom site with Local SEO & GEO built in), SEO & GEO work on existing sites, and custom automation software — LLM-powered features (Claude, Gemini, OpenRouter), agentic workflows, content pipelines, and structured-extraction systems, plus the infrastructure that keeps them up.' } },
       { '@type': 'Question', name: 'What stack do you build on?', acceptedAnswer: { '@type': 'Answer', text: 'Python (FastAPI, Django) and Node.js (Fastify, Express) on the backend; Next.js, React, and React Native on the front; PostgreSQL and Redis for state; n8n for orchestration; Stripe for billing; LiteLLM for routing across model providers; Docker everywhere.' } },
       { '@type': 'Question', name: 'Do you only build with Claude?', acceptedAnswer: { '@type': 'Answer', text: 'No. We default to Anthropic Claude because it punches above its weight on long-context and structured tasks, but we route through OpenRouter and LiteLLM so projects can pick Gemini, OpenAI, or open-weights when the economics or latency demand it.' } },
@@ -263,10 +263,10 @@ const jsonLd = [
             <span class="outcome-line">3 articles/week published &middot; No human writer in the loop</span>
             <span class="arrow">Read the story →</span>
           </a>
-          <a class="project-card" href="/projects/skeddy.html">
-            <span class="tag">AI · Bots</span>
-            <h3>Nudgle</h3>
-            <p>Telegram reminder bot with natural-language scheduling. Quiet hours, vacation mode, recurring tasks — all parsed by Claude.</p>
+          <a class="project-card" href="/projects/postreel.html">
+            <span class="tag">AI · Social media</span>
+            <h3>Post Reel</h3>
+            <p>Social media scheduler with an AI video studio built in. Give it a URL, it crawls the site, writes a script, synthesises a voiceover, and produces a finished short-form video — scheduled across 12 platforms automatically.</p>
             <span class="arrow">Read the story →</span>
           </a>
         </div>
@@ -353,7 +353,7 @@ const jsonLd = [
         <div class="faq-list">
           <details class="faq-item" open>
             <summary>What is TelaLoom?</summary>
-            <p>TelaLoom builds websites, ranks them with SEO &amp; GEO, and builds custom automation software that replaces manual work in your business. We also design, build, and operate production AI software across our own portfolio — {counts.total} products covering email, content, education, knowledge management, marketing automation, scheduling, billing, and SaaS infrastructure. Each project page shows the real stack and build story.</p>
+            <p>TelaLoom builds websites, ranks them with SEO &amp; GEO, and builds custom automation software that replaces manual work in your business. We also design, build, and operate production AI software across our own portfolio — {counts.total} main products covering AI content, education, missed-call capture, social video scheduling, CV screening, email archiving, and AI agent deployment. Each project page shows the real stack and build story.</p>
           </details>
 
           <details class="faq-item">

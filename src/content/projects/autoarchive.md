@@ -1,6 +1,7 @@
 ---
 type: "product"
 status: "live"
+main: true
 name: "AutoArchive"
 title: "AutoArchive — Enterprise Shared Mailbox Archiving | TelaLoom"
 description: "AutoArchive backs up 45 shared email boxes to a secure local disk. Each email is saved with its message ID in the filename for instant retrieval — built for a Big 4 Australian bank."

@@ -1,6 +1,7 @@
 ---
 type: "product"
 status: "live"
+main: true
 name: "BrightPath"
 title: "BrightPath — Personalised K-12 School with AI Tutor | TelaLoom"
 description: "BrightPath is a personalised online K-12 school with an AI tutor (Pax), gamified rewards, and progress tracking. Built on Astro and an Express API, with the tutor powered by Gemini through OpenRouter."

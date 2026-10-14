@@ -1,11 +1,11 @@
 # TelaLoom
 
-> TelaLoom builds websites, ranks them with SEO & GEO, and builds custom automation software that replaces manual work in your business — for Australian and global businesses. We also design, build, and operate production AI software across our own portfolio — 15 live products covering email triage, AI content generation, education, knowledge management, marketing automation, scheduling, billing, and SaaS infrastructure. We self-host the open-source stack we recommend (analytics, scheduling, LLM routing, document management, and more) and take on a small number of client engagements each quarter across website builds, SEO/GEO, automation software, and AI infrastructure.
+> TelaLoom builds websites, ranks them with SEO & GEO, and builds custom automation software that replaces manual work in your business — for Australian and global businesses. We also design, build, and operate production AI software across our own portfolio — 7 main live products covering AI content generation, education, missed-call capture, social video scheduling, CV screening, email archiving, and AI agent deployment. We self-host the open-source stack we recommend (analytics, scheduling, LLM routing, document management, and more) and take on a small number of client engagements each quarter across website builds, SEO/GEO, automation software, and AI infrastructure.
 
 ## About the studio
 
 - **What we are**: A small, deliberate studio building websites, SEO/GEO, and automation software.
-- **What we do**: Build and rank websites, build custom automation software that replaces manual work, and build production AI software for our own portfolio (15 products) and selected clients.
+- **What we do**: Build and rank websites, build custom automation software that replaces manual work, and build production AI software for our own portfolio (7 main products) and selected clients.
 - **Where we are**: Australia. We work async with clients globally.
 - **What we believe**: Shipping is the only proof. Boring infrastructure is the moat. Small surface, deep stack. We run the open-source tools we recommend.
 - **Default LLM**: Anthropic Claude. We also route through OpenRouter and LiteLLM to use Google Gemini, OpenAI, Grok, Perplexity, and others when economics or latency demand it.
@@ -22,23 +22,28 @@
 - [Automation retrofits](https://telaloom.com/services.html): Adding AI to existing SaaS in 2–6 weeks.
 - [AI infrastructure](https://telaloom.com/services.html): LLM gateways, evals, queue workers, billing, observability.
 
-## Live products
+## Main products
 
 - [Ghost Writer](https://telaloom.com/projects/ghost-writer.html) — live at **signalreads.com**. End-to-end content engine. Topic detection on HN/Reddit/Dev.to → Claude-drafted articles → six-layer QA → auto-publish to LinkedIn and Medium.
-- [Subscription Incinerator](https://telaloom.com/projects/subscription.html) — live at **subscriptionincinerator.app**. Finds subscriptions in Gmail; Claude drafts merchant-specific cancellation emails; SMS chases follow-ups.
 - [Everyring.ai](https://telaloom.com/projects/missed-calls.html) — live at **everyring.ai**. Captures missed phone calls for service businesses; Claude drafts the right follow-up SMS or email per contact.
 - [BrightPath](https://telaloom.com/projects/brightpath.html) — live at **brightpath.school**. Personalised K-12 online school with an AI tutor named Pax (routed through OpenRouter, default Gemini Flash + Claude for harder tutoring).
 - [CV Matcher](https://telaloom.com/projects/cv-matcher.html) — live at **cvmatcher.work**. AI CV screening for recruitment agencies: ranks every CV against a job description with Claude, with matched/missing skills and a one-line reason per candidate.
+- [AutoArchive](https://telaloom.com/projects/autoarchive.html) — live at **autoarchivemail.com**. Personal email archive and search. Static HTML + Node + SQLite + Brevo.
+- [Post Reel](https://telaloom.com/projects/postreel.html) — live. Social media scheduler with an AI video studio built in. Give it a URL, it crawls the site, writes a script, synthesises a voiceover, and produces a finished short-form video — scheduled across 12 platforms automatically.
+- [WiseKeel](https://telaloom.com/projects/wisekeel.html) — live. Fixed-price AI agent deployment engagements, run inside a client's own infrastructure — scoped identity, human approval gates, full audit trail. No platform fee.
+
+## Also built
+
+Smaller, internal or earlier-stage projects. Each has a project page; not counted in the portfolio figure above.
+
+- [Subscription Incinerator](https://telaloom.com/projects/subscription.html) — live at **subscriptionincinerator.app**. Finds subscriptions in Gmail; Claude drafts merchant-specific cancellation emails; SMS chases follow-ups.
 - [BizPage Builder](https://telaloom.com/projects/bizpage-builder.html) — live at **bizpage.biz**. Discovers small businesses without websites via Google Maps API; generates SEO-ready landing pages with Claude; exports as deployable ZIP.
 - [FocusShield](https://telaloom.com/projects/focusguard.html) — live at **focusshield.app**. Cross-platform task and focus app — web, iOS, Android — Expo + Node + Postgres.
-- [AutoArchive](https://telaloom.com/projects/autoarchive.html) — live at **autoarchivemail.com**. Personal email archive and search. Static HTML + Node + SQLite + Brevo.
 - [TimerForge](https://telaloom.com/projects/timerforge.html) — live at **timerforge.app**. Cross-platform countdown timer. PyQt6 desktop apps + Node web SaaS, Stripe-billed.
 - [ConvoForge](https://telaloom.com/projects/convoforge.html) — live at **convoforge.app**. Multimodal communication coach. Speech analysis, body language detection, AI avatar roleplay, real-time meeting overlay.
 - [Nudgle](https://telaloom.com/projects/skeddy.html) — live at **nudgle.app**. Telegram reminder bot with Claude-powered natural-language scheduling.
 - [Marketing OS](https://telaloom.com/projects/marketing-os.html) — live, internal use only (no public domain). Marketing operations platform: campaigns, briefs, Puppeteer-based SEO/a11y audits, AI-assisted brief queue.
-- [Post Reel](https://telaloom.com/projects/postreel.html) — live. Social media scheduler with an AI video studio built in. Give it a URL, it crawls the site, writes a script, synthesises a voiceover, and produces a finished short-form video — scheduled across 12 platforms automatically.
 - [Billing API](https://telaloom.com/projects/billing-api.html) — live, internal API only (no public domain). Shared billing service across the portfolio. Fastify on Postgres, Stripe + Brevo, full subscription state machine.
-- [WiseKeel](https://telaloom.com/projects/wisekeel.html) — live. Fixed-price AI agent deployment engagements, run inside a client's own infrastructure — scoped identity, human approval gates, full audit trail. No platform fee.
 
 ## Supporting cast (open-source stack we self-host)
 
@@ -55,7 +60,7 @@ We don't bolt onto SaaS treadmills. The same open-source tools we run for oursel
 
 ## Frequently asked
 
-- **What is TelaLoom?** A studio that builds websites, ranks them with SEO & GEO, and builds custom automation software that replaces manual work — plus our own portfolio of 15 live AI products.
+- **What is TelaLoom?** A studio that builds websites, ranks them with SEO & GEO, and builds custom automation software that replaces manual work — plus our own portfolio of 7 main live AI products.
 - **What stack do you use?** Python (FastAPI, Django) + Node.js (Fastify, Express) backends; Next.js, React, React Native + Expo frontends; Postgres + Redis; Stripe + Brevo + n8n + LiteLLM. Default LLM is Claude.
 - **What open-source tools do you self-host?** Umami, Cal.com, LiteLLM Proxy, Paperless-NGX, Open WebUI, Speedtest Tracker, Portainer, Syncthing — see the Supporting cast section above.
 - **How fast can you ship?** Typically a working first slice in 1–2 weeks; first paying customer in 4–8 weeks.
