@@ -1,6 +1,7 @@
 document.querySelectorAll('.nav-toggle').forEach(function (btn) {
   btn.addEventListener('click', function () {
-    document.getElementById('main-nav').classList.toggle('nav-open');
+    var open = document.getElementById('main-nav').classList.toggle('nav-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
 });
 
