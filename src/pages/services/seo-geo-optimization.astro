@@ -4,6 +4,9 @@ import Price from '../../components/Price.astro';
 import CurrencySwitch from '../../components/CurrencySwitch.astro';
 import Stat from '../../components/Stat.astro';
 import { pricing, pricingUsd } from '../../data/pricing.ts';
+import { getProductCounts } from '../../data/products';
+
+const counts = await getProductCounts();
 
 const jsonLd = [
   {
@@ -222,7 +225,7 @@ const jsonLd = [
             <div class="result-card">
               <div class="result-stat">245 found &middot; 100 fixed</div>
               <p class="result-label">Portfolio-wide since 2026-07-04</p>
-              <p>Across our own ~20 live products, tracked continuously by the same tooling. Average time from found to fixed: 12.2 days &mdash; three were fixed the same day they were caught.</p>
+              <p>Across our own {counts.live} live products, tracked continuously by the same tooling. Average time from found to fixed: 12.2 days &mdash; three were fixed the same day they were caught.</p>
             </div>
             <div class="result-card">
               <div class="result-stat">110 real visits</div>
