@@ -23,7 +23,7 @@ const jsonLd = [
     mainEntity: [
       { '@type': 'Question', name: 'How much does a website cost?', acceptedAnswer: { '@type': 'Answer', text: `A custom build is ${n(pricing.customBuild)} AUD, one-off. That covers design and copywriting, hosting, SSL, your domain (first year included) and Local SEO & GEO setup. Customer logins, bookings or payments are extra, estimated in days up front and priced from ${n(pricing.fixDay)} AUD per day.` } },
       { '@type': 'Question', name: 'Is there a lock-in contract?', acceptedAnswer: { '@type': 'Answer', text: 'No. The one-off prices are one-off, and the monthly plans are month-to-month. Cancel anytime. You own the domain and the site.' } },
-      { '@type': 'Question', name: 'What if my job is smaller than a Setup?', acceptedAnswer: { '@type': 'Answer', text: `Book fix days at ${n(pricing.fixDay)} AUD a day. We estimate the days up front and you approve before we start. Once a job passes about four days, Setup at ${n(pricing.setupSingleTemplate)} AUD is the better value.` } },
+      { '@type': 'Question', name: 'What if my job is smaller than a Setup?', acceptedAnswer: { '@type': 'Answer', text: `Book fix days at ${n(pricing.fixDay)} AUD a day. We estimate the days up front and you approve before we start. Once a job passes about three days, Setup at ${n(pricing.setupSingleTemplate)} AUD is the better value.` } },
       { '@type': 'Question', name: 'Do I need a monthly plan?', acceptedAnswer: { '@type': 'Answer', text: "Often not. Setup is a one-time audit-and-fix, and the monthly plans are optional. If there's nothing useful to do in a given month, we tell you." } },
       { '@type': 'Question', name: 'What currency will I be invoiced in?', acceptedAnswer: { '@type': 'Answer', text: 'Australian clients are invoiced in AUD and international clients in USD. UK clients can be invoiced in GBP.' } },
     ],
@@ -133,7 +133,7 @@ const jsonLd = [
           <h2>What isn&rsquo;t on this list</h2>
           <p><strong>Logins, bookings, payments.</strong> Anything with real application logic is estimated in days up front and priced from <Price item="fixDay" /> per day. You get the price in writing and approve it before we start.</p>
           <p><strong>A simple page, live this week.</strong> Our instant page is a separate self-serve product, generated from your Google Business listing, from ${pricing.instantPageFromUsd} USD at <a href="https://bizpage.biz" target="_blank" rel="noopener" data-umami-event="cta_click" data-umami-event-target="bizpage_preview" data-umami-event-source="pricing_page">bizpage.biz</a>. <a href="/services/website-builds.html">Instant page or custom build?</a></p>
-          <p><strong>AI product builds, automation retrofits and AI infrastructure.</strong> These are scoped and quoted per engagement. <a href="/services.html">See services</a>.</p>
+          <p><strong>AI work.</strong> Every AI engagement starts with a Discovery sprint at <Price item="aiDiscovery" symbol />: one week to map the workflow, build an eval set from your data and fix the scope and price. It's credited in full against the build. Builds are then quoted per engagement: <a href="/services/ai-automation-retrofit.html">automation retrofits</a> from <Price item="aiRetrofitFrom" symbol />, <a href="/services/ai-infrastructure.html">AI infrastructure</a> from <Price item="aiInfrastructureFrom" symbol />, and <a href="/services/ai-product-builds.html">AI product builds</a> from <Price item="aiProductBuildFrom" symbol />. Deploying AI agents inside your own systems, with approval gates and an audit trail, is handled by our sister service <a href="https://wisekeel.com" target="_blank" rel="noopener">WiseKeel</a>.</p>
 
           <h2>Frequently asked questions</h2>
           <details class="faq-item">
@@ -146,7 +146,7 @@ const jsonLd = [
           </details>
           <details class="faq-item">
             <summary>What if my job is smaller than a Setup?</summary>
-            <p>Book fix days at <Price item="fixDay" /> a day. We estimate the days up front and you approve before we start. Once a job passes about four days, Setup at <Price item="setupSingleTemplate" /> is the better value.</p>
+            <p>Book fix days at <Price item="fixDay" /> a day. We estimate the days up front and you approve before we start. Once a job passes about three days, Setup at <Price item="setupSingleTemplate" /> is the better value.</p>
           </details>
           <details class="faq-item">
             <summary>Do I need a monthly plan?</summary>

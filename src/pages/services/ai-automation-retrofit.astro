@@ -1,5 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Price from '../../components/Price.astro';
+import CurrencySwitch from '../../components/CurrencySwitch.astro';
+import { pricing } from '../../data/pricing.ts';
 
 const jsonLd = [
   {
@@ -10,11 +13,10 @@ const jsonLd = [
     "serviceType": "AI automation integration",
     "description": "Adding AI capabilities to existing SaaS products and internal tools. Email triage, support deflection, content generation, structured extraction.",
     "areaServed": "Worldwide",
-    "offers": {
-      "@type": "Offer",
-      "name": "AI automation retrofit",
-      "description": "2–6 week engagement. Feature-flagged rollout, eval against your real data, measurable ROI before full launch."
-    }
+    "offers": [
+      { '@type': 'Offer', name: 'AI Discovery sprint', price: String(pricing.aiDiscovery), priceCurrency: 'AUD', description: 'One week. Maps the workflow, builds an eval set from your data and fixes the scope and price. Credited in full against the build.' },
+      { '@type': 'Offer', name: 'AI automation retrofit', priceSpecification: { '@type': 'PriceSpecification', minPrice: pricing.aiRetrofitFrom, priceCurrency: 'AUD' }, description: '2–6 week engagement. Feature-flagged rollout, eval against your real data, measurable ROI before full launch.' },
+    ]
   },
   {
     "@context": "https://schema.org",
@@ -33,6 +35,7 @@ const jsonLd = [
   description="We bolt AI into your existing SaaS or internal tool — email triage, support deflection, content generation, structured extraction — without rewriting the world. 2–6 week engagements, measurable ROI."
   canonicalPath="/services/ai-automation-retrofit.html"
   jsonLd={jsonLd}
+  currencySwitch
 >
   <main id="main">
     <section class="detail-hero">
@@ -100,12 +103,15 @@ const jsonLd = [
 
         <aside class="sidecard">
           <h4>Automation retrofits</h4>
+          <CurrencySwitch />
           <div class="label-row"><span>Typical timeline</span><span>2&ndash;6 weeks</span></div>
-          <div class="label-row"><span>Typical investment</span><span>$24k+</span></div>
+          <div class="label-row"><span>Discovery sprint</span><span><Price item="aiDiscovery" symbol /></span></div>
+          <div class="label-row"><span>Build</span><span>from <Price item="aiRetrofitFrom" symbol /></span></div>
           <div class="label-row"><span>Rollout</span><span>Feature-flagged</span></div>
           <div class="label-row"><span>Measured by</span><span>Your success metric</span></div>
           <div class="label-row"><span>Data handling</span><span>Self-hosted gateway</span></div>
-          <p style="font-size:12px;color:var(--text-muted);margin:10px 0 16px;">Scoped and invoiced per engagement, in your own currency &mdash; this is a starting point to qualify budget, not a quote.</p>
+          <p style="font-size:12px;color:var(--text-muted);margin:10px 0 16px;">Every engagement starts with a one-week Discovery sprint that fixes the scope and price, credited in full against the build. Invoiced in AUD for Australian clients and USD everywhere else.</p>
+          <p style="font-size:12px;color:var(--text-muted);margin:0 0 16px;">Deploying AI agents inside your own systems, with approval gates and an audit trail? That&rsquo;s our sister service <a href="https://wisekeel.com" target="_blank" rel="noopener">WiseKeel</a>.</p>
           <a class="btn btn-primary" href="/contact.html">Start a retrofit &rarr;</a>
           <a class="btn btn-ghost" href="/blog/how-to-add-ai-to-existing-saas.html">Read: How retrofits work</a>
         </aside>
