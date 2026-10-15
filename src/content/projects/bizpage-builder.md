@@ -2,7 +2,7 @@
 type: "product"
 status: "live"
 name: "BizPage Builder"
-title: "BizPage Builder — AI-Generated Landing Pages for Local Businesses | TelaLoom"
+title: "BizPage Builder — AI Landing Pages for Local Businesses | TelaLoom"
 description: "BizPage Builder finds local businesses without websites, generates SEO-ready landing pages with Claude, and ships them as deployable ZIPs. Built for agencies and lead-gen operators."
 ogTitle: "BizPage Builder"
 ogDescription: "Auto-generate landing pages for businesses without websites, ready to deploy."

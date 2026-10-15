@@ -1,5 +1,6 @@
 ---
 title: "What a Website Actually Costs in Australia (and Why Cheap Offshore Isn't Cheaper)"
+seoTitle: "What a Website Costs in Australia vs Cheap Offshore"
 description: "A custom website in Australia runs $3,000–$25,000+; offshore template work looks cheaper upfront but the real cost shows up after launch, in edits you can't make and traffic you never get."
 category: "Business"
 publishedDate: "2026-09-12"

@@ -1,5 +1,6 @@
 ---
 title: "Self-Hosting LiteLLM: What We Learned (and Why Our Products Call Providers Directly)"
+seoTitle: "Self-Hosting LiteLLM: Lessons and Why We Went Direct"
 description: "We self-hosted LiteLLM for internal tools while our products called providers directly. Here's when a gateway earns its place, and the backup lesson we learned the hard way."
 category: "AI · Engineering"
 publishedDate: "2026-06-08"

@@ -11,7 +11,7 @@ interface Props {
 }
 
 const { entry, prevLink, nextLink, related = [], services = [] } = Astro.props;
-const { title, description, category, publishedDate, readTime, ogImage } = entry.data;
+const { title, seoTitle, description, category, publishedDate, readTime, ogImage } = entry.data;
 const { Content } = await entry.render();
 
 const publishedLabel = publishedDate.toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' });
@@ -32,7 +32,7 @@ const jsonLd = [
   },
 ];
 ---
-<BaseLayout title={`${title} — TelaLoom`} description={description} canonicalPath={canonicalPath} ogImage={ogImage} jsonLd={jsonLd}>
+<BaseLayout title={`${seoTitle ?? title} — TelaLoom`} description={description} canonicalPath={canonicalPath} ogImage={ogImage} jsonLd={jsonLd}>
   <main id="main">
     <section class="detail-hero">
       <div class="container">

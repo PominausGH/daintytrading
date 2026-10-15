@@ -1,5 +1,6 @@
 ---
 title: "LLM Routing: When to Put Claude, Gemini, and OpenAI Behind One Gateway"
+seoTitle: "LLM Routing: Claude, Gemini and OpenAI Behind One Gateway"
 description: "Hard-coding a single model provider into your app is a liability. Here's how to route across Claude, Gemini, and OpenAI — and the rules for deciding which model runs which task."
 category: "AI · Infrastructure"
 publishedDate: "2026-05-06"

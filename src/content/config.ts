@@ -62,6 +62,7 @@ const blog = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
+    seoTitle: z.string().optional(), // shorter <title> (before the " — TelaLoom" suffix) when the h1 is too long; keep the full <title> ≤75 chars
     description: z.string(),
     category: z.string(),
     publishedDate: z.coerce.date(),
