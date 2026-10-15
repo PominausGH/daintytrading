@@ -15,7 +15,14 @@ export const pricing = {
   instantPageOwnDomainFromUsd: 79,
   customBuild: 6900,
   carePlan: 290,
-  fixDay: 1000,
+  fixDay: 1200,
+  // AI engagements, quoted as "from" prices on a ~1,600 AUD/day internal basis. aiDiscovery
+  // deliberately equals WiseKeel's Diagnostic (AU$4,500) so the two price lists never contradict.
+  // Don't link the two sites: WiseKeel is kept as a standalone brand (Andrew's decision).
+  aiDiscovery: 4500,
+  aiRetrofitFrom: 24000,
+  aiInfrastructureFrom: 28000,
+  aiProductBuildFrom: 45000,
 } as const;
 
 export function aud(n: number) {
@@ -43,14 +50,19 @@ export const pricingUsd = {
   customBuild: usdApprox(pricing.customBuild),
   carePlan: usdApprox(pricing.carePlan),
   fixDay: usdApprox(pricing.fixDay),
-  // Set by hand, not by formula (which gives 2,800): Setup is ~4 fix days, and
-  // the AUD price is 4 x 1,000 minus a 100 bundle discount (3,900). Keep the same
-  // 100 discount in USD: 4 x 700 = 2,800, so 2,700. Don't "correct" this back.
+  // Set by hand, not by formula (which gives 2,800): Setup was priced as 4 fix days at
+  // 1,000 minus a 100 bundle discount (3,900 AUD / 2,700 USD). Fix days rose to 1,200 on
+  // 2026-10-15 but Setup stayed put, so it now beats fix days from about three days of work.
+  // Don't "correct" this back to the formula.
   setupSingleTemplate: 2700,
   setupMultiTemplate: usdApprox(pricing.setupMultiTemplate),
   monitor: usdApprox(pricing.monitor),
   growth: usdApprox(pricing.growth),
   scale: usdApprox(pricing.scale),
+  aiDiscovery: usdApprox(pricing.aiDiscovery),
+  aiRetrofitFrom: usdApprox(pricing.aiRetrofitFrom),
+  aiInfrastructureFrom: usdApprox(pricing.aiInfrastructureFrom),
+  aiProductBuildFrom: usdApprox(pricing.aiProductBuildFrom),
 } as const;
 
 export function usd(n: number) {

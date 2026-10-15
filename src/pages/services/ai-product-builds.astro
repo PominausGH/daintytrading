@@ -1,5 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Price from '../../components/Price.astro';
+import CurrencySwitch from '../../components/CurrencySwitch.astro';
+import QuickEnquiry from '../../components/QuickEnquiry.astro';
+import { pricing } from '../../data/pricing.ts';
 
 const jsonLd = [
   {
@@ -10,11 +14,10 @@ const jsonLd = [
     serviceType: 'AI product development',
     description: 'Full-stack delivery of an AI-native product from concept to paying customers. Backend, frontend, LLM stack, billing, and observability included.',
     areaServed: 'Worldwide',
-    offers: {
-      '@type': 'Offer',
-      name: 'AI product build',
-      description: 'First demo in 1–2 weeks. First paying customer in 4–8 weeks. Fixed scope, fixed price per sprint.',
-    },
+    offers: [
+      { '@type': 'Offer', name: 'AI Discovery sprint', price: String(pricing.aiDiscovery), priceCurrency: 'AUD', description: 'One week. Maps the workflow, builds an eval set from your data and fixes the scope and price. Credited in full against the build.' },
+      { '@type': 'Offer', name: 'AI product build', priceSpecification: { '@type': 'PriceSpecification', minPrice: pricing.aiProductBuildFrom, priceCurrency: 'AUD' }, description: 'First demo in 1–2 weeks. First paying customer in 4–8 weeks. Fixed scope, fixed price per sprint.' },
+    ],
   },
   {
     '@context': 'https://schema.org',
@@ -33,6 +36,7 @@ const jsonLd = [
   description="We take your AI product idea and ship it — backend, frontend, LLM stack, billing, and observability included. First demo in 2 weeks. First paying customer in 4–8 weeks. Australia-based, global clients."
   canonicalPath="/services/ai-product-builds.html"
   jsonLd={jsonLd}
+  currencySwitch
 >
   <main id="main">
     <section class="detail-hero">
@@ -112,13 +116,15 @@ const jsonLd = [
 
         <aside class="sidecard">
           <h4>AI product builds</h4>
+          <CurrencySwitch />
           <div class="label-row"><span>First demo</span><span>1&ndash;2 weeks</span></div>
           <div class="label-row"><span>Paying users</span><span>4&ndash;8 weeks</span></div>
-          <div class="label-row"><span>Typical investment</span><span>$45k+</span></div>
+          <div class="label-row"><span>Discovery sprint</span><span><Price item="aiDiscovery" symbol /></span></div>
+          <div class="label-row"><span>Build</span><span>from <Price item="aiProductBuildFrom" symbol /></span></div>
           <div class="label-row"><span>Stack</span><span>Claude · FastAPI · Next.js</span></div>
           <div class="label-row"><span>Billing</span><span>Stripe wired in</span></div>
           <div class="label-row"><span>Ownership</span><span>You own the code</span></div>
-          <p style="font-size:12px;color:var(--text-muted);margin:10px 0 16px;">Fixed scope, fixed price per sprint &mdash; scoped and invoiced per engagement, in your own currency. This is a starting point to qualify budget, not a quote.</p>
+          <p style="font-size:12px;color:var(--text-muted);margin:10px 0 16px;">Every engagement starts with a one-week Discovery sprint that fixes the scope and price, credited in full against the build. Invoiced in AUD for Australian clients and USD everywhere else.</p>
           <a class="btn btn-primary" href="/contact.html">Start a project &rarr;</a>
           <a class="btn btn-ghost" href="/services.html">All services</a>
         </aside>
@@ -170,7 +176,8 @@ const jsonLd = [
       <div class="cta-banner" style="margin-top:72px;">
         <h2>Have an AI product to build?</h2>
         <p>Tell us the problem in two paragraphs. We scope sprint one in 48 hours.</p>
-        <a class="btn btn-primary" href="/contact.html">Start a project &rarr;</a>
+        <QuickEnquiry engagement="AI product build (concept → paying product)" source="ai_product_builds_page" id="qe-product" />
+        <script is:inline defer src="/js/quick-enquiry.js?v=20261015"></script>
       </div>
     </div>
   </main>

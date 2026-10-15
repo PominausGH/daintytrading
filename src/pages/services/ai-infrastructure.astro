@@ -1,5 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Price from '../../components/Price.astro';
+import CurrencySwitch from '../../components/CurrencySwitch.astro';
+import QuickEnquiry from '../../components/QuickEnquiry.astro';
+import { pricing } from '../../data/pricing.ts';
 import { getProductCounts } from '../../data/products';
 
 const counts = await getProductCounts();
@@ -13,11 +17,10 @@ const jsonLd = [
     "serviceType": "AI infrastructure and platform engineering",
     "description": "LLM gateways, prompt versioning, eval pipelines, queue workers, billing metering, and observability for production AI applications.",
     "areaServed": "Worldwide",
-    "offers": {
-      "@type": "Offer",
-      "name": "AI infrastructure build",
-      "description": "3–8 week engagement. Delivered as building blocks your team owns and operates after handover."
-    }
+    "offers": [
+      { '@type': 'Offer', name: 'AI Discovery sprint', price: String(pricing.aiDiscovery), priceCurrency: 'AUD', description: 'One week. Maps the workflow, builds an eval set from your data and fixes the scope and price. Credited in full against the build.' },
+      { '@type': 'Offer', name: 'AI infrastructure build', priceSpecification: { '@type': 'PriceSpecification', minPrice: pricing.aiInfrastructureFrom, priceCurrency: 'AUD' }, description: '3–8 week engagement. Delivered as building blocks your team owns and operates after handover.' },
+    ]
   },
   {
     "@context": "https://schema.org",
@@ -36,6 +39,7 @@ const jsonLd = [
   description="LLM gateways, prompt versioning, eval pipelines, billing metering, queue workers, and observability. The infrastructure layer that keeps AI features running at 3am. 3–8 week engagements."
   canonicalPath="/services/ai-infrastructure.html"
   jsonLd={jsonLd}
+  currencySwitch
 >
   <main id="main">
     <section class="detail-hero">
@@ -108,13 +112,15 @@ const jsonLd = [
 
         <aside class="sidecard">
           <h4>AI infrastructure</h4>
+          <CurrencySwitch />
           <div class="label-row"><span>Typical timeline</span><span>3&ndash;8 weeks</span></div>
-          <div class="label-row"><span>Typical investment</span><span>$28k+</span></div>
+          <div class="label-row"><span>Discovery sprint</span><span><Price item="aiDiscovery" symbol /></span></div>
+          <div class="label-row"><span>Build</span><span>from <Price item="aiInfrastructureFrom" symbol /></span></div>
           <div class="label-row"><span>Gateway</span><span>LiteLLM (self-hosted)</span></div>
           <div class="label-row"><span>Orchestration</span><span>n8n &middot; Bull/Redis</span></div>
           <div class="label-row"><span>Billing</span><span>Stripe metering</span></div>
           <div class="label-row"><span>Handover</span><span>Docs + runbooks</span></div>
-          <p style="font-size:12px;color:var(--text-muted);margin:10px 0 16px;">Scoped and invoiced per engagement, in your own currency &mdash; this is a starting point to qualify budget, not a quote.</p>
+          <p style="font-size:12px;color:var(--text-muted);margin:10px 0 16px;">Every engagement starts with a one-week Discovery sprint that fixes the scope and price, credited in full against the build. Invoiced in AUD for Australian clients and USD everywhere else.</p>
           <a class="btn btn-primary" href="/contact.html">Talk infrastructure &rarr;</a>
           <a class="btn btn-ghost" href="/blog/llm-routing-one-gateway-multiple-models.html">Read: LLM routing</a>
         </aside>
@@ -123,7 +129,8 @@ const jsonLd = [
       <div class="cta-banner" style="margin-top:72px;">
         <h2>Is your AI infrastructure ready for production?</h2>
         <p>Tell us what you have and what&rsquo;s breaking. We&rsquo;ll tell you what the gaps are &mdash; before you pay for anything.</p>
-        <a class="btn btn-primary" href="/contact.html">Talk infrastructure &rarr;</a>
+        <QuickEnquiry engagement="AI infrastructure (gateway, evals, billing, observability)" source="ai_infrastructure_page" id="qe-infra" />
+        <script is:inline defer src="/js/quick-enquiry.js?v=20261015"></script>
       </div>
     </div>
   </main>

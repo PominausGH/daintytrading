@@ -1,0 +1,65 @@
+---
+// Three-field enquiry form for service pages. Posts to the same /api/contact endpoint as
+// contact.astro (name, email, message are the only fields the API requires) with the engagement
+// pre-set, so a visitor can ask without leaving the page. Behaviour: /js/quick-enquiry.js.
+interface Props {
+  engagement: string; // must read naturally in the enquiry email, e.g. contact.astro's option text
+  source: string; // Umami event source, e.g. "ai_retrofit_page"
+  id: string; // unique per page; prefixes the field ids
+}
+const { engagement, source, id } = Astro.props;
+---
+<div class="qe" data-qe>
+  <form class="qe-form" data-engagement={engagement} data-source={source} novalidate>
+    <div class="qe-row">
+      <div>
+        <label for={`${id}-name`}>Your name</label>
+        <input id={`${id}-name`} name="name" type="text" required autocomplete="name" />
+      </div>
+      <div>
+        <label for={`${id}-email`}>Email</label>
+        <input id={`${id}-email`} name="email" type="email" required autocomplete="email" />
+      </div>
+    </div>
+    <div>
+      <label for={`${id}-message`}>What&rsquo;s eating your time?</label>
+      <textarea id={`${id}-message`} name="message" required placeholder="e.g. We copy every enquiry from email into our CRM by hand, about ten hours a week."></textarea>
+    </div>
+    <div aria-hidden="true" class="qe-hp">
+      <label for={`${id}-hp`}>Work phone</label>
+      <input type="text" id={`${id}-hp`} name="dt_website" tabindex="-1" autocomplete="off" />
+    </div>
+    <input type="hidden" name="dt_form_loaded_at" />
+    <div class="qe-actions">
+      <button type="submit" class="btn btn-primary">Send it</button>
+      <span class="qe-alt">or <a href="https://cal.daintytrading.com/andrewdainty/telaloom" target="_blank" rel="noopener" data-umami-event="book_a_time_click" data-umami-event-source={source}>book a time</a></span>
+    </div>
+    <p class="qe-error" role="alert" hidden></p>
+    <p class="qe-fine">We reply within one business day with our honest read on it. Your data is never sold or shared &middot; <a href="/privacy.html">Privacy policy</a></p>
+  </form>
+  <div class="qe-done" role="status" hidden>
+    <strong>Thanks, it&rsquo;s with us.</strong> We&rsquo;ll reply within one business day.
+  </div>
+</div>
+
+<style>
+  .qe { max-width: 600px; margin: 0 auto; text-align: left; }
+  .qe [hidden] { display: none !important; }
+  .qe-form { display: grid; gap: 14px; }
+  .qe-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 560px) { .qe-row { grid-template-columns: 1fr; } }
+  .qe label { display: block; font-size: 14px; color: var(--text-dim); margin-bottom: 6px; }
+  .qe input, .qe textarea {
+    width: 100%; padding: 12px 14px; border-radius: 10px;
+    background: var(--bg-elev); border: 1px solid var(--border); color: var(--text); font: inherit;
+  }
+  .qe input:focus, .qe textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(124,92,255,0.18); }
+  .qe textarea { min-height: 110px; resize: vertical; }
+  .qe-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .qe-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .qe-alt { font-size: 14px; color: var(--text-muted); }
+  .qe-error { color: #f87171; font-size: 13px; margin: 0; }
+  .qe-fine { font-size: 12px; color: var(--text-muted); margin: 0; }
+  .qe-fine a { color: var(--text-muted); text-decoration: underline; }
+  .qe-done { padding: 18px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg-elev); }
+</style>
