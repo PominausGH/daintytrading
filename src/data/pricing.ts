@@ -16,8 +16,9 @@ export const pricing = {
   customBuild: 6900,
   carePlan: 290,
   fixDay: 1200,
-  // AI engagements, quoted as "from" prices. Same ~1,600 AUD/day internal basis as WiseKeel
-  // (wisekeel.com); aiDiscovery deliberately equals WiseKeel's Diagnostic so the two never contradict.
+  // AI engagements, quoted as "from" prices on a ~1,600 AUD/day internal basis. aiDiscovery
+  // deliberately equals WiseKeel's Diagnostic (AU$4,500) so the two price lists never contradict.
+  // Don't link the two sites: WiseKeel is kept as a standalone brand (Andrew's decision).
   aiDiscovery: 4500,
   aiRetrofitFrom: 24000,
   aiInfrastructureFrom: 28000,

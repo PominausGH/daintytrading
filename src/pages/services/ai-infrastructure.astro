@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Price from '../../components/Price.astro';
 import CurrencySwitch from '../../components/CurrencySwitch.astro';
+import QuickEnquiry from '../../components/QuickEnquiry.astro';
 import { pricing } from '../../data/pricing.ts';
 import { getProductCounts } from '../../data/products';
 
@@ -120,7 +121,6 @@ const jsonLd = [
           <div class="label-row"><span>Billing</span><span>Stripe metering</span></div>
           <div class="label-row"><span>Handover</span><span>Docs + runbooks</span></div>
           <p style="font-size:12px;color:var(--text-muted);margin:10px 0 16px;">Every engagement starts with a one-week Discovery sprint that fixes the scope and price, credited in full against the build. Invoiced in AUD for Australian clients and USD everywhere else.</p>
-          <p style="font-size:12px;color:var(--text-muted);margin:0 0 16px;">Deploying AI agents inside your own systems, with approval gates and an audit trail? That&rsquo;s our sister service <a href="https://wisekeel.com" target="_blank" rel="noopener">WiseKeel</a>.</p>
           <a class="btn btn-primary" href="/contact.html">Talk infrastructure &rarr;</a>
           <a class="btn btn-ghost" href="/blog/llm-routing-one-gateway-multiple-models.html">Read: LLM routing</a>
         </aside>
@@ -129,7 +129,8 @@ const jsonLd = [
       <div class="cta-banner" style="margin-top:72px;">
         <h2>Is your AI infrastructure ready for production?</h2>
         <p>Tell us what you have and what&rsquo;s breaking. We&rsquo;ll tell you what the gaps are &mdash; before you pay for anything.</p>
-        <a class="btn btn-primary" href="/contact.html">Talk infrastructure &rarr;</a>
+        <QuickEnquiry engagement="AI infrastructure (gateway, evals, billing, observability)" source="ai_infrastructure_page" id="qe-infra" />
+        <script is:inline defer src="/js/quick-enquiry.js?v=20261015"></script>
       </div>
     </div>
   </main>

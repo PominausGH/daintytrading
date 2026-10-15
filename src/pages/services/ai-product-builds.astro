@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Price from '../../components/Price.astro';
 import CurrencySwitch from '../../components/CurrencySwitch.astro';
+import QuickEnquiry from '../../components/QuickEnquiry.astro';
 import { pricing } from '../../data/pricing.ts';
 
 const jsonLd = [
@@ -175,7 +176,8 @@ const jsonLd = [
       <div class="cta-banner" style="margin-top:72px;">
         <h2>Have an AI product to build?</h2>
         <p>Tell us the problem in two paragraphs. We scope sprint one in 48 hours.</p>
-        <a class="btn btn-primary" href="/contact.html">Start a project &rarr;</a>
+        <QuickEnquiry engagement="AI product build (concept → paying product)" source="ai_product_builds_page" id="qe-product" />
+        <script is:inline defer src="/js/quick-enquiry.js?v=20261015"></script>
       </div>
     </div>
   </main>

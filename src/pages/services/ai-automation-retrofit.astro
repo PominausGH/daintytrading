@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Price from '../../components/Price.astro';
 import CurrencySwitch from '../../components/CurrencySwitch.astro';
+import QuickEnquiry from '../../components/QuickEnquiry.astro';
 import { pricing } from '../../data/pricing.ts';
 
 const jsonLd = [
@@ -111,7 +112,6 @@ const jsonLd = [
           <div class="label-row"><span>Measured by</span><span>Your success metric</span></div>
           <div class="label-row"><span>Data handling</span><span>Self-hosted gateway</span></div>
           <p style="font-size:12px;color:var(--text-muted);margin:10px 0 16px;">Every engagement starts with a one-week Discovery sprint that fixes the scope and price, credited in full against the build. Invoiced in AUD for Australian clients and USD everywhere else.</p>
-          <p style="font-size:12px;color:var(--text-muted);margin:0 0 16px;">Deploying AI agents inside your own systems, with approval gates and an audit trail? That&rsquo;s our sister service <a href="https://wisekeel.com" target="_blank" rel="noopener">WiseKeel</a>.</p>
           <a class="btn btn-primary" href="/contact.html">Start a retrofit &rarr;</a>
           <a class="btn btn-ghost" href="/blog/how-to-add-ai-to-existing-saas.html">Read: How retrofits work</a>
         </aside>
@@ -151,7 +151,8 @@ const jsonLd = [
       <div class="cta-banner" style="margin-top:72px;">
         <h2>Ready to add AI to your product?</h2>
         <p>Tell us the workflow and we&rsquo;ll tell you whether it&rsquo;s a good first candidate &mdash; honestly, before you commit to anything.</p>
-        <a class="btn btn-primary" href="/contact.html">Start a retrofit &rarr;</a>
+        <QuickEnquiry engagement="Automation retrofit (add AI to my existing SaaS)" source="ai_retrofit_page" id="qe-retrofit" />
+        <script is:inline defer src="/js/quick-enquiry.js?v=20261015"></script>
       </div>
     </div>
   </main>
