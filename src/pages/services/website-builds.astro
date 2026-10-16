@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Price from '../../components/Price.astro';
 import CurrencySwitch from '../../components/CurrencySwitch.astro';
+import QuickEnquiry from '../../components/QuickEnquiry.astro';
 import { pricing, pricingUsd } from '../../data/pricing.ts';
 
 const jsonLd = [
@@ -67,6 +68,22 @@ const jsonLd = [
     .month-list li::before { content:"\2192"; position:absolute; left:0; color:var(--text-muted); font-weight:400; }
     .honest-note { background:var(--accent-soft); border:1px solid var(--border); border-radius:var(--radius-sm); padding:14px 16px; font-size:14px; color:var(--text-dim); margin:22px 0; }
     .honest-note strong { color:var(--text); }
+    #packages, #process, #enquire { scroll-margin-top:88px; }
+    .hero-actions { display:flex; flex-wrap:wrap; align-items:center; gap:12px 20px; margin-top:28px; }
+    .hero-actions .cta-row { justify-content:flex-start; }
+    .hero-rating { display:inline-flex; align-items:center; gap:10px; text-decoration:none; padding:6px 14px 6px 6px; border:1px solid var(--border); border-radius:999px; background:var(--bg-card); }
+    .hero-rating img { border-radius:6px; }
+    .hero-rating .gbp-score { font-size:18px; }
+    .hero-rating .gbp-stars { font-size:14px; }
+    .hero-rating .gbp-label { font-size:11px; }
+    .build-steps { list-style:none; padding:0; margin:18px 0 8px; counter-reset:step; }
+    .build-steps li { position:relative; padding:0 0 22px 56px; margin:0; }
+    .build-steps li::before { counter-increment:step; content:counter(step); position:absolute; left:0; top:0; width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:15px; background:var(--accent-soft); color:var(--accent-text); border:1px solid var(--border); }
+    .build-steps li::after { content:""; position:absolute; left:18px; top:40px; bottom:4px; width:1px; background:var(--border); }
+    .build-steps li:last-child::after { display:none; }
+    .build-steps .when { display:block; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--accent-text); margin-bottom:2px; }
+    .build-steps h3 { font-size:17px; margin:0 0 6px; }
+    .build-steps p { font-size:14.5px; color:var(--text-dim); margin:0; }
   </style>
 
   <main id="main">
@@ -75,6 +92,18 @@ const jsonLd = [
         <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/services.html">Services</a> &nbsp;/&nbsp; Website builds</div>
         <h1>Website Builds &mdash; From an Instant Page to a Full Custom Site</h1>
         <p class="lede">Some businesses just need to stop being invisible online today. Others need a real site built around them. We do both &mdash; and the ones we build custom come with Local SEO &amp; GEO switched on from day one, not sold to you later as a separate line item.</p>
+        <div class="hero-actions">
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#enquire" data-umami-event="cta_click" data-umami-event-target="get_a_quote" data-umami-event-source="website_builds_hero">Get a quote &rarr;</a>
+            <a class="btn btn-ghost" href="#packages" data-umami-event="cta_click" data-umami-event-target="see_packages" data-umami-event-source="website_builds_hero">See packages &amp; prices</a>
+          </div>
+          <a class="hero-rating" href="https://www.google.com/maps/place/?q=place_id:ChIJ2VLpW3U4aoQRz6YI6UQ2hr4" target="_blank" rel="noopener" data-umami-event="cta_click" data-umami-event-target="google_reviews" data-umami-event-source="website_builds_hero">
+            <img src="/gbp-logo.png" width="28" height="28" alt="" />
+            <span class="gbp-score">5.0</span>
+            <span class="gbp-stars">★★★★★</span>
+            <span class="gbp-label">Rated on Google</span>
+          </a>
+        </div>
       </div>
     </section>
 
@@ -84,7 +113,7 @@ const jsonLd = [
           <h2>Who this is for</h2>
           <p>Local businesses with no website at all, or one that's old, DIY, and doing them no favours &mdash; tradies, clinics, home services, anyone whose customers are local and searching for them right now. If that's you, there's a starting point here whether you want something live this week or something built properly around your business.</p>
 
-          <h2>Packages</h2>
+          <h2 id="packages">Packages</h2>
           <CurrencySwitch />
           <div class="price-grid">
             <div class="price-card">
@@ -173,6 +202,41 @@ const jsonLd = [
             <strong>Not sure which one you need?</strong> If you just need to be findable today, start with the instant page &mdash; it's free to preview and there's no obligation. If you want a site that says something specific about your business and you're ready to actively invest in being found, go straight to the custom build. We'll tell you plainly if you're paying for more than you need. Already have a site and just not sure if it needs a rebuild or just fixing? Start with a <a href="/site-check.html">free SEO/GEO audit</a> instead &mdash; it'll tell you which one, at no cost.
           </div>
 
+          <h2 id="process">How a custom build works</h2>
+          <p>Same shape every time, so you always know what happens next and what it costs.</p>
+          <ol class="build-steps">
+            <li>
+              <span class="when">Day 1</span>
+              <h3>You tell us about the business</h3>
+              <p>Use the form at the bottom of this page, or just send your business name and Google listing. We reply within one business day with our honest read, including whether the instant page would do the job instead.</p>
+            </li>
+            <li>
+              <span class="when">Week 1</span>
+              <h3>Scope and price, in writing</h3>
+              <p>If you already have a site, the <a href="/site-check.html">free website check</a> shows what&rsquo;s worth keeping. The custom build is the published price above. Anything beyond it, like logins or bookings, is estimated in days and approved by you before we start.</p>
+            </li>
+            <li>
+              <span class="when">Weeks 1&ndash;2</span>
+              <h3>First draft live on a preview link</h3>
+              <p>Real pages with real copy, running on a private preview address you can open on your phone. Not a mockup or a design file.</p>
+            </li>
+            <li>
+              <span class="when">Your review</span>
+              <h3>Changes until you sign off</h3>
+              <p>You tell us what&rsquo;s wrong and we fix it on the same preview link. Nothing goes live without your OK.</p>
+            </li>
+            <li>
+              <span class="when">Launch</span>
+              <h3>Live, and set up to be found</h3>
+              <p>Your domain connected (or registered in your name), SSL, Google Business Profile, LocalBusiness schema, llms.txt, and the review system switched on.</p>
+            </li>
+            <li>
+              <span class="when">After launch</span>
+              <h3>Looked after</h3>
+              <p>The Care plan keeps it hosted, updated and monitored, with small changes each month. Add a Local SEO &amp; GEO plan if you want us to keep working on rankings.</p>
+            </li>
+          </ol>
+
           <h2>Why us</h2>
           <p><strong>No lock-in, on either tier.</strong> You own the domain, and nothing here traps you on a platform you can't leave &mdash; unlike a DIY builder, where walking away means starting from scratch.</p>
           <p><strong>SEO/GEO built in, not bolted on later.</strong> The custom build includes the same Local SEO &amp; GEO scope as our standalone service, so you're not found nowhere for months while you save up for a second project.</p>
@@ -231,10 +295,17 @@ const jsonLd = [
         </aside>
       </div>
 
-      <div class="cta-banner" style="margin-top:72px;">
+      <div class="cta-banner" id="enquire" style="margin-top:72px;">
         <h2>Ready to get found?</h2>
         <p>Send us your business name, or your existing Google listing if you have one. We'll tell you which tier actually makes sense before you pay for anything.</p>
-        <a class="btn btn-primary" href="/contact.html" data-umami-event="cta_click" data-umami-event-target="get_a_quote" data-umami-event-source="website_builds_bottom_banner">Get a quote &rarr;</a>
+        <QuickEnquiry
+          engagement="Website build (new site for my business)"
+          source="website_builds_page"
+          id="qe-web"
+          messageLabel="Your business, and what the site needs to do"
+          messagePlaceholder="e.g. Plumbing business in Parramatta. Our site is years old and we don't show up on Google Maps. Google listing: …"
+        />
+        <script is:inline defer src="/js/quick-enquiry.js?v=20261016"></script>
       </div>
     </div>
   </main>

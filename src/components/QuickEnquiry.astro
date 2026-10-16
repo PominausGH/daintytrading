@@ -6,8 +6,14 @@ interface Props {
   engagement: string; // must read naturally in the enquiry email, e.g. contact.astro's option text
   source: string; // Umami event source, e.g. "ai_retrofit_page"
   id: string; // unique per page; prefixes the field ids
+  messageLabel?: string;
+  messagePlaceholder?: string;
 }
-const { engagement, source, id } = Astro.props;
+const {
+  engagement, source, id,
+  messageLabel = 'What\u2019s eating your time?',
+  messagePlaceholder = 'e.g. We copy every enquiry from email into our CRM by hand, about ten hours a week.',
+} = Astro.props;
 ---
 <div class="qe" data-qe>
   <form class="qe-form" data-engagement={engagement} data-source={source} novalidate>
@@ -46,8 +52,8 @@ const { engagement, source, id } = Astro.props;
       </div>
     </div>
     <div>
-      <label for={`${id}-message`}>What&rsquo;s eating your time?</label>
-      <textarea id={`${id}-message`} name="message" required placeholder="e.g. We copy every enquiry from email into our CRM by hand, about ten hours a week."></textarea>
+      <label for={`${id}-message`}>{messageLabel}</label>
+      <textarea id={`${id}-message`} name="message" required placeholder={messagePlaceholder}></textarea>
     </div>
     <div aria-hidden="true" class="qe-hp">
       <label for={`${id}-hp`}>Work phone</label>
