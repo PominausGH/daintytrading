@@ -25,7 +25,9 @@
         email: val('email'),
         message: val('message'),
         engagement: form.getAttribute('data-engagement') || '',
-        company: '', url: '', timeline: '', budget: '', source: '',
+        budget: val('budget'),
+        source: val('source'),
+        company: '', url: '', timeline: '',
         dt_website: form.querySelector('[name="dt_website"]').value,
         dt_form_loaded_at: val('dt_form_loaded_at'),
       };
@@ -46,7 +48,7 @@
         if (!res.ok) throw new Error(data.error || 'Something went wrong. Please try again, or email hello@telaloom.com.');
         form.hidden = true;
         form.parentNode.querySelector('.qe-done').hidden = false;
-        if (window.umami) window.umami.track('lead_submitted', { source: source, form: 'quick_enquiry' });
+        if (window.umami) window.umami.track('lead_submitted', { source: source, form: 'quick_enquiry', budget: payload.budget || 'unset', heard_via: payload.source || 'unset' });
       } catch (err) {
         fail(err.message);
         if (window.umami) window.umami.track('quick_enquiry_failed', { source: source, reason: err.message });

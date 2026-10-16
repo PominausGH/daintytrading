@@ -21,6 +21,30 @@ const { engagement, source, id } = Astro.props;
         <input id={`${id}-email`} name="email" type="email" required autocomplete="email" />
       </div>
     </div>
+    <div class="qe-row">
+      <div>
+        <label for={`${id}-budget`}>Rough budget, AUD (optional)</label>
+        <select id={`${id}-budget`} name="budget">
+          <option value="">Prefer not to say</option>
+          <option value="Under $5k">Under $5k</option>
+          <option value="$5k-$10k">$5k&ndash;$10k</option>
+          <option value="$10k-$25k">$10k&ndash;$25k</option>
+          <option value="$25k-$50k">$25k&ndash;$50k</option>
+          <option value="$50k+">$50k+</option>
+        </select>
+      </div>
+      <div>
+        <label for={`${id}-source`}>How did you hear about us? (optional)</label>
+        <select id={`${id}-source`} name="source">
+          <option value="">Select one</option>
+          <option value="Google search">Google search</option>
+          <option value="AI assistant">AI assistant (ChatGPT, Perplexity, Gemini&hellip;)</option>
+          <option value="LinkedIn">LinkedIn</option>
+          <option value="Referral">Referral / word of mouth</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+    </div>
     <div>
       <label for={`${id}-message`}>What&rsquo;s eating your time?</label>
       <textarea id={`${id}-message`} name="message" required placeholder="e.g. We copy every enquiry from email into our CRM by hand, about ten hours a week."></textarea>
@@ -49,11 +73,11 @@ const { engagement, source, id } = Astro.props;
   .qe-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   @media (max-width: 560px) { .qe-row { grid-template-columns: 1fr; } }
   .qe label { display: block; font-size: 14px; color: var(--text-dim); margin-bottom: 6px; }
-  .qe input, .qe textarea {
+  .qe input, .qe textarea, .qe select {
     width: 100%; padding: 12px 14px; border-radius: 10px;
     background: var(--bg-elev); border: 1px solid var(--border); color: var(--text); font: inherit;
   }
-  .qe input:focus, .qe textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(124,92,255,0.18); }
+  .qe input:focus, .qe textarea:focus, .qe select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(124,92,255,0.18); }
   .qe textarea { min-height: 110px; resize: vertical; }
   .qe-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
   .qe-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
