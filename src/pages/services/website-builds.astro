@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Price from '../../components/Price.astro';
 import CurrencySwitch from '../../components/CurrencySwitch.astro';
 import QuickEnquiry from '../../components/QuickEnquiry.astro';
+import ClientShowcase from '../../components/ClientShowcase.astro';
 import { pricing, pricingUsd } from '../../data/pricing.ts';
 
 const jsonLd = [
@@ -106,6 +107,8 @@ const jsonLd = [
         </div>
       </div>
     </section>
+
+    <ClientShowcase source="website_builds_showcase" />
 
     <div class="container">
       <div class="detail-body">
