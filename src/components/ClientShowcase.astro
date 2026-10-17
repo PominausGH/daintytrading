@@ -1,0 +1,134 @@
+---
+// Client-site carousel: browser frame with a before/after slider for redesigns (just the
+// live site for new builds), a phone shot, and links to the live site + case study.
+// Data and go-live steps: src/data/client-showcase.json. Behaviour: /js/client-showcase.js.
+// Renders nothing until at least one client is live, so it can merge ahead of launches.
+// SHOWCASE_PREVIEW=1 npm run build also shows not-yet-live clients whose images exist (local only).
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+import data from '../data/client-showcase.json';
+
+interface Props { source: string } // Umami event source
+const { source } = Astro.props;
+
+const dir = '/screenshots/clients/showcase';
+const img = (slug: string, kind: 'before' | 'after' | 'after-mobile') => `${dir}/${slug}-${kind}.jpg`;
+const onDisk = (p: string) => existsSync(join(process.cwd(), 'public', p));
+const needed = (c: (typeof data.clients)[number]) =>
+  [img(c.slug, 'after'), img(c.slug, 'after-mobile'), ...(c.kind === 'redesign' ? [img(c.slug, 'before')] : [])];
+
+const preview = process.env.SHOWCASE_PREVIEW === '1';
+const items = data.clients.filter((c) => {
+  const missing = needed(c).filter((p) => !onDisk(p));
+  if (c.live && missing.length) {
+    throw new Error(`client-showcase: "${c.slug}" is live but missing ${missing.join(', ')}. Run: node scripts/showcase-capture.mjs ${c.slug}`);
+  }
+  return c.live || (preview && !missing.length);
+});
+const total = String(items.length).padStart(2, '0');
+---
+{items.length > 0 && (
+  <section class="showcase" aria-labelledby="showcase-title" data-showcase>
+    <div class="container">
+      <div class="showcase-head">
+        <div>
+          <h2 id="showcase-title">Recent client sites</h2>
+          <p>Real businesses, live sites.{items.some((c) => c.kind === 'redesign') && ' Drag the handle to compare with what they had before.'}</p>
+        </div>
+        {items.length > 1 && (
+          <div class="showcase-nav">
+            <button type="button" class="showcase-btn" data-prev aria-label="Previous client site" disabled>&larr;</button>
+            <span class="showcase-count" aria-live="polite"><b data-cur>01</b> / {total}</span>
+            <button type="button" class="showcase-btn" data-next aria-label="Next client site">&rarr;</button>
+          </div>
+        )}
+      </div>
+      <div class="showcase-track" data-track tabindex="0" role="region" aria-label="Client sites">
+        {items.map((c) => {
+          const host = new URL(c.url).host;
+          return (
+            <article class="showcase-card">
+              <div class="showcase-media">
+                <div class="sc-browser">
+                  <div class="sc-bar" aria-hidden="true"><i></i><i></i><i></i><span>{host}</span></div>
+                  {c.kind === 'redesign' ? (
+                    <div class="sc-compare" style="--pos:50%" data-compare data-slug={c.slug}>
+                      <img src={img(c.slug, 'before')} width="1440" height="900" loading="lazy" decoding="async" alt={`${c.name} website before the rebuild`} />
+                      <img class="sc-after" src={img(c.slug, 'after')} width="1440" height="900" loading="lazy" decoding="async" alt={`${c.name} website after the rebuild, live at ${host}`} />
+                      <span class="sc-tag sc-tag-before" aria-hidden="true">Before</span>
+                      <span class="sc-tag sc-tag-after" aria-hidden="true">After</span>
+                      <span class="sc-handle" aria-hidden="true"></span>
+                      <input type="range" min="0" max="100" value="50" aria-label={`Compare ${c.name} before and after`} />
+                    </div>
+                  ) : (
+                    <img src={img(c.slug, 'after')} width="1440" height="900" loading="lazy" decoding="async" alt={`${c.name} website, live at ${host}`} />
+                  )}
+                </div>
+                <div class="sc-phone">
+                  <img src={img(c.slug, 'after-mobile')} width="390" height="844" loading="lazy" decoding="async" alt={`${c.name} website on a phone`} />
+                </div>
+              </div>
+              <div class="showcase-body">
+                <ul class="sc-tags">{c.tags.map((t) => <li>{t}</li>)}</ul>
+                <h3>{c.name}</h3>
+                <p>{c.summary}</p>
+                <div class="sc-links">
+                  <a href={c.url} target="_blank" rel="noopener" data-umami-event="cta_click" data-umami-event-target={`visit_${c.slug}`} data-umami-event-source={source}>Visit {host} &#8599;</a>
+                  <a href={c.caseStudy} data-umami-event="cta_click" data-umami-event-target={`case_study_${c.slug}`} data-umami-event-source={source}>Read the case study &rarr;</a>
+                </div>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </div>
+    <script is:inline defer src="/js/client-showcase.js?v=20261016"></script>
+  </section>
+)}
+
+<style>
+  .showcase { padding: 64px 0 24px; }
+  .showcase-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; margin-bottom: 24px; }
+  .showcase-head h2 { margin: 0 0 6px; }
+  .showcase-head p { margin: 0; color: var(--text-dim); }
+  .showcase-nav { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .showcase-count { font-size: 14px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+  .showcase-count b { color: var(--text); }
+  .showcase-btn { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--border); background: var(--bg-card); color: var(--text); font-size: 18px; cursor: pointer; }
+  .showcase-btn:hover:not(:disabled) { border-color: var(--accent); }
+  .showcase-btn:disabled { opacity: .35; cursor: default; }
+  .showcase-track { display: grid; grid-auto-flow: column; grid-auto-columns: 100%; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .showcase-track::-webkit-scrollbar { display: none; }
+  .showcase-track:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: var(--radius); }
+  .showcase-card { scroll-snap-align: start; display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: 36px; align-items: center; }
+  .showcase-media { position: relative; padding: 0 28px 28px 0; }
+  .sc-browser { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--bg-card); box-shadow: var(--shadow); }
+  .sc-bar { display: flex; align-items: center; gap: 6px; padding: 9px 12px; border-bottom: 1px solid var(--border); }
+  .sc-bar i { width: 9px; height: 9px; border-radius: 50%; background: var(--border); }
+  .sc-bar span { margin-left: 10px; font-size: 12px; color: var(--text-muted); }
+  .sc-browser img { display: block; width: 100%; height: auto; }
+  .sc-compare { position: relative; }
+  .sc-compare .sc-after { position: absolute; inset: 0; clip-path: inset(0 0 0 var(--pos)); }
+  .sc-handle { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 2px; margin-left: -1px; background: #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.25); pointer-events: none; }
+  .sc-handle::after { content: "\2194"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 36px; height: 36px; border-radius: 50%; background: #fff; color: #111; display: flex; align-items: center; justify-content: center; font-size: 18px; box-shadow: 0 2px 10px rgba(0,0,0,.35); }
+  .sc-compare input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; }
+  .sc-compare:has(input:focus-visible) .sc-handle::after { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .sc-tag { position: absolute; top: 10px; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; background: rgba(0,0,0,.65); color: #fff; pointer-events: none; }
+  .sc-tag-before { left: 10px; }
+  .sc-tag-after { right: 10px; }
+  .sc-phone { position: absolute; right: 0; bottom: 0; width: 24%; border: 5px solid #1b1b22; border-radius: 18px; overflow: hidden; background: #000; box-shadow: var(--shadow); aspect-ratio: 390 / 700; }
+  .sc-phone img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+  .sc-tags { list-style: none; padding: 0; margin: 0 0 12px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .sc-tags li { font-size: 12px; color: var(--text-dim); border: 1px solid var(--border); border-radius: 999px; padding: 3px 10px; }
+  .showcase-body h3 { font-size: 24px; margin: 0 0 10px; }
+  .showcase-body p { color: var(--text-dim); margin: 0 0 18px; }
+  .sc-links { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 15px; font-weight: 600; }
+  @media (max-width: 900px) {
+    .showcase-card { grid-template-columns: 1fr; gap: 20px; }
+    .showcase-media { padding: 0 16px 16px 0; }
+  }
+  @media (max-width: 560px) {
+    .showcase-head { flex-direction: column; align-items: flex-start; }
+    .sc-phone { width: 28%; border-width: 3px; border-radius: 12px; }
+  }
+</style>

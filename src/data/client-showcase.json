@@ -1,0 +1,37 @@
+{
+  "_readme": "Client-site carousel on /services/website-builds.html (src/components/ClientShowcase.astro). Only entries with live:true render; with none live the section is not rendered at all. Go-live per client: node scripts/showcase-capture.mjs <slug> (shoots the LIVE domain, copies the 'before' shot in), set live:true, build, PR. The build fails if a live entry is missing an image.",
+  "clients": [
+    {
+      "slug": "eklawyers",
+      "live": false,
+      "name": "Edwards Kirby Lawyers",
+      "url": "https://eklawyers.com.au",
+      "kind": "redesign",
+      "tags": ["Website rebuild", "Client portal", "SEO/GEO"],
+      "summary": "A Sydney insolvency and business law firm on a site that hadn't been touched in years. Rebuilt from the ground up, with a secure client portal alongside it.",
+      "caseStudy": "/projects/edwards-kirby-lawyers.html",
+      "beforeSource": "eklawyers/home_desktop_fold.png"
+    },
+    {
+      "slug": "tradepriceshutters",
+      "live": false,
+      "name": "Trade Price Shutters",
+      "url": "https://tradepriceshutters.com.au",
+      "kind": "new",
+      "tags": ["New business", "Measure calculator", "SEO/GEO"],
+      "summary": "A second business the Shuttersmith owners launched off the back of their first one's SEO/GEO results: trade-price plantation shutters with a DIY measure calculator.",
+      "caseStudy": "/projects/new-shutter-business.html"
+    },
+    {
+      "slug": "shuttersmith",
+      "live": false,
+      "name": "Shuttersmith",
+      "url": "https://shuttersmith.com.au",
+      "kind": "redesign",
+      "tags": ["WordPress to Astro", "Local SEO/GEO", "Gold Coast"],
+      "summary": "A Gold Coast blinds and shutters business, moved off WordPress and Elementor onto a fast static build, with the SEO/GEO work that's been bringing in the jobs.",
+      "caseStudy": "/projects/shuttersmith-rebuild.html",
+      "beforeSource": "shuttersmith/home_desktop_fold.png"
+    }
+  ]
+}
