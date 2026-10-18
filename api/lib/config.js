@@ -2,6 +2,11 @@ function required(name, fallback) {
   return process.env[name] || fallback;
 }
 
+// Like required(), but a variable set to an empty string stays empty (= "turn this off").
+function optional(name, fallback) {
+  return process.env[name] !== undefined ? process.env[name] : fallback;
+}
+
 const config = {
   aiosUrl: required('AIOS_URL', 'http://aios-aios-1:8000'),
   aiosModel: required('AIOS_MODEL', 'anthropic/claude-sonnet-5'),
@@ -70,6 +75,15 @@ const config = {
     'PROSPECTS_SIGNATURE',
     'Andrew, Telaloom\nhttps://telaloom.com'
   ),
+
+  // The guarantee, appended between the AI-drafted body and the signature (and in the follow-up).
+  // Like the signature it is fixed text, so it is added after the gates and not counted against
+  // prospectsMaxWords. Set PROSPECTS_GUARANTEE_LINE to an empty string to leave it out: `optional`
+  // keeps an empty value, where `required` would fall back to the default.
+  prospectsGuaranteeLine: optional(
+    'PROSPECTS_GUARANTEE_LINE',
+    'Our promise: we fix every issue in the audit, then re-test until your mobile speed score is 70+ and Google and AI search tools can read your business details correctly. Until both pass, we keep working at no extra cost.'
+  ).trim(),
 
   // Spam Act 2003 requires accurate sender-contact info the recipient can use for at least 30
   // days — a working email address satisfies this (ACMA guidance), a street address isn't

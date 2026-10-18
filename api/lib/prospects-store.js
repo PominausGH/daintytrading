@@ -15,6 +15,9 @@ const DRAFT_LOG_FILE = path.join(DATA_DIR, 'prospects-draft-log.jsonl');
 const VARIANT_COUNTER_FILE = path.join(DATA_DIR, 'prospects-variant-counter.json');
 const HEARTBEAT_FILE = path.join(DATA_DIR, 'prospects-heartbeat.json');
 const DRAFTS_FILE = path.join(DATA_DIR, 'prospects-drafts.json');
+const SKIPS_FILE = path.join(DATA_DIR, 'prospects-skipped.json');
+const PREDRAFT_STATE_FILE = path.join(DATA_DIR, 'prospects-predraft-state.json');
+const PREDRAFT_LOCK_FILE = path.join(DATA_DIR, 'prospects-predraft.lock');
 
 // `run` and `slug` become filesystem path segments under the read-only mount, so they're
 // validated strictly before ever touching fs — no '.', '/', or '\' allowed at all, which
@@ -527,8 +530,9 @@ function buildFollowUp(run, slug) {
     greeting,
     `Following up on my earlier note about your website${record.subject ? ` ("${record.subject}")` : ''}.`,
     "Happy to send the full report: no cost, and no call needed. If it's not of interest, just say so and I won't email again.",
+    config.prospectsGuaranteeLine,
     config.prospectsSignature,
-  ].join('\n\n');
+  ].filter(Boolean).join('\n\n');
   return { ...base, subject, body };
 }
 
@@ -698,14 +702,20 @@ function saveDraft(run, slug, draft) {
   }
 }
 
+// Body, then the guarantee (omitted when configured empty), then the signature.
+function withClosing(body) {
+  return [body, config.prospectsGuaranteeLine, config.prospectsSignature].filter(Boolean).join('\n\n');
+}
+
 function draftResponse(draft, contactEmail, extra = {}) {
   const reasons = gateReasons(draft);
   return {
     status: reasons.length ? 'auto_rejected' : 'pending',
     subject: draft.subject,
-    // Signature appended after the gates (which must judge only the AI's actual pitch, not fixed
-    // boilerplate) but included in what's returned for review/edit/send.
-    body: draft.body ? `${draft.body}\n\n${config.prospectsSignature}` : draft.body,
+    // Guarantee and signature appended after the gates (which must judge only the AI's actual
+    // pitch, not fixed boilerplate) but included in what's returned for review/edit/send. Saved
+    // drafts are stored without either, so a change to them applies to saved drafts too.
+    body: draft.body ? withClosing(draft.body) : draft.body,
     confidence: draft.confidence,
     lowConfidence: isLowConfidence(draft.confidence),
     variant: draft.variant,
@@ -901,6 +911,274 @@ async function buildDraft(run, slug, { fresh = false } = {}) {
   return draftResponse(record, contactEmail, { saved: false });
 }
 
+// ---- the send queue: every email ready to go, across all runs --------------------------------
+//
+// One page to clear the outreach backlog: every prospect we could email today with its draft
+// already written, so sending is Send/Skip rather than click, wait for the model, edit, send. The
+// drafts are written beforehand by predraftAll() (cron script or the dashboard's "Draft the rest").
+
+// A skip takes a prospect out of the queue without suppressing the business: it is "not this
+// one, not now", where an opt-out is "never". Keyed by run and prospect like the sent log, so
+// the same business turning up in a later batch is shown again.
+function readSkips() {
+  return readJsonSafe(SKIPS_FILE, {});
+}
+
+function getSkip(run, slug) {
+  return readSkips()[`${run}:${slug}`] || null;
+}
+
+function setSkipped(run, slug, skipped = true) {
+  const all = readSkips();
+  const key = `${run}:${slug}`;
+  if (skipped) all[key] = { skippedAt: new Date().toISOString(), siteDomain: siteDomainFor(run, slug) };
+  else delete all[key];
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+  fs.writeFileSync(SKIPS_FILE, JSON.stringify(all, null, 2));
+  return all[key] || null;
+}
+
+// What the last pre-draft pass got for prospects it could not write a draft for (no finding
+// worth an email, an error), so the queue can say why and the next pass doesn't keep re-trying a
+// prospect that has nothing to say.
+function readPredraftState() {
+  return readJsonSafe(PREDRAFT_STATE_FILE, {});
+}
+
+function writePredraftState(patch) {
+  try {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+    fs.writeFileSync(PREDRAFT_STATE_FILE, JSON.stringify({ ...readPredraftState(), ...patch }, null, 2));
+  } catch (err) {
+    console.error('prospects: could not save pre-draft state:', err.message);
+  }
+}
+
+// Every prospect across all runs, newest run first, one per business website: a business that
+// appears in several batches is judged on its row in the latest one (listRuns sorts by summary.csv
+// mtime, newest first). Rows without a report (failed scans) are left out.
+function latestProspectPerDomain() {
+  const seen = new Set();
+  const out = [];
+  for (const { name: run } of listRuns()) {
+    for (const row of getRunProspects(run) || []) {
+      if (!row.slug) continue;
+      const domain = getDomain(row.url) || `${run}:${row.slug}`;
+      if (seen.has(domain)) continue;
+      seen.add(domain);
+      out.push({ run, row, domain });
+    }
+  }
+  return out;
+}
+
+// Can this prospect get a first email today? The checks buildDraft makes before writing a draft,
+// plus "sent already" and "skipped".
+// -> 'ok' | 'no_email' | 'sent' | 'suppressed' | 'finished' | 'cooldown' | 'skipped'
+function sendEligibility(run, row, domain, skips = readSkips()) {
+  if (!row.contact_email) return 'no_email';
+  if (row.sent) return 'sent';
+  if (isSuppressed(domain, row.contact_email)) return 'suppressed';
+  if (findFinishedSequenceForDomain(domain)) return 'finished';
+  const recent = findRecentSendForDomain(domain);
+  if (recent && daysSince(recent.sentAt) < config.prospectsCooldownDays) return 'cooldown';
+  if (skips[`${run}:${row.slug}`]) return 'skipped';
+  return 'ok';
+}
+
+function weeklyAllowance() {
+  const sentLast7Days = countSentInLastDays(7);
+  const limit = config.prospectsRateLimitPerWeek;
+  return { sentLast7Days, limit, remaining: Math.max(0, limit - sentLast7Days) };
+}
+
+const ELIGIBILITY_COUNT_KEY = { no_email: 'noEmail' };
+
+// items: drafts ready to send (status 'pending') and drafts the gates flagged ('auto_rejected',
+// with the reason, to fix and send). The body is exactly what the draft route returns: AI body,
+// guarantee, signature. Never calls the model.
+function buildQueue() {
+  const skips = readSkips();
+  const predraftState = readPredraftState();
+  const counts = {
+    ready: 0, flagged: 0, missingDraft: 0, noFinding: 0, noEmail: 0,
+    sent: 0, suppressed: 0, cooldown: 0, finished: 0, skipped: 0,
+  };
+  const items = [];
+  for (const { run, row, domain } of latestProspectPerDomain()) {
+    const eligibility = sendEligibility(run, row, domain, skips);
+    if (eligibility !== 'ok') {
+      counts[ELIGIBILITY_COUNT_KEY[eligibility] || eligibility] += 1;
+      continue;
+    }
+    const saved = getSavedDraft(run, row.slug);
+    if (!saved) {
+      const last = predraftState[`${run}:${row.slug}`];
+      if (last && last.status === 'skipped_below_threshold') counts.noFinding += 1;
+      else counts.missingDraft += 1;
+      continue;
+    }
+    const d = draftResponse(saved, row.contact_email);
+    if (d.status === 'pending') counts.ready += 1; else counts.flagged += 1;
+    items.push({
+      run,
+      slug: row.slug,
+      label: (row.business_name && row.business_name.trim()) || cleanSiteUrl(row.url),
+      domain,
+      siteUrl: row.url,
+      score: row.score,
+      to: row.contact_email,
+      subject: d.subject,
+      body: d.body,
+      status: d.status,
+      flagged: d.status !== 'pending',
+      reason: d.reason,
+      lowConfidence: d.lowConfidence,
+      confidence: d.confidence,
+      variant: d.variant || null,
+      leadsWith: d.leadsWith,
+      generatedAt: d.generatedAt,
+    });
+  }
+  // Ready ones first; within each group the runs' own worst-first order is kept (stable sort).
+  items.sort((a, b) => Number(a.flagged) - Number(b.flagged));
+  return { items, counts, weekly: weeklyAllowance(), predraft: predraftStatus() };
+}
+
+// For a first email sent from the queue: the "can we email them" checks again at send time, so a
+// double click or a stale page can't send twice. null = fine. (Skips don't block: pressing Send
+// on a card is a decision to send.)
+const SEND_BLOCK_REASON = {
+  sent: 'This prospect has already been emailed.',
+  suppressed: 'This domain or address is on the suppression list.',
+  finished: "Two emails already went to this business with no reply. We don't email them again.",
+  cooldown: 'This business was emailed within the cooldown window.',
+};
+function firstEmailBlockReason(run, slug) {
+  const row = findSummaryRow(run, slug);
+  if (!row) return null;
+  const state = sendEligibility(run, { ...row, contact_email: row.contact_email || '-' }, getDomain(row.url), {});
+  return SEND_BLOCK_REASON[state] || null;
+}
+
+// ---- pre-drafting ----------------------------------------------------------------------------
+
+// One pre-draft at a time, across processes: the cron script and the dashboard's button both take
+// this lock. The holder touches it after every prospect, so a lock nobody has touched for
+// PREDRAFT_LOCK_STALE_MS belongs to a run that died and is taken over.
+const PREDRAFT_LOCK_STALE_MS = 10 * 60 * 1000;
+let predraftProgress = null; // this process's run in progress: { startedAt, done, total }
+let lastPredraftResult = null;
+
+function acquirePredraftLock() {
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+  try {
+    if (Date.now() - fs.statSync(PREDRAFT_LOCK_FILE).mtimeMs > PREDRAFT_LOCK_STALE_MS) fs.unlinkSync(PREDRAFT_LOCK_FILE);
+  } catch { /* no lock file */ }
+  try {
+    fs.writeFileSync(PREDRAFT_LOCK_FILE, JSON.stringify({ pid: process.pid, startedAt: new Date().toISOString() }), { flag: 'wx' });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function touchPredraftLock() {
+  try { const t = new Date(); fs.utimesSync(PREDRAFT_LOCK_FILE, t, t); } catch { /* best effort */ }
+}
+
+function releasePredraftLock() {
+  try { fs.unlinkSync(PREDRAFT_LOCK_FILE); } catch { /* already gone */ }
+}
+
+function predraftLockHeld() {
+  try {
+    return Date.now() - fs.statSync(PREDRAFT_LOCK_FILE).mtimeMs <= PREDRAFT_LOCK_STALE_MS;
+  } catch {
+    return false;
+  }
+}
+
+// `running` is true for a run in this process or another (the cron script); progress is only
+// known for this process's own run.
+function predraftStatus() {
+  return {
+    running: !!predraftProgress || predraftLockHeld(),
+    progress: predraftProgress ? { ...predraftProgress } : null,
+    last: lastPredraftResult,
+  };
+}
+
+// The prospects predraftAll would draft: emailable today and no saved draft yet. One whose last
+// attempt found nothing worth an email is left alone unless `retryNoFinding` is set.
+function predraftCandidates({ retryNoFinding = false } = {}) {
+  const skips = readSkips();
+  const state = readPredraftState();
+  return latestProspectPerDomain()
+    .filter(({ run, row, domain }) => sendEligibility(run, row, domain, skips) === 'ok')
+    .filter(({ run, row }) => !getSavedDraft(run, row.slug))
+    .filter(({ run, row }) => retryNoFinding || (state[`${run}:${row.slug}`] || {}).status !== 'skipped_below_threshold')
+    .map(({ run, row, domain }) => ({ run, slug: row.slug, domain }));
+}
+
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+// Writes a draft for every prospect in predraftCandidates(), one at a time (the model sits behind
+// one proxy). Each goes through buildDraft, so the same gates apply and the draft is saved. One
+// whose site check is still running ('checking') is skipped and tried again after the rest, up to
+// checkRounds more times, retryWaitMs apart; any still checking after that are reported as such
+// and picked up by the next run. One prospect failing never stops the run.
+// -> summary, or { started: false, reason } when another run holds the lock.
+async function predraftAll({ checkRounds = 12, retryWaitMs = 5000, retryNoFinding = false } = {}) {
+  if (predraftProgress || !acquirePredraftLock()) return { started: false, reason: 'A pre-draft run is already in progress.' };
+  const startedAt = new Date().toISOString();
+  const summary = {
+    started: true, startedAt, finishedAt: null, candidates: 0,
+    drafted: 0, flagged: 0, noFinding: 0, checking: 0, errors: 0, other: 0, results: [],
+  };
+  try {
+    let todo = predraftCandidates({ retryNoFinding });
+    summary.candidates = todo.length;
+    predraftProgress = { startedAt, done: 0, total: todo.length };
+    for (let round = 0; todo.length && round <= checkRounds; round += 1) {
+      if (round > 0) await sleep(retryWaitMs);
+      const stillChecking = [];
+      for (const p of todo) {
+        let outcome;
+        try {
+          const d = await buildDraft(p.run, p.slug);
+          outcome = d ? { status: d.status, reason: d.reason || null } : { status: 'missing', reason: 'Prospect report not found.' };
+        } catch (err) {
+          outcome = { status: 'error', reason: err.message };
+        }
+        touchPredraftLock();
+        if (outcome.status === 'checking') { stillChecking.push(p); continue; }
+        predraftProgress.done += 1;
+        summary.results.push({ run: p.run, slug: p.slug, domain: p.domain, ...outcome });
+        writePredraftState({ [`${p.run}:${p.slug}`]: { status: outcome.status, reason: outcome.reason, at: new Date().toISOString() } });
+      }
+      todo = stillChecking;
+    }
+    for (const p of todo) {
+      summary.results.push({ run: p.run, slug: p.slug, domain: p.domain, status: 'checking', reason: 'Site check still running; the next run picks it up.' });
+    }
+    for (const r of summary.results) {
+      if (r.status === 'pending') summary.drafted += 1;
+      else if (r.status === 'auto_rejected') summary.flagged += 1;
+      else if (r.status === 'skipped_below_threshold') summary.noFinding += 1;
+      else if (r.status === 'checking') summary.checking += 1;
+      else if (r.status === 'error') summary.errors += 1;
+      else summary.other += 1;
+    }
+    summary.finishedAt = new Date().toISOString();
+    return summary;
+  } finally {
+    lastPredraftResult = { ...summary, results: undefined };
+    predraftProgress = null;
+    releasePredraftLock();
+  }
+}
+
 module.exports = {
   isValidName,
   listRuns,
@@ -931,4 +1209,11 @@ module.exports = {
   getDomain,
   isSuppressed,
   countSentInLastDays,
+  buildQueue,
+  getSkip,
+  setSkipped,
+  firstEmailBlockReason,
+  predraftCandidates,
+  predraftAll,
+  predraftStatus,
 };
