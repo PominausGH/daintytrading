@@ -36,6 +36,34 @@ router.get('/follow-ups', (req, res) => {
   res.json({ followUps: store.listFollowUps(), stats: store.outreachStats() });
 });
 
+// Every email that can go today, drafted, across all runs (one per business, latest run wins),
+// plus counts and the weekly allowance. Never a model call.
+router.get('/queue', (req, res) => {
+  res.json(store.buildQueue());
+});
+
+// Writes drafts for every emailable prospect that doesn't have one yet, in the background: one
+// model call at a time, ~30s each, far past nginx's 10s. Answers straight away; the dashboard
+// polls GET /predraft (or the queue) for progress. One run at a time, shared with the cron script
+// (scripts/predraft-prospects.js) through a lock file.
+router.get('/predraft', (req, res) => {
+  res.json(store.predraftStatus());
+});
+
+router.post('/predraft', (req, res) => {
+  const status = store.predraftStatus();
+  if (status.running) return res.status(409).json({ error: 'Drafting is already running.', ...status });
+  const run = store.predraftAll();
+  run.then(
+    (summary) => {
+      if (summary.started) console.log(`prospects: pre-draft done: ${summary.drafted} drafted, ${summary.flagged} flagged, ${summary.noFinding} no finding, ${summary.checking} still checking, ${summary.errors} errors`);
+    },
+    (err) => console.error('prospects: pre-draft failed:', err.message)
+  );
+  // predraftAll takes the lock and counts its work before its first await, so this is its run.
+  res.status(202).json({ started: true, ...store.predraftStatus() });
+});
+
 function validRunSlug(req, res) {
   const { run } = req.query;
   const { slug } = req.params;
@@ -70,6 +98,17 @@ router.post('/:slug/opt-out', (req, res) => {
   const result = store.optOut(ids.run, ids.slug);
   if (!result) return res.status(404).json({ error: 'No email has been sent to this prospect.' });
   res.json({ success: true, suppressed: result.suppressed });
+});
+
+// "Not this one, not now": takes the prospect out of the send queue. Unlike an opt-out it doesn't
+// suppress the business. `skipped: false` puts it back.
+router.post('/:slug/skip', (req, res) => {
+  const ids = validRunSlug(req, res);
+  if (!ids) return;
+  if (!store.prospectExists(ids.run, ids.slug)) return res.status(404).json({ error: 'Prospect not found' });
+  const skipped = !(req.body && req.body.skipped === false);
+  const record = store.setSkipped(ids.run, ids.slug, skipped);
+  res.json({ success: true, skipped, skippedAt: record ? record.skippedAt : null });
 });
 
 router.get('/:slug/draft', async (req, res) => {
@@ -148,7 +187,7 @@ router.post('/:slug/send', async (req, res) => {
     return res.status(404).json({ error: 'Prospect not found' });
   }
 
-  const { to, subject, body, variant, followUp } = req.body || {};
+  const { to, subject, body, variant, followUp, fromQueue } = req.body || {};
   if (!to || typeof to !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(to.trim())) {
     return res.status(400).json({ error: 'A valid "to" email address is required' });
   }
@@ -171,6 +210,12 @@ router.post('/:slug/send', async (req, res) => {
     if (state !== 'due') {
       return res.status(409).json({ error: store.buildFollowUp(run, slug).reason || 'A follow-up is not due for this prospect.' });
     }
+  }
+  // A first email from the send queue is re-checked here (already sent, cooldown, two-email
+  // limit), so a double click or a page left open can't email a business twice.
+  if (fromQueue && !followUp) {
+    const blocked = store.firstEmailBlockReason(run, slug);
+    if (blocked) return res.status(409).json({ error: blocked });
   }
   const sentThisWeek = store.countSentInLastDays(7);
   if (sentThisWeek >= config.prospectsRateLimitPerWeek) {
