@@ -10,7 +10,6 @@ export const pricing = {
   growth: 950,
   scale: 1950,
   currency: 'AUD',
-  instantPageFromUsd: 149,
   customBuild: 6900,
   carePlan: 250,
   fixDay: 1200,

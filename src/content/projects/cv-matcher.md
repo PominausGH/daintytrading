@@ -51,8 +51,8 @@ prevLink:
   label: "Everyring.ai"
   href: "/projects/missed-calls.html"
 nextLink:
-  label: "BizPage Builder"
-  href: "/projects/bizpage-builder.html"
+  label: "FocusShield"
+  href: "/projects/focusguard.html"
 schemaType: "SoftwareApplication"
 schemaExtra:
   applicationCategory: "BusinessApplication"

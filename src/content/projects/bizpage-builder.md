@@ -1,6 +1,9 @@
 ---
 type: "product"
 status: "live"
+# 2026-10-19: BizPage storefront closed (app kept as the internal outreach engine).
+# Page kept for old links but noindex and out of every listing/count.
+unlisted: true
 name: "BizPage Builder"
 title: "BizPage Builder — AI-Generated Landing Pages for Local Businesses | TelaLoom"
 description: "BizPage Builder finds local businesses without websites, generates SEO-ready landing pages with Claude, and ships them as deployable ZIPs. Built for agencies and lead-gen operators."
