@@ -47,8 +47,8 @@ sidecard:
 ctaBannerHeading: "Want to build something like this?"
 ctaBannerBody: "We scope projects in 48 hours and ship a first demo in 1–2 weeks. Tell us what you need."
 prevLink:
-  label: "BizPage Builder"
-  href: "/projects/bizpage-builder.html"
+  label: "CV Matcher"
+  href: "/projects/cv-matcher.html"
 nextLink:
   label: "AutoArchive"
   href: "/projects/autoarchive.html"

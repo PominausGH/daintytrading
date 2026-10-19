@@ -13,13 +13,12 @@ const jsonLd = [
     name: 'Website Builds for Local Businesses',
     provider: { '@type': 'Organization', name: 'TelaLoom', url: 'https://telaloom.com' },
     serviceType: 'Website design and development',
-    description: 'Website builds for local businesses without one — an instant page generated from an existing Google Business listing, or a custom-built site with Local SEO and GEO included from day one.',
+    description: 'Custom-built websites for local businesses, with Local SEO and GEO included from day one, set up on hosting in the client’s own name.',
     areaServed: 'Worldwide',
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'Website build packages',
       itemListElement: [
-        { '@type': 'Offer', name: 'Instant page', price: String(pricing.instantPageFromUsd), priceCurrency: 'USD', description: `One-off. Auto-generated from your existing Google Business listing — name, address, hours, photos, and reviews. Delivered as a ready-made page (ZIP) for your own hosting; hosting is not included. Billed via bizpage.biz in USD.` },
         { '@type': 'Offer', name: 'Custom build', price: String(pricing.customBuild), priceCurrency: 'AUD', description: `One-off. Custom-designed site, copywriting, set up on hosting in your name, SSL, and Local SEO & GEO setup included — not sold separately.` },
         { '@type': 'Offer', name: 'Care plan', price: String(pricing.carePlan), priceCurrency: 'AUD', description: 'Monthly, no GST. Uptime monitoring and security updates on your own hosting, and up to 60 minutes of small content changes per month (unused time does not roll over, billed at the standard hourly rate beyond that). 2-business-day response time, same-day for security or downtime issues. Attached to every custom build by default. Cancel anytime, effective end of the current billing month.' },
         { '@type': 'Offer', name: 'Monitor', price: String(pricing.monitor), priceCurrency: 'AUD', description: 'Monthly. Automated ranking and AI-citation monitoring, with a monthly plain-English report. No fix pass included. Cancel anytime.' },
@@ -32,11 +31,8 @@ const jsonLd = [
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: [
-      { '@type': 'Question', name: "What's the difference between the instant page and the custom build?", acceptedAnswer: { '@type': 'Answer', text: `The instant page is generated automatically from your existing Google Business listing and delivered as a ready-made page for your own hosting, from $${pricing.instantPageFromUsd} USD (billed via bizpage.biz). The custom build is designed and written around your business specifically, with Local SEO & GEO included, for $${pricing.customBuild.toLocaleString()} AUD. Same underlying quality bar, different amount of hands-on work.` } },
-      { '@type': 'Question', name: 'Do I need the custom build, or is the instant page enough?', acceptedAnswer: { '@type': 'Answer', text: "If you just need to stop being invisible online today, the instant page usually does the job. The custom build makes sense once you want a site that says something specific about your business, or you're ready to actively invest in being found — we'll tell you honestly which one you actually need." } },
       { '@type': 'Question', name: 'Is Local SEO really included in the Custom build price, or is that extra?', acceptedAnswer: { '@type': 'Answer', text: "It's included in the Custom build price — Google Business Profile setup, LocalBusiness schema, llms.txt and AI-crawler access, and a review-generation system, the same scope as our standalone Local SEO & GEO service. You're not paying for the site and then paying again to make it findable." } },
       { '@type': 'Question', name: 'What if I need customer accounts, bookings, or a database?', acceptedAnswer: { '@type': 'Answer', text: `We build those. It's the same work as a website with more moving parts, and the size varies a lot: a simple booking form is a small job, a customer portal is a big one. That's why a fixed website price can't honestly cover it. Tell us what it needs to do, and we'll estimate the days up front and give you the price in writing. You approve it before we start. Bigger work is priced from ${pricing.fixDay.toLocaleString()} AUD (${pricingUsd.fixDay.toLocaleString()} USD) per day of work.` } },
-      { '@type': 'Question', name: 'Can I start with the instant page and upgrade later?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Plenty of businesses start with the instant page to get something up quickly, then move to a custom build once they know what they want the site to do for them.' } },
       { '@type': 'Question', name: 'Who owns the domain — us or you?', acceptedAnswer: { '@type': 'Answer', text: "You. If you already have a domain, we connect it. If you don't, our default is to register it directly in your own registrar account so there's never a custody question — no lock-in, nothing to transfer later. If you'd rather we register it first for speed, we hand it over via a standard domain transfer whenever you want it, using the authorization code your registrar provides. Either way, the first year's registration is included in the build price; renewal after that is yours." } },
     ],
   },
@@ -45,13 +41,14 @@ const jsonLd = [
 <BaseLayout
   currencySwitch
   title="Website Builds for Local Businesses — Custom Sites with Local SEO Built In | TelaLoom"
-  description="Website builds for local businesses without one. Start with an instant page generated from your Google listing from $149 USD, or a custom-built site with Local SEO &amp; GEO included for $6,900 AUD. No lock-in."
+  description="Custom websites for local businesses, designed and written around your business, with Local SEO &amp; GEO included for $6,900 AUD. Hosting in your name, no lock-in."
   canonicalPath="/services/website-builds.html"
   jsonLd={jsonLd}
 >
   <style>
     .price-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin:10px 0; }
-    @media (max-width:980px) { .price-grid { grid-template-columns:1fr; } }
+    .price-grid--two { grid-template-columns:repeat(2,1fr); }
+    @media (max-width:980px) { .price-grid, .price-grid--two { grid-template-columns:1fr; } }
     .price-card { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:24px; display:flex; flex-direction:column; }
     .price-card.featured { border-color:var(--accent); box-shadow:var(--shadow); }
     .price-card .tier { font-size:13px; letter-spacing:.04em; text-transform:uppercase; color:var(--text-muted); }
@@ -91,8 +88,8 @@ const jsonLd = [
     <section class="detail-hero">
       <div class="container">
         <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/services.html">Services</a> &nbsp;/&nbsp; Website builds</div>
-        <h1>Website Builds &mdash; From an Instant Page to a Full Custom Site</h1>
-        <p class="lede">Some businesses just need to stop being invisible online today. Others need a real site built around them. We do both &mdash; and the ones we build custom come with Local SEO &amp; GEO switched on from day one, not sold to you later as a separate line item.</p>
+        <h1>Custom Websites for Local Businesses, with Local SEO Built In</h1>
+        <p class="lede">A real site designed and written around your business, with Local SEO &amp; GEO switched on from day one, not sold to you later as a separate line item.</p>
         <div class="hero-actions">
           <div class="cta-row">
             <a class="btn btn-primary" href="#enquire" data-umami-event="cta_click" data-umami-event-target="get_a_quote" data-umami-event-source="website_builds_hero">Get a quote &rarr;</a>
@@ -114,25 +111,11 @@ const jsonLd = [
       <div class="detail-body">
         <article class="prose">
           <h2>Who this is for</h2>
-          <p>Local businesses with no website at all, or one that's old, DIY, and doing them no favours &mdash; tradies, clinics, home services, anyone whose customers are local and searching for them right now. If that's you, there's a starting point here whether you want something live this week or something built properly around your business.</p>
+          <p>Local businesses with no website at all, or one that's old, DIY, and doing them no favours &mdash; tradies, clinics, home services, anyone whose customers are local and searching for them right now. If that's you, this is a site built properly around your business, and set up to be found.</p>
 
           <h2 id="packages">Packages</h2>
           <CurrencySwitch />
-          <div class="price-grid">
-            <div class="price-card">
-              <span class="tier">Instant page</span>
-              <div class="price">from {pricing.instantPageFromUsd} USD <small>one-off</small></div>
-              <p class="note">A ready-made page you put on your own hosting. Billed in USD via bizpage.biz.</p>
-              <ul>
-                <li>Generated from your existing Google Business listing</li>
-                <li>Name, address, hours, photos, and reviews pulled in automatically</li>
-                <li>Free preview before you pay anything</li>
-                <li>Delivered as a ZIP of the finished page for your own hosting &mdash; hosting and domain aren&rsquo;t included</li>
-              </ul>
-              <a class="btn btn-primary" href="https://bizpage.biz" target="_blank" rel="noopener" data-umami-event="cta_click" data-umami-event-target="bizpage_preview" data-umami-event-source="website_builds_instant_page">Get your free preview &rarr;</a>
-              <a class="btn btn-ghost" href="https://bizpage.biz/sites/demo/plumber" target="_blank" rel="noopener" style="margin-top:8px;" data-umami-event="cta_click" data-umami-event-target="bizpage_example" data-umami-event-source="website_builds_instant_page">See an example &rarr;</a>
-            </div>
-
+          <div class="price-grid price-grid--two">
             <div class="price-card featured">
               <span class="price-badge">Most popular</span>
               <span class="tier">Custom build</span>
@@ -202,7 +185,7 @@ const jsonLd = [
           </div>
 
           <div class="honest-note">
-            <strong>Not sure which one you need?</strong> If you just need to be findable today, start with the instant page &mdash; it's free to preview and there's no obligation. If you want a site that says something specific about your business and you're ready to actively invest in being found, go straight to the custom build. We'll tell you plainly if you're paying for more than you need. Already have a site and just not sure if it needs a rebuild or just fixing? Start with a <a href="/site-check.html">free SEO/GEO audit</a> instead &mdash; it'll tell you which one, at no cost.
+            <strong>Not sure you need a new site?</strong> If you already have one, start with a <a href="/site-check.html">free SEO/GEO audit</a> &mdash; it tells you whether it needs a rebuild or just fixing, at no cost. We'll tell you plainly if you're paying for more than you need.
           </div>
 
           <h2 id="process">How a custom build works</h2>
@@ -211,7 +194,7 @@ const jsonLd = [
             <li>
               <span class="when">Day 1</span>
               <h3>You tell us about the business</h3>
-              <p>Use the form at the bottom of this page, or just send your business name and Google listing. We reply within one business day with our honest read, including whether the instant page would do the job instead.</p>
+              <p>Use the form at the bottom of this page, or just send your business name and Google listing. We reply within one business day with our honest read, including whether a fix to your current site would do the job instead.</p>
             </li>
             <li>
               <span class="when">Week 1</span>
@@ -243,7 +226,7 @@ const jsonLd = [
           <h2>Why us</h2>
           <p><strong>No lock-in, on either tier.</strong> You own the domain, and nothing here traps you on a platform you can't leave &mdash; unlike a DIY builder, where walking away means starting from scratch.</p>
           <p><strong>SEO/GEO built in, not bolted on later.</strong> The custom build includes the same Local SEO &amp; GEO scope as our standalone service, so you're not found nowhere for months while you save up for a second project.</p>
-          <p><strong>We tell you which tier you actually need.</strong> Plenty of businesses only need the instant page. We'd rather say that than upsell you.</p>
+          <p><strong>We tell you when you don't need a rebuild.</strong> If a fix day or the free website check is all your site needs, we'd rather say that than upsell you.</p>
 
           <h2>What this is not</h2>
           <p>Customer logins, a booking system, payments, or anything else with real application logic behind it isn't in the fixed-price tiers above &mdash; but it's not off the table. We built exactly that for <a href="/projects/edwards-kirby-lawyers.html">a Sydney insolvency law firm</a>: a secure client portal with logins, role-based access, and encrypted document storage, built alongside their website rebuild. Tell us what you need and we'll estimate the days up front, give you the price in writing, and you approve it before we start. Bigger work is priced from <Price item="fixDay" /> per day of work, so the price follows the size of the job.</p>
@@ -259,24 +242,12 @@ const jsonLd = [
 
           <h2>Frequently asked questions</h2>
           <details class="faq-item">
-            <summary>What's the difference between the instant page and the custom build?</summary>
-            <p>The instant page is generated automatically from your existing Google Business listing and delivered as a ready-made page for your own hosting, from {pricing.instantPageFromUsd} USD (billed via bizpage.biz). The custom build is designed and written around your business specifically, with Local SEO &amp; GEO included, for <Price item="customBuild" />. Same underlying quality bar, different amount of hands-on work.</p>
-          </details>
-          <details class="faq-item">
-            <summary>Do I need the custom build, or is the instant page enough?</summary>
-            <p>If you just need to stop being invisible online today, the instant page usually does the job. The custom build makes sense once you want a site that says something specific about your business, or you're ready to actively invest in being found &mdash; we'll tell you honestly which one you actually need.</p>
-          </details>
-          <details class="faq-item">
             <summary>Is Local SEO really included in the Custom build price, or is that extra?</summary>
             <p>It's included in the Custom build price &mdash; Google Business Profile setup, LocalBusiness schema, llms.txt and AI-crawler access, and a review-generation system, the same scope as our standalone Local SEO &amp; GEO service. You're not paying for the site and then paying again to make it findable.</p>
           </details>
           <details class="faq-item">
             <summary>What if I need customer accounts, bookings, or a database?</summary>
             <p>We build those. It's the same work as a website with more moving parts, and the size varies a lot: a simple booking form is a small job, a customer portal is a big one. That's why a fixed website price can't honestly cover it. Tell us what it needs to do, and we'll estimate the days up front and give you the price in writing. You approve it before we start. Bigger work is priced from <Price item="fixDay" /> per day of work.</p>
-          </details>
-          <details class="faq-item">
-            <summary>Can I start with the instant page and upgrade later?</summary>
-            <p>Yes. Plenty of businesses start with the instant page to get something up quickly, then move to a custom build once they know what they want the site to do for them.</p>
           </details>
           <details class="faq-item">
             <summary>Who owns the domain &mdash; us or you?</summary>
@@ -286,13 +257,12 @@ const jsonLd = [
 
         <aside class="sidecard">
           <h4>Website builds</h4>
-          <div class="label-row"><span>Best for</span><span>Local businesses without a site</span></div>
-          <div class="label-row"><span>Instant page</span><span>from {pricing.instantPageFromUsd} USD</span></div>
+          <div class="label-row"><span>Best for</span><span>Local businesses</span></div>
           <div class="label-row"><span>Custom build</span><span><Price item="customBuild" /></span></div>
           <div class="label-row"><span>Care plan</span><span><Price item="carePlan" suffix="/mo" /></span></div>
           <div class="label-row"><span>Local SEO/GEO plans</span><span><Price item="monitor" to="scale" suffix="/mo" /></span></div>
           <div class="label-row"><span>Lock-in</span><span>None</span></div>
-          <p style="font-size:12px;color:var(--text-muted);margin:10px 0 16px;">A ready-made instant page for your own hosting, or a site built properly around your business with Local SEO &amp; GEO included from day one.</p>
+          <p style="font-size:12px;color:var(--text-muted);margin:10px 0 16px;">Built properly around your business, with Local SEO &amp; GEO included from day one, on hosting in your name.</p>
           <a class="btn btn-primary" href="/contact.html" data-umami-event="cta_click" data-umami-event-target="get_a_quote" data-umami-event-source="website_builds_sidecard">Get a quote &rarr;</a>
           <a class="btn btn-ghost" href="/services/local-seo.html">Already have a site? See Local SEO/GEO</a>
         </aside>

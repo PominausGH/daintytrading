@@ -19,8 +19,8 @@ export const GET: APIRoute = async () => {
     `🔹 AI Infrastructure — LLM gateways, evals, billing, observability<br>` +
     `🔹 SEO & GEO — rank on Google AND get cited by ChatGPT/Claude/Perplexity. ` +
     `Free audit, setup from ${aud(pricing.setupSingleTemplate)}<br>` +
-    `🔹 Websites — from $${pricing.instantPageFromUsd} instant page from Google business, ` +
-    `or ${aud(pricing.customBuild)} custom with SEO/GEO Async-first: daily updates, weekly demos. ` +
+    `🔹 Websites — ${aud(pricing.customBuild)} custom build with SEO/GEO built in. ` +
+    `Async-first: daily updates, weekly demos. ` +
     `A few clients per quarter, so every project gets real attention.<br>`;
 
   return new Response(

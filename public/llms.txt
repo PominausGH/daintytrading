@@ -15,7 +15,7 @@
 
 ## Services
 
-- [Website builds](https://telaloom.com/services/website-builds.html): Instant page from a Google Business listing, or a custom-built site with Local SEO & GEO bundled in from day one.
+- [Website builds](https://telaloom.com/services/website-builds.html): Custom-built sites with Local SEO & GEO bundled in from day one, set up on hosting in the client's name.
 - [SEO & GEO optimization](https://telaloom.com/services/seo-geo-optimization.html): Fix indexing, structured data, and AI-crawler access on an existing site — audit plus the fix, not just a report.
 - [Local SEO & GEO](https://telaloom.com/services/local-seo.html): Ongoing Google Business Profile management, review generation, and local-search visibility for one business.
 - [AI product builds](https://telaloom.com/services.html): Concept-to-paid-product delivery in 6–12 weeks.
@@ -37,7 +37,6 @@
 Smaller, internal or earlier-stage projects. Each has a project page; not counted in the portfolio figure above.
 
 - [Subscription Incinerator](https://telaloom.com/projects/subscription.html) — live at **subscriptionincinerator.app**. Finds subscriptions in Gmail; Claude drafts merchant-specific cancellation emails; SMS chases follow-ups.
-- [BizPage Builder](https://telaloom.com/projects/bizpage-builder.html) — live at **bizpage.biz**. Discovers small businesses without websites via Google Maps API; generates SEO-ready landing pages with Claude; exports as deployable ZIP.
 - [FocusShield](https://telaloom.com/projects/focusguard.html) — live at **focusshield.app**. Cross-platform task and focus app — web, iOS, Android — Expo + Node + Postgres.
 - [TimerForge](https://telaloom.com/projects/timerforge.html) — live at **timerforge.app**. Cross-platform countdown timer. PyQt6 desktop apps + Node web SaaS, Stripe-billed.
 - [ConvoForge](https://telaloom.com/projects/convoforge.html) — live at **convoforge.app**. Multimodal communication coach. Speech analysis, body language detection, AI avatar roleplay, real-time meeting overlay.
