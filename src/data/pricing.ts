@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs';
+
 // Single source of truth for prices reused across services/seo-geo-optimization.astro,
 // services/local-seo.astro, and services/website-builds.astro. Before this file existed,
 // PR #14 (2026-09-02) had to hand-sync these same numbers across those 3 pages plus
@@ -26,40 +28,49 @@ export function aud(n: number) {
   return `$${n.toLocaleString('en-AU')}`;
 }
 
-// Firm USD quoted pricing for the site's large US audience (Umami: ~10x more
-// US than AU sessions on the commercial pages, 2026-09-28) — /usa.html
-// promises "US clients invoice in USD, no currency conversion... on your
-// end", so these are displayed as an equal, committed price alongside AUD,
-// not a hedged "~approx" estimate. Derived from mid-market rate 0.70 (XE,
-// 2026-09-28) plus a ~3% buffer to cover the cost of converting incoming USD
-// back to AUD (Stripe's cross-border/currency-conversion fee runs ~2%) — the
-// buffer is what makes committing to a firm number safe. Revisit this
-// constant if AUD/USD moves materially; the buffer gives headroom before
-// that's actually necessary. Figures round to the nearest $50 for clean,
-// marketing-legible numbers rather than exact conversion precision.
-const AUD_TO_USD_DISPLAY_RATE = 0.721;
+// USD pricing for the site's large US audience (Umami: ~10x more US than AU sessions on the
+// commercial pages, 2026-09-28). /usa.html promises US clients are invoiced in USD, so these
+// are shown as real prices alongside AUD, not hedged estimates.
+//
+// Derived from the live AUD/USD rate (Andrew, 2026-10-20): /opt/docker/scripts/fx-sync.sh
+// fetches the ECB rate monthly into FX_RATES_FILE, and dainty-deploy-build.sh rebuilds the
+// site when that file changes. Each AUD price x mid-rate x 1.03 (covers Stripe's ~2%
+// cross-border/conversion cost of turning USD back into AUD), rounded UP to the next $1.
+// The AUD price is the source of truth; nothing here is hand-set.
+const FX_RATES_FILE = process.env.FX_RATES_FILE || '/opt/docker/shared/fx/fx-rates.json';
+const FALLBACK_USD_TO_AUD = 1.437; // ECB 2026-10-16; used only if the rate file is missing (e.g. CI)
+const CONVERSION_BUFFER = 1.03;
 
-function usdApprox(audAmount: number): number {
-  return Math.round((audAmount * AUD_TO_USD_DISPLAY_RATE) / 50) * 50;
+function readUsdToAud(): { rate: number; date: string | null } {
+  try {
+    const j = JSON.parse(readFileSync(FX_RATES_FILE, 'utf8'));
+    const rate = Number(j?.usd?.AUD);
+    if (rate > 1 && rate < 2.5) return { rate, date: j.rate_date ?? null };
+  } catch {
+    // fall through to the fallback below
+  }
+  return { rate: FALLBACK_USD_TO_AUD, date: null };
+}
+
+export const fx = readUsdToAud(); // { rate: AUD per 1 USD, date: ECB rate date or null on fallback }
+
+function usdFromAud(audAmount: number): number {
+  return Math.ceil((audAmount / fx.rate) * CONVERSION_BUFFER);
 }
 
 export const pricingUsd = {
-  customBuild: usdApprox(pricing.customBuild),
-  carePlan: usdApprox(pricing.carePlan),
-  fixDay: usdApprox(pricing.fixDay),
-  // Set by hand, not by formula (which gives 2,800): Setup was priced as 4 fix days at
-  // 1,000 minus a 100 bundle discount (3,900 AUD / 2,700 USD). Fix days rose to 1,200 on
-  // 2026-10-15 but Setup stayed put, so it now beats fix days from about three days of work.
-  // Don't "correct" this back to the formula.
-  setupSingleTemplate: 2700,
-  setupMultiTemplate: usdApprox(pricing.setupMultiTemplate),
-  monitor: usdApprox(pricing.monitor),
-  growth: usdApprox(pricing.growth),
-  scale: usdApprox(pricing.scale),
-  aiDiscovery: usdApprox(pricing.aiDiscovery),
-  aiRetrofitFrom: usdApprox(pricing.aiRetrofitFrom),
-  aiInfrastructureFrom: usdApprox(pricing.aiInfrastructureFrom),
-  aiProductBuildFrom: usdApprox(pricing.aiProductBuildFrom),
+  customBuild: usdFromAud(pricing.customBuild),
+  carePlan: usdFromAud(pricing.carePlan),
+  fixDay: usdFromAud(pricing.fixDay),
+  setupSingleTemplate: usdFromAud(pricing.setupSingleTemplate),
+  setupMultiTemplate: usdFromAud(pricing.setupMultiTemplate),
+  monitor: usdFromAud(pricing.monitor),
+  growth: usdFromAud(pricing.growth),
+  scale: usdFromAud(pricing.scale),
+  aiDiscovery: usdFromAud(pricing.aiDiscovery),
+  aiRetrofitFrom: usdFromAud(pricing.aiRetrofitFrom),
+  aiInfrastructureFrom: usdFromAud(pricing.aiInfrastructureFrom),
+  aiProductBuildFrom: usdFromAud(pricing.aiProductBuildFrom),
 } as const;
 
 export function usd(n: number) {

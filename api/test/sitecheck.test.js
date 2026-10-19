@@ -8,7 +8,7 @@ const path = require('path');
 const {
   createService, ServiceError, normalizeDomain, normalizeEmail, ownerSignal, maskEmail, renderReportEmail,
 } = require('../lib/sitecheck');
-const { buildRecommendation } = require('../lib/sitecheck-copy');
+const { buildRecommendation, pricing } = require('../lib/sitecheck-copy');
 
 const REPORT = {
   domain: 'acme.com.au', status: 'complete', outcome: 'small_fixes', platform: 'WordPress',
@@ -306,14 +306,21 @@ test('booking prominence follows the outcome, in copy and in the report email', 
   assert.ok(html('setup_scale').includes('Website_Ideas=example.com%20-%20'));
 });
 
+test('USD prices are derived from the live rate, rounded up to $1', () => {
+  // Same formula as src/data/pricing.ts: AUD / (AUD per USD) x 1.03, rounded up.
+  assert.ok(Number.isInteger(pricing.setupUsd) && Number.isInteger(pricing.buildUsd));
+  assert.ok(pricing.setupUsd > 2000 && pricing.setupUsd < 3500, `setupUsd ${pricing.setupUsd}`);
+  assert.ok(pricing.buildUsd > 3500 && pricing.buildUsd < 6000, `buildUsd ${pricing.buildUsd}`);
+});
+
 test('recommendation copy follows the pricing rules', () => {
   const small = buildRecommendation({ outcome: 'small_fixes', groupsAffected: [] });
   assert.ok(!/AUD|USD|\$/.test(small.body), 'small fixes must not show a price');
   const setup = buildRecommendation({ outcome: 'setup_scale', groupsAffected: ['findability', 'measurement'] });
-  assert.match(setup.body, /3,900 AUD \(2,700 USD\)/);
+  assert.ok(setup.body.includes(`3,900 AUD (${pricing.setupUsd.toLocaleString('en-AU')} USD)`), setup.body);
   assert.match(setup.body, /Being found/);
   const rebuild = buildRecommendation({ outcome: 'rebuild_signal' });
-  assert.match(rebuild.body, /6,900 AUD \(4,950 USD\)/);
+  assert.ok(rebuild.body.includes(`6,900 AUD (${pricing.buildUsd.toLocaleString('en-AU')} USD)`), rebuild.body);
   assert.match(rebuild.headline, /recommend a rebuild/);
   assert.match(buildRecommendation({ outcome: 'not_enough_data', status: 'blocked' }).body, /bot protection/);
   assert.match(buildRecommendation({ outcome: 'not_enough_data', status: 'opted_out' }).body, /robots\.txt/);
