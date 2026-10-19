@@ -11,10 +11,8 @@ export const pricing = {
   scale: 1950,
   currency: 'AUD',
   instantPageFromUsd: 149,
-  instantPageHostedFromUsd: 39,
-  instantPageOwnDomainFromUsd: 79,
   customBuild: 6900,
-  carePlan: 290,
+  carePlan: 250,
   fixDay: 1200,
   // AI engagements, quoted as "from" prices on a ~1,600 AUD/day internal basis. aiDiscovery
   // deliberately equals WiseKeel's Diagnostic (AU$4,500) so the two price lists never contradict.

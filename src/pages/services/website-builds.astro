@@ -19,9 +19,9 @@ const jsonLd = [
       '@type': 'OfferCatalog',
       name: 'Website build packages',
       itemListElement: [
-        { '@type': 'Offer', name: 'Instant page', price: String(pricing.instantPageFromUsd), priceCurrency: 'USD', description: `One-off, or from $${pricing.instantPageHostedFromUsd} USD/month hosted (from $${pricing.instantPageOwnDomainFromUsd} USD/month for your own domain). Auto-generated from your existing Google Business listing — name, address, hours, photos, and reviews. Live within days. Billed via bizpage.biz in USD.` },
-        { '@type': 'Offer', name: 'Custom build', price: String(pricing.customBuild), priceCurrency: 'AUD', description: `One-off. Custom-designed site, copywriting, hosting, SSL, and Local SEO & GEO setup included — not sold separately.` },
-        { '@type': 'Offer', name: 'Care plan', price: String(pricing.carePlan), priceCurrency: 'AUD', description: 'Monthly, no GST. Hosting, security updates, and up to 30 minutes of small content changes per month (unused time does not roll over, billed at the standard hourly rate beyond that). 2-business-day response time, same-day for security or downtime issues. Attached to every custom build by default. Cancel anytime, effective end of the current billing month.' },
+        { '@type': 'Offer', name: 'Instant page', price: String(pricing.instantPageFromUsd), priceCurrency: 'USD', description: `One-off. Auto-generated from your existing Google Business listing — name, address, hours, photos, and reviews. Delivered as a ready-made page (ZIP) for your own hosting; hosting is not included. Billed via bizpage.biz in USD.` },
+        { '@type': 'Offer', name: 'Custom build', price: String(pricing.customBuild), priceCurrency: 'AUD', description: `One-off. Custom-designed site, copywriting, set up on hosting in your name, SSL, and Local SEO & GEO setup included — not sold separately.` },
+        { '@type': 'Offer', name: 'Care plan', price: String(pricing.carePlan), priceCurrency: 'AUD', description: 'Monthly, no GST. Uptime monitoring and security updates on your own hosting, and up to 60 minutes of small content changes per month (unused time does not roll over, billed at the standard hourly rate beyond that). 2-business-day response time, same-day for security or downtime issues. Attached to every custom build by default. Cancel anytime, effective end of the current billing month.' },
         { '@type': 'Offer', name: 'Monitor', price: String(pricing.monitor), priceCurrency: 'AUD', description: 'Monthly. Automated ranking and AI-citation monitoring, with a monthly plain-English report. No fix pass included. Cancel anytime.' },
         { '@type': 'Offer', name: 'Growth', price: String(pricing.growth), priceCurrency: 'AUD', description: 'Monthly. Everything in Monitor, plus Google Business Profile posts, review replies, and a review campaign each month. Cancel anytime.' },
         { '@type': 'Offer', name: 'Scale', price: String(pricing.scale), priceCurrency: 'AUD', description: 'Monthly. Everything in Growth, plus new suburb/service pages, full Google Business Profile management, monthly content, and a quarterly strategy call.' },
@@ -32,11 +32,11 @@ const jsonLd = [
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: [
-      { '@type': 'Question', name: "What's the difference between the instant page and the custom build?", acceptedAnswer: { '@type': 'Answer', text: `The instant page is generated automatically from your existing Google Business listing and can be live within days, from $${pricing.instantPageFromUsd} USD (billed via bizpage.biz). The custom build is designed and written around your business specifically, with Local SEO & GEO included, for $${pricing.customBuild.toLocaleString()} AUD. Same underlying quality bar, different amount of hands-on work.` } },
+      { '@type': 'Question', name: "What's the difference between the instant page and the custom build?", acceptedAnswer: { '@type': 'Answer', text: `The instant page is generated automatically from your existing Google Business listing and delivered as a ready-made page for your own hosting, from $${pricing.instantPageFromUsd} USD (billed via bizpage.biz). The custom build is designed and written around your business specifically, with Local SEO & GEO included, for $${pricing.customBuild.toLocaleString()} AUD. Same underlying quality bar, different amount of hands-on work.` } },
       { '@type': 'Question', name: 'Do I need the custom build, or is the instant page enough?', acceptedAnswer: { '@type': 'Answer', text: "If you just need to stop being invisible online today, the instant page usually does the job. The custom build makes sense once you want a site that says something specific about your business, or you're ready to actively invest in being found — we'll tell you honestly which one you actually need." } },
       { '@type': 'Question', name: 'Is Local SEO really included in the Custom build price, or is that extra?', acceptedAnswer: { '@type': 'Answer', text: "It's included in the Custom build price — Google Business Profile setup, LocalBusiness schema, llms.txt and AI-crawler access, and a review-generation system, the same scope as our standalone Local SEO & GEO service. You're not paying for the site and then paying again to make it findable." } },
       { '@type': 'Question', name: 'What if I need customer accounts, bookings, or a database?', acceptedAnswer: { '@type': 'Answer', text: `We build those. It's the same work as a website with more moving parts, and the size varies a lot: a simple booking form is a small job, a customer portal is a big one. That's why a fixed website price can't honestly cover it. Tell us what it needs to do, and we'll estimate the days up front and give you the price in writing. You approve it before we start. Bigger work is priced from ${pricing.fixDay.toLocaleString()} AUD (${pricingUsd.fixDay.toLocaleString()} USD) per day of work.` } },
-      { '@type': 'Question', name: 'Can I start with the instant page and upgrade later?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Plenty of businesses start with the instant page to get something live immediately, then move to a custom build once they know what they want the site to do for them.' } },
+      { '@type': 'Question', name: 'Can I start with the instant page and upgrade later?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Plenty of businesses start with the instant page to get something up quickly, then move to a custom build once they know what they want the site to do for them.' } },
       { '@type': 'Question', name: 'Who owns the domain — us or you?', acceptedAnswer: { '@type': 'Answer', text: "You. If you already have a domain, we connect it. If you don't, our default is to register it directly in your own registrar account so there's never a custody question — no lock-in, nothing to transfer later. If you'd rather we register it first for speed, we hand it over via a standard domain transfer whenever you want it, using the authorization code your registrar provides. Either way, the first year's registration is included in the build price; renewal after that is yours." } },
     ],
   },
@@ -122,12 +122,12 @@ const jsonLd = [
             <div class="price-card">
               <span class="tier">Instant page</span>
               <div class="price">from {pricing.instantPageFromUsd} USD <small>one-off</small></div>
-              <p class="note">Or from {pricing.instantPageHostedFromUsd} USD/month hosted. Live within days. Billed in USD via bizpage.biz.</p>
+              <p class="note">A ready-made page you put on your own hosting. Billed in USD via bizpage.biz.</p>
               <ul>
                 <li>Generated from your existing Google Business listing</li>
                 <li>Name, address, hours, photos, and reviews pulled in automatically</li>
                 <li>Free preview before you pay anything</li>
-                <li>Hosting &amp; SSL from {pricing.instantPageHostedFromUsd} USD/month (free subdomain); connect a domain you already own from {pricing.instantPageOwnDomainFromUsd} USD/month (domain registration itself is separate, ~$10&ndash;$50/yr via any registrar)</li>
+                <li>Delivered as a ZIP of the finished page for your own hosting &mdash; hosting and domain aren&rsquo;t included</li>
               </ul>
               <a class="btn btn-primary" href="https://bizpage.biz" target="_blank" rel="noopener" data-umami-event="cta_click" data-umami-event-target="bizpage_preview" data-umami-event-source="website_builds_instant_page">Get your free preview &rarr;</a>
               <a class="btn btn-ghost" href="https://bizpage.biz/sites/demo/plumber" target="_blank" rel="noopener" style="margin-top:8px;" data-umami-event="cta_click" data-umami-event-target="bizpage_example" data-umami-event-source="website_builds_instant_page">See an example &rarr;</a>
@@ -140,7 +140,7 @@ const jsonLd = [
               <p class="note">Designed and written around your business, no lock-in.</p>
               <ul>
                 <li>Custom design and copywriting &mdash; not a template</li>
-                <li>Hosting, SSL, and your domain &mdash; connected if you already have one, or registered in your name if you don&rsquo;t (first year included)</li>
+                <li>Set up on hosting in your name (you pay the host directly), SSL, and your domain &mdash; connected if you already have one, or registered in your name if you don&rsquo;t (first year included)</li>
                 <li>Local SEO &amp; GEO setup included, not sold separately</li>
                 <li>LocalBusiness schema, service-area pages, llms.txt</li>
                 <li>A system to turn happy customers into reviews</li>
@@ -153,9 +153,9 @@ const jsonLd = [
               <div class="price"><Price item="carePlan" /><small>/mo, no GST</small></div>
               <p class="note">Attached to every custom build by default &mdash; opt out if you&rsquo;d rather self-manage. Cancel anytime, effective end of the current billing month.</p>
               <ul class="month-list">
-                <li>Hosting, SSL renewal, and uptime monitoring</li>
+                <li>Uptime and SSL monitoring on your own hosting</li>
                 <li>Software and security updates</li>
-                <li>Up to 30 minutes/month of small changes &mdash; text edits, photo swaps, a new testimonial (unused time doesn&rsquo;t roll over; extra work billed at our standard hourly rate)</li>
+                <li>Up to 60 minutes/month of small changes &mdash; text edits, photo swaps, a new testimonial (unused time doesn&rsquo;t roll over; extra work billed at our standard hourly rate)</li>
                 <li>2-business-day response time &mdash; same-day for security or downtime issues</li>
               </ul>
               <a class="btn btn-ghost" href="/contact.html" style="margin-top:16px;" data-umami-event="cta_click" data-umami-event-target="talk_it_through" data-umami-event-source="website_builds_care_plan">Talk it through &rarr;</a>
@@ -236,7 +236,7 @@ const jsonLd = [
             <li>
               <span class="when">After launch</span>
               <h3>Looked after</h3>
-              <p>The Care plan keeps it hosted, updated and monitored, with small changes each month. Add a Local SEO &amp; GEO plan if you want us to keep working on rankings.</p>
+              <p>The Care plan keeps it updated and monitored on your hosting, with small changes each month. Add a Local SEO &amp; GEO plan if you want us to keep working on rankings.</p>
             </li>
           </ol>
 
@@ -260,7 +260,7 @@ const jsonLd = [
           <h2>Frequently asked questions</h2>
           <details class="faq-item">
             <summary>What's the difference between the instant page and the custom build?</summary>
-            <p>The instant page is generated automatically from your existing Google Business listing and can be live within days, from {pricing.instantPageFromUsd} USD (billed via bizpage.biz). The custom build is designed and written around your business specifically, with Local SEO &amp; GEO included, for <Price item="customBuild" />. Same underlying quality bar, different amount of hands-on work.</p>
+            <p>The instant page is generated automatically from your existing Google Business listing and delivered as a ready-made page for your own hosting, from {pricing.instantPageFromUsd} USD (billed via bizpage.biz). The custom build is designed and written around your business specifically, with Local SEO &amp; GEO included, for <Price item="customBuild" />. Same underlying quality bar, different amount of hands-on work.</p>
           </details>
           <details class="faq-item">
             <summary>Do I need the custom build, or is the instant page enough?</summary>
@@ -276,7 +276,7 @@ const jsonLd = [
           </details>
           <details class="faq-item">
             <summary>Can I start with the instant page and upgrade later?</summary>
-            <p>Yes. Plenty of businesses start with the instant page to get something live immediately, then move to a custom build once they know what they want the site to do for them.</p>
+            <p>Yes. Plenty of businesses start with the instant page to get something up quickly, then move to a custom build once they know what they want the site to do for them.</p>
           </details>
           <details class="faq-item">
             <summary>Who owns the domain &mdash; us or you?</summary>
@@ -292,7 +292,7 @@ const jsonLd = [
           <div class="label-row"><span>Care plan</span><span><Price item="carePlan" suffix="/mo" /></span></div>
           <div class="label-row"><span>Local SEO/GEO plans</span><span><Price item="monitor" to="scale" suffix="/mo" /></span></div>
           <div class="label-row"><span>Lock-in</span><span>None</span></div>
-          <p style="font-size:12px;color:var(--text-muted);margin:10px 0 16px;">Live within days with the instant page, or built properly around your business with Local SEO &amp; GEO included from day one.</p>
+          <p style="font-size:12px;color:var(--text-muted);margin:10px 0 16px;">A ready-made instant page for your own hosting, or a site built properly around your business with Local SEO &amp; GEO included from day one.</p>
           <a class="btn btn-primary" href="/contact.html" data-umami-event="cta_click" data-umami-event-target="get_a_quote" data-umami-event-source="website_builds_sidecard">Get a quote &rarr;</a>
           <a class="btn btn-ghost" href="/services/local-seo.html">Already have a site? See Local SEO/GEO</a>
         </aside>
