@@ -18,6 +18,7 @@ const DRAFTS_FILE = path.join(DATA_DIR, 'prospects-drafts.json');
 const SKIPS_FILE = path.join(DATA_DIR, 'prospects-skipped.json');
 const PREDRAFT_STATE_FILE = path.join(DATA_DIR, 'prospects-predraft-state.json');
 const PREDRAFT_LOCK_FILE = path.join(DATA_DIR, 'prospects-predraft.lock');
+const INBOUND_REPLY_LOG_FILE = path.join(DATA_DIR, 'inbound-replies.jsonl');
 
 // `run` and `slug` become filesystem path segments under the read-only mount, so they're
 // validated strictly before ever touching fs — no '.', '/', or '\' allowed at all, which
@@ -426,8 +427,8 @@ function daysSince(isoDate) {
 //
 // The sequence is two emails at most: the first, then one follow-up a week of working days
 // later if they haven't replied or opted out. After that we don't email the business again.
-// Replies arrive in our own inbox and there is no inbound pipeline here, so "replied" and "opted
-// out" are recorded by a person in the dashboard.
+// "Replied" and "opted out" are recorded by a person in the dashboard, or automatically when the
+// inbound email worker forwards a reply to POST /api/inbound-reply (applyInboundReply below).
 
 function siteDomainFor(run, slug) {
   const row = findSummaryRow(run, slug);
@@ -461,6 +462,53 @@ function optOut(run, slug) {
   const added = addToSuppression([record.to, site]);
   const updated = updateSentRecord(run, slug, { optedOutAt: new Date().toISOString(), siteDomain: site || record.siteDomain || null });
   return { record: updated, suppressed: added };
+}
+
+// "Name <A@B.com>" or " a@b.com " -> "a@b.com"; null if it isn't an address.
+function normalizeAddress(value) {
+  if (typeof value !== 'string') return null;
+  const angle = value.match(/<([^<>]*)>/);
+  const addr = (angle ? angle[1] : value).trim().toLowerCase();
+  return /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(addr) ? addr : null;
+}
+
+// Every sent record whose recipient is exactly this address (no domain matching).
+function findSentByAddress(address) {
+  const addr = normalizeAddress(address);
+  if (!addr) return [];
+  return Object.entries(readSentLog())
+    .filter(([, record]) => normalizeAddress(record.to) === addr)
+    .map(([key, record]) => {
+      const i = key.indexOf(':');
+      return { run: key.slice(0, i), slug: key.slice(i + 1), record };
+    });
+}
+
+// Acts on a classified inbound reply. An opt-out always suppresses the sender's address, matched or
+// not; each matched record is opted out (address + website, as in the dashboard) and marked replied.
+// A real reply marks matched records replied, which stops the follow-up. A first repliedAt is kept.
+function applyInboundReply(from, result) {
+  const addr = normalizeAddress(from);
+  if (result === 'ignored' || !addr) return { result, matched: 0 };
+  const matches = findSentByAddress(addr);
+  if (result === 'opted_out') addToSuppression([addr]);
+  for (const { run, slug, record } of matches) {
+    if (result === 'opted_out' && !record.optedOutAt) {
+      if (isValidName(run) && isValidName(slug)) optOut(run, slug);
+      else {
+        addToSuppression([record.to, record.siteDomain]);
+        updateSentRecord(run, slug, { optedOutAt: new Date().toISOString() });
+      }
+    }
+    if (!record.repliedAt) markReplied(run, slug);
+  }
+  if (!matches.length && result !== 'opted_out') return { result: 'no_match', matched: 0 };
+  return { result, matched: matches.length };
+}
+
+function appendInboundReplyLog(entry) {
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+  fs.appendFileSync(INBOUND_REPLY_LOG_FILE, JSON.stringify(entry) + '\n');
 }
 
 function addBusinessDays(from, days) {
@@ -1190,6 +1238,10 @@ module.exports = {
   siteDomainFor,
   markReplied,
   optOut,
+  normalizeAddress,
+  findSentByAddress,
+  applyInboundReply,
+  appendInboundReplyLog,
   addBusinessDays,
   followUpState,
   buildFollowUp,

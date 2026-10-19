@@ -62,6 +62,10 @@ const config = {
   // directly. The app-wide FROM_EMAIL/FROM_NAME followed on 2026-09-23 (Andrew: "remove
   // daintytrading"); these stay separate so outreach identity can still diverge if needed —
   // see [[daintytrading-telaloom-rebrand-2026-09-18]].
+  // Shared secret the Cloudflare Email Worker sends as `Authorization: Bearer <secret>` when it
+  // forwards a prospect's reply to POST /api/inbound-reply. Empty/unset = the route answers 503.
+  inboundReplySecret: optional('INBOUND_REPLY_SECRET', '').trim(),
+
   prospectsFromEmail: required('PROSPECTS_FROM_EMAIL', 'hello@telaloom.com'),
   prospectsFromName: required('PROSPECTS_FROM_NAME', 'Telaloom'),
 
