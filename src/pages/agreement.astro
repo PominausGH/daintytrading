@@ -284,7 +284,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <h3>Ongoing services <span class="hint" style="font-weight:400;color:var(--text-muted)">(optional)</span></h3>
   <div class="grid">
     <label class="f">Monthly fee<input type="text" name="monthly_fee" placeholder="$ per month, or N/A"></label>
-    <label class="f">Includes<input type="text" name="monthly_scope" placeholder="e.g. hosting, updates, backups, SEO"></label>
+    <label class="f">Includes<input type="text" name="monthly_scope" placeholder="e.g. updates, monitoring, small changes, SEO"></label>
   </div>
   <p class="note" style="margin-top:14px">Month to month. Either party can cancel with 30 days' written notice.</p>
 </section>
@@ -306,7 +306,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <h4>3. Fees and payment</h4>
   <p><b>3.1</b>The Client will pay the fees in Schedule 1. Invoices are payable within seven (7) days.</p>
   <p><b>3.2</b>The deposit is required before work starts. The website will not be launched or transferred until the balance is paid in full.</p>
-  <p><b>3.3</b>If an invoice is more than 14 days overdue, the Provider may pause work, or suspend any hosting or ongoing services it manages, until payment is received.</p>
+  <p><b>3.3</b>If an invoice is more than 14 days overdue, the Provider may pause work, or suspend any ongoing services, until payment is received.</p>
   <p><b>3.4</b>Third-party costs (domains, hosting, premium plugins, themes, stock images, paid apps) are not included unless stated in Schedule 1 and are paid by the Client.</p>
 
   <h4>4. Revisions and changes</h4>
@@ -324,7 +324,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   <h4>7. Domains, hosting and third-party services</h4>
   <p><b>7.1</b>Domain names should be registered in the Client's name. Anything the Provider registers on the Client's behalf will be transferred to the Client on request once all fees are paid.</p>
-  <p><b>7.2</b>The Provider is not responsible for outages, price or policy changes, or data loss caused by third-party providers (e.g. domain registrars, payment gateways, or platforms such as Shopify or WordPress.com). Where the Provider hosts the website on its own infrastructure, no specific uptime is guaranteed; the Provider will use reasonable efforts to maintain availability and restore service promptly after any outage.</p>
+  <p><b>7.2</b>The Provider is not responsible for outages, price or policy changes, or data loss caused by third-party providers (e.g. domain registrars, payment gateways, or platforms such as Shopify or WordPress.com). The website is hosted on an account in the Client's name, and the Client pays the hosting provider directly. The Provider does not host client websites and is not responsible for the hosting provider's availability, but under an ongoing services arrangement will help restore the website promptly after an outage.</p>
 
   <h4>8. Intellectual property</h4>
   <p><b>8.1</b>Once all fees are paid, the Client owns the final website design and content created specifically for the Client under this Agreement.</p>
@@ -413,7 +413,7 @@ const GROUPS = {
   copy: ["I'll supply all text",'I need help writing it','A mix of both'],
   photos: ['I have my own','Use stock photos','Need a photographer'],
   updates: ["I'll update it myself",'TelaLoom manages updates','Not sure'],
-  ongoing: ['Hosting and maintenance','SEO and Google ranking','Monthly reporting'],
+  ongoing: ['Maintenance (Care plan)','SEO and Google ranking','Monthly reporting'],
   gst: ['Includes GST','No GST (provider not registered)'],
 };
 

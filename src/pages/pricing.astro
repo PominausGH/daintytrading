@@ -21,7 +21,7 @@ const jsonLd = [
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: [
-      { '@type': 'Question', name: 'How much does a website cost?', acceptedAnswer: { '@type': 'Answer', text: `A custom build is ${n(pricing.customBuild)} AUD, one-off. That covers design and copywriting, hosting, SSL, your domain (first year included) and Local SEO & GEO setup. Customer logins, bookings or payments are extra, estimated in days up front and priced from ${n(pricing.fixDay)} AUD per day.` } },
+      { '@type': 'Question', name: 'How much does a website cost?', acceptedAnswer: { '@type': 'Answer', text: `A custom build is ${n(pricing.customBuild)} AUD, one-off. That covers design and copywriting, setup on hosting in your name (you pay the host directly), SSL, your domain (first year included) and Local SEO & GEO setup. Customer logins, bookings or payments are extra, estimated in days up front and priced from ${n(pricing.fixDay)} AUD per day.` } },
       { '@type': 'Question', name: 'Is there a lock-in contract?', acceptedAnswer: { '@type': 'Answer', text: 'No. The one-off prices are one-off, and the monthly plans are month-to-month. Cancel anytime. You own the domain and the site.' } },
       { '@type': 'Question', name: 'What if my job is smaller than a Setup?', acceptedAnswer: { '@type': 'Answer', text: `Book fix days at ${n(pricing.fixDay)} AUD a day. We estimate the days up front and you approve before we start. Once a job passes about three days, Setup at ${n(pricing.setupSingleTemplate)} AUD is the better value.` } },
       { '@type': 'Question', name: 'Do I need a monthly plan?', acceptedAnswer: { '@type': 'Answer', text: "Often not. Setup is a one-time audit-and-fix, and the monthly plans are optional. If there's nothing useful to do in a given month, we tell you." } },
@@ -89,7 +89,7 @@ const jsonLd = [
             <div class="price-card">
               <span class="tier">Website build</span>
               <div class="price"><Price item="customBuild" /> <small>one-off</small></div>
-              <p class="note">A custom site, designed and written around your business. Hosting, SSL, your domain (first year included) and Local SEO &amp; GEO setup are in the price, not sold to you afterwards.</p>
+              <p class="note">A custom site, designed and written around your business. Setup on hosting in your name, SSL, your domain (first year included) and Local SEO &amp; GEO setup are in the price, not sold to you afterwards. You pay the host directly.</p>
               <a class="more" href="/services/website-builds.html">What&rsquo;s in a build &rarr;</a>
             </div>
 
@@ -111,7 +111,7 @@ const jsonLd = [
             <div class="plan-row">
               <span class="plan-name">Care</span>
               <span class="plan-price"><Price item="carePlan" suffix="/mo" /></span>
-              <span class="plan-what">Hosting, SSL renewal, uptime monitoring, software and security updates, and up to 30 minutes a month of small changes. No GST. Attached to every custom build by default; opt out if you&rsquo;d rather self-manage.</span>
+              <span class="plan-what">Uptime and SSL monitoring, software and security updates on your own hosting, and up to 60 minutes a month of small changes. No GST. Attached to every custom build by default; opt out if you&rsquo;d rather self-manage.</span>
             </div>
             <div class="plan-row">
               <span class="plan-name">Monitor</span>
@@ -132,13 +132,13 @@ const jsonLd = [
 
           <h2>What isn&rsquo;t on this list</h2>
           <p><strong>Logins, bookings, payments.</strong> Anything with real application logic is estimated in days up front and priced from <Price item="fixDay" /> per day. You get the price in writing and approve it before we start.</p>
-          <p><strong>A simple page, live this week.</strong> Our instant page is a separate self-serve product, generated from your Google Business listing, from ${pricing.instantPageFromUsd} USD at <a href="https://bizpage.biz" target="_blank" rel="noopener" data-umami-event="cta_click" data-umami-event-target="bizpage_preview" data-umami-event-source="pricing_page">bizpage.biz</a>. <a href="/services/website-builds.html">Instant page or custom build?</a></p>
+          <p><strong>Just need a simple page?</strong> Our instant page is a separate self-serve product, delivered as a ready-made page for your own hosting, generated from your Google Business listing, from ${pricing.instantPageFromUsd} USD at <a href="https://bizpage.biz" target="_blank" rel="noopener" data-umami-event="cta_click" data-umami-event-target="bizpage_preview" data-umami-event-source="pricing_page">bizpage.biz</a>. <a href="/services/website-builds.html">Instant page or custom build?</a></p>
           <p><strong>AI work.</strong> Every AI engagement starts with a Discovery sprint at <Price item="aiDiscovery" symbol />: one week to map the workflow, build an eval set from your data and fix the scope and price. It's credited in full against the build. Builds are then quoted per engagement: <a href="/services/ai-automation-retrofit.html">automation retrofits</a> from <Price item="aiRetrofitFrom" symbol />, <a href="/services/ai-infrastructure.html">AI infrastructure</a> from <Price item="aiInfrastructureFrom" symbol />, and <a href="/services/ai-product-builds.html">AI product builds</a> from <Price item="aiProductBuildFrom" symbol />.</p>
 
           <h2>Frequently asked questions</h2>
           <details class="faq-item">
             <summary>How much does a website cost?</summary>
-            <p>A custom build is <Price item="customBuild" />, one-off. That covers design and copywriting, hosting, SSL, your domain (first year included) and Local SEO &amp; GEO setup. Customer logins, bookings or payments are extra, estimated in days up front and priced from <Price item="fixDay" /> per day.</p>
+            <p>A custom build is <Price item="customBuild" />, one-off. That covers design and copywriting, setup on hosting in your name (you pay the host directly), SSL, your domain (first year included) and Local SEO &amp; GEO setup. Customer logins, bookings or payments are extra, estimated in days up front and priced from <Price item="fixDay" /> per day.</p>
           </details>
           <details class="faq-item">
             <summary>Is there a lock-in contract?</summary>
