@@ -19,7 +19,7 @@ const config = {
   prospectsConfidenceThreshold: parseFloat(required('PROSPECTS_CONFIDENCE_THRESHOLD', '0.6')),
   prospectsMinFindingScore: parseFloat(required('PROSPECTS_MIN_FINDING_SCORE', '0.5')),
   prospectsCooldownDays: parseInt(required('PROSPECTS_COOLDOWN_DAYS', '90'), 10),
-  prospectsRateLimitPerWeek: parseInt(required('PROSPECTS_RATE_LIMIT_PER_WEEK', '25'), 10),
+  prospectsRateLimitPerWeek: parseInt(required('PROSPECTS_RATE_LIMIT_PER_WEEK', '50'), 10),
   // The one follow-up becomes available this many working days after the first email, and only
   // if they haven't replied or opted out. There is no third email.
   prospectsFollowUpBusinessDays: parseInt(required('PROSPECTS_FOLLOW_UP_BUSINESS_DAYS', '5'), 10),

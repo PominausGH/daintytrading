@@ -224,7 +224,11 @@ router.post('/:slug/send', async (req, res) => {
 
   const cleanSubject = sanitize(subject);
   const html = textToHtml(body) + footerHtml();
-  const replyTo = process.env.CONTACT_NOTIFICATION_EMAIL || process.env.FROM_EMAIL || undefined;
+  // Replies go to the address the email comes from (hello@telaloom.com). Cloudflare routes that
+  // through the reply-router worker, which forwards to the inbox and auto-actions opt-outs and
+  // replies (POST /api/inbound-reply). CONTACT_NOTIFICATION_EMAIL is still the internal-alert
+  // address (old-brand hello@daintytrading.com), which the router doesn't watch.
+  const replyTo = config.prospectsFromEmail;
 
   const result = await sendEmail({
     to: to.trim(),
@@ -241,6 +245,51 @@ router.post('/:slug/send', async (req, res) => {
   const record = followUp
     ? store.markFollowUpSent(run, slug, { subject: cleanSubject })
     : store.markSent(run, slug, { to: to.trim(), subject: cleanSubject, domain, siteDomain, variant: variant || null });
+  res.json({ success: true, sent: record, followUp: !!followUp });
+});
+
+// A message Andrew pasted into the business's own contact form, by hand. Nothing is sent from
+// here (we never submit other sites' forms automatically): this records it so it counts toward
+// the weekly cap, gets the follow-up reminder, and obeys the same suppression, cooldown and
+// two-message rules as an email.
+router.post('/:slug/sent-via-form', (req, res) => {
+  const { run } = req.query;
+  const { slug } = req.params;
+  if (!store.isValidName(run) || !store.isValidName(slug)) {
+    return res.status(400).json({ error: 'Invalid "run" or "slug" parameter' });
+  }
+  if (!store.prospectExists(run, slug)) {
+    return res.status(404).json({ error: 'Prospect not found' });
+  }
+  const { subject, variant, followUp, formUrl } = req.body || {};
+  if (!subject || typeof subject !== 'string' || !subject.trim()) {
+    return res.status(400).json({ error: 'Subject is required' });
+  }
+
+  const siteDomain = store.siteDomainFor(run, slug);
+  if (store.isSuppressed(siteDomain)) {
+    return res.status(409).json({ error: 'This business is on the suppression list.' });
+  }
+  if (followUp) {
+    const state = store.followUpState(store.getSentRecord(run, slug));
+    if (state !== 'due') {
+      return res.status(409).json({ error: store.buildFollowUp(run, slug).reason || 'A follow-up is not due for this prospect.' });
+    }
+  } else {
+    const blocked = store.firstEmailBlockReason(run, slug);
+    if (blocked) return res.status(409).json({ error: blocked });
+  }
+  if (store.countSentInLastDays(7) >= config.prospectsRateLimitPerWeek) {
+    return res.status(429).json({ error: `Weekly send limit reached (${config.prospectsRateLimitPerWeek}/week).` });
+  }
+
+  const cleanSubject = sanitize(subject);
+  const cleanFormUrl = typeof formUrl === 'string' && /^https?:\/\//i.test(formUrl.trim()) ? formUrl.trim() : null;
+  const record = followUp
+    ? store.markFollowUpSent(run, slug, { subject: cleanSubject })
+    : store.markSent(run, slug, {
+      to: null, subject: cleanSubject, domain: null, siteDomain, variant: variant || null, channel: 'form', formUrl: cleanFormUrl,
+    });
   res.json({ success: true, sent: record, followUp: !!followUp });
 });
 

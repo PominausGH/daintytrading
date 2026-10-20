@@ -1,0 +1,12 @@
+{
+  "clients": [
+    {
+      "name": "Example Plumbing",
+      "plan": "scale",
+      "care": true,
+      "emails": ["owner@exampleplumbing.com.au"],
+      "domains": ["exampleplumbing.com.au"],
+      "sites": [{ "url": "https://exampleplumbing.com.au/", "expect": "Example Plumbing" }]
+    }
+  ]
+}

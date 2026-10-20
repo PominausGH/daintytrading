@@ -25,6 +25,7 @@ const jsonLd = [
       { '@type': 'Question', name: 'Is there a lock-in contract?', acceptedAnswer: { '@type': 'Answer', text: 'No. The one-off prices are one-off, and the monthly plans are month-to-month. Cancel anytime. You own the domain and the site.' } },
       { '@type': 'Question', name: 'What if my job is smaller than a Setup?', acceptedAnswer: { '@type': 'Answer', text: `Book fix days at ${n(pricing.fixDay)} AUD a day. We estimate the days up front and you approve before we start. Once a job passes about three days, Setup at ${n(pricing.setupSingleTemplate)} AUD is the better value.` } },
       { '@type': 'Question', name: 'Do I need a monthly plan?', acceptedAnswer: { '@type': 'Answer', text: "Often not. Setup is a one-time audit-and-fix, and the monthly plans are optional. If there's nothing useful to do in a given month, we tell you." } },
+      { '@type': 'Question', name: 'What if my site goes down or gets hacked?', acceptedAnswer: { '@type': 'Answer', text: `Email hello@telaloom.com with URGENT in the subject. On the Care plan we reply the same business day (faster with Growth or Scale), and the cleanup is included when the cause is in what Care covers. Without a plan, hack cleanup is a flat ${n(pricing.incidentRecoveryNoPlan)} AUD for up to four hours of work.` } },
       { '@type': 'Question', name: 'What currency will I be invoiced in?', acceptedAnswer: { '@type': 'Answer', text: 'Australian clients are invoiced in AUD and international clients in USD. UK clients can be invoiced in GBP.' } },
     ],
   },
@@ -106,12 +107,12 @@ const jsonLd = [
           </div>
 
           <h2 id="monthly">Monthly plans</h2>
-          <p>All optional, all cancel-anytime. Care keeps a site we built running. Monitor, Growth and Scale are about being found, and each one includes the one before it.</p>
+          <p>All optional, all cancel-anytime. Care keeps a site we built running. Monitor, Growth and Scale are about being found, and each one includes the one before it. Each plan has a published response time: Care 2 business days, Monitor and Growth 1 business day, Scale the same business day. <a href="/support.html">Support and response times &rarr;</a></p>
           <div class="plan-list">
             <div class="plan-row">
               <span class="plan-name">Care</span>
               <span class="plan-price"><Price item="carePlan" suffix="/mo" /></span>
-              <span class="plan-what">Uptime and SSL monitoring, software and security updates on your own hosting, and up to 60 minutes a month of small changes. No GST. Attached to every custom build by default; opt out if you&rsquo;d rather self-manage.</span>
+              <span class="plan-what">Uptime and SSL monitoring, software and security updates on your own hosting, tested backups, a monthly security check, and up to 60 minutes a month of small changes. Hack and outage cleanup included when the cause is in what Care covers. No GST. Attached to every custom build by default; opt out if you&rsquo;d rather self-manage.</span>
             </div>
             <div class="plan-row">
               <span class="plan-name">Monitor</span>
@@ -150,6 +151,10 @@ const jsonLd = [
           <details class="faq-item">
             <summary>Do I need a monthly plan?</summary>
             <p>Often not. Setup is a one-time audit-and-fix, and the monthly plans are optional. If there&rsquo;s nothing useful to do in a given month, we tell you.</p>
+          </details>
+          <details class="faq-item">
+            <summary>What if my site goes down or gets hacked?</summary>
+            <p>Email hello@telaloom.com with URGENT in the subject. On the Care plan we reply the same business day (faster with Growth or Scale), and the cleanup is included when the cause is in what Care covers. Without a plan, hack cleanup is a flat <Price item="incidentRecoveryNoPlan" symbol /> for up to four hours of work. Details on the <a href="/support.html">support page</a>.</p>
           </details>
           <details class="faq-item">
             <summary>What currency will I be invoiced in?</summary>

@@ -42,6 +42,10 @@ export const pricingUsd = {
   customBuild: 4950,
   carePlan: 174,
   fixDay: 850,
+  // Flat hack/outage cleanup, up to 4 hours (see /support.html). Free on Care when the cause is
+  // inside what Care covers; these apply otherwise. 313/522 USD = A$450/A$751 at 1.437.
+  incidentRecovery: 313,
+  incidentRecoveryNoPlan: 522,
   setupSingleTemplate: 2700,
   setupMultiTemplate: 5400,
   monitor: 300,
@@ -59,6 +63,8 @@ export const pricing = {
   customBuild: audFromUsd(pricingUsd.customBuild),
   carePlan: audFromUsd(pricingUsd.carePlan),
   fixDay: audFromUsd(pricingUsd.fixDay),
+  incidentRecovery: audFromUsd(pricingUsd.incidentRecovery),
+  incidentRecoveryNoPlan: audFromUsd(pricingUsd.incidentRecoveryNoPlan),
   setupSingleTemplate: audFromUsd(pricingUsd.setupSingleTemplate),
   setupMultiTemplate: audFromUsd(pricingUsd.setupMultiTemplate),
   monitor: audFromUsd(pricingUsd.monitor),

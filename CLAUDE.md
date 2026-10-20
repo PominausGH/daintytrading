@@ -29,3 +29,12 @@ Cadence and rules live in `/opt/docker/scripts/weekly-rotation.json` and the `/w
 - Both **skip** if the live checkout is dirty or has a local commit not on `origin/master`. The nightly `git-sync-all` autosync commits stray files (e.g. `.playwright-mcp/` logs) and its HTTPS push can fail, leaving exactly that commit and blocking the next deploy. If a merge doesn't appear, run `git status` and `git log origin/master..HEAD` in `/opt/docker/dainty` and read `backups/logs/dainty-deploy-build.log`.
 
 **Contracts:** paying-client agreement flow is here; a CSP once blocked signing for weeks. Re-test signing after any CSP or `nginx.conf` change.
+
+## Client-site alerting (Pushover)
+
+Backs the response times on `/support.html`. Clients live in `api/data/support-clients.json` (not in git; shape in `api/support-clients.example.json`).
+- `api/lib/uptime-monitor.js` (started by `server.js`): every Care site every 60s, down = 3 failures in a row (HTTP >= 400, timeout, or the site's `expect` text missing). Daily: SSL < 14 days, domain < 30 days via RDAP (.au publishes no expiry, skipped).
+- `api/lib/urgent-email.js`: hello@telaloom.com mail arrives through the reply-router worker at `/api/inbound-reply`; a subject starting `URGENT` pushes. `Re: URGENT` doesn't.
+- Priority rules (`api/lib/support-alerts.js`): Care+Scale 7am-10pm Sydney = emergency (2, repeats until acknowledged); other Care in business hours = high (1); everything else, unknown senders and 10pm-7am = normal (0). A stranger can't wake anyone.
+- Creds: `PUSHOVER_APP_TOKEN` / `PUSHOVER_USER_KEY` in `api/.env`. Without them pushes are logged and dropped. Test: `docker exec daintytrading-api node scripts/pushover-test.js 2`.
+- Monitor runs inside the API container: if the container is down, nothing alerts.

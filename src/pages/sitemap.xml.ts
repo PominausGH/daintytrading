@@ -18,6 +18,7 @@ const STATIC_PAGES: { path: string; changefreq: string; priority: string }[] = [
   { path: '/usa.html', changefreq: 'monthly', priority: '0.6' },
   { path: '/privacy.html', changefreq: 'yearly', priority: '0.3' },
   { path: '/terms.html', changefreq: 'yearly', priority: '0.3' },
+  { path: '/support.html', changefreq: 'monthly', priority: '0.5' },
   { path: '/services/ai-product-builds.html', changefreq: 'monthly', priority: '0.8' },
   { path: '/services/ai-automation-retrofit.html', changefreq: 'monthly', priority: '0.8' },
   { path: '/services/ai-infrastructure.html', changefreq: 'monthly', priority: '0.8' },
