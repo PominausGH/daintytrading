@@ -57,6 +57,10 @@ async function sendPush(env, p) {
 export class Watch extends DurableObject {
   async run() {
     const env = this.env;
+    // Between the first deploy and `wrangler secret put`, don't report a false server outage.
+    if (!env.MONITOR_SECRET || !env.PUSHOVER_APP_TOKEN || !env.PUSHOVER_USER_KEY) {
+      return { skipped: 'secrets not set' };
+    }
     const auth = { Authorization: `Bearer ${env.MONITOR_SECRET}` };
     const base = env.TELALOOM_API;
 
