@@ -1,0 +1,33 @@
+# uptime-watch: checks TelaLoom Care sites + the TelaLoom server from Cloudflare every minute and
+# pushes to Pushover (how it works: header of src/index.js; handoff with the API's local monitor:
+# api/lib/outside-monitor.js).
+#
+# Deploy only after the API has /api/monitor/* live and MONITOR_SECRET set in api/.env, otherwise
+# the first run reports the server as down:
+#   export CLOUDFLARE_API_TOKEN="$(cat /root/.config/cf-reply-router.token)" CLOUDFLARE_ACCOUNT_ID=<id>
+#   npm install && npx wrangler deploy
+#   npx wrangler tail uptime-watch        # watch a run
+# Tests: npm test
+name = "uptime-watch"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+# Cron-only worker: no public URL.
+workers_dev = false
+
+[triggers]
+crons = ["* * * * *"]
+
+[[durable_objects.bindings]]
+name = "WATCH"
+class_name = "Watch"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["Watch"]
+
+# Not secret. Secrets are set with:
+#   npx wrangler secret put MONITOR_SECRET      (same value as TelaLoom api MONITOR_SECRET)
+#   npx wrangler secret put PUSHOVER_APP_TOKEN  (same as api/.env)
+#   npx wrangler secret put PUSHOVER_USER_KEY   (same as api/.env)
+[vars]
+TELALOOM_API = "https://telaloom.com"

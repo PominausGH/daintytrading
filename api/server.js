@@ -10,6 +10,7 @@ const prospectsRoutes = require('./routes/prospects');
 const projectStatsRoutes = require('./routes/project-stats');
 const siteCheckRoutes = require('./routes/site-check');
 const inboundReply = require('./routes/inbound-reply');
+const monitorRoutes = require('./routes/monitor');
 const { startSuppressionMonitor } = require('./lib/suppression-monitor');
 const { startUptimeMonitor } = require('./lib/uptime-monitor');
 
@@ -33,12 +34,14 @@ app.use('/api/', rateLimit({
   max: 50,
   standardHeaders: true,
   legacyHeaders: false,
-  skip: (req) => req.path.startsWith('/site-check/') || inboundReply.isInboundReplyPath(`/api${req.path}`),
+  // /monitor/ is the uptime-watch worker (two calls a minute, bearer secret): same shared-bucket reason.
+  skip: (req) => req.path.startsWith('/site-check/') || inboundReply.isInboundReplyPath(`/api${req.path}`) || monitorRoutes.isMonitorPath(`/api${req.path}`),
 }));
 
 app.use('/api/contact', contactRoutes);
 app.use('/api/site-check', siteCheckRoutes);
 app.use('/api/inbound-reply', inboundReply.buildRouter());
+app.use('/api/monitor', monitorRoutes.buildRouter());
 app.use('/api/reviews', reviewsRoutes);
 app.use('/api/status', statusRoutes);
 app.use('/api/admin', adminRoutes);
