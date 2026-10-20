@@ -224,7 +224,11 @@ router.post('/:slug/send', async (req, res) => {
 
   const cleanSubject = sanitize(subject);
   const html = textToHtml(body) + footerHtml();
-  const replyTo = process.env.CONTACT_NOTIFICATION_EMAIL || process.env.FROM_EMAIL || undefined;
+  // Replies go to the address the email comes from (hello@telaloom.com). Cloudflare routes that
+  // through the reply-router worker, which forwards to the inbox and auto-actions opt-outs and
+  // replies (POST /api/inbound-reply). CONTACT_NOTIFICATION_EMAIL is still the internal-alert
+  // address (old-brand hello@daintytrading.com), which the router doesn't watch.
+  const replyTo = config.prospectsFromEmail;
 
   const result = await sendEmail({
     to: to.trim(),

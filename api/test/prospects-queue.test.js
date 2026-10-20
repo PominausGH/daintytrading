@@ -327,6 +327,25 @@ test('a queue send to a business already emailed is refused before anything is s
   }
 });
 
+test('prospect emails reply to hello@telaloom.com, not the internal-alert address', async () => {
+  makeRun('run-replyto', [p('replyto-com-au', 'Replyto Blinds', 'info@replyto.com.au')], 0);
+  process.env.CONTACT_NOTIFICATION_EMAIL = 'hello@daintytrading.com';
+  const s = await serve();
+  try {
+    const before = emailsSent.length;
+    const r = await call(s.base, 'POST', '/replyto-com-au/send?run=run-replyto', {
+      to: 'info@replyto.com.au', subject: 'broken link on your quote page', body: 'Hello',
+    });
+    assert.equal(r.status, 200);
+    assert.equal(emailsSent.length, before + 1);
+    assert.equal(emailsSent[emailsSent.length - 1].replyTo, 'hello@telaloom.com');
+  } finally {
+    delete process.env.CONTACT_NOTIFICATION_EMAIL;
+    fs.rmSync(path.join(process.env.PROSPECTS_REPORTS_DIR, 'run-replyto'), { recursive: true });
+    await s.close();
+  }
+});
+
 test('POST /predraft starts in the background and refuses a second run', async () => {
   makeRun('run-later', [p('mike-com-au', 'Mike Blinds', 'info@mike.com.au')], 0);
   let release;
