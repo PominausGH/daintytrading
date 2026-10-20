@@ -155,11 +155,12 @@ function readSentLog() {
 // `domain` is the recipient address's domain (kept for old records); `siteDomain` is the
 // business's website. They differ whenever a business uses a Gmail or ISP address, and it is the
 // website that identifies the business for the cooldown and opt-out checks.
-function markSent(run, slug, { to, subject, domain, siteDomain, variant }) {
+function markSent(run, slug, { to, subject, domain, siteDomain, variant, channel, formUrl }) {
   fs.mkdirSync(DATA_DIR, { recursive: true });
   const log = readSentLog();
   const record = {
-    sentAt: new Date().toISOString(), to, subject, domain: domain || null, siteDomain: siteDomain || null, variant: variant || null,
+    sentAt: new Date().toISOString(), to: to || null, subject, domain: domain || null, siteDomain: siteDomain || null, variant: variant || null,
+    channel: channel || 'email', ...(formUrl ? { formUrl } : {}),
   };
   log[`${run}:${slug}`] = record;
   fs.writeFileSync(SENT_LOG_FILE, JSON.stringify(log, null, 2));
@@ -180,9 +181,9 @@ function updateSentRecord(run, slug, patch) {
   return log[key];
 }
 
-// Used by the /send route's rate-limit guard — 25/week is well under anything that would
-// trip email-provider reputation limits, but is enforced here rather than left to Brevo.
-// A follow-up is an email too, so it counts toward the same cap.
+// Used by the /send and /sent-via-form rate-limit guard (50/week since 2026-10-20). Enforced
+// here rather than left to Brevo. Follow-ups and contact-form messages count toward the same cap:
+// each one is a message to a business.
 function countSentInLastDays(days) {
   const log = readSentLog();
   const cutoff = Date.now() - days * 24 * 60 * 60 * 1000;
@@ -209,6 +210,9 @@ function getRunProspects(run) {
       url: row.url || '',
       business_name: row.business_name || '',
       contact_email: (row.contact_email || '').trim(),
+      // Written by customer-web-check when the site has a usable enquiry form. Used when there
+      // is no email address: the message is sent by hand through the form (never automated).
+      contact_form_url: (row.contact_form_url || '').trim(),
       platform: row.platform || '',
       score: row.score === '' || row.score === undefined ? null : Number(row.score),
       findings_count: row.findings_count === '' || row.findings_count === undefined ? null : Number(row.findings_count),
@@ -476,8 +480,13 @@ function normalizeAddress(value) {
 function findSentByAddress(address) {
   const addr = normalizeAddress(address);
   if (!addr) return [];
+  const senderDomain = addr.split('@')[1] || '';
+  const stripWww = (d) => String(d || '').toLowerCase().replace(/^www\./, '');
   return Object.entries(readSentLog())
-    .filter(([, record]) => normalizeAddress(record.to) === addr)
+    .filter(([, record]) => normalizeAddress(record.to) === addr ||
+      // Sent through a contact form: there is no address to match, so a reply from the
+      // business's own domain (e.g. info@theirsite.com.au) is taken as theirs.
+      (record.channel === 'form' && senderDomain && stripWww(record.siteDomain) === stripWww(senderDomain)))
     .map(([key, record]) => {
       const i = key.indexOf(':');
       return { run: key.slice(0, i), slug: key.slice(i + 1), record };
@@ -564,6 +573,8 @@ function buildFollowUp(run, slug) {
   const base = {
     state,
     to: record ? record.to : null,
+    channel: (record && record.channel) || 'email',
+    formUrl: (record && record.formUrl) || null,
     sentAt: record ? record.sentAt : null,
     dueAt: record ? followUpDueAt(record).toISOString() : null,
     reason: FOLLOW_UP_REASON[state](record),
@@ -581,7 +592,7 @@ function buildFollowUp(run, slug) {
     config.prospectsGuaranteeLine,
     config.prospectsSignature,
   ].filter(Boolean).join('\n\n');
-  return { ...base, subject, body };
+  return { ...base, subject, body: base.channel === 'form' ? withFormContactLine(body) : body };
 }
 
 function markFollowUpSent(run, slug, { subject }) {
@@ -600,6 +611,7 @@ function listFollowUps() {
       const row = isValidName(run) && isValidName(slug) ? findSummaryRow(run, slug) : null;
       return {
         run, slug, state, to: record.to, sentAt: record.sentAt, dueAt: followUpDueAt(record).toISOString(),
+        channel: record.channel || 'email', formUrl: record.formUrl || null,
         label: (row && row.business_name && row.business_name.trim()) || (row && row.url) || record.siteDomain || record.to,
       };
     })
@@ -1023,8 +1035,14 @@ function latestProspectPerDomain() {
 // Can this prospect get a first email today? The checks buildDraft makes before writing a draft,
 // plus "sent already" and "skipped".
 // -> 'ok' | 'no_email' | 'sent' | 'suppressed' | 'finished' | 'cooldown' | 'skipped'
+function channelFor(row) {
+  if (row.contact_email) return 'email';
+  if (row.contact_form_url) return 'form';
+  return null;
+}
+
 function sendEligibility(run, row, domain, skips = readSkips()) {
-  if (!row.contact_email) return 'no_email';
+  if (!channelFor(row)) return 'no_email';
   if (row.sent) return 'sent';
   if (isSuppressed(domain, row.contact_email)) return 'suppressed';
   if (findFinishedSequenceForDomain(domain)) return 'finished';
@@ -1032,6 +1050,12 @@ function sendEligibility(run, row, domain, skips = readSkips()) {
   if (recent && daysSince(recent.sentAt) < config.prospectsCooldownDays) return 'cooldown';
   if (skips[`${run}:${row.slug}`]) return 'skipped';
   return 'ok';
+}
+
+// A contact-form message has no email footer, so it states how to reply and how to opt out.
+function withFormContactLine(body) {
+  const line = `You can reply to ${config.prospectsFromEmail}. If you'd rather not hear from us, say so and we won't contact you again.`;
+  return body && body.includes(config.prospectsFromEmail) ? body : `${(body || '').trimEnd()}\n\n${line}`;
 }
 
 function weeklyAllowance() {
@@ -1049,7 +1073,7 @@ function buildQueue() {
   const skips = readSkips();
   const predraftState = readPredraftState();
   const counts = {
-    ready: 0, flagged: 0, missingDraft: 0, noFinding: 0, noEmail: 0,
+    ready: 0, flagged: 0, missingDraft: 0, noFinding: 0, noEmail: 0, viaForm: 0,
     sent: 0, suppressed: 0, cooldown: 0, finished: 0, skipped: 0,
   };
   const items = [];
@@ -1067,7 +1091,9 @@ function buildQueue() {
       continue;
     }
     const d = draftResponse(saved, row.contact_email);
+    const channel = channelFor(row);
     if (d.status === 'pending') counts.ready += 1; else counts.flagged += 1;
+    if (channel === 'form') counts.viaForm += 1;
     items.push({
       run,
       slug: row.slug,
@@ -1075,9 +1101,11 @@ function buildQueue() {
       domain,
       siteUrl: row.url,
       score: row.score,
-      to: row.contact_email,
+      to: row.contact_email || null,
+      channel,
+      contactFormUrl: channel === 'form' ? row.contact_form_url : null,
       subject: d.subject,
-      body: d.body,
+      body: channel === 'form' ? withFormContactLine(d.body) : d.body,
       status: d.status,
       flagged: d.status !== 'pending',
       reason: d.reason,
@@ -1228,6 +1256,8 @@ async function predraftAll({ checkRounds = 12, retryWaitMs = 5000, retryNoFindin
 }
 
 module.exports = {
+  channelFor,
+  withFormContactLine,
   isValidName,
   listRuns,
   getRunProspects,

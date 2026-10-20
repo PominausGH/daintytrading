@@ -209,9 +209,44 @@ async function loadFollowUps() {
     var due = f.state === 'due';
     return '<div class="followup-item">' +
       '<span>' + adminEscapeHtml(f.label || f.to || '') + ' <span class="when">' + (due ? 'follow-up due since ' : 'follow-up due ') + adminEscapeHtml(shortDate(f.dueAt)) + '</span></span>' +
-      (due ? '<button type="button" class="btn btn-ghost followup-open-btn" data-i="' + i + '">Write follow-up →</button>' : '') +
+      (due && f.channel === 'form'
+        ? '<span class="followup-form-actions">' +
+            '<button type="button" class="btn btn-ghost followup-copy-btn" data-i="' + i + '">Copy follow-up</button>' +
+            (f.formUrl ? '<a class="btn btn-ghost" href="' + attrEscape(f.formUrl) + '" target="_blank" rel="noopener noreferrer">Open contact form ↗</a>' : '') +
+            '<button type="button" class="btn btn-ghost followup-formsent-btn" data-i="' + i + '">I\'ve sent it</button>' +
+          '</span>'
+        : (due ? '<button type="button" class="btn btn-ghost followup-open-btn" data-i="' + i + '">Write follow-up →</button>' : '')) +
       '</div>';
   }).join('');
+  list.querySelectorAll('.followup-copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', async function () {
+      var f = items[parseInt(btn.dataset.i, 10)];
+      try {
+        var fu = await adminFetch(prospectUrl(f.run, f.slug, 'follow-up'));
+        btn.dataset.subject = fu.subject || '';
+        await copyText(fu.body || '', btn, 'Copy follow-up');
+      } catch (err) {
+        window.alert(err.message);
+      }
+    });
+  });
+  list.querySelectorAll('.followup-formsent-btn').forEach(function (btn) {
+    btn.addEventListener('click', async function () {
+      var f = items[parseInt(btn.dataset.i, 10)];
+      btn.disabled = true;
+      try {
+        var fu = await adminFetch(prospectUrl(f.run, f.slug, 'follow-up'));
+        await adminFetch(prospectUrl(f.run, f.slug, 'sent-via-form'), {
+          method: 'POST',
+          body: JSON.stringify({ subject: fu.subject || 'Follow-up', followUp: true }),
+        });
+        loadFollowUps();
+      } catch (err) {
+        btn.disabled = false;
+        window.alert(err.message);
+      }
+    });
+  });
   list.querySelectorAll('.followup-open-btn').forEach(function (btn) {
     btn.addEventListener('click', function () {
       var f = items[parseInt(btn.dataset.i, 10)];
@@ -554,7 +589,8 @@ function renderQueueSummary() {
   if (flagged) parts.push(flagged + ' flagged to fix');
   if (c.missingDraft) parts.push(c.missingDraft + ' without a draft yet');
   if (c.noFinding) parts.push(c.noFinding + ' with nothing worth an email');
-  if (c.noEmail) parts.push(c.noEmail + ' with no email address');
+  if (c.viaForm) parts.push(c.viaForm + ' by contact form (you paste these)');
+  if (c.noEmail) parts.push(c.noEmail + ' with no email address or form');
   var cap = w.remaining > 0
     ? w.remaining + ' of ' + w.limit + ' sends left this week'
     : '<span class="queue-cap-zero">Weekly limit reached (' + w.limit + '/week). Sending is off until older sends age out.</span>';
@@ -607,11 +643,19 @@ function queueCardHtml(item, i) {
     (item.flagged
       ? '<p class="draft-status-banner">Flagged: ' + adminEscapeHtml(item.reason || item.status) + '. Fix it below, then Send.</p>'
       : '') +
-    '<label>To</label><input type="email" class="q-to" value="' + attrEscape(edit.to != null ? edit.to : item.to) + '" />' +
-    '<label>Subject</label><input type="text" class="q-subject" value="' + attrEscape(edit.subject != null ? edit.subject : item.subject) + '" />' +
-    '<label>Body</label><textarea class="q-body">' + adminEscapeHtml(edit.body != null ? edit.body : item.body) + '</textarea>' +
-    '<div class="queue-actions">' +
-      '<button type="button" class="btn btn-primary q-send">Send</button>' +
+    (item.channel === 'form'
+      ? '<p class="draft-status-banner">No email address found. Send this through their contact form: copy the message, open the form, paste it in and submit it yourself, then press "I\'ve sent it".</p>' +
+        '<label>Subject (paste into the form\'s subject field if it has one)</label><input type="text" class="q-subject" value="' + attrEscape(edit.subject != null ? edit.subject : item.subject) + '" />' +
+        '<label>Message</label><textarea class="q-body">' + adminEscapeHtml(edit.body != null ? edit.body : item.body) + '</textarea>' +
+        '<div class="queue-actions">' +
+          '<button type="button" class="btn btn-ghost q-copy">Copy message</button>' +
+          '<a class="btn btn-ghost" href="' + attrEscape(item.contactFormUrl) + '" target="_blank" rel="noopener noreferrer">Open contact form ↗</a>' +
+          '<button type="button" class="btn btn-primary q-send">I\'ve sent it</button>'
+      : '<label>To</label><input type="email" class="q-to" value="' + attrEscape(edit.to != null ? edit.to : item.to) + '" />' +
+        '<label>Subject</label><input type="text" class="q-subject" value="' + attrEscape(edit.subject != null ? edit.subject : item.subject) + '" />' +
+        '<label>Body</label><textarea class="q-body">' + adminEscapeHtml(edit.body != null ? edit.body : item.body) + '</textarea>' +
+        '<div class="queue-actions">' +
+          '<button type="button" class="btn btn-primary q-send">Send</button>') +
       '<button type="button" class="btn btn-ghost q-skip">Skip</button>' +
       '<button type="button" class="btn btn-ghost q-open">Open full prospect</button>' +
     '</div>' +
@@ -659,16 +703,23 @@ function renderQueue() {
     var item = queueItems[parseInt(card.dataset.i, 10)];
     var key = queueKey(item);
     ['q-to', 'q-subject', 'q-body'].forEach(function (cls) {
-      card.querySelector('.' + cls).addEventListener('input', function () {
+      var field = card.querySelector('.' + cls);
+      if (!field) return;
+      field.addEventListener('input', function () {
+        var toField = card.querySelector('.q-to');
         queueEdits[key] = {
-          to: card.querySelector('.q-to').value,
+          to: toField ? toField.value : null,
           subject: card.querySelector('.q-subject').value,
           body: card.querySelector('.q-body').value,
         };
         refreshSendButtons();
       });
     });
-    card.querySelector('.q-send').addEventListener('click', function () { queueSend(item, card); });
+    card.querySelector('.q-send').addEventListener('click', function () {
+      if (item.channel === 'form') queueMarkFormSent(item, card); else queueSend(item, card);
+    });
+    var copyBtn = card.querySelector('.q-copy');
+    if (copyBtn) copyBtn.addEventListener('click', function () { copyText(card.querySelector('.q-body').value, copyBtn, 'Copy message'); });
     card.querySelector('.q-skip').addEventListener('click', function () { queueSkip(item, card); });
     card.querySelector('.q-open').addEventListener('click', function () { openFullProspect(item); });
     if (focus && focus.key === key && /^q-(to|subject|body)$/.test(focus.cls)) {
@@ -722,6 +773,54 @@ async function queueSend(item, card) {
     renderQueueSummary();
   } catch (err) {
     btn.textContent = 'Send';
+    btn.disabled = !sendAllowed(item);
+    queueMessage(card, err.message, 'error');
+  }
+}
+
+// Copies to the clipboard, falling back to select-and-copy where the Clipboard API is blocked.
+async function copyText(text, btn, label) {
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch (e) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (e2) { /* nothing more to try */ }
+    ta.remove();
+  }
+  btn.textContent = 'Copied ✓';
+  setTimeout(function () { btn.textContent = label; }, 2000);
+}
+
+// Records a message Andrew pasted into the business's contact form himself. Nothing is sent from
+// here; this only logs it (weekly cap, follow-up reminder, cooldown).
+async function queueMarkFormSent(item, card) {
+  var btn = card.querySelector('.q-send');
+  if (btn.disabled) return;
+  btn.disabled = true;
+  btn.textContent = 'Saving…';
+  queueMessage(card, '');
+  try {
+    await adminFetch(prospectUrl(item.run, item.slug, 'sent-via-form'), {
+      method: 'POST',
+      body: JSON.stringify({
+        subject: card.querySelector('.q-subject').value.trim(),
+        variant: item.variant,
+        formUrl: item.contactFormUrl,
+      }),
+    });
+    queueDone[queueKey(item)] = 'sent';
+    delete queueEdits[queueKey(item)];
+    queueWeekly.remaining = Math.max(0, queueWeekly.remaining - 1);
+    queueWeekly.sentLast7Days += 1;
+    finishCard(card, '<p class="already-sent-note" style="margin:0;">Recorded: sent through ' + adminEscapeHtml(item.label) + '\'s contact form. Follow-up reminder set.</p>');
+    refreshSendButtons();
+    renderQueueSummary();
+    loadFollowUps();
+  } catch (err) {
+    btn.textContent = "I've sent it";
     btn.disabled = !sendAllowed(item);
     queueMessage(card, err.message, 'error');
   }
