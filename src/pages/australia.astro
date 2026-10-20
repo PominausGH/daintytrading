@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getProductCounts } from '../data/products';
+import { pricing, aud } from '../data/pricing.ts';
 
 const counts = await getProductCounts();
 
@@ -134,7 +135,7 @@ const jsonLd = [
           <p>Six engagement types, all producing something running. Choose the one that matches where you are.</p>
         </div>
         <div class="service-grid">
-          <div class="service-card"><div class="icon">01</div><h3><a href="/services/website-builds.html" style="color:inherit;">Website builds</a></h3><p>A custom-built site with Local SEO &amp; GEO switched on from day one &mdash; $6,900 AUD.</p></div>
+          <div class="service-card"><div class="icon">01</div><h3><a href="/services/website-builds.html" style="color:inherit;">Website builds</a></h3><p>A custom-built site with Local SEO &amp; GEO switched on from day one &mdash; {aud(pricing.customBuild)} AUD.</p></div>
           <div class="service-card"><div class="icon">02</div><h3><a href="/services/seo-geo-optimization.html" style="color:inherit;">SEO &amp; GEO optimization</a></h3><p>Fix indexing, structured data, and AI-crawler access on an existing site &mdash; the audit plus the fix, shipped into your codebase.</p></div>
           <div class="service-card"><div class="icon">03</div><h3><a href="/services/local-seo.html" style="color:inherit;">Local SEO &amp; GEO</a></h3><p>Google Business Profile management, review generation, and local-search visibility for tradies, clinics, and service businesses.</p></div>
           <div class="service-card"><div class="icon">04</div><h3><a href="/services/ai-product-builds.html" style="color:inherit;">AI product builds</a></h3><p>Full-stack delivery from concept to paying customers. First demo in 1&ndash;2 weeks. First paying customer in 4&ndash;8 weeks. Backend, frontend, LLM stack, billing, observability included.</p></div>

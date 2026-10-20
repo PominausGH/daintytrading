@@ -1,45 +1,18 @@
 import { readFileSync } from 'node:fs';
 
-// Single source of truth for prices reused across services/seo-geo-optimization.astro,
-// services/local-seo.astro, and services/website-builds.astro. Before this file existed,
-// PR #14 (2026-09-02) had to hand-sync these same numbers across those 3 pages plus
-// index.html/services.html — this is what makes that a one-line change instead.
-export const pricing = {
-  audit: 'Free',
-  setupSingleTemplate: 3900,
-  setupMultiTemplate: 7500,
-  monitor: 450,
-  growth: 950,
-  scale: 1950,
-  currency: 'AUD',
-  customBuild: 6900,
-  carePlan: 250,
-  fixDay: 1200,
-  // AI engagements, quoted as "from" prices on a ~1,600 AUD/day internal basis. aiDiscovery
-  // deliberately equals WiseKeel's Diagnostic (AU$4,500) so the two price lists never contradict.
-  // Don't link the two sites: WiseKeel is kept as a standalone brand (Andrew's decision).
-  aiDiscovery: 4500,
-  aiRetrofitFrom: 24000,
-  aiInfrastructureFrom: 28000,
-  aiProductBuildFrom: 45000,
-} as const;
-
-export function aud(n: number) {
-  return `$${n.toLocaleString('en-AU')}`;
-}
-
-// USD pricing for the site's large US audience (Umami: ~10x more US than AU sessions on the
-// commercial pages, 2026-09-28). /usa.html promises US clients are invoiced in USD, so these
-// are shown as real prices alongside AUD, not hedged estimates.
+// Single source of truth for prices reused across the services pages, pricing, homepage and the
+// Cal.com description. Before this file existed, PR #14 (2026-09-02) had to hand-sync the same
+// numbers across several pages — this is what makes a price change a one-line edit.
 //
-// Derived from the live AUD/USD rate (Andrew, 2026-10-20): /opt/docker/scripts/fx-sync.sh
-// fetches the ECB rate monthly into FX_RATES_FILE, and dainty-deploy-build.sh rebuilds the
-// site when that file changes. Each AUD price x mid-rate x 1.03 (covers Stripe's ~2%
-// cross-border/conversion cost of turning USD back into AUD), rounded UP to the next $1.
-// The AUD price is the source of truth; nothing here is hand-set.
+// USD is the source price (Andrew, 2026-10-20). AUD is derived from it with the live USD/AUD
+// rate: AUD = USD x (AUD per 1 USD), rounded UP to the next $1, no buffer (Australian clients
+// pay in AUD, so there is no conversion cost to cover). /opt/docker/scripts/fx-sync.sh fetches
+// the ECB rate monthly into FX_RATES_FILE (only rewriting it on a >=2% move), and the host's
+// dainty-deploy-build.sh rebuilds the site when the rate changes, so AUD prices move with it.
+// To change a price, change the USD figure below. Never hand-type a price into page copy.
+
 const FX_RATES_FILE = process.env.FX_RATES_FILE || '/opt/docker/shared/fx/fx-rates.json';
 const FALLBACK_USD_TO_AUD = 1.437; // ECB 2026-10-16; used only if the rate file is missing (e.g. CI)
-const CONVERSION_BUFFER = 1.03;
 
 function readUsdToAud(): { rate: number; date: string | null } {
   try {
@@ -54,24 +27,52 @@ function readUsdToAud(): { rate: number; date: string | null } {
 
 export const fx = readUsdToAud(); // { rate: AUD per 1 USD, date: ECB rate date or null on fallback }
 
-function usdFromAud(audAmount: number): number {
-  return Math.ceil((audAmount / fx.rate) * CONVERSION_BUFFER);
-}
+const audFromUsd = (usdAmount: number) => Math.ceil(usdAmount * fx.rate);
+const usdFromAud = (audAmount: number) => Math.ceil(audAmount / fx.rate);
 
+// The one AUD-fixed price: AI Discovery equals WiseKeel's Diagnostic (AU$4,500) so the two price
+// lists never contradict; its USD is the live conversion. (WiseKeel briefly priced in USD from
+// 2026-09-10; Andrew reverted it to AUD on 2026-10-20 and re-fixed this match.) Don't link the
+// two sites: WiseKeel is kept as a standalone brand.
+const AI_DISCOVERY_AUD = 4500;
+
+// Source prices, USD. Care plan is 174 so it lands at ~A$250 (Andrew's Care plan price, 10-19).
+// AI engagements are "from" prices.
 export const pricingUsd = {
-  customBuild: usdFromAud(pricing.customBuild),
-  carePlan: usdFromAud(pricing.carePlan),
-  fixDay: usdFromAud(pricing.fixDay),
-  setupSingleTemplate: usdFromAud(pricing.setupSingleTemplate),
-  setupMultiTemplate: usdFromAud(pricing.setupMultiTemplate),
-  monitor: usdFromAud(pricing.monitor),
-  growth: usdFromAud(pricing.growth),
-  scale: usdFromAud(pricing.scale),
-  aiDiscovery: usdFromAud(pricing.aiDiscovery),
-  aiRetrofitFrom: usdFromAud(pricing.aiRetrofitFrom),
-  aiInfrastructureFrom: usdFromAud(pricing.aiInfrastructureFrom),
-  aiProductBuildFrom: usdFromAud(pricing.aiProductBuildFrom),
+  customBuild: 4950,
+  carePlan: 174,
+  fixDay: 850,
+  setupSingleTemplate: 2700,
+  setupMultiTemplate: 5400,
+  monitor: 300,
+  growth: 700,
+  scale: 1400,
+  aiDiscovery: usdFromAud(AI_DISCOVERY_AUD),
+  aiRetrofitFrom: 17300,
+  aiInfrastructureFrom: 20200,
+  aiProductBuildFrom: 32450,
 } as const;
+
+export const pricing = {
+  audit: 'Free',
+  currency: 'AUD',
+  customBuild: audFromUsd(pricingUsd.customBuild),
+  carePlan: audFromUsd(pricingUsd.carePlan),
+  fixDay: audFromUsd(pricingUsd.fixDay),
+  setupSingleTemplate: audFromUsd(pricingUsd.setupSingleTemplate),
+  setupMultiTemplate: audFromUsd(pricingUsd.setupMultiTemplate),
+  monitor: audFromUsd(pricingUsd.monitor),
+  growth: audFromUsd(pricingUsd.growth),
+  scale: audFromUsd(pricingUsd.scale),
+  aiDiscovery: AI_DISCOVERY_AUD,
+  aiRetrofitFrom: audFromUsd(pricingUsd.aiRetrofitFrom),
+  aiInfrastructureFrom: audFromUsd(pricingUsd.aiInfrastructureFrom),
+  aiProductBuildFrom: audFromUsd(pricingUsd.aiProductBuildFrom),
+} as const;
+
+export function aud(n: number) {
+  return `$${n.toLocaleString('en-AU')}`;
+}
 
 export function usd(n: number) {
   return `$${n.toLocaleString('en-US')}`;

@@ -4,7 +4,7 @@ import Price from '../../components/Price.astro';
 import CurrencySwitch from '../../components/CurrencySwitch.astro';
 import QuickEnquiry from '../../components/QuickEnquiry.astro';
 import ClientShowcase from '../../components/ClientShowcase.astro';
-import { pricing, pricingUsd } from '../../data/pricing.ts';
+import { pricing, pricingUsd, aud } from '../../data/pricing.ts';
 
 const jsonLd = [
   {
@@ -41,7 +41,7 @@ const jsonLd = [
 <BaseLayout
   currencySwitch
   title="Website Builds for Local Businesses — Custom Sites with Local SEO Built In | TelaLoom"
-  description="Custom websites for local businesses, designed and written around your business, with Local SEO &amp; GEO included for $6,900 AUD. Hosting in your name, no lock-in."
+  description={`Custom websites for local businesses, designed and written around your business, with Local SEO & GEO included for ${aud(pricing.customBuild)} AUD. Hosting in your name, no lock-in.`}
   canonicalPath="/services/website-builds.html"
   jsonLd={jsonLd}
 >

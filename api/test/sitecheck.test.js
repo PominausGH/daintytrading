@@ -306,21 +306,23 @@ test('booking prominence follows the outcome, in copy and in the report email', 
   assert.ok(html('setup_scale').includes('Website_Ideas=example.com%20-%20'));
 });
 
-test('USD prices are derived from the live rate, rounded up to $1', () => {
-  // Same formula as src/data/pricing.ts: AUD / (AUD per USD) x 1.03, rounded up.
-  assert.ok(Number.isInteger(pricing.setupUsd) && Number.isInteger(pricing.buildUsd));
-  assert.ok(pricing.setupUsd > 2000 && pricing.setupUsd < 3500, `setupUsd ${pricing.setupUsd}`);
-  assert.ok(pricing.buildUsd > 3500 && pricing.buildUsd < 6000, `buildUsd ${pricing.buildUsd}`);
+test('USD is the source price; AUD is derived from the live rate, rounded up to $1', () => {
+  // Same formula as src/data/pricing.ts: USD x (AUD per USD), rounded up.
+  assert.equal(pricing.setupUsd, 2700);
+  assert.equal(pricing.buildUsd, 4950);
+  assert.ok(Number.isInteger(pricing.setupAud) && Number.isInteger(pricing.buildAud));
+  assert.ok(pricing.setupAud > 3000 && pricing.setupAud < 5000, `setupAud ${pricing.setupAud}`);
+  assert.ok(pricing.buildAud > 5500 && pricing.buildAud < 9000, `buildAud ${pricing.buildAud}`);
 });
 
 test('recommendation copy follows the pricing rules', () => {
   const small = buildRecommendation({ outcome: 'small_fixes', groupsAffected: [] });
   assert.ok(!/AUD|USD|\$/.test(small.body), 'small fixes must not show a price');
   const setup = buildRecommendation({ outcome: 'setup_scale', groupsAffected: ['findability', 'measurement'] });
-  assert.ok(setup.body.includes(`3,900 AUD (${pricing.setupUsd.toLocaleString('en-AU')} USD)`), setup.body);
+  assert.ok(setup.body.includes(`${pricing.setupAud.toLocaleString('en-AU')} AUD (2,700 USD)`), setup.body);
   assert.match(setup.body, /Being found/);
   const rebuild = buildRecommendation({ outcome: 'rebuild_signal' });
-  assert.ok(rebuild.body.includes(`6,900 AUD (${pricing.buildUsd.toLocaleString('en-AU')} USD)`), rebuild.body);
+  assert.ok(rebuild.body.includes(`${pricing.buildAud.toLocaleString('en-AU')} AUD (4,950 USD)`), rebuild.body);
   assert.match(rebuild.headline, /recommend a rebuild/);
   assert.match(buildRecommendation({ outcome: 'not_enough_data', status: 'blocked' }).body, /bot protection/);
   assert.match(buildRecommendation({ outcome: 'not_enough_data', status: 'opted_out' }).body, /robots\.txt/);

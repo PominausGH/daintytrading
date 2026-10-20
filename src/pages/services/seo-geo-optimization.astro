@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Price from '../../components/Price.astro';
 import CurrencySwitch from '../../components/CurrencySwitch.astro';
 import Stat from '../../components/Stat.astro';
-import { pricing, pricingUsd } from '../../data/pricing.ts';
+import { pricing, pricingUsd, aud } from '../../data/pricing.ts';
 import { getProductCounts } from '../../data/products';
 
 const counts = await getProductCounts();
@@ -46,7 +46,7 @@ const jsonLd = [
 <BaseLayout
   currencySwitch
   title="SEO &amp; GEO Optimization — Get Found by Google and by AI | TelaLoom"
-  description="We audit and fix technical SEO and GEO (generative engine optimization) — schema markup, meta tags, llms.txt, AI-crawler-aware robots.txt, FAQ schema — so your site ranks in Google and gets cited by ChatGPT, Claude, and Perplexity. Free audit, Setup from $3,900, no lock-in."
+  description={`We audit and fix technical SEO and GEO (generative engine optimization) — schema markup, meta tags, llms.txt, AI-crawler-aware robots.txt, FAQ schema — so your site ranks in Google and gets cited by ChatGPT, Claude, and Perplexity. Free audit, Setup from ${aud(pricing.setupSingleTemplate)} AUD, no lock-in.`}
   canonicalPath="/services/seo-geo-optimization.html"
   jsonLd={jsonLd}
 >
