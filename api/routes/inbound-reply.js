@@ -4,6 +4,7 @@ const express = require('express');
 const config = require('../lib/config');
 const store = require('../lib/prospects-store');
 const { classifyReply } = require('../lib/reply-classifier');
+const { handleUrgentEmail } = require('../lib/urgent-email');
 
 // POST /api/inbound-reply — a Cloudflare Email Worker forwards each reply to a prospect email here.
 // Opt-outs suppress the sender automatically; any real reply marks the prospect replied so the
@@ -46,6 +47,9 @@ function buildRouter({ secret = config.inboundReplySecret } = {}) {
       console.error('inbound-reply: audit log write failed:', err.message);
     }
     res.json({ result, matched });
+    // After the response: the worker doesn't wait on the push, and a push failure can't fail the reply.
+    handleUrgentEmail({ from, subject: str(body.subject), text: str(body.text), autoSubmitted: str(body.auto_submitted) })
+      .catch((err) => console.error('inbound-reply: urgent alert failed:', err.message));
   });
   return router;
 }

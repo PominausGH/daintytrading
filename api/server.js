@@ -11,6 +11,7 @@ const projectStatsRoutes = require('./routes/project-stats');
 const siteCheckRoutes = require('./routes/site-check');
 const inboundReply = require('./routes/inbound-reply');
 const { startSuppressionMonitor } = require('./lib/suppression-monitor');
+const { startUptimeMonitor } = require('./lib/uptime-monitor');
 
 const app = express();
 app.disable('x-powered-by');
@@ -49,4 +50,5 @@ app.get('/api/health', (_req, res) => res.json({ ok: true }));
 app.listen(PORT, () => {
   console.log(`Dainty API listening on :${PORT}`);
   startSuppressionMonitor();
+  startUptimeMonitor();
 });
