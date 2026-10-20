@@ -72,5 +72,6 @@ We don't bolt onto SaaS treadmills. The same open-source tools we run for oursel
 - Pricing: https://telaloom.com/pricing.html
 - About: https://telaloom.com/about.html
 - Contact: https://telaloom.com/contact.html
+- Support and response times: https://telaloom.com/support.html
 - Sitemap: https://telaloom.com/sitemap.xml
 - robots.txt: https://telaloom.com/robots.txt

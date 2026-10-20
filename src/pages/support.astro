@@ -1,0 +1,147 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Price from '../components/Price.astro';
+import { pricing } from '../data/pricing.ts';
+
+const n = (v: number) => v.toLocaleString('en-AU');
+
+const faq = [
+  {
+    q: 'How fast do you reply?',
+    a: 'It depends on the plan. Normal requests: Care 2 business days, Monitor and Growth 1 business day, Scale the same business day. Urgent problems on a site with the Care plan (down, hacked, or forms and checkout broken) get a same-business-day reply, 4 business hours with Growth, and 2 hours between 7am and 10pm Sydney time, 7 days a week, with Scale. These are times to a first reply from a person, not times to a fix.',
+  },
+  {
+    q: 'What happens if my website gets hacked?',
+    a: `Email hello@telaloom.com with URGENT in the subject. We find and remove the malicious code, restore a clean backup, close the hole that let it in, change passwords and keys, ask Google and blocklists to review the site, and send you a short written report. On the Care plan that is included when the cause sits in what Care covers. Otherwise it is a flat ${n(pricing.incidentRecovery)} AUD for Care clients and ${n(pricing.incidentRecoveryNoPlan)} AUD without a plan, covering up to four hours of work.`,
+  },
+  {
+    q: 'What if the problem is my hosting company?',
+    a: 'Your site runs on hosting in your name, so an outage on the host side is theirs to fix. On the Care plan we confirm it is the host, open the support ticket with you, and check the site is working properly once the host is back.',
+  },
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  },
+];
+---
+<BaseLayout
+  title="Support and Response Times — TelaLoom"
+  description="How to ask TelaLoom for help with your website, how fast we reply on each plan, what counts as urgent, and what happens if your site goes down or gets hacked."
+  canonicalPath="/support.html"
+  jsonLd={jsonLd}
+>
+  <style>
+    .rt-table { width:100%; border-collapse:collapse; margin:10px 0 6px; font-size:14px; background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; }
+    .rt-table th, .rt-table td { text-align:left; padding:12px 14px; border-top:1px solid var(--border); vertical-align:top; }
+    .rt-table thead th { border-top:none; font-size:12px; letter-spacing:.04em; text-transform:uppercase; color:var(--text-muted); font-weight:600; }
+    .rt-table td:first-child { font-weight:600; color:var(--text); white-space:nowrap; }
+    .rt-table td { color:var(--text-dim); }
+    .rt-note { font-size:13px; color:var(--text-muted); margin:6px 0 0; }
+    .honest-note { background:var(--accent-soft); border:1px solid var(--border); border-radius:var(--radius-sm); padding:14px 16px; font-size:14px; color:var(--text-dim); margin:22px 0; }
+    .honest-note strong { color:var(--text); }
+    @media (max-width:560px) { .rt-table th, .rt-table td { padding:10px 8px; } .rt-table td:first-child { white-space:normal; } }
+  </style>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; Support</div>
+        <h1>Support and response times.</h1>
+        <p class="lede">How to ask for help, how fast we reply on each plan, and what happens if your website goes down or gets hacked.</p>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+
+          <h2>How to ask for help</h2>
+          <p>Email <a href="mailto:hello@telaloom.com">hello@telaloom.com</a> from the address we have on file. One email per problem is easiest to track. Include:</p>
+          <ul>
+            <li>the page link, and what you expected versus what happened</li>
+            <li>a screenshot if you have one</li>
+            <li>whether it&rsquo;s urgent (see below) &mdash; if it is, put <strong>URGENT</strong> at the start of the subject line</li>
+          </ul>
+          <p>Never email passwords. Paste them into <a href="https://secure.telaloom.com/" target="_blank" rel="noopener">secure.telaloom.com</a> and send us the link it gives you: it opens once, then the contents are destroyed.</p>
+
+          <h2>Response times</h2>
+          <p>Business hours are 9am&ndash;5pm Sydney time, Monday to Friday, excluding NSW public holidays. A response means a person has read your request and told you what happens next. It&rsquo;s not a promise the fix is finished in that time, though small fixes often are.</p>
+          <table class="rt-table">
+            <thead><tr><th>Plan</th><th>Normal request</th><th>Urgent (with Care)</th></tr></thead>
+            <tbody>
+              <tr><td>Care</td><td>2 business days</td><td>Same business day</td></tr>
+              <tr><td>Monitor</td><td>1 business day</td><td>Same business day</td></tr>
+              <tr><td>Growth</td><td>1 business day</td><td>Within 4 business hours</td></tr>
+              <tr><td>Scale</td><td>Same business day</td><td>Within 2 hours, 7am&ndash;10pm Sydney time, 7 days</td></tr>
+            </tbody>
+          </table>
+          <p class="rt-note">Urgent response times apply to sites on the Care plan, because that&rsquo;s the plan where we look after the site itself. Monitor, Growth and Scale are SEO &amp; GEO plans. On those, the urgent column applies when Care is also active.</p>
+
+          <h3>What counts as urgent</h3>
+          <ul>
+            <li>The site is down or showing an error to visitors</li>
+            <li>The site has been hacked, defaced, or flagged by Google or your browser as unsafe</li>
+            <li>Contact forms, bookings or checkout have stopped working</li>
+          </ul>
+          <p>Everything else, like a typo, a new photo or a price change, is a normal request. Overnight (10pm&ndash;7am Sydney) we don&rsquo;t promise a reply on any plan. We&rsquo;d rather tell you that up front than miss a promise at 3am.</p>
+
+          <h2>Small changes and bigger jobs</h2>
+          <p><strong>Small changes</strong> are covered by the Care plan&rsquo;s 60 minutes a month: text edits, photo swaps, a new testimonial, an updated price list. Unused time doesn&rsquo;t roll over. If a request would take you past the 60 minutes, we tell you before doing the extra.</p>
+          <p><strong>Bigger jobs</strong> are anything that adds something new: a new page or section, a booking or payment feature, a redesign. For those we send a written quote with the price, a start date and a delivery date, and nothing starts until you approve it (email is fine). Most website work is priced in fix days at <Price item="fixDay" symbol />. A full rebuild is the <a href="/services/website-builds.html">custom build</a> at its published price.</p>
+          <p>If a &ldquo;bigger job&rdquo; can honestly be done inside your monthly minutes, we&rsquo;ll just do it.</p>
+
+          <h2>Keeping the site up</h2>
+          <p>On the Care plan, a site we look after gets:</p>
+          <ul>
+            <li><strong>Uptime and SSL monitoring.</strong> We usually hear the site is down before you do.</li>
+            <li><strong>Software and security updates</strong> for the platform, theme and plugins, applied and checked.</li>
+            <li><strong>Backups that are known to work.</strong> We switch on your hosting provider&rsquo;s daily backups (keeping 30 days where the host allows) and test a restore every quarter. The backups stay in your hosting account. We don&rsquo;t keep separate copies of your site or your customers&rsquo; data.</li>
+            <li><strong>A monthly security check</strong> for malware, outdated software and unused admin accounts, plus login hardening (two-factor sign-in and login-attempt limits) where the platform supports it.</li>
+          </ul>
+
+          <h2>If your site goes down or gets hacked</h2>
+          <p>Email us with <strong>URGENT</strong> in the subject. Incident recovery covers:</p>
+          <ul>
+            <li>finding and removing malicious code, spam pages or unknown admin accounts</li>
+            <li>restoring a clean backup where that&rsquo;s the fastest safe route</li>
+            <li>closing the hole that let it in, usually an outdated plugin or a leaked password</li>
+            <li>changing passwords, API keys and hosting logins</li>
+            <li>asking Google and blocklists to review the site, so the &ldquo;unsafe&rdquo; warning comes off</li>
+            <li>a short written report: what happened, what we did, and what would stop it happening again</li>
+          </ul>
+          <div class="honest-note">
+            <strong>What it costs.</strong> On the Care plan it&rsquo;s included when the cause sits in what Care covers, like a vulnerability in software we keep updated. When the cause is outside it (a plugin someone else added, a password reused from another site, changes made outside our work), it&rsquo;s a flat <Price item="incidentRecovery" symbol />. Without a Care plan it&rsquo;s a flat <Price item="incidentRecoveryNoPlan" symbol />, with a reply within 1 business day. Both flat fees cover up to four hours of work. If the cleanup turns out bigger than that, we stop and quote the rest before going further.
+          </div>
+
+          <h3>When it&rsquo;s your hosting company</h3>
+          <p>Your site runs on hosting in your name (we don&rsquo;t host client websites), so an outage on the host&rsquo;s side is theirs to fix. On the Care plan we confirm it&rsquo;s the host and not the site, open the support ticket with you, and check everything works once the host is back. Changing hosts after repeated outages is a bigger job and gets quoted like one.</p>
+
+          <h2>Frequently asked questions</h2>
+          {faq.map((f) => (
+            <details class="faq-item">
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+
+        </article>
+
+        <aside class="sidecard">
+          <h4>At a glance</h4>
+          <div class="label-row"><span>Ask for help</span><span>hello@telaloom.com</span></div>
+          <div class="label-row"><span>Business hours</span><span>9&ndash;5 Sydney, Mon&ndash;Fri</span></div>
+          <div class="label-row"><span>Care reply</span><span>2 business days</span></div>
+          <div class="label-row"><span>Scale reply</span><span>Same business day</span></div>
+          <div class="label-row"><span>Urgent, Care + Scale</span><span>2h, 7am&ndash;10pm</span></div>
+          <div class="label-row"><span>Hack cleanup, no plan</span><span><Price item="incidentRecoveryNoPlan" /></span></div>
+          <a class="btn btn-primary" href="mailto:hello@telaloom.com?subject=URGENT%3A%20" data-umami-event="cta_click" data-umami-event-target="urgent_email" data-umami-event-source="support_sidecard">Report an urgent problem &rarr;</a>
+          <a class="btn btn-ghost" href="/pricing.html#monthly">See the monthly plans</a>
+        </aside>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

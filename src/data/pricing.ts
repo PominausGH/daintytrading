@@ -13,6 +13,10 @@ export const pricing = {
   customBuild: 6900,
   carePlan: 250,
   fixDay: 1200,
+  // Flat hack/outage cleanup, up to 4 hours (see /support.html). Free on Care when the cause is
+  // inside what Care covers; these apply otherwise.
+  incidentRecovery: 450,
+  incidentRecoveryNoPlan: 750,
   // AI engagements, quoted as "from" prices on a ~1,600 AUD/day internal basis. aiDiscovery
   // deliberately equals WiseKeel's Diagnostic (AU$4,500) so the two price lists never contradict.
   // Don't link the two sites: WiseKeel is kept as a standalone brand (Andrew's decision).
@@ -47,6 +51,8 @@ export const pricingUsd = {
   customBuild: usdApprox(pricing.customBuild),
   carePlan: usdApprox(pricing.carePlan),
   fixDay: usdApprox(pricing.fixDay),
+  incidentRecovery: usdApprox(pricing.incidentRecovery),
+  incidentRecoveryNoPlan: usdApprox(pricing.incidentRecoveryNoPlan),
   // Set by hand, not by formula (which gives 2,800): Setup was priced as 4 fix days at
   // 1,000 minus a 100 bundle discount (3,900 AUD / 2,700 USD). Fix days rose to 1,200 on
   // 2026-10-15 but Setup stayed put, so it now beats fix days from about three days of work.
