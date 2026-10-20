@@ -20,10 +20,10 @@ const jsonLd = [
       name: 'Website build packages',
       itemListElement: [
         { '@type': 'Offer', name: 'Custom build', price: String(pricing.customBuild), priceCurrency: 'AUD', description: `One-off. Custom-designed site, copywriting, set up on hosting in your name, SSL, and Local SEO & GEO setup included — not sold separately.` },
-        { '@type': 'Offer', name: 'Care plan', price: String(pricing.carePlan), priceCurrency: 'AUD', description: 'Monthly, no GST. Uptime monitoring and security updates on your own hosting, and up to 60 minutes of small content changes per month (unused time does not roll over, billed at the standard hourly rate beyond that). 2-business-day response time, same-day for security or downtime issues. Attached to every custom build by default. Cancel anytime, effective end of the current billing month.' },
-        { '@type': 'Offer', name: 'Monitor', price: String(pricing.monitor), priceCurrency: 'AUD', description: 'Monthly. Automated ranking and AI-citation monitoring, with a monthly plain-English report. No fix pass included. Cancel anytime.' },
-        { '@type': 'Offer', name: 'Growth', price: String(pricing.growth), priceCurrency: 'AUD', description: 'Monthly. Everything in Monitor, plus Google Business Profile posts, review replies, and a review campaign each month. Cancel anytime.' },
-        { '@type': 'Offer', name: 'Scale', price: String(pricing.scale), priceCurrency: 'AUD', description: 'Monthly. Everything in Growth, plus new suburb/service pages, full Google Business Profile management, monthly content, and a quarterly strategy call.' },
+        { '@type': 'Offer', name: 'Care plan', price: String(pricing.carePlan), priceCurrency: 'AUD', description: 'Monthly, no GST. Uptime monitoring and security updates on your own hosting, and up to 60 minutes of small content changes per month (unused time does not roll over, billed at the standard hourly rate beyond that). Hosting provider backups switched on and restore-tested quarterly, monthly security check, and hack or outage cleanup included when the cause is in what Care covers. 2-business-day response time, same business day for urgent issues (site down, hacked, forms or checkout broken). Response times are published at telaloom.com/support.html. Attached to every custom build by default. Cancel anytime, effective end of the current billing month.' },
+        { '@type': 'Offer', name: 'Monitor', price: String(pricing.monitor), priceCurrency: 'AUD', description: 'Monthly. Automated ranking and AI-citation monitoring, with a monthly plain-English report. No fix pass included. 1-business-day response time. Cancel anytime.' },
+        { '@type': 'Offer', name: 'Growth', price: String(pricing.growth), priceCurrency: 'AUD', description: 'Monthly. Everything in Monitor, plus Google Business Profile posts, review replies, and a review campaign each month. 1-business-day response time; urgent issues within 4 business hours when Care is active. Cancel anytime.' },
+        { '@type': 'Offer', name: 'Scale', price: String(pricing.scale), priceCurrency: 'AUD', description: 'Monthly. Everything in Growth, plus new suburb/service pages, full Google Business Profile management, monthly content, and a quarterly strategy call. Same-business-day response time; urgent issues within 3 hours, 7am–10pm Sydney time, 7 days, when Care is active.' },
       ],
     },
   },
@@ -139,7 +139,9 @@ const jsonLd = [
                 <li>Uptime and SSL monitoring on your own hosting</li>
                 <li>Software and security updates</li>
                 <li>Up to 60 minutes/month of small changes &mdash; text edits, photo swaps, a new testimonial (unused time doesn&rsquo;t roll over; extra work billed at our standard hourly rate)</li>
-                <li>2-business-day response time &mdash; same-day for security or downtime issues</li>
+                <li>Your host&rsquo;s daily backups switched on, and a restore tested every quarter</li>
+                <li>A monthly security check, and hack or outage cleanup included when the cause is in what Care covers</li>
+                <li>2-business-day response time &mdash; same business day if the site is down, hacked or a form stops working (<a href="/support.html">response times</a>)</li>
               </ul>
               <a class="btn btn-ghost" href="/contact.html" style="margin-top:16px;" data-umami-event="cta_click" data-umami-event-target="talk_it_through" data-umami-event-source="website_builds_care_plan">Talk it through &rarr;</a>
             </div>
