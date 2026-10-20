@@ -1,11 +1,32 @@
 // Wording for the public site-check report. The checker service returns a coarse, price-agnostic
-// `outcome`; the numbers and the voice live here. Prices mirror src/data/pricing.ts (the website's
-// single source of truth) - if you change pricing there, change the defaults here too.
+// `outcome`; the numbers and the voice live here. USD prices mirror src/data/pricing.ts (the
+// website's single source of truth) - if you change pricing there, change the defaults here too.
+// AUD is derived exactly like the website: USD x live USD/AUD rate, rounded up to $1.
+// The rate file is written monthly by /opt/docker/scripts/fx-sync.sh into api/data/ (mounted at
+// /app/data) and re-read on every use, so no redeploy is needed when the rate changes.
+const fs = require('fs');
+const path = require('path');
+
+const FX_RATES_FILE = process.env.FX_RATES_FILE || path.join(__dirname, '..', 'data', 'fx-rates.json');
+const FALLBACK_USD_TO_AUD = 1.437; // ECB 2026-10-16; matches src/data/pricing.ts
+
+function usdToAud() {
+  try {
+    const rate = Number(JSON.parse(fs.readFileSync(FX_RATES_FILE, 'utf8')).usd.AUD);
+    if (rate > 1 && rate < 2.5) return rate;
+  } catch (e) {
+    // fall back below
+  }
+  return FALLBACK_USD_TO_AUD;
+}
+
+const audFromUsd = (usd) => Math.ceil(usd * usdToAud());
+
 const pricing = {
-  setupAud: Number(process.env.SITECHECK_SETUP_AUD || 3900),
   setupUsd: Number(process.env.SITECHECK_SETUP_USD || 2700),
-  buildAud: Number(process.env.SITECHECK_BUILD_AUD || 6900),
   buildUsd: Number(process.env.SITECHECK_BUILD_USD || 4950),
+  get setupAud() { return audFromUsd(this.setupUsd); },
+  get buildAud() { return audFromUsd(this.buildUsd); },
 };
 const fmt = (n) => n.toLocaleString('en-AU');
 
