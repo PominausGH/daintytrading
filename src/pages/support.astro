@@ -8,7 +8,7 @@ const n = (v: number) => v.toLocaleString('en-AU');
 const faq = [
   {
     q: 'How fast do you reply?',
-    a: 'It depends on the plan. Normal requests: Care 2 business days, Monitor and Growth 1 business day, Scale the same business day. Urgent problems on a site with the Care plan (down, hacked, or forms and checkout broken) get a same-business-day reply, 4 business hours with Growth, and 2 hours between 7am and 10pm Sydney time, 7 days a week, with Scale. These are times to a first reply from a person, not times to a fix.',
+    a: 'It depends on the plan. Normal requests: Care 2 business days, Monitor and Growth 1 business day, Scale the same business day. Urgent problems on a site with the Care plan (down, hacked, or forms and checkout broken) get a same-business-day reply, 4 business hours with Growth, and 3 hours between 7am and 10pm Sydney time, 7 days a week, with Scale. These are times to a first reply from a person, not times to a fix.',
   },
   {
     q: 'What happens if my website gets hacked?',
@@ -76,7 +76,7 @@ const jsonLd = [
               <tr><td>Care</td><td>2 business days</td><td>Same business day</td></tr>
               <tr><td>Monitor</td><td>1 business day</td><td>Same business day</td></tr>
               <tr><td>Growth</td><td>1 business day</td><td>Within 4 business hours</td></tr>
-              <tr><td>Scale</td><td>Same business day</td><td>Within 2 hours, 7am&ndash;10pm Sydney time, 7 days</td></tr>
+              <tr><td>Scale</td><td>Same business day</td><td>Within 3 hours, 7am&ndash;10pm Sydney time, 7 days</td></tr>
             </tbody>
           </table>
           <p class="rt-note">Urgent response times apply to sites on the Care plan, because that&rsquo;s the plan where we look after the site itself. Monitor, Growth and Scale are SEO &amp; GEO plans. On those, the urgent column applies when Care is also active.</p>
@@ -136,7 +136,7 @@ const jsonLd = [
           <div class="label-row"><span>Business hours</span><span>9&ndash;5 Sydney, Mon&ndash;Fri</span></div>
           <div class="label-row"><span>Care reply</span><span>2 business days</span></div>
           <div class="label-row"><span>Scale reply</span><span>Same business day</span></div>
-          <div class="label-row"><span>Urgent, Care + Scale</span><span>2h, 7am&ndash;10pm</span></div>
+          <div class="label-row"><span>Urgent, Care + Scale</span><span>3h, 7am&ndash;10pm</span></div>
           <div class="label-row"><span>Hack cleanup, no plan</span><span><Price item="incidentRecoveryNoPlan" /></span></div>
           <a class="btn btn-primary" href="mailto:hello@telaloom.com?subject=URGENT%3A%20" data-umami-event="cta_click" data-umami-event-target="urgent_email" data-umami-event-source="support_sidecard">Report an urgent problem &rarr;</a>
           <a class="btn btn-ghost" href="/pricing.html#monthly">See the monthly plans</a>
