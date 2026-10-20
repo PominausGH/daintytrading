@@ -4,8 +4,7 @@
 #
 # Deploy only after the API has /api/monitor/* live and MONITOR_SECRET set in api/.env, otherwise
 # the first run reports the server as down:
-#   export CLOUDFLARE_API_TOKEN="$(cat /root/.config/cf-reply-router.token)" CLOUDFLARE_ACCOUNT_ID=<id>
-#   npm install && npx wrangler deploy
+#   bash setup.sh   (secret, API restart, deploy, worker secrets; run on the VPS)
 #   npx wrangler tail uptime-watch        # watch a run
 # Tests: npm test
 name = "uptime-watch"
