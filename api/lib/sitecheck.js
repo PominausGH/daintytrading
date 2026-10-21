@@ -168,13 +168,13 @@ function renderReportEmail({ domain, report, recommendation, optin }) {
     : 'No issues found';
   // Same rule as the on-page report (recommendation.booking): the call leads for Setup-sized/rebuild
   // results, is a quiet line for small/none results, and is left out when we couldn't check the site.
-  const bookUrl = `${CAL_URL}?Website_Ideas=${encodeURIComponent(domain + ' - ')}&notes=${encodeURIComponent('Booked from the free site check')}`;
+  const bookUrl = `${CAL_URL}?Website_Ideas=${encodeURIComponent(domain + ' - ')}&notes=${encodeURIComponent('Report walkthrough, booked from the free site check')}`;
   const msgLink = '<a href="https://telaloom.com/contact.html" style="color:#7c5cff;">Send us a message</a> (or just reply to this email)';
   const actionsHtml = recommendation.booking === 'primary'
-    ? `<p style="margin:12px 0 0;"><a href="${e(bookUrl)}" style="color:#7c5cff;font-weight:600;">Book a free call &rarr;</a> &nbsp;&middot;&nbsp; ${msgLink}</p>`
+    ? `<p style="margin:12px 0 0;"><a href="${e(bookUrl)}" style="color:#7c5cff;font-weight:600;">Book a free walkthrough of this report &rarr;</a> &nbsp;&middot;&nbsp; ${msgLink}</p>`
     : recommendation.booking === 'none'
       ? `<p style="margin:12px 0 0;">${msgLink}</p>`
-      : `<p style="margin:12px 0 0;">${msgLink}</p><p style="margin:6px 0 0;color:#64748b;font-size:14px;">Rather talk it through? <a href="${e(bookUrl)}" style="color:#7c5cff;">Book a free call</a></p>`;
+      : `<p style="margin:12px 0 0;">${msgLink}</p><p style="margin:6px 0 0;color:#64748b;font-size:14px;">Want someone to go through it with you? <a href="${e(bookUrl)}" style="color:#7c5cff;">Book a free walkthrough</a></p>`;
   return `<div style="font-family:-apple-system,Segoe UI,Helvetica,Arial,sans-serif;max-width:640px;margin:0 auto;color:#0f172a;">
     <h2 style="margin:0 0 4px;">Your site check: ${e(domain)}</h2>
     <p style="margin:0 0 16px;color:#64748b;font-size:14px;">${e(summary)}${report.platform ? ` · Looks like ${e(report.platform)}` : ''}</p>
