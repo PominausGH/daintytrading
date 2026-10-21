@@ -1,0 +1,141 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Price from '../../components/Price.astro';
+import CurrencySwitch from '../../components/CurrencySwitch.astro';
+import QuickEnquiry from '../../components/QuickEnquiry.astro';
+import Stat from '../../components/Stat.astro';
+import { pricing } from '../../data/pricing.ts';
+import { statText } from '../../data/project-stats.mjs';
+
+// Industry page (idea 5, iOnline teardown 2026-10-21). Every claim comes from the three
+// Shuttersmith case studies (shuttersmith, shuttersmith-rebuild, new-shutter-business).
+// Keep it in step with them; the visit count is the live project stat.
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Websites and local SEO for shutter and blind businesses',
+    provider: { '@type': 'Organization', name: 'TelaLoom', url: 'https://telaloom.com' },
+    serviceType: 'Website design, Local SEO and GEO for window furnishing businesses',
+    audience: { '@type': 'BusinessAudience', name: 'Plantation shutter, blind and awning businesses' },
+    description: 'Custom websites, Local SEO and AI-search visibility for shutter and blind businesses: suburb pages, quote requests, measure calculators and Google Business Profile, set up on hosting in your own name.',
+    areaServed: 'Worldwide',
+    offers: [
+      { '@type': 'Offer', name: 'Custom build', price: String(pricing.customBuild), priceCurrency: 'AUD' },
+      { '@type': 'Offer', name: 'Local SEO & GEO Setup', price: String(pricing.setupSingleTemplate), priceCurrency: 'AUD' },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      { '@type': 'Question', name: 'Do I need a new website, or can you fix the one I have?', acceptedAnswer: { '@type': 'Answer', text: `Often a fix is enough. For Shuttersmith we started by fixing the existing site (analytics, schema, AI-crawler access and the Google Business Profile) with our Setup package at ${pricing.setupSingleTemplate.toLocaleString('en-AU')} AUD. The free website check tells you which applies to you.` } },
+      { '@type': 'Question', name: 'Can customers get a price online?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. For a trade-price, self-install shutters business we built a measure calculator with a DIY or professional-install toggle, so customers can reach a price themselves. That is quoted separately from the standard build, in writing, before we start.' } },
+      { '@type': 'Question', name: 'Do you build suburb pages?', acceptedAnswer: { '@type': 'Answer', text: 'Yes, for the areas you actually want work in. The Shuttersmith rebuild carried over 10 suburb pages along with 7 main pages and 10 blog posts.' } },
+    ],
+  },
+];
+---
+<BaseLayout
+  currencySwitch
+  title="Websites for Shutter &amp; Blind Businesses &mdash; Get Found Locally | TelaLoom"
+  description="Websites and local SEO for plantation shutter and blind businesses. Suburb pages, quote requests, measure calculators, Google Business Profile and AI-search visibility, from the team behind Shuttersmith's results."
+  canonicalPath="/industries/shutters-blinds.html"
+  jsonLd={jsonLd}
+>
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/services/website-builds.html">Website builds</a> &nbsp;/&nbsp; Shutters &amp; blinds</div>
+        <h1>Websites for Shutter and Blind Businesses</h1>
+        <p class="lede">Almost every shutters or blinds job starts with someone searching for a supplier near them, or asking an AI assistant who installs shutters in their suburb. We&rsquo;ve done this work for a Gold Coast plantation shutters business, from fixing its old site through to a full rebuild and a second business.</p>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <h2>What we found on a typical shutters site</h2>
+          <p>When we audited <a href="/projects/shuttersmith.html">Shuttersmith</a>, a Gold Coast plantation shutters business that had run on word of mouth for years:</p>
+          <ul>
+            <li><strong>No analytics at all.</strong> Nobody could say what the site was doing, because nothing was measuring it.</li>
+            <li><strong>No structured data.</strong> Google and AI assistants had nothing clean to read about the business, its services or its service area.</li>
+            <li><strong>AI crawlers blocked at the hosting level.</strong> ChatGPT, Claude and Perplexity couldn&rsquo;t read the site even if they wanted to.</li>
+            <li><strong>A Google Business Profile at risk of suspension.</strong></li>
+          </ul>
+          <p>These aren&rsquo;t unusual. Run the <a href="/site-check.html">free website check</a> on your own site and see which apply.</p>
+
+          <h2>What we did about it</h2>
+          <p><strong>1. Fixed the existing site.</strong> Analytics, schema, AI-crawler access and the Google Business Profile, through our SEO &amp; GEO work. Since tracking started in July the site has had <Stat k="shuttersmith.visits" /> visits (as of <Stat k="shuttersmith.asOf" />), and of those with an identifiable source, most came from Google search. There was no analytics before, so that&rsquo;s a first measurement rather than a lift over a baseline.</p>
+          <p><strong>2. Rebuilt it.</strong> <a href="/projects/shuttersmith-rebuild.html">Off WordPress and Elementor</a> onto a fast static build, carrying over 7 main pages, 10 blog posts and 10 suburb pages. Lighthouse: performance 92&ndash;98, accessibility, best practices and SEO all 100. The rebuild is awaiting the owner&rsquo;s sign-off.</p>
+          <p><strong>3. Built the second business.</strong> The owner backed <a href="/projects/new-shutter-business.html">a trade-price, self-install shutters business</a>, and we built that site too, with a measure calculator and a DIY or professional-install toggle so customers can reach a price themselves. It&rsquo;s in staging.</p>
+
+          <figure class="testimonial-card">
+            <blockquote class="testimonial-quote">&ldquo;We engaged Andrew to have a look at our website,he explained what he needed to do and fixed everything and we our now getting lots more jobs through from.the internet traffic He also built a new website for a new branch of the business The work is fantastic and he absolutely nalied it&rdquo;</blockquote>
+            <figcaption class="testimonial-caption">
+              <span class="testimonial-stars">★★★★★</span>&nbsp;
+              <strong class="testimonial-name">Craig Smith</strong> &middot; Shuttersmith &middot; <a href="https://www.google.com/maps/place/?q=place_id:ChIJ2VLpW3U4aoQRz6YI6UQ2hr4" target="_blank" rel="noopener" class="link-dim">Google review</a>
+            </figcaption>
+          </figure>
+
+          <h2>What a shutters or blinds site needs</h2>
+          <ul>
+            <li><strong>A page for each suburb and product you want work in.</strong> Plantation shutters, roller blinds, awnings, whatever you actually sell, where you actually install.</li>
+            <li><strong>Quote requests that reach you.</strong> A form or call button on every page, with enquiries going straight to your inbox or phone.</li>
+            <li><strong>Real photos of real installs.</strong> Your own work, not stock images.</li>
+            <li><strong>A Google Business Profile that&rsquo;s complete and gets reviews.</strong> Most local jobs are won or lost on the map listing.</li>
+            <li><strong>Optional: a price calculator</strong> if you sell trade or self-install, like the one we built for the second business.</li>
+          </ul>
+
+          <h2>Prices</h2>
+          <CurrencySwitch />
+          <ul>
+            <li><strong>Free website check</strong>: see what&rsquo;s worth fixing first.</li>
+            <li><strong>Fix the site you have</strong>: Local SEO &amp; GEO Setup, <Price item="setupSingleTemplate" symbol /> one-off.</li>
+            <li><strong>New custom site</strong>: <Price item="customBuild" symbol /> one-off, with Local SEO &amp; GEO setup included and hosting in your name.</li>
+            <li><strong>Calculators, online ordering, bookings</strong>: estimated in days and quoted in writing first, from <Price item="fixDay" symbol /> per day.</li>
+          </ul>
+          <p>More detail on the <a href="/services/website-builds.html">website builds</a> and <a href="/services/local-seo.html">Local SEO &amp; GEO</a> pages.</p>
+
+          <h2>Frequently asked questions</h2>
+          <details class="faq-item">
+            <summary>Do I need a new website, or can you fix the one I have?</summary>
+            <p>Often a fix is enough. For Shuttersmith we started by fixing the existing site (analytics, schema, AI-crawler access and the Google Business Profile) with our Setup package at <Price item="setupSingleTemplate" symbol />. The <a href="/site-check.html">free website check</a> tells you which applies to you.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Can customers get a price online?</summary>
+            <p>Yes. For a trade-price, self-install shutters business we built a measure calculator with a DIY or professional-install toggle, so customers can reach a price themselves. That&rsquo;s quoted separately from the standard build, in writing, before we start.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Do you build suburb pages?</summary>
+            <p>Yes, for the areas you actually want work in. The Shuttersmith rebuild carried over 10 suburb pages along with 7 main pages and 10 blog posts.</p>
+          </details>
+        </article>
+
+        <aside class="sidecard">
+          <h4>Shutters &amp; blinds</h4>
+          <div class="label-row"><span>Website check</span><span>Free</span></div>
+          <div class="label-row"><span>Fix existing site</span><span><Price item="setupSingleTemplate" /></span></div>
+          <div class="label-row"><span>New custom site</span><span><Price item="customBuild" /></span></div>
+          <div class="label-row"><span>Shuttersmith visits since July</span><span>{statText('shuttersmith.visits')}</span></div>
+          <div class="label-row"><span>Lock-in</span><span>None</span></div>
+          <a class="btn btn-primary" href="/site-check.html" data-umami-event="cta_click" data-umami-event-target="start_with_audit" data-umami-event-source="industry_shutters_sidecard">Free website check &rarr;</a>
+          <a class="btn btn-ghost" href="/contact.html" data-umami-event="cta_click" data-umami-event-target="get_a_quote" data-umami-event-source="industry_shutters_sidecard">Get a quote</a>
+        </aside>
+      </div>
+
+      <div class="cta-banner" id="enquire" style="margin-top:72px;">
+        <h2>Tell us about your business</h2>
+        <p>What you sell, where you install, and your website if you have one. We&rsquo;ll tell you whether a fix or a new site makes more sense before you pay for anything.</p>
+        <QuickEnquiry
+          engagement="Website build (shutters / blinds business)"
+          source="industry_shutters_blinds"
+          id="qe-shutters"
+          messageLabel="Your business, and what the site needs to do"
+          messagePlaceholder="e.g. Blinds and shutters, Brisbane northside. Our site is old and we don't show up on Google Maps."
+        />
+        <script is:inline defer src="/js/quick-enquiry.js?v=20261016"></script>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
