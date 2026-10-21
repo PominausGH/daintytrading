@@ -22,6 +22,8 @@ const jsonLd = [
     '@type': 'FAQPage',
     mainEntity: [
       { '@type': 'Question', name: 'How much does a website cost?', acceptedAnswer: { '@type': 'Answer', text: `A custom build is ${n(pricing.customBuild)} AUD, one-off. That covers design and copywriting, setup on hosting in your name (you pay the host directly), SSL, your domain (first year included) and Local SEO & GEO setup. Customer logins, bookings or payments are extra, estimated in days up front and priced from ${n(pricing.fixDay)} AUD per day.` } },
+      { '@type': 'Question', name: 'How long does a website take?', acceptedAnswer: { '@type': 'Answer', text: "A first draft is live on a private preview link in weeks 1 to 2, with real pages and real copy, not a mockup. Agency estimates of around two months for a ten-page site are common. We skip the long proposal and the design-file stage and go straight to a working draft." } },
+      { '@type': 'Question', name: 'What should I ask before hiring a web designer?', acceptedAnswer: { '@type': 'Answer', text: "Who owns the site and domain, where it is hosted and who pays, whether copy and SEO are included, how many rounds of changes you get, the payment terms, and whether there is a lock-in. We answer each of those on our website builds page." } },
       { '@type': 'Question', name: 'Is there a lock-in contract?', acceptedAnswer: { '@type': 'Answer', text: 'No. The one-off prices are one-off, and the monthly plans are month-to-month. Cancel anytime. You own the domain and the site.' } },
       { '@type': 'Question', name: 'What if my job is smaller than a Setup?', acceptedAnswer: { '@type': 'Answer', text: `Book fix days at ${n(pricing.fixDay)} AUD a day. We estimate the days up front and you approve before we start. Once a job passes about three days, Setup at ${n(pricing.setupSingleTemplate)} AUD is the better value.` } },
       { '@type': 'Question', name: 'Do I need a monthly plan?', acceptedAnswer: { '@type': 'Answer', text: "Often not. Setup is a one-time audit-and-fix, and the monthly plans are optional. If there's nothing useful to do in a given month, we tell you." } },
@@ -139,6 +141,14 @@ const jsonLd = [
           <details class="faq-item">
             <summary>How much does a website cost?</summary>
             <p>A custom build is <Price item="customBuild" />, one-off. That covers design and copywriting, setup on hosting in your name (you pay the host directly), SSL, your domain (first year included) and Local SEO &amp; GEO setup. Customer logins, bookings or payments are extra, estimated in days up front and priced from <Price item="fixDay" /> per day.</p>
+          </details>
+          <details class="faq-item">
+            <summary>How long does a website take?</summary>
+            <p>A first draft is live on a private preview link in weeks 1&ndash;2, with real pages and real copy, not a mockup. Agency estimates of around two months for a ten-page site are common. We skip the long proposal and the design-file stage and go straight to a working draft.</p>
+          </details>
+          <details class="faq-item">
+            <summary>What should I ask before hiring a web designer?</summary>
+            <p>Who owns the site and domain, where it&rsquo;s hosted and who pays, whether copy and SEO are included, how many rounds of changes you get, the payment terms, and whether there&rsquo;s a lock-in. <a href="/services/website-builds.html#questions-to-ask">Here are our answers</a>, so you can compare.</p>
           </details>
           <details class="faq-item">
             <summary>Is there a lock-in contract?</summary>
