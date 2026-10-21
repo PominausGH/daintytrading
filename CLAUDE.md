@@ -37,4 +37,4 @@ Backs the response times on `/support.html`. Clients live in `api/data/support-c
 - `api/lib/urgent-email.js`: hello@telaloom.com mail arrives through the reply-router worker at `/api/inbound-reply`; a subject starting `URGENT` pushes. `Re: URGENT` doesn't.
 - Priority rules (`api/lib/support-alerts.js`): Care+Scale 7am-10pm Sydney = emergency (2, repeats until acknowledged); other Care in business hours = high (1); everything else, unknown senders and 10pm-7am = normal (0). A stranger can't wake anyone.
 - Creds: `PUSHOVER_APP_TOKEN` / `PUSHOVER_USER_KEY` in `api/.env`. Without them pushes are logged and dropped. Test: `docker exec daintytrading-api node scripts/pushover-test.js 2`.
-- Monitor runs inside the API container: if the container is down, nothing alerts.
+- Outside monitor: `cloudflare/uptime-watch/` (Cloudflare cron worker; deploy steps in its wrangler.toml) checks the same sites plus the server every minute and heartbeats `/api/monitor/heartbeat` (bearer `MONITOR_SECRET`). While heartbeats arrive the local per-minute loop stands down; after 3 missed it resumes, and after 10 it pushes "Outside monitor stopped". SSL/domain and URGENT email stay local.

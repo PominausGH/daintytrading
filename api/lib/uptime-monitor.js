@@ -8,6 +8,7 @@
 const tls = require('tls');
 const { sendPush } = require('./pushover');
 const support = require('./support-alerts');
+const outside = require('./outside-monitor');
 
 const INTERVAL_MS = 60 * 1000;
 const FAILS_TO_ALERT = 3;
@@ -94,7 +95,33 @@ function createMonitor(deps = {}) {
   const clock = deps.now || (() => new Date());
   const state = new Map(); // url -> { fails, down, downSince, lastDetail }
 
+  const outsideMon = deps.outside || outside;
+  const watchdog = { alerted: false };
+
+  // The Cloudflare worker does the per-minute checks while it's alive; this server takes over
+  // when it isn't. MONITOR_SECRET unset = no worker expected, always check locally.
+  async function watchOutside(now) {
+    if (!(deps.monitorSecret !== undefined ? deps.monitorSecret : process.env.MONITOR_SECRET)) return false;
+    const active = outsideMon.isActive(now.getTime());
+    if (outsideMon.isMissing(now.getTime()) && !watchdog.alerted) {
+      watchdog.alerted = true;
+      await push({
+        title: 'Outside monitor stopped',
+        message: 'The Cloudflare uptime-watch worker has not checked in for 10+ minutes. This server is checking the sites itself until it returns. See cloudflare/uptime-watch in the dainty repo.',
+        priority: 0,
+      });
+    } else if (active && watchdog.alerted) {
+      watchdog.alerted = false;
+      await push({ title: 'Outside monitor back', message: 'The uptime-watch worker is checking in again.', priority: 0 });
+    }
+    return active;
+  }
+
   async function tick() {
+    if (await watchOutside(clock())) {
+      state.clear(); // the worker owns down/up state while it's running
+      return;
+    }
     const sites = support.monitoredSites(loadClients()).filter((s) => s.client.care);
     await Promise.all(sites.map(async ({ url, expect, client }) => {
       const s = state.get(url) || { fails: 0, down: false, downSince: null, lastDetail: '' };
