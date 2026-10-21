@@ -95,6 +95,12 @@ router.post('/:slug/replied', (req, res) => {
 router.post('/:slug/opt-out', (req, res) => {
   const ids = validRunSlug(req, res);
   if (!ids) return;
+  // `optedOut: false` undoes an opt-out recorded by mistake.
+  if (req.body && req.body.optedOut === false) {
+    const undone = store.undoOptOut(ids.run, ids.slug);
+    if (!undone) return res.status(404).json({ error: 'No email has been sent to this prospect.' });
+    return res.json({ success: true, optedOut: false, unsuppressed: undone.unsuppressed });
+  }
   const result = store.optOut(ids.run, ids.slug);
   if (!result) return res.status(404).json({ error: 'No email has been sent to this prospect.' });
   res.json({ success: true, suppressed: result.suppressed });

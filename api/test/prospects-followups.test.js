@@ -128,6 +128,26 @@ test('opting out suppresses the address and the website, never a shared mail dom
   assert.equal(store.optOut('run-1', 'nobody'), null);
 });
 
+test('undoing an opt-out takes back only what that opt-out suppressed', async () => {
+  // bravo was opted out in the previous test.
+  const undone = store.undoOptOut('run-1', 'bravo-com-au');
+  assert.deepEqual(undone.unsuppressed.sort(), ['bravo.com.au', 'owner.bravo@gmail.com']);
+  assert.equal(store.isSuppressed('owner.bravo@gmail.com', 'bravo.com.au'), false);
+  assert.notEqual(store.followUpState(store.getSentRecord('run-1', 'bravo-com-au')), 'opted_out');
+  assert.deepEqual(store.undoOptOut('run-1', 'bravo-com-au').unsuppressed, [], 'undoing twice removes nothing');
+
+  // An entry that was already suppressed before the opt-out stays suppressed after the undo.
+  const before = JSON.parse(fs.readFileSync(SUPPRESSION_FILE, 'utf8'));
+  fs.writeFileSync(SUPPRESSION_FILE, JSON.stringify([...before, 'bravo.com.au']));
+  assert.deepEqual(store.optOut('run-1', 'bravo-com-au').suppressed, ['owner.bravo@gmail.com']);
+  assert.deepEqual(store.undoOptOut('run-1', 'bravo-com-au').unsuppressed, ['owner.bravo@gmail.com']);
+  assert.equal(store.isSuppressed('bravo.com.au'), true);
+  assert.equal(store.undoOptOut('run-1', 'nobody'), null);
+
+  // Leave bravo as the next tests expect: opted out.
+  store.optOut('run-1', 'bravo-com-au');
+});
+
 test('rows and stats carry the sequence state', async () => {
   await store.buildDraft('run-1', 'charlie-com-au');
   send('charlie-com-au', 'hi@charlie.com.au');

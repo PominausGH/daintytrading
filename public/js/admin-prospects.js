@@ -69,10 +69,14 @@ function sentCellHtml(row, idx) {
   else if (state === 'done') html += '<span class="seq-note">Follow-up sent ' + adminEscapeHtml(shortDate(row.followUpSentAt)) + '. No more emails.</span>';
   else if (state === 'due') html += ' <button type="button" class="btn btn-ghost row-followup-btn" data-idx="' + idx + '">Follow-up due →</button>';
   else if (state === 'not_due') html += '<span class="seq-note">Follow-up due ' + adminEscapeHtml(shortDate(row.followUpDueAt)) + '</span>';
+  // These are actions, not statuses: the pills above show the status. Replies that come in by
+  // email are recorded automatically (reply-router), so these are only for something the
+  // business said another way (phone, a contact form) or to undo a slip.
   var actions = '';
   if (state === 'replied') actions += '<button type="button" class="seq-link row-unreply-btn" data-idx="' + idx + '">Undo replied</button>';
-  else if (state !== 'opted_out') actions += '<button type="button" class="seq-link row-replied-btn" data-idx="' + idx + '">They replied</button>';
-  if (state !== 'opted_out') actions += '<button type="button" class="seq-link row-optout-btn" data-idx="' + idx + '">Opt out</button>';
+  else if (state !== 'opted_out') actions += '<button type="button" class="seq-link row-replied-btn" data-idx="' + idx + '" title="Only if they replied another way (phone, form). Email replies are recorded automatically.">Mark as replied</button>';
+  if (state === 'opted_out') actions += '<button type="button" class="seq-link row-unoptout-btn" data-idx="' + idx + '">Undo opt-out</button>';
+  else actions += '<button type="button" class="seq-link row-optout-btn" data-idx="' + idx + '" title="Only if they asked not to be emailed. Email opt-outs are recorded automatically.">Mark as opted out</button>';
   return html + (actions ? '<span class="seq-actions">' + actions + '</span>' : '');
 }
 
@@ -147,6 +151,7 @@ function renderProspects(prospects) {
   onRowButton('.row-replied-btn', function (row) { recordReply(row, true); });
   onRowButton('.row-unreply-btn', function (row) { recordReply(row, false); });
   onRowButton('.row-optout-btn', function (row) { recordOptOut(row); });
+  onRowButton('.row-unoptout-btn', function (row) { undoOptOut(row); });
 }
 
 function rowLabel(row) {
@@ -168,6 +173,7 @@ async function refreshOutreach() {
 }
 
 async function recordReply(row, replied) {
+  if (replied && !window.confirm('Mark ' + rowLabel(row) + ' as replied? Their follow-up is cancelled.\n\nOnly do this if they replied by phone or a form. Email replies are recorded automatically.')) return;
   try {
     await adminFetch(prospectUrl(currentRun, row.slug, 'replied'), { method: 'POST', body: JSON.stringify({ replied: replied }) });
     await refreshOutreach();
@@ -177,9 +183,19 @@ async function recordReply(row, replied) {
 }
 
 async function recordOptOut(row) {
-  if (!window.confirm('Opt out ' + rowLabel(row) + '? Their address and website go on the suppression list and they are never emailed again.')) return;
+  if (!window.confirm('Mark ' + rowLabel(row) + ' as opted out? Their address and website go on the suppression list and they are never emailed again.\n\nOnly do this if they asked not to be emailed. Email opt-outs are recorded automatically.')) return;
   try {
     await adminFetch(prospectUrl(currentRun, row.slug, 'opt-out'), { method: 'POST', body: '{}' });
+    await refreshOutreach();
+  } catch (err) {
+    window.alert(err.message);
+  }
+}
+
+async function undoOptOut(row) {
+  if (!window.confirm('Undo the opt-out for ' + rowLabel(row) + '? They come off the suppression list and can be emailed again.\n\nOnly undo it if they did NOT ask to stop. If they replied asking to stop, leave it.')) return;
+  try {
+    await adminFetch(prospectUrl(currentRun, row.slug, 'opt-out'), { method: 'POST', body: JSON.stringify({ optedOut: false }) });
     await refreshOutreach();
   } catch (err) {
     window.alert(err.message);

@@ -464,8 +464,44 @@ function optOut(run, slug) {
   if (!record) return null;
   const site = record.siteDomain || siteDomainFor(run, slug);
   const added = addToSuppression([record.to, site]);
-  const updated = updateSentRecord(run, slug, { optedOutAt: new Date().toISOString(), siteDomain: site || record.siteDomain || null });
+  // Remember exactly what this opt-out added, so undoOptOut can take back only that.
+  const prior = Array.isArray(record.optOutSuppressed) ? record.optOutSuppressed : [];
+  const updated = updateSentRecord(run, slug, {
+    optedOutAt: record.optedOutAt || new Date().toISOString(),
+    siteDomain: site || record.siteDomain || null,
+    optOutSuppressed: [...new Set([...prior, ...added])],
+  });
   return { record: updated, suppressed: added };
+}
+
+// Takes back an opt-out recorded by mistake (2026-10-19: a row button was read as a status and
+// clicked). Removes only the suppression entries this opt-out added, and keeps any entry another
+// still-opted-out prospect relies on. Records from before optOutSuppressed existed fall back to
+// the address we wrote to plus the website, which is what optOut suppresses.
+function undoOptOut(run, slug) {
+  const record = getSentRecord(run, slug);
+  if (!record) return null;
+  if (!record.optedOutAt) return { record, unsuppressed: [] };
+  const mine = (Array.isArray(record.optOutSuppressed)
+    ? record.optOutSuppressed
+    : [record.to, record.siteDomain || siteDomainFor(run, slug)]
+  ).filter(Boolean).map((v) => String(v).trim().toLowerCase());
+  const key = `${run}:${slug}`;
+  const stillNeeded = new Set();
+  for (const [k, other] of Object.entries(readSentLog())) {
+    if (k === key || !other.optedOutAt) continue;
+    const theirs = Array.isArray(other.optOutSuppressed) ? other.optOutSuppressed : [other.to, other.siteDomain];
+    theirs.filter(Boolean).forEach((v) => stillNeeded.add(String(v).trim().toLowerCase()));
+  }
+  const remove = new Set(mine.filter((v) => !stillNeeded.has(v)));
+  const list = readSuppressionList();
+  const kept = list.filter((v) => !remove.has(String(v).trim().toLowerCase()));
+  if (kept.length !== list.length) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+    fs.writeFileSync(SUPPRESSION_FILE, JSON.stringify(kept, null, 2));
+  }
+  const updated = updateSentRecord(run, slug, { optedOutAt: null, optOutSuppressed: [] });
+  return { record: updated, unsuppressed: list.filter((v) => remove.has(String(v).trim().toLowerCase())) };
 }
 
 // "Name <A@B.com>" or " a@b.com " -> "a@b.com"; null if it isn't an address.
@@ -1268,6 +1304,7 @@ module.exports = {
   siteDomainFor,
   markReplied,
   optOut,
+  undoOptOut,
   normalizeAddress,
   findSentByAddress,
   applyInboundReply,
