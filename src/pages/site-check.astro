@@ -15,6 +15,7 @@ const jsonLd = [
     '@type': 'FAQPage',
     mainEntity: [
       { '@type': 'Question', name: 'Is the website check really free?', acceptedAnswer: { '@type': 'Answer', text: "Yes. There's no charge and no obligation. If the check shows something worth fixing we'll say what it would involve, but you don't have to do anything with it." } },
+      { '@type': 'Question', name: 'Can someone walk me through the results?', acceptedAnswer: { '@type': 'Answer', text: "Yes, if you want to. Every completed report has a link to book a free call where we go through your results with you and say what we'd fix first, and what we'd leave alone. It's optional: the report stands on its own." } },
       { '@type': 'Question', name: 'Why do you ask for my email?', acceptedAnswer: { '@type': 'Answer', text: "So the report goes to you and nobody else, and so we can send you a copy. We email a 6-digit code first to confirm the address is yours. We won't add you to a mailing list; you only hear from us if you reply or tick the optional box for occasional tips." } },
       { '@type': 'Question', name: 'What does the checker look at?', acceptedAnswer: { '@type': 'Answer', text: "Only what any visitor or search engine can already see: your homepage, robots.txt, sitemap, llms.txt and a few pages. It doesn't log in, submit forms, scan ports or look for vulnerabilities." } },
       { '@type': 'Question', name: 'My site blocked the checker. What now?', acceptedAnswer: { '@type': 'Answer', text: "That's common with bot protection. The report will say we couldn't see the page. It's also worth knowing, because search engines and AI assistants may be turned away too. Ask us and we'll look by hand." } },
@@ -174,6 +175,10 @@ Disallow: /</code></pre>
           <details class="faq-item">
             <summary>Is it really free?</summary>
             <p>Yes. No charge, no obligation. If the check shows something worth fixing we'll say roughly what it would involve, and if it doesn't we'll say that too.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Can someone walk me through the results?</summary>
+            <p>Yes, if you want to. Every completed report has a link to book a free call where we go through your results with you and say what we'd fix first, and what we'd leave alone. It's optional: the report stands on its own.</p>
           </details>
           <details class="faq-item">
             <summary>Why do you need my email?</summary>

@@ -279,7 +279,7 @@
     // couldn't check the site. Every booking link carries the domain (Cal.com notes prefill) and the
     // report outcome as Umami properties, so book_from_report shows which outcomes lead to calls.
     var booking = rec.booking || 'secondary';
-    var bookHref = CAL_URL + '?Website_Ideas=' + encodeURIComponent((report.domain || state.domain) + ' - ') + '&notes=' + encodeURIComponent('Booked from the free site check');
+    var bookHref = CAL_URL + '?Website_Ideas=' + encodeURIComponent((report.domain || state.domain) + ' - ') + '&notes=' + encodeURIComponent('Report walkthrough, booked from the free site check');
     function bookLink(text, className) {
       var a = link(bookHref, text, className, 'book_call');
       a.setAttribute('data-umami-event', 'book_from_report');
@@ -288,15 +288,15 @@
       return a;
     }
     if (booking === 'primary') {
-      actions.appendChild(bookLink('Book a free call \u2192', 'btn btn-primary'));
+      actions.appendChild(bookLink('Book a free walkthrough of this report \u2192', 'btn btn-primary'));
       actions.appendChild(link('/contact.html', 'Send us a message', 'btn btn-ghost', 'contact'));
     } else {
       actions.appendChild(link('/contact.html', 'Send us a message', 'btn btn-primary', 'contact'));
     }
     reco.appendChild(actions);
     if (booking === 'secondary') {
-      var quiet = el('p', 'sc-summary sc-quiet', 'Rather talk it through? ');
-      quiet.appendChild(bookLink('Book a free call', ''));
+      var quiet = el('p', 'sc-summary sc-quiet', 'Want someone to go through it with you? ');
+      quiet.appendChild(bookLink('Book a free walkthrough', ''));
       reco.appendChild(quiet);
     }
     body.appendChild(reco);

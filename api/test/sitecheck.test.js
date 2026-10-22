@@ -300,8 +300,8 @@ test('booking prominence follows the outcome, in copy and in the report email', 
 
   const html = (outcome, status) => renderReportEmail({ domain: 'example.com', report: REPORT, recommendation: rec(outcome, status), optin: false });
   const cal = 'cal.daintytrading.com';
-  assert.ok(html('setup_scale').includes(cal) && html('setup_scale').includes('Book a free call &rarr;'));
-  assert.ok(html('small_fixes').includes(cal) && html('small_fixes').includes('Rather talk it through?'));
+  assert.ok(html('setup_scale').includes(cal) && html('setup_scale').includes('Book a free walkthrough of this report &rarr;'));
+  assert.ok(html('small_fixes').includes(cal) && html('small_fixes').includes('Want someone to go through it with you?'));
   assert.ok(!html('not_enough_data', 'blocked').includes(cal));
   assert.ok(html('setup_scale').includes('Website_Ideas=example.com%20-%20'));
 });
