@@ -25,6 +25,7 @@ const STATIC_PAGES: { path: string; changefreq: string; priority: string }[] = [
   { path: '/services/seo-geo-optimization.html', changefreq: 'monthly', priority: '0.9' },
   { path: '/services/local-seo.html', changefreq: 'monthly', priority: '0.9' },
   { path: '/services/website-builds.html', changefreq: 'monthly', priority: '0.9' },
+  { path: '/services/software-ai.html', changefreq: 'monthly', priority: '0.7' },
 ];
 
 export const GET: APIRoute = async () => {

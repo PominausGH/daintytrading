@@ -1,0 +1,132 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Price from '../../components/Price.astro';
+import CurrencySwitch from '../../components/CurrencySwitch.astro';
+import { getProductCounts } from '../../data/products';
+
+// Hub for TelaLoom's software and AI work (2026-10-22): moved off the web-first homepage.
+// Product count = the `main: true` products only (see products.ts), never the full list.
+const counts = await getProductCounts();
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      { '@type': 'Question', name: 'What stack do you build on?', acceptedAnswer: { '@type': 'Answer', text: 'Python (FastAPI, Django) and Node.js (Fastify, Express) on the backend; Next.js, React, and React Native on the front; PostgreSQL and Redis for state; n8n for orchestration; Stripe for billing; LiteLLM for routing across model providers; Docker everywhere.' } },
+      { '@type': 'Question', name: 'Do you only build with Claude?', acceptedAnswer: { '@type': 'Answer', text: 'No. We default to Anthropic Claude because it punches above its weight on long-context and structured tasks, but we route through OpenRouter and LiteLLM so projects can pick Gemini, OpenAI, or open-weights when the economics or latency demand it.' } },
+      { '@type': 'Question', name: 'How fast can you ship?', acceptedAnswer: { '@type': 'Answer', text: "First demo in 1–2 weeks for most builds. We move fast because we've already built the boring parts (billing, auth, LLM routing, observability) and reuse them across every project." } },
+      { '@type': 'Question', name: 'How does an AI engagement start?', acceptedAnswer: { '@type': 'Answer', text: 'With a one-week Discovery sprint: we map the workflow, build an evaluation set from your data, and fix the scope and price. It is credited in full against the build.' } },
+    ],
+  },
+];
+---
+<BaseLayout
+  currencySwitch
+  title="Software &amp; AI — Custom Software, AI Products and Automation | TelaLoom"
+  description="Custom software and AI from TelaLoom: client portals and bookings alongside a website, AI product builds, automation retrofits and AI infrastructure. Discovery sprint first, fixed scope and price."
+  canonicalPath="/services/software-ai.html"
+  jsonLd={jsonLd}
+>
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/services.html">Services</a> &nbsp;/&nbsp; Software &amp; AI</div>
+        <h1>Software &amp; AI</h1>
+        <p class="lede">When a website isn&rsquo;t enough: portals, bookings and payments built alongside your site, and AI products and automation for businesses with work that should be software. Same team, on the infrastructure we run for our own {counts.total} products.</p>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <h2>Alongside a website</h2>
+          <p>Customer logins, bookings, payments, quote calculators and secure document exchange. We built a <a href="/projects/edwards-kirby-lawyers.html">client portal for a Sydney law firm</a> and a <a href="/projects/new-shutter-business.html">measure-and-quote calculator for a shutters business</a> alongside their websites. Estimated in days and quoted in writing before we start, from <Price item="fixDay" symbol /> per day.</p>
+
+          <h2>AI and automation</h2>
+          <CurrencySwitch />
+          <div class="service-grid service-grid-2col">
+            <div class="service-card">
+              <div class="icon">01</div>
+              <h3><a href="/services/ai-product-builds.html" class="link-inherit">AI product builds</a></h3>
+              <p>We take an idea and ship a paying product: backend, frontend, mobile, billing, observability, and the LLM glue that makes it real. From <Price item="aiProductBuildFrom" symbol />.</p>
+            </div>
+            <div class="service-card">
+              <div class="icon">02</div>
+              <h3><a href="/services/ai-automation-retrofit.html" class="link-inherit">Automation retrofits</a></h3>
+              <p>Already have a SaaS or internal tool? We add AI where it earns its keep, like email triage, support deflection, content generation and structured extraction, without rewriting everything. From <Price item="aiRetrofitFrom" symbol />.</p>
+            </div>
+            <div class="service-card">
+              <div class="icon">03</div>
+              <h3><a href="/services/ai-infrastructure.html" class="link-inherit">AI infrastructure</a></h3>
+              <p>LLM gateways, prompt versioning, evals, queue workers, billing plumbing and observability: the layer that decides whether your AI feature stays up at 3am. From <Price item="aiInfrastructureFrom" symbol />.</p>
+            </div>
+            <div class="service-card">
+              <div class="icon">04</div>
+              <h3>Discovery sprint first</h3>
+              <p>Every AI engagement starts with one week at <Price item="aiDiscovery" symbol />: we map the workflow, build an evaluation set from your data, and fix the scope and price. Credited in full against the build.</p>
+            </div>
+          </div>
+
+          <h2>How an AI engagement works</h2>
+          <p><strong>Brief to scope in 48 hours.</strong> Tell us the workflow or product in two paragraphs. We come back with what ships in sprint one, the stack, and the cost.</p>
+          <p><strong>Sprint one: a demo in 1&ndash;2 weeks.</strong> The smallest thing that proves the idea works, deployed and clickable, so you can decide whether to continue.</p>
+          <p><strong>Iterate, weeks 3&ndash;8.</strong> Each sprint adds one feature that earns its keep, with daily written updates and a weekly live demo.</p>
+
+          <h2>Our own products</h2>
+          <p>The same engineering runs {counts.total} products of our own. A few of them:</p>
+          <div class="project-grid">
+            <a class="project-card" href="/projects/brightpath.html">
+              <span class="tag">AI · Education</span>
+              <h3>BrightPath</h3>
+              <p>Personalised K-12 online school with an AI tutor named Pax and progress tracking that nudges kids.</p>
+              <span class="arrow">Read the story →</span>
+            </a>
+            <a class="project-card" href="/projects/ghost-writer.html">
+              <span class="tag">AI · Content</span>
+              <h3>Ghost Writer</h3>
+              <p>Content engine that finds trending topics, writes articles, runs layered quality checks and publishes to LinkedIn and Medium.</p>
+              <span class="arrow">Read the story →</span>
+            </a>
+            <a class="project-card" href="/projects/postreel.html">
+              <span class="tag">AI · Social media</span>
+              <h3>Post Reel</h3>
+              <p>Social scheduler with an AI video studio: give it a URL and it writes a script, voices it, and produces a short video scheduled across platforms.</p>
+              <span class="arrow">Read the story →</span>
+            </a>
+          </div>
+          <p><a href="/work.html">See all our products and client work &rarr;</a></p>
+
+          <h2>Frequently asked questions</h2>
+          <details class="faq-item">
+            <summary>What stack do you build on?</summary>
+            <p>Python (FastAPI, Django) and Node.js (Fastify, Express) on the backend; Next.js, React, and React Native on the front; PostgreSQL and Redis for state; n8n for orchestration; Stripe for billing; LiteLLM for routing across model providers; Docker everywhere.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Do you only build with Claude?</summary>
+            <p>No. We default to Anthropic Claude because it punches above its weight on long-context and structured tasks, but we route through OpenRouter and LiteLLM so projects can pick Gemini, OpenAI, or open-weights when the economics or latency demand it.</p>
+          </details>
+          <details class="faq-item">
+            <summary>How fast can you ship?</summary>
+            <p>First demo in 1&ndash;2 weeks for most builds. We move fast because we&rsquo;ve already built the boring parts (billing, auth, LLM routing, observability) and reuse them across every project.</p>
+          </details>
+          <details class="faq-item">
+            <summary>How does an AI engagement start?</summary>
+            <p>With a one-week Discovery sprint at <Price item="aiDiscovery" symbol />: we map the workflow, build an evaluation set from your data, and fix the scope and price. It&rsquo;s credited in full against the build.</p>
+          </details>
+        </article>
+
+        <aside class="sidecard">
+          <h4>Software &amp; AI</h4>
+          <div class="label-row"><span>Portals, bookings</span><span>Quoted in days</span></div>
+          <div class="label-row"><span>Discovery sprint</span><span><Price item="aiDiscovery" /></span></div>
+          <div class="label-row"><span>Automation retrofit</span><span>from <Price item="aiRetrofitFrom" /></span></div>
+          <div class="label-row"><span>AI infrastructure</span><span>from <Price item="aiInfrastructureFrom" /></span></div>
+          <div class="label-row"><span>AI product build</span><span>from <Price item="aiProductBuildFrom" /></span></div>
+          <a class="btn btn-primary" href="/contact.html" data-umami-event="cta_click" data-umami-event-target="start_a_project" data-umami-event-source="software_ai_sidecard">Start a project &rarr;</a>
+          <a class="btn btn-ghost" href="/services/website-builds.html">Just need a website?</a>
+        </aside>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
