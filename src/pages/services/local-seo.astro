@@ -30,7 +30,7 @@ const jsonLd = [
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: [
-      { '@type': 'Question', name: 'What is local GEO (generative engine optimization)?', acceptedAnswer: { '@type': 'Answer', text: "It's making sure your business is the answer when someone asks ChatGPT, Claude, or Perplexity 'who does this near me?' It's driven by accurate structured data, your Google Business Profile, an llms.txt file, and making sure AI crawlers can actually read your site — not by backlinks." } },
+      { '@type': 'Question', name: 'What is local GEO (generative engine optimization)?', acceptedAnswer: { '@type': 'Answer', text: "It's making sure your business is the answer when someone asks ChatGPT, Claude, or Perplexity 'who does this near me?' It's driven by your Google Business Profile and reviews, your listings on Bing Places, Apple Business Connect and Yelp (ChatGPT uses Yelp for local answers), being mentioned on other local sites, and making sure AI search bots can actually read your site, not by backlinks." } },
       { '@type': 'Question', name: 'What do the monthly plans actually include?', acceptedAnswer: { '@type': 'Answer', text: `Three tiers. Monitor (${pricing.monitor}/mo) is ranking and AI-citation monitoring plus a report, no fix pass. Growth (${pricing.growth}/mo) adds Google Business Profile posts, review replies, and a monthly review campaign. Scale (${pricing.scale.toLocaleString()}/mo) adds new suburb/service pages, full Google Business Profile management, monthly content, and a quarterly strategy call. All month-to-month, cancel anytime, and if there's genuinely nothing useful to do that month, we tell you.` } },
       { '@type': 'Question', name: 'Is there a lock-in contract?', acceptedAnswer: { '@type': 'Answer', text: "No. The Setup is a one-off. All three monthly plans (Monitor, Growth, Scale) are cancel-anytime. We'd rather keep you because the work is worth it than because a contract traps you." } },
       { '@type': 'Question', name: "Can you guarantee I'll be number one on Google?", acceptedAnswer: { '@type': 'Answer', text: "No, and anyone who promises that isn't being straight with you. We fix what's structurally broken, get your Google listing and reviews working, and give you an honest read on what's left to do." } },
@@ -124,7 +124,8 @@ const jsonLd = [
               <ul>
                 <li>Everything in the audit &mdash; then we implement it</li>
                 <li>LocalBusiness schema + your service areas</li>
-                <li>llms.txt &amp; AI-crawler access sorted</li>
+                <li>AI search bots let in, and the site submitted to Google and Bing</li>
+                <li>Bing Places, Apple Business Connect and Yelp listings claimed and matched to your Google profile</li>
                 <li>Google Business Profile set up right</li>
                 <li>A system to turn happy customers into reviews</li>
                 <li>Location/service pages for the areas you want work</li>
@@ -191,7 +192,7 @@ const jsonLd = [
           <h2>Frequently asked questions</h2>
           <details class="faq-item">
             <summary>What is local GEO (generative engine optimization)?</summary>
-            <p>It&rsquo;s making sure your business is the answer when someone asks ChatGPT, Claude, or Perplexity &ldquo;who does this near me?&rdquo; It&rsquo;s driven by accurate structured data, your Google Business Profile, an <code>llms.txt</code> file, and making sure AI crawlers can actually read your site &mdash; not by backlinks.</p>
+            <p>It&rsquo;s making sure your business is the answer when someone asks ChatGPT, Claude, or Perplexity &ldquo;who does this near me?&rdquo; It&rsquo;s driven by your Google Business Profile and reviews, your listings on Bing Places, Apple Business Connect and Yelp (ChatGPT uses Yelp for local answers), being mentioned on other local sites, and making sure AI search bots can actually read your site &mdash; not by backlinks. <a href="/services/seo-geo-optimization.html#what-gets-cited">What the evidence supports</a>.</p>
           </details>
           <details class="faq-item">
             <summary>What do the monthly plans actually include?</summary>
