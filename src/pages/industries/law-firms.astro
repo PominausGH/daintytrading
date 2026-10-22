@@ -1,0 +1,128 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Price from '../../components/Price.astro';
+import CurrencySwitch from '../../components/CurrencySwitch.astro';
+import QuickEnquiry from '../../components/QuickEnquiry.astro';
+import { pricing } from '../../data/pricing.ts';
+
+// Industry page (idea 5, iOnline teardown 2026-10-21). Proof = the Sydney insolvency firm
+// case study, which stays anonymised until its launch (31 Oct). Un-anonymise here at the
+// same time as /projects/edwards-kirby-lawyers.html.
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Website builds for law firms',
+    provider: { '@type': 'Organization', name: 'TelaLoom', url: 'https://telaloom.com' },
+    serviceType: 'Law firm website design and development',
+    audience: { '@type': 'BusinessAudience', name: 'Law firms and legal practices' },
+    description: 'Custom websites for small and mid-sized law firms, with Local SEO and GEO built in, set up on hosting in the firm’s own name. Secure client portals with logins, MFA and encrypted document storage are quoted separately.',
+    areaServed: 'Worldwide',
+    offers: { '@type': 'Offer', name: 'Custom build', price: String(pricing.customBuild), priceCurrency: 'AUD' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      { '@type': 'Question', name: 'How much does a law firm website cost?', acceptedAnswer: { '@type': 'Answer', text: `Our custom build is ${pricing.customBuild.toLocaleString('en-AU')} AUD, one-off, including design, copy, Local SEO and GEO setup, and the first year of your domain. A client portal or anything with logins is quoted separately in writing before we start.` } },
+      { '@type': 'Question', name: 'Can you build a secure client portal?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. We built one for a Sydney insolvency and business law firm: client logins with multi-factor authentication, role-based access, and encrypted, virus-scanned document storage, built alongside the website rebuild.' } },
+      { '@type': 'Question', name: 'Will the copy follow our advertising rules?', acceptedAnswer: { '@type': 'Answer', text: 'We write with the profession’s advertising rules in mind, for example not describing anyone as a specialist unless they are accredited, and nothing goes live until you have approved every word. Compliance stays your call.' } },
+      { '@type': 'Question', name: 'Who owns the site and where is it hosted?', acceptedAnswer: { '@type': 'Answer', text: 'You own it. It is set up on hosting in the firm’s name and you pay the host directly. We don’t host client sites.' } },
+    ],
+  },
+];
+---
+<BaseLayout
+  currencySwitch
+  title="Law Firm Websites &mdash; Custom Builds and Secure Client Portals | TelaLoom"
+  description="Custom websites for law firms with Local SEO and AI-search visibility built in, plus secure client portals with MFA and encrypted document storage. Published price, no lock-in, hosted in your firm's name."
+  canonicalPath="/industries/law-firms.html"
+  jsonLd={jsonLd}
+>
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/services/website-builds.html">Website builds</a> &nbsp;/&nbsp; Law firms</div>
+        <h1>Websites for Law Firms That Clients Can Find and Trust</h1>
+        <p class="lede">People choose a lawyer by searching, reading, and more and more often by asking an AI assistant to compare firms. We build law firm sites that show up for the matters you actually take on and read as credible in seconds. If you need it, we add a secure place for clients to send you documents instead of email.</p>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <h2>What usually goes wrong</h2>
+          <p><strong>The site stopped keeping pace with the practice.</strong> Practice areas have changed, people have joined and left, and the site still describes the firm as it was years ago.</p>
+          <p><strong>Search engines get nothing structured to work with.</strong> No schema, no clear practice-area pages, a Google Business Profile that&rsquo;s half filled in. AI assistants answering &ldquo;which firms handle this near me&rdquo; have little to quote.</p>
+          <p><strong>Sensitive documents travel by email.</strong> Financial records and correspondence sit in inboxes and on phones, with no record of who opened what.</p>
+
+          <h2>Our law firm work</h2>
+          <p>We rebuilt the website for <a href="/projects/edwards-kirby-lawyers.html">a Sydney insolvency and business law firm</a> and shipped a client portal alongside it:</p>
+          <ul>
+            <li>A new public site with structured data and <code>llms.txt</code>, so Google and AI assistants can read the practice correctly</li>
+            <li>Client logins with multi-factor authentication and role-based access</li>
+            <li>Encrypted, virus-scanned document storage, replacing documents sent by email</li>
+            <li>An automated review-request pipeline</li>
+          </ul>
+          <p>We&rsquo;ll name the firm on that page once its new site launches.</p>
+
+          <h2>What&rsquo;s in a law firm build</h2>
+          <CurrencySwitch />
+          <p>The standard custom build, <Price item="customBuild" symbol /> one-off:</p>
+          <ul>
+            <li>Design and copywriting, with a page for each practice area you want work in</li>
+            <li>Local SEO &amp; GEO setup: Google Business Profile, structured data, AI-crawler access and a review system</li>
+            <li>Set up on hosting in the firm&rsquo;s name (you pay the host directly)</li>
+            <li>First year of your domain, SSL, and a first draft on a private preview link in weeks 1&ndash;2</li>
+          </ul>
+          <p><strong>Client portals, intake forms with logic, and practice-software integrations</strong> are estimated in days and quoted in writing before we start, from <Price item="fixDay" symbol /> per day.</p>
+
+          <h2>Copy that respects your conduct rules</h2>
+          <p>Legal advertising has rules other industries don&rsquo;t: nothing misleading, and no &ldquo;specialist&rdquo; unless someone is accredited. We write with that in mind, keep claims to what you can stand behind, and nothing goes live until you&rsquo;ve approved every word. Compliance stays your call, and we&rsquo;ll change anything you&rsquo;re not comfortable with.</p>
+
+          <h2>Frequently asked questions</h2>
+          <details class="faq-item">
+            <summary>How much does a law firm website cost?</summary>
+            <p>Our custom build is <Price item="customBuild" symbol />, one-off, including design, copy, Local SEO and GEO setup, and the first year of your domain. A client portal or anything with logins is quoted separately in writing before we start.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Can you build a secure client portal?</summary>
+            <p>Yes. We built one for a Sydney insolvency and business law firm: client logins with multi-factor authentication, role-based access, and encrypted, virus-scanned document storage, built alongside the website rebuild.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Will the copy follow our advertising rules?</summary>
+            <p>We write with the profession&rsquo;s advertising rules in mind, for example not describing anyone as a specialist unless they&rsquo;re accredited, and nothing goes live until you&rsquo;ve approved every word. Compliance stays your call.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Who owns the site and where is it hosted?</summary>
+            <p>You own it. It&rsquo;s set up on hosting in the firm&rsquo;s name and you pay the host directly. We don&rsquo;t host client sites. More in <a href="/services/website-builds.html#questions-to-ask">questions to ask any web designer</a>.</p>
+          </details>
+        </article>
+
+        <aside class="sidecard">
+          <h4>Law firm websites</h4>
+          <div class="label-row"><span>Custom build</span><span><Price item="customBuild" /></span></div>
+          <div class="label-row"><span>Client portal</span><span>Quoted in writing</span></div>
+          <div class="label-row"><span>First draft</span><span>Weeks 1&ndash;2</span></div>
+          <div class="label-row"><span>Hosting</span><span>In your name</span></div>
+          <div class="label-row"><span>Lock-in</span><span>None</span></div>
+          <a class="btn btn-primary" href="/contact.html" data-umami-event="cta_click" data-umami-event-target="get_a_quote" data-umami-event-source="industry_law_firms_sidecard">Get a quote &rarr;</a>
+          <a class="btn btn-ghost" href="/site-check.html" data-umami-event="cta_click" data-umami-event-target="start_with_audit" data-umami-event-source="industry_law_firms_sidecard">Free website check</a>
+        </aside>
+      </div>
+
+      <div class="cta-banner" id="enquire" style="margin-top:72px;">
+        <h2>Tell us about the firm</h2>
+        <p>Your practice areas, where your clients are, and whether you need a portal. We&rsquo;ll reply within one business day with what we&rsquo;d build and what it costs.</p>
+        <QuickEnquiry
+          engagement="Website build (law firm)"
+          source="industry_law_firms"
+          id="qe-law"
+          messageLabel="Your firm, and what the site needs to do"
+          messagePlaceholder="e.g. Three-partner family law firm in Parramatta. Our site is old and we'd like clients to upload documents securely."
+        />
+        <script is:inline defer src="/js/quick-enquiry.js?v=20261016"></script>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
