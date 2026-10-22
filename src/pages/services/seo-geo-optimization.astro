@@ -34,7 +34,8 @@ const jsonLd = [
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: [
-      { '@type': 'Question', name: 'What is GEO (generative engine optimization)?', acceptedAnswer: { '@type': 'Answer', text: "GEO is getting your business cited correctly when someone asks ChatGPT, Claude, Perplexity, or Gemini a question your business can answer. It's driven by structured data, an llms.txt file, AI-crawler-aware robots.txt rules, and content written so an LLM can quote it accurately — not by backlinks or keyword density." } },
+      { '@type': 'Question', name: 'What is GEO (generative engine optimization)?', acceptedAnswer: { '@type': 'Answer', text: "GEO is getting your business cited correctly when someone asks ChatGPT, Claude, Perplexity, or Gemini a question your business can answer. AI assistants answer from search indexes (Google, Bing and Brave), so it's driven by being indexed there, letting AI search bots in, content in plain HTML that answers questions directly, and what other sites, reviews and listings say about you, not by backlinks or keyword density." } },
+      { '@type': 'Question', name: 'Does llms.txt help you get cited by AI?', acceptedAnswer: { '@type': 'Answer', text: "Not on current evidence. Google says its Search ignores llms.txt, no other AI search provider has said it reads one, and large log studies (Ahrefs, 137,000 domains) found AI search bots almost never request it. Our own logs agree: across our sites, ClaudeBot made over 15,000 requests in five months and asked for llms.txt once. We still add one because it takes minutes and some coding tools read it, but we don't sell it as the thing that gets you cited." } },
       { '@type': 'Question', name: 'What does an SEO & GEO audit cover?', acceptedAnswer: { '@type': 'Answer', text: 'Meta titles and descriptions, canonical tags, Open Graph images, sitemap and robots.txt correctness, page speed and image sizing, and structured data (Organization, Product, FAQPage, BreadcrumbList) on the SEO side. On the GEO side: an llms.txt file, AI-crawler access rules for bots like GPTBot and ClaudeBot, FAQPage schema written for direct-answer extraction, and content structure that’s quotable without distortion.' } },
       { '@type': 'Question', name: 'How long does an SEO/GEO engagement take?', acceptedAnswer: { '@type': 'Answer', text: '1–3 weeks for most sites, depending on site size and how we get access — a direct repo commit is fastest, CMS access takes a little longer to coordinate.' } },
       { '@type': 'Question', name: 'How much does an SEO & GEO audit cost?', acceptedAnswer: { '@type': 'Answer', text: `Audit is free. Setup is ${pricing.setupSingleTemplate.toLocaleString()} one-off for single-template sites — one CMS or static site, one language, no product catalog — and ${pricing.setupMultiTemplate.toLocaleString()} for multi-template, e-commerce, or multi-language sites. After that, three optional monthly plans: Monitor (${pricing.monitor}) is monitoring and a report only, Growth (${pricing.growth}) adds one optimization pass a month, and Scale (${pricing.scale.toLocaleString()}) adds new pages, monthly content, and a quarterly strategy call.` } },
@@ -201,12 +202,15 @@ const jsonLd = [
           <h3>GEO (generative engine optimization)</h3>
           <p>This is what gets split into separate service names elsewhere &mdash; Answer Engine Optimization (AEO), LLM Optimization (LLMO), Google AI Overview optimization &mdash; we treat it as one connected discipline, not three retainers:</p>
           <ul>
-            <li>An <code>llms.txt</code> file so AI crawlers get a clean summary of what your site is and does</li>
+            <li>Google Search Console and Bing Webmaster Tools set up, sitemaps submitted and IndexNow switched on, because ChatGPT, Copilot, Claude and Gemini all answer from search indexes</li>
+            <li>A check that Cloudflare or your host isn&rsquo;t blocking AI search bots by default, which has been switched on for many small sites without the owner knowing</li>
+            <li>Key content in plain HTML, not loaded by JavaScript, because most AI crawlers don&rsquo;t run JavaScript</li>
             <li>AI-crawler-aware <code>robots.txt</code> rules &mdash; explicit allow/deny for bots like GPTBot, ClaudeBot, and PerplexityBot, instead of a generic block that hides you from all of them by accident</li>
             <li>FAQPage schema written for direct-answer extraction, not just SEO snippet decoration</li>
             <li>Organization schema with clear, unambiguous entity facts an LLM won&rsquo;t hallucinate around</li>
             <li>Content structure that&rsquo;s quotable &mdash; direct answers near the top, not buried three paragraphs into marketing copy</li>
             <li>A read on how you currently show up in AI answers next to the businesses you actually compete with</li>
+            <li>An <code>llms.txt</code> file, as a free extra rather than the main lever (see the FAQ below)</li>
           </ul>
 
           <h2>Real numbers from real audits</h2>
@@ -265,11 +269,22 @@ const jsonLd = [
           <h3>Week three (if needed): verify</h3>
           <p>We confirm re-indexation in Search Console, validate every piece of structured data against Google&rsquo;s and schema.org&rsquo;s tooling, and re-check AI crawler access logs to confirm the bots we opened the door to are actually coming through.</p>
 
+          <h2 id="what-gets-cited">What actually gets you cited by AI assistants</h2>
+          <p>There&rsquo;s a lot of GEO advice that doesn&rsquo;t hold up. This is what the evidence supports, strongest first:</p>
+          <ol>
+            <li><strong>Being in the search indexes AI assistants use.</strong> Gemini and Google&rsquo;s AI answers use Google&rsquo;s index, Copilot uses Bing, ChatGPT leans heavily on Bing plus its own crawler, and Claude uses Brave. If you&rsquo;re not indexed and ranking, you&rsquo;re rarely cited.</li>
+            <li><strong>Not blocking AI search bots.</strong> OpenAI, Anthropic and Perplexity each say blocking their search bot reduces or removes citations. Training bots are a separate choice.</li>
+            <li><strong>What other sites say about you.</strong> Mentions of your business on other sites track AI visibility more closely than anything you put on your own site (Ahrefs, 75,000 brands). So do reviews, directory listings and &ldquo;best X in Y&rdquo; lists.</li>
+            <li><strong>Content AI crawlers can read and quote.</strong> Plain HTML, direct answers near the top, real numbers and specifics, kept up to date.</li>
+            <li><strong>Structured data, as a tidy-up, not a lever.</strong> Schema is still worth having for Google&rsquo;s rich results and clear business facts, but studies haven&rsquo;t shown it lifts AI citations.</li>
+          </ol>
+          <p>We measure it with Google Search Console&rsquo;s AI performance report, Bing Webmaster Tools&rsquo; AI citations report and AI-assistant referral traffic in your analytics, and by re-running the same set of questions in the assistants over time. Single answers vary from run to run, so we report the trend, not one screenshot.</p>
+
           <h2>What you get</h2>
           <ul>
             <li><strong>A written audit</strong> &mdash; prioritized by impact versus effort, not a wall of generic recommendations.</li>
             <li><strong>Fixes shipped to code</strong> &mdash; not a report you then have to hire someone else to implement.</li>
-            <li><strong><code>llms.txt</code> and AI-crawler-aware <code>robots.txt</code></strong> &mdash; so AI answer engines can find and correctly summarize your business.</li>
+            <li><strong>AI search bots let in</strong> &mdash; <code>robots.txt</code>, Cloudflare and hosting checked so ChatGPT, Claude, Perplexity and Copilot can actually reach your site, and the site submitted to Google and Bing.</li>
             <li><strong>Schema markup</strong> &mdash; FAQPage, Organization, Product, or BreadcrumbList, wherever it&rsquo;s missing or broken.</li>
             <li><strong>Before/after documentation</strong> &mdash; exactly what changed and why, so your team can maintain it going forward.</li>
           </ul>
@@ -284,7 +299,11 @@ const jsonLd = [
 
           <details class="faq-item">
             <summary>What is GEO (generative engine optimization)?</summary>
-            <p>Getting your business cited correctly when someone asks ChatGPT, Claude, Perplexity, or Gemini a question you can answer. It&rsquo;s driven by structured data, AI-crawler access, and content written to be quoted accurately &mdash; not by backlinks.</p>
+            <p>Getting your business cited correctly when someone asks ChatGPT, Claude, Perplexity, or Gemini a question you can answer. AI assistants answer from search indexes (Google, Bing and Brave), so it&rsquo;s driven by being indexed there, letting AI search bots in, content that answers questions directly, and what other sites, reviews and listings say about you &mdash; not by backlinks. <a href="#what-gets-cited">More on what the evidence supports</a>.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Does llms.txt help you get cited by AI?</summary>
+            <p>Not on current evidence. Google says its Search ignores <code>llms.txt</code>, no other AI search provider has said it reads one, and <a href="https://ahrefs.com/blog/llmstxt-study/" target="_blank" rel="noopener">a log study of 137,000 domains</a> found AI search bots almost never request it. Our own logs agree: across our sites, ClaudeBot made over 15,000 requests in five months and asked for <code>llms.txt</code> once. We still add one because it takes minutes and some coding tools read it, but we don&rsquo;t sell it as the thing that gets you cited.</p>
           </details>
           <details class="faq-item">
             <summary>What does the audit actually cover?</summary>
