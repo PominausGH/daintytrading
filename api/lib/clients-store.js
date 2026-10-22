@@ -20,6 +20,11 @@ const ONBOARDING_TEMPLATE = [
   { id: 'content-received', text: 'Content received (copy, photos)' },
   { id: 'design-approved', text: 'Design approved' },
   { id: 'site-live', text: 'Site live' },
+  // Search/AI visibility setup (2026-10-22, see /services/seo-geo-optimization.html#what-gets-cited).
+  { id: 'search-consoles', text: 'Google Search Console + Bing Webmaster Tools set up (Bing: import from GSC), sitemap submitted' },
+  { id: 'indexnow', text: 'IndexNow on (Cloudflare Crawler Hints, Yoast/Rank Math toggle, or scripts/indexnow-submit.mjs for our builds)' },
+  { id: 'ai-bots-check', text: 'AI search bots not blocked: Cloudflare AI Crawl Control, host firewall, robots.txt (allow OAI-SearchBot, Claude-SearchBot, Claude-User, PerplexityBot, Bingbot)' },
+  { id: 'listings', text: 'Bing Places (import from GBP), Apple Business Connect and Yelp claimed, details matching the Google Business Profile' },
   { id: 'client-handover', text: 'Client walkthrough / handover done' },
 ];
 
