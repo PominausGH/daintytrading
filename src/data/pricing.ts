@@ -62,6 +62,11 @@ export const pricingUsd = {
   aiProductBuildFrom: 32450,
 } as const;
 
+// GST: TelaLoom is not registered for GST (Andrew, 2026-10-22), so published prices carry no GST.
+// When registering (turnover passes A$75k), set this to true: "No GST" copy disappears site-wide,
+// and decide whether prices become GST-inclusive.
+export const gstRegistered = false;
+
 export const pricing = {
   audit: 'Free',
   currency: 'AUD',
