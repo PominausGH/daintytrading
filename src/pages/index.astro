@@ -3,12 +3,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Price from '../components/Price.astro';
 import Stat from '../components/Stat.astro';
 import ClientShowcase from '../components/ClientShowcase.astro';
-import { pricing } from '../data/pricing.ts';
+import { pricing, gstRegistered } from '../data/pricing.ts';
 
 // Web-first homepage (Andrew, 2026-10-22): websites, Local SEO & GEO and Care lead; AI and
 // software work lives on /services/software-ai.html. Every number here is a real, sourced stat:
 // Shuttersmith visits (project-stats), the rebuild's Lighthouse scores, the Google rating.
 const n = (v: number) => v.toLocaleString('en-AU');
+const noGst = gstRegistered ? '' : ' No GST.';
 
 const jsonLd = [
   {
@@ -43,7 +44,7 @@ const jsonLd = [
     '@type': 'FAQPage',
     mainEntity: [
       { '@type': 'Question', name: 'What is TelaLoom?', acceptedAnswer: { '@type': 'Answer', text: 'An Australian web studio. We build websites for local and small businesses, get them found on Google and in AI assistants with Local SEO and GEO, and look after them afterwards on the Care plan. We also build custom software and AI for clients who need it.' } },
-      { '@type': 'Question', name: 'How much does a website cost?', acceptedAnswer: { '@type': 'Answer', text: `Three fixed prices, all one-off: a landing page is ${n(pricing.landingPage)} AUD, a Starter site of up to 5 pages is ${n(pricing.starterSite)} AUD, and a custom build is ${n(pricing.customBuild)} AUD with Local SEO and GEO setup included. Logins, bookings and payments are quoted in writing first.` } },
+      { '@type': 'Question', name: 'How much does a website cost?', acceptedAnswer: { '@type': 'Answer', text: `Three fixed prices, all one-off: a landing page is ${n(pricing.landingPage)} AUD, a Starter site of up to 5 pages is ${n(pricing.starterSite)} AUD, and a custom build is ${n(pricing.customBuild)} AUD with Local SEO and GEO setup included.${noGst} Logins, bookings and payments are quoted in writing first.` } },
       { '@type': 'Question', name: 'How long does a website take?', acceptedAnswer: { '@type': 'Answer', text: 'A first draft is live on a private preview link in weeks 1 to 2, with real pages and real copy, not a mockup. It goes live when you sign it off.' } },
       { '@type': 'Question', name: 'Do I own the website?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. It is set up on hosting in your name and you pay the host directly, the domain is registered in your own account, and once the build is paid you own the design and content made for you. No lock-in.' } },
       { '@type': 'Question', name: 'Can you fix the website I already have?', acceptedAnswer: { '@type': 'Answer', text: `Often that is all you need. Run the free website check first. Small fixes are ${n(pricing.fixDay)} AUD a day, and the SEO & GEO Setup at ${n(pricing.setupSingleTemplate)} AUD fixes the lot on your current site.` } },
@@ -125,7 +126,7 @@ const jsonLd = [
             <a class="btn btn-primary" href="/contact.html" data-umami-event="cta_click" data-umami-event-target="get_a_quote" data-umami-event-source="index_hero">Get a quote &rarr;</a>
             <a class="btn btn-ghost" href="/site-check.html" data-umami-event="cta_click" data-umami-event-target="free_audit" data-umami-event-source="index_hero">Free website check</a>
           </div>
-          <p class="hero-price">Published prices from <Price item="landingPage" symbol />. No lock-in.</p>
+          <p class="hero-price">Published prices from <Price item="landingPage" symbol />.{gstRegistered ? '' : ' No GST,'} {gstRegistered ? 'No' : 'no'} lock-in.</p>
         </div>
         <figure style="margin:0;">
           <div class="browser">
@@ -226,7 +227,7 @@ const jsonLd = [
       <div class="container">
         <div class="section-head">
           <h2>Published prices</h2>
-          <p>One-off and fixed: the price on the page is the price you pay.</p>
+          <p>One-off and fixed{gstRegistered ? '' : ', no GST'}: the price on the page is the price you pay.</p>
         </div>
         <div class="tier-grid">
           <div class="tier">
@@ -359,7 +360,7 @@ const jsonLd = [
           </details>
           <details class="faq-item">
             <summary>How much does a website cost?</summary>
-            <p>Three fixed prices, all one-off: a landing page is <Price item="landingPage" symbol />, a Starter site of up to 5 pages is <Price item="starterSite" symbol />, and a custom build is <Price item="customBuild" symbol /> with Local SEO &amp; GEO setup included. Logins, bookings and payments are quoted in writing first. <a href="/pricing.html">All prices</a>.</p>
+            <p>Three fixed prices, all one-off: a landing page is <Price item="landingPage" symbol />, a Starter site of up to 5 pages is <Price item="starterSite" symbol />, and a custom build is <Price item="customBuild" symbol /> with Local SEO &amp; GEO setup included.{noGst} Logins, bookings and payments are quoted in writing first. <a href="/pricing.html">All prices</a>.</p>
           </details>
           <details class="faq-item">
             <summary>How long does a website take?</summary>
