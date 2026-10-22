@@ -1,20 +1,24 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getProductCounts } from '../data/products';
 import Price from '../components/Price.astro';
 import Stat from '../components/Stat.astro';
+import ClientShowcase from '../components/ClientShowcase.astro';
+import { pricing } from '../data/pricing.ts';
 
-const counts = await getProductCounts();
+// Web-first homepage (Andrew, 2026-10-22): websites, Local SEO & GEO and Care lead; AI and
+// software work lives on /services/software-ai.html. Every number here is a real, sourced stat:
+// Shuttersmith visits (project-stats), the rebuild's Lighthouse scores, the Google rating.
+const n = (v: number) => v.toLocaleString('en-AU');
 
 const jsonLd = [
   {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'TelaLoom',
-    alternateName: 'TelaLoom Website Builds, SEO & GEO, and Automation',
+    alternateName: 'TelaLoom Website Builds, Local SEO & GEO',
     url: 'https://telaloom.com',
     logo: 'https://telaloom.com/og-card.jpg',
-    description: 'Website builds, SEO & GEO optimization, and custom automation software that replaces manual work in your business — plus an in-house portfolio of production AI software across email, education, content, and SaaS infrastructure.',
+    description: 'Australian web studio building websites for local and small businesses, with Local SEO and GEO built in so they are found on Google and in AI assistants. Also builds custom software and AI for clients who need it.',
     founder: { '@type': 'Person', '@id': 'https://telaloom.com/about.html#andrew-dainty', name: 'Andrew Dainty', url: 'https://telaloom.com/about.html#andrew-dainty', sameAs: ['https://www.linkedin.com/in/andrewdainty/'] },
     sameAs: [
       'https://www.linkedin.com/company/132014328/',
@@ -23,9 +27,8 @@ const jsonLd = [
       'https://share.google/sPuFFHaeYpqb8IF9V',
     ],
     knowsAbout: [
-      'AI automation', 'Large language models', 'Claude API',
-      'Workflow automation', 'SaaS development', 'Algorithmic trading',
-      'Email automation', 'Content automation',
+      'Website design', 'Local SEO', 'Generative engine optimization', 'Google Business Profile',
+      'Technical SEO', 'Structured data', 'Web performance', 'Custom software', 'AI automation',
     ],
   },
   {
@@ -39,95 +42,154 @@ const jsonLd = [
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: [
-      { '@type': 'Question', name: 'What is TelaLoom?', acceptedAnswer: { '@type': 'Answer', text: `TelaLoom builds websites, ranks them with SEO & GEO, and builds custom automation software that replaces manual work in your business. We also design, build, and operate production AI software across our own portfolio — ${counts.total} main products covering AI content, education, missed-call capture, social video scheduling, CV screening, email archiving, and AI agent deployment. Each project page shows the real stack and build story.` } },
-      { '@type': 'Question', name: 'What kind of projects do you take on?', acceptedAnswer: { '@type': 'Answer', text: 'Three kinds: website builds (custom sites with Local SEO & GEO built in), SEO & GEO work on existing sites, and custom automation software — LLM-powered features (Claude, Gemini, OpenRouter), agentic workflows, content pipelines, and structured-extraction systems, plus the infrastructure that keeps them up.' } },
-      { '@type': 'Question', name: 'What stack do you build on?', acceptedAnswer: { '@type': 'Answer', text: 'Python (FastAPI, Django) and Node.js (Fastify, Express) on the backend; Next.js, React, and React Native on the front; PostgreSQL and Redis for state; n8n for orchestration; Stripe for billing; LiteLLM for routing across model providers; Docker everywhere.' } },
-      { '@type': 'Question', name: 'Do you only build with Claude?', acceptedAnswer: { '@type': 'Answer', text: 'No. We default to Anthropic Claude because it punches above its weight on long-context and structured tasks, but we route through OpenRouter and LiteLLM so projects can pick Gemini, OpenAI, or open-weights when the economics or latency demand it.' } },
-      { '@type': 'Question', name: 'How fast can you ship?', acceptedAnswer: { '@type': 'Answer', text: "First demo in 1–2 weeks for most builds. A first paying customer in 4–8 weeks. We move fast because we've already built the boring parts (billing, auth, LLM routing, observability) and reuse them across every project." } },
-      { '@type': 'Question', name: 'Where are you based?', acceptedAnswer: { '@type': 'Answer', text: 'Australia. We work async with clients globally and are happy to operate in your timezone.' } },
-      { '@type': 'Question', name: 'How do I start?', acceptedAnswer: { '@type': 'Answer', text: "Email us via the contact page with two paragraphs: what you want built and why it matters. We'll reply within one business day with a scoped first sprint." } },
+      { '@type': 'Question', name: 'What is TelaLoom?', acceptedAnswer: { '@type': 'Answer', text: 'An Australian web studio. We build websites for local and small businesses, get them found on Google and in AI assistants with Local SEO and GEO, and look after them afterwards on the Care plan. We also build custom software and AI for clients who need it.' } },
+      { '@type': 'Question', name: 'How much does a website cost?', acceptedAnswer: { '@type': 'Answer', text: `Three fixed prices, all one-off: a landing page is ${n(pricing.landingPage)} AUD, a Starter site of up to 5 pages is ${n(pricing.starterSite)} AUD, and a custom build is ${n(pricing.customBuild)} AUD with Local SEO and GEO setup included. Logins, bookings and payments are quoted in writing first.` } },
+      { '@type': 'Question', name: 'How long does a website take?', acceptedAnswer: { '@type': 'Answer', text: 'A first draft is live on a private preview link in weeks 1 to 2, with real pages and real copy, not a mockup. It goes live when you sign it off.' } },
+      { '@type': 'Question', name: 'Do I own the website?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. It is set up on hosting in your name and you pay the host directly, the domain is registered in your own account, and once the build is paid you own the design and content made for you. No lock-in.' } },
+      { '@type': 'Question', name: 'Can you fix the website I already have?', acceptedAnswer: { '@type': 'Answer', text: `Often that is all you need. Run the free website check first. Small fixes are ${n(pricing.fixDay)} AUD a day, and the SEO & GEO Setup at ${n(pricing.setupSingleTemplate)} AUD fixes the lot on your current site.` } },
+      { '@type': 'Question', name: 'Do you build custom software or AI as well?', acceptedAnswer: { '@type': 'Answer', text: 'Yes: client portals, bookings and payments alongside a website, and AI product builds, automation and infrastructure for businesses that need them. See the Software & AI page.' } },
+      { '@type': 'Question', name: 'Where are you based?', acceptedAnswer: { '@type': 'Answer', text: 'Australia. We work with clients in Australia and overseas, and invoice Australian clients in AUD and international clients in USD.' } },
+      { '@type': 'Question', name: 'How do I start?', acceptedAnswer: { '@type': 'Answer', text: 'Send your business name and website (if you have one) through the contact page, or run the free website check. We reply within one business day with what we would do and what it costs.' } },
     ],
   },
 ];
 ---
 <BaseLayout
   currencySwitch
-  title="TelaLoom — Website Builds, SEO & GEO, and Business Automation"
-  description="TelaLoom builds websites, ranks them with SEO & GEO, and builds custom automation software that replaces manual work in your business. Australian studio, clients worldwide. Start a project today."
+  title="TelaLoom — Websites, Local SEO &amp; GEO for Small Businesses"
+  description="Websites for local and small businesses that get found on Google and in AI answers. Published prices from a landing page to a custom build, hosted in your name, first draft in 1–2 weeks. Free website check."
   canonicalPath="/"
   ogImage="https://telaloom.com/og-card.jpg"
   jsonLd={jsonLd}
   hreflangAlternates={true}
 >
+  <style>
+    .hero-split { padding: 88px 0 72px; text-align: left; }
+    .hero-split .container { display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center; }
+    .hero-split h1 { font-size: clamp(34px, 5vw, 56px); margin-top: 16px; }
+    .hero-split p.lead { margin: 0 0 28px; max-width: 540px; }
+    .hero-split .cta-row { justify-content: flex-start; }
+    .hero-price { font-size: 14px; color: var(--text-muted); margin: 14px 0 0; }
+    .browser { background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 12px; overflow: hidden; box-shadow: 0 30px 60px -20px rgba(124, 92, 255, 0.35), var(--shadow); }
+    .browser-bar { display: flex; gap: 6px; padding: 10px 12px; border-bottom: 1px solid var(--border); }
+    .browser-bar span { width: 10px; height: 10px; border-radius: 50%; background: var(--border-strong); }
+    .browser img { display: block; width: 100%; height: auto; }
+    .browser-cap { font-size: 12.5px; color: var(--text-muted); margin: 10px 0 0; text-align: center; }
+    @media (max-width: 900px) {
+      .hero-split .container { grid-template-columns: 1fr; gap: 36px; }
+      .hero-split { padding: 56px 0 48px; }
+    }
+
+    .proof-band { background: linear-gradient(120deg, #5b3fe0 0%, #7c5cff 55%, #20b394 100%); padding: 34px 0; }
+    .proof-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; color: #fff; }
+    .proof-num { font-size: 30px; font-weight: 800; letter-spacing: -0.02em; }
+    .proof-label { font-size: 13.5px; opacity: 0.9; margin-top: 2px; }
+    @media (max-width: 720px) { .proof-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    .tier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .tier { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 26px; display: flex; flex-direction: column; }
+    .tier.featured { border-color: var(--accent); box-shadow: var(--shadow); }
+    .tier .tier-name { font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
+    .tier .tier-price { font-size: 30px; font-weight: 800; margin: 6px 0 8px; }
+    .tier .tier-price small { font-size: 14px; font-weight: 500; color: var(--text-muted); white-space: nowrap; }
+    .tier p { font-size: 14.5px; color: var(--text-dim); flex: 1; margin: 0 0 16px; }
+    .tier a { font-weight: 600; }
+    .tier-foot { text-align: center; color: var(--text-dim); font-size: 14.5px; margin: 26px 0 0; }
+    @media (max-width: 900px) { .tier-grid { grid-template-columns: 1fr; } }
+
+    .light-band { background: #f4f2ff; color: #161a24; }
+    .light-band h2 { color: #161a24; }
+    .light-band .testimonial-card { background: #fff; border-color: #e2ddff; }
+    .light-band .testimonial-quote { color: #262b38; }
+    .light-band .testimonial-caption, .light-band .testimonial-caption a { color: #535b6e; }
+    .light-band .testimonial-name { color: #161a24; }
+    .light-band .gbp-card { background: #fff; border-color: #e2ddff; color: #161a24; }
+    .light-band .gbp-label { color: #535b6e; }
+
+    .also-row { display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: space-between; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 28px; }
+    .also-row p { margin: 0; color: var(--text-dim); max-width: 680px; }
+    .also-row strong { color: var(--text); }
+    #client-work .project-grid { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 720px) { #client-work .project-grid { grid-template-columns: 1fr; } }
+    .industries { text-align: center; color: var(--text-dim); margin: 28px 0 0; font-size: 15px; }
+  </style>
+
   <main id="main">
-    <section class="hero">
-      <div class="hero-bg" aria-hidden="true">
-        <picture>
-          <source srcset="/telaloom-hero.webp" type="image/webp" />
-          <img src="/telaloom-hero.jpg" alt="" loading="eager" decoding="async" />
-        </picture>
-      </div>
+    <section class="hero hero-split">
       <div class="container">
-        <span class="eyebrow">Website Builds &middot; SEO &amp; GEO &middot; Automation Software</span>
-        <h1>We build websites, rank them, and automate the rest.</h1>
-        <p class="lead">
-          For businesses that need a site built, need to actually show up in Google and AI answer engines, or have a
-          manual process that should be software instead &mdash; not in a slide deck. Shuttersmith&rsquo;s SEO/GEO work
-          is already sending them real Google traffic, <Stat k="shuttersmith.visits" /> visits and counting, and led to a second business built off
-          the results. Local SEO and generative-engine optimisation get shipped straight into your code, not handed
-          over as a PDF. First working site or demo in 1&ndash;2&nbsp;weeks &mdash; and if you&rsquo;ve also got a
-          manual workflow to automate, we&rsquo;ve built {counts.total} production AI products ourselves, so that work
-          runs on proven infrastructure from day one too.
-        </p>
-        <div class="cta-row">
-          <a class="btn btn-primary" href="/contact.html" data-umami-event="cta_click" data-umami-event-target="start_a_project" data-umami-event-source="index_hero">Start a project &rarr;</a>
-          <a class="btn btn-ghost" href="/site-check.html" data-umami-event="cta_click" data-umami-event-target="free_audit" data-umami-event-source="index_hero">Get a free SEO/GEO audit</a>
-          <a class="btn btn-ghost" href="#client-work" data-umami-event="cta_click" data-umami-event-target="see_client_work" data-umami-event-source="index_hero">See client work</a>
+        <div>
+          <span class="eyebrow">Websites &middot; Local SEO &amp; GEO</span>
+          <h1>Websites that get local businesses found.</h1>
+          <p class="lead">On Google, on the map, and when customers ask ChatGPT who to call. Built around your business, set up in your name, with a first draft to click through in 1&ndash;2 weeks.</p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="/contact.html" data-umami-event="cta_click" data-umami-event-target="get_a_quote" data-umami-event-source="index_hero">Get a quote &rarr;</a>
+            <a class="btn btn-ghost" href="/site-check.html" data-umami-event="cta_click" data-umami-event-target="free_audit" data-umami-event-source="index_hero">Free website check</a>
+          </div>
+          <p class="hero-price">Published prices from <Price item="landingPage" symbol />. No lock-in.</p>
         </div>
-        <div class="trust-badges">
-          <span class="trust-badge">&#10003; No retainer</span>
-          <span class="trust-badge">&#10003; Demo in 2 weeks</span>
-          <span class="trust-badge">&#10003; Scoped in 48 hours</span>
-        </div>
+        <figure style="margin:0;">
+          <div class="browser">
+            <div class="browser-bar" aria-hidden="true"><span></span><span></span><span></span></div>
+            <picture>
+              <source srcset="/screenshots/clients/shuttersmith-rebuild-home.webp" type="image/webp" />
+              <img src="/screenshots/clients/shuttersmith-rebuild-home.png" width="1280" height="800" alt="Shuttersmith website rebuild homepage: Custom Blinds Gold Coast, with quote and call buttons" loading="eager" decoding="async" fetchpriority="high" />
+            </picture>
+          </div>
+          <figcaption class="browser-cap">Our rebuild for Shuttersmith, Gold Coast shutters &amp; blinds (in preview)</figcaption>
+        </figure>
       </div>
     </section>
+
+    <div class="proof-band">
+      <div class="container">
+        <div class="proof-grid">
+          <div><div class="proof-num"><Stat k="shuttersmith.visits" /></div><div class="proof-label">visits to Shuttersmith since we fixed its site in July</div></div>
+          <div><div class="proof-num">100</div><div class="proof-label">Lighthouse SEO score on the Shuttersmith rebuild</div></div>
+          <div><div class="proof-num">5.0&#9733;</div><div class="proof-label">rating on Google</div></div>
+          <div><div class="proof-num">1&ndash;2 wks</div><div class="proof-label">to a first draft you can click through</div></div>
+        </div>
+      </div>
+    </div>
+
+    <ClientShowcase source="index_showcase" />
 
     <section id="client-work">
       <div class="container">
         <div class="section-head">
           <h2>Client work</h2>
-          <p>Not our product &mdash; their business. Paying engagements where we&rsquo;re the outside build or SEO/GEO team.</p>
+          <p>Real businesses, with the before and after on each project page.</p>
         </div>
         <div class="project-grid">
           <a class="project-card" href="/projects/edwards-kirby-lawyers.html">
             <span class="tag">Client · Legal</span>
             <h3>Sydney Insolvency Law Firm</h3>
-            <p>Full website rebuild for a Sydney insolvency and business law firm, plus a secure client portal &mdash; JWT + MFA, encrypted document storage, SEO/GEO built in from day one.</p>
+            <p>Full website rebuild for a Sydney insolvency and business law firm, plus a secure client portal with MFA and encrypted document storage, and SEO/GEO built in from day one.</p>
             <span class="outcome-line">About to go live</span>
             <span class="arrow">Read the story →</span>
           </a>
           <a class="project-card" href="/projects/shuttersmith.html">
             <span class="tag">Client · SEO/GEO</span>
             <h3>Shuttersmith</h3>
-            <p>The first client on our productised SEO + GEO service &mdash; technical audit, structured data, and generative-engine optimisation so the business is found by Google and by AI assistants.</p>
+            <p>A Gold Coast shutters business with no analytics, no schema and AI crawlers blocked at the host. We fixed all of it on the existing site first.</p>
             <span class="outcome-line"><Stat k="shuttersmith.visits" /> real visits, majority via Google &middot; led to a second business</span>
             <span class="arrow">Read the story →</span>
           </a>
           <a class="project-card" href="/projects/shuttersmith-rebuild.html">
             <span class="tag">Client · Website build</span>
             <h3>Shuttersmith Rebuild</h3>
-            <p>A full rebuild off WordPress and Elementor onto a static Astro build in a hardened Docker container &mdash; real migrated content, a first-party contact service, Lighthouse-verified performance and accessibility.</p>
-            <span class="outcome-line">Perf 92-98 &middot; Accessibility/Best Practices/SEO 100 &middot; built, awaiting sign-off</span>
+            <p>Off WordPress and Elementor onto a fast static build, with 7 pages, 10 blog posts and 10 suburb pages carried over.</p>
+            <span class="outcome-line">Perf 92&ndash;98 &middot; Accessibility/Best Practices/SEO 100 &middot; awaiting sign-off</span>
             <span class="arrow">Read the story →</span>
           </a>
           <a class="project-card" href="/projects/new-shutter-business.html">
             <span class="tag">Client · Home improvement</span>
             <h3>New Shutter Business</h3>
-            <p>A second business, launched off the back of Shuttersmith&rsquo;s SEO/GEO results &mdash; trade-price plantation shutters with a self-install option and a full measure-and-quote build.</p>
+            <p>A second business the same owner launched off Shuttersmith&rsquo;s results: trade-price shutters with a self-install option and a measure-and-quote calculator.</p>
             <span class="outcome-line">In staging, launching soon</span>
             <span class="arrow">Read the story →</span>
           </a>
         </div>
+        <p class="industries">Built for your industry before? See <a href="/industries/law-firms.html">law firm websites</a> and <a href="/industries/shutters-blinds.html">shutter &amp; blind websites</a>.</p>
       </div>
     </section>
 
@@ -138,77 +200,84 @@ const jsonLd = [
           <div class="for-you-card">
             <span class="for-you-check">&#10003;</span>
             <div>
-              <strong>You run a local or service business</strong>
-              <p>You don&rsquo;t have a real website yet, or the one you have doesn&rsquo;t show up when people Google what you do in your area.</p>
+              <strong>You don&rsquo;t have a proper website yet</strong>
+              <p>A new business, a new service, or a site someone threw together years ago. You need something that looks right and brings in enquiries.</p>
             </div>
           </div>
           <div class="for-you-card">
             <span class="for-you-check">&#10003;</span>
             <div>
               <strong>Your site isn&rsquo;t being found</strong>
-              <p>It looks fine, but Google and AI assistants like ChatGPT aren&rsquo;t sending you customers &mdash; and you want the fix shipped into the site, not handed over as a PDF.</p>
+              <p>It looks fine, but Google and AI assistants like ChatGPT aren&rsquo;t sending you customers, and you want the fix done in the site, not handed over as a PDF.</p>
             </div>
           </div>
           <div class="for-you-card">
             <span class="for-you-check">&#10003;</span>
             <div>
-              <strong>You have work that should be software</strong>
-              <p>A workflow that still runs on people, spreadsheets, or copy-paste &mdash; and you want it automated without a six-month engineering project.</p>
+              <strong>You need more than pages</strong>
+              <p>Quotes, bookings, payments or a secure client portal, built alongside the website and quoted in writing before we start.</p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <div class="trust">
+    <section id="prices">
       <div class="container">
-        <div class="trust-grid">
-          <div>
-            <div class="stat-num">{counts.total}</div>
-            <div class="stat-label">Live products</div>
+        <div class="section-head">
+          <h2>Published prices</h2>
+          <p>One-off and fixed: the price on the page is the price you pay.</p>
+        </div>
+        <div class="tier-grid">
+          <div class="tier">
+            <span class="tier-name">Landing page</span>
+            <div class="tier-price"><Price item="landingPage" /> <small>one-off</small></div>
+            <p>One page that turns visitors into enquiries, copy written for you, set up to be found locally. Credited in full if you move up within 6 months.</p>
+            <a href="/services/website-builds.html#packages" data-umami-event="cta_click" data-umami-event-target="see_packages" data-umami-event-source="index_tier_landing">What&rsquo;s included &rarr;</a>
           </div>
-          <div>
-            <div class="stat-num">1&ndash;2 wks</div>
-            <div class="stat-label">First demo delivered</div>
+          <div class="tier">
+            <span class="tier-name">Starter site</span>
+            <div class="tier-price"><Price item="starterSite" /> <small>one-off</small></div>
+            <p>Up to 5 pages on proven layouts, styled to your brand, with copy, Google Business Profile setup and AI search bots let in.</p>
+            <a href="/services/website-builds.html#packages" data-umami-event="cta_click" data-umami-event-target="see_packages" data-umami-event-source="index_tier_starter">What&rsquo;s included &rarr;</a>
           </div>
-          <div>
-            <div class="stat-num">5</div>
-            <div class="stat-label">Verticals served</div>
-          </div>
-          <div>
-            <div class="stat-num">100%</div>
-            <div class="stat-label">Built &amp; operated in-house</div>
+          <div class="tier featured">
+            <span class="tier-name">Custom build</span>
+            <div class="tier-price"><Price item="customBuild" /> <small>one-off</small></div>
+            <p>Designed from scratch around your business, with suburb and service pages and the full Local SEO &amp; GEO setup included.</p>
+            <a href="/services/website-builds.html#packages" data-umami-event="cta_click" data-umami-event-target="see_packages" data-umami-event-source="index_tier_custom">What&rsquo;s included &rarr;</a>
           </div>
         </div>
+        <p class="tier-foot">Already have a site? The <a href="/site-check.html">free website check</a> shows what&rsquo;s worth fixing, and the <a href="/services/local-seo.html">Local SEO &amp; GEO Setup</a> is <Price item="setupSingleTemplate" symbol />. Afterwards, the <a href="/services/website-builds.html#packages">Care plan</a> keeps it updated for <Price item="carePlan" symbol suffix="/mo" />.</p>
       </div>
-    </div>
+    </section>
 
     <section id="why">
       <div class="container">
         <div class="section-head">
           <h2>Why TelaLoom</h2>
-          <p>Most agencies spend eight weeks writing a proposal. We spend it building.</p>
+          <p>Most agencies spend weeks on a proposal. We spend them building.</p>
         </div>
         <div class="service-grid service-grid-2col">
           <div class="service-card">
             <div class="icon">01</div>
             <h3>Real client sites, not a pitch deck</h3>
-            <p>Every website and SEO/GEO engagement gets its own project page &mdash; the real before/after, the actual traffic numbers, what broke along the way. Shuttersmith&rsquo;s story is public: <Stat k="shuttersmith.visits" /> real visits and a second business launched off the results.</p>
+            <p>Every website and SEO/GEO engagement gets its own project page with the real before and after, the actual traffic numbers, and what broke along the way.</p>
           </div>
           <div class="service-card">
             <div class="icon">02</div>
-            <h3>Live in days, not months</h3>
-            <p>A custom build with Local SEO &amp; GEO switched on ships as a working site in the first sprint, not a Figma file. No eight-week discovery phase before anything&rsquo;s live.</p>
+            <h3>A working draft in 1&ndash;2 weeks</h3>
+            <p>Real pages with real copy on a private preview link you can open on your phone. Not a design file, and no long discovery phase before anything exists.</p>
           </div>
           <div class="service-card">
             <div class="icon">03</div>
-            <h3>SEO &amp; GEO built in, not bolted on</h3>
-            <p>LocalBusiness schema, llms.txt and AI-crawler access, and Google Business Profile setup ship with every custom build &mdash; not sold to you later as a separate line item once you&rsquo;re already live and still not found.</p>
+            <h3>Found on Google and in AI answers</h3>
+            <p>Google Business Profile, local schema, the site submitted to Google and Bing, and AI search bots let in, done as part of the build rather than sold to you afterwards.</p>
           </div>
           <div class="service-card">
             <div class="icon">04</div>
-            <h3>Automation, when it earns its keep</h3>
-            <p>If you&rsquo;ve also got a manual workflow that should be software, we build that too &mdash; same team, same infrastructure we run for our own {counts.total} products. AI that doesn&rsquo;t reduce headcount, cut support tickets, or generate revenue isn&rsquo;t AI, it&rsquo;s a line item.</p>
+            <h3>Yours, with no lock-in</h3>
+            <p>Hosting and domain in your name, published prices, and a Care plan you can cancel any month. <a href="/services/website-builds.html#questions-to-ask">Questions to ask any web designer</a>, with our answers.</p>
           </div>
         </div>
       </div>
@@ -217,216 +286,33 @@ const jsonLd = [
     <section class="how-it-works">
       <div class="container">
         <div class="section-head">
-          <h2>How an engagement works</h2>
-          <p>Hard deadlines at every stage. No discovery phase that lasts longer than the build.</p>
+          <h2>How a build works</h2>
+          <p>From first message to a site you can click through, in about two weeks.</p>
         </div>
         <div class="flow-grid">
           <div class="flow-step">
             <div class="flow-num">Day 1</div>
-            <h3>Brief received</h3>
-            <p>Fill in the contact form. We reply with our read on the project and any clarifying questions &mdash; same business day.</p>
+            <h3>Tell us about the business</h3>
+            <p>Your business name and Google listing are enough. We reply within one business day with an honest read, including whether a fix would do instead.</p>
           </div>
           <div class="flow-step">
             <div class="flow-num">Week 1</div>
-            <h3>Scope and price fixed</h3>
-            <p>For websites and SEO, the <a href="/site-check.html">free website check</a> shows what&rsquo;s needed and we quote from the published prices. For AI work, a one-week Discovery sprint (<Price item="aiDiscovery" symbol />, credited in full against the build) maps the workflow, tests it on your real data, and ends with a fixed price and a hard end date.</p>
+            <h3>Scope and price, in writing</h3>
+            <p>The published price for the build you need. Anything extra, like bookings or a portal, is estimated and approved by you before we start.</p>
           </div>
           <div class="flow-step">
-            <div class="flow-num">Week 2</div>
-            <h3>First demo live</h3>
-            <p>A working slice of your product, deployed somewhere you can use it. Not a mockup, not a Figma &mdash; running software.</p>
+            <div class="flow-num">Weeks 1&ndash;2</div>
+            <h3>First draft on a preview link</h3>
+            <p>You review it, we make the changes, and it goes live on your own hosting when you sign it off.</p>
           </div>
         </div>
-        <p class="center mt-36"><a class="btn btn-primary" href="/contact.html" data-umami-event="cta_click" data-umami-event-target="start_a_project" data-umami-event-source="index_process">Start a project &rarr;</a></p>
+        <p class="center mt-36"><a class="btn btn-primary" href="/contact.html" data-umami-event="cta_click" data-umami-event-target="get_a_quote" data-umami-event-source="index_process">Get a quote &rarr;</a></p>
       </div>
     </section>
 
-    <section id="featured-work">
+    <section class="testimonials-section light-band">
       <div class="container">
-        <div class="section-head">
-          <h2>A few of the {counts.total}</h2>
-          <p>The same engineering that ships your website, SEO/GEO fixes, or automation build &mdash; running as {counts.total} live products of our own, from years of daily use to fresh launches. <a href="/work.html">See the full portfolio &rarr;</a></p>
-        </div>
-
-        <div class="project-grid">
-          <a class="project-card" href="/projects/brightpath.html">
-            <span class="tag">AI · Education</span>
-            <h3>BrightPath</h3>
-            <p>Personalised K-12 online school with an AI tutor named Pax, gamified rewards, and progress tracking that actually nudges kids.</p>
-            <span class="outcome-line">AI tutor in production &middot; K&ndash;12 students on-platform daily</span>
-            <span class="arrow">Read the story →</span>
-          </a>
-          <a class="project-card" href="/projects/ghost-writer.html">
-            <span class="tag">AI · Content</span>
-            <h3>Ghost Writer</h3>
-            <p>End-to-end content engine: detects trending topics, writes 1,500-word articles, runs 6-layer quality checks, and auto-publishes to LinkedIn and Medium.</p>
-            <span class="outcome-line">3 articles/week published &middot; No human writer in the loop</span>
-            <span class="arrow">Read the story →</span>
-          </a>
-          <a class="project-card" href="/projects/postreel.html">
-            <span class="tag">AI · Social media</span>
-            <h3>Post Reel</h3>
-            <p>Social media scheduler with an AI video studio built in. Give it a URL, it crawls the site, writes a script, synthesises a voiceover, and produces a finished short-form video — scheduled across 12 platforms automatically.</p>
-            <span class="arrow">Read the story →</span>
-          </a>
-        </div>
-
-        <p class="center mt-32"><a class="btn btn-ghost" href="/work.html" data-umami-event="cta_click" data-umami-event-target="see_all_products" data-umami-event-source="index_featured_work">See all {counts.live} live products &amp; the full portfolio &rarr;</a></p>
-      </div>
-    </section>
-
-    <section id="services">
-      <div class="container">
-        <div class="section-head">
-          <h2>Services</h2>
-          <p>Websites that get found, and software that replaces manual work. Six things, done well. Every AI engagement starts with a one-week Discovery sprint at <Price item="aiDiscovery" symbol />, credited against the build.</p>
-        </div>
-
-        <div class="service-grid service-grid-2col">
-          <div class="service-card">
-            <div class="icon">01</div>
-            <h3><a href="/services/website-builds.html" class="link-inherit">Website builds</a></h3>
-            <p>A custom-built site, designed and written around your business, with Local SEO &amp; GEO switched on from day one &mdash; <Price item="customBuild" symbol />. No lock-in.</p>
-          </div>
-          <div class="service-card">
-            <div class="icon">02</div>
-            <h3><a href="/services/local-seo.html" class="link-inherit">Local SEO &amp; GEO</a></h3>
-            <p>Get found on Google Maps, in local search, and when people ask ChatGPT who to call. Google Business Profile management, review generation, local schema, and location pages for one business. Setup from <Price item="setupSingleTemplate" symbol />, then <Price item="monitor" to="scale" suffix="/mo" symbol />. No lock-in.</p>
-          </div>
-          <div class="service-card">
-            <div class="icon">03</div>
-            <h3><a href="/services/seo-geo-optimization.html" class="link-inherit">SEO &amp; GEO optimization</a></h3>
-            <p>Get found by Google and by AI answer engines. We audit and fix meta tags, schema markup, llms.txt, and AI-crawler access — shipped directly to your codebase, not a PDF. Free audit, Setup <Price item="setupSingleTemplate" symbol /> — not the $5k&ndash;$15k-plus retainer agencies typically quote for the same audit-and-fix scope.</p>
-          </div>
-          <div class="service-card">
-            <div class="icon">04</div>
-            <h3><a href="/services/ai-product-builds.html" class="link-inherit">AI product builds</a></h3>
-            <p>Full-stack delivery. We take an idea — yours or ours — and ship a paying product. Backend, frontend, mobile, billing, observability, and the LLM glue that makes it real. From <Price item="aiProductBuildFrom" symbol />.</p>
-          </div>
-          <div class="service-card">
-            <div class="icon">05</div>
-            <h3><a href="/services/ai-automation-retrofit.html" class="link-inherit">Automation retrofits</a></h3>
-            <p>Already have a SaaS or internal tool? We bolt in AI where it earns its keep — email triage, support deflection, content generation, structured extraction — without rewriting the world. From <Price item="aiRetrofitFrom" symbol />.</p>
-          </div>
-          <div class="service-card">
-            <div class="icon">06</div>
-            <h3><a href="/services/ai-infrastructure.html" class="link-inherit">AI infrastructure</a></h3>
-            <p>LLM gateways, prompt versioning, evals, queue workers, billing plumbing, observability. The unsexy layer that decides whether your AI feature stays up at 3am. From <Price item="aiInfrastructureFrom" symbol />.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="how-we-work">
-      <div class="container">
-        <div class="section-head">
-          <h2>How we work</h2>
-          <p>No retainers, no long SoWs to sign. Three steps from brief to paying customers.</p>
-        </div>
-        <div class="service-grid">
-          <div class="service-card">
-            <div class="icon">01</div>
-            <h3>Brief &rarr; scope in 48 hours</h3>
-            <p>Tell us the workflow or product in two paragraphs. We come back with a realistic scope: what ships in sprint one, what the stack looks like, and what it costs. No proposal theatre.</p>
-          </div>
-          <div class="service-card">
-            <div class="icon">02</div>
-            <h3>Sprint one &rarr; demo in 1&ndash;2 weeks</h3>
-            <p>We don&rsquo;t start with architecture reviews. We ship the smallest thing that proves the idea works, put it in front of a real user, and let you decide whether to continue. One working feature. Deployed. Clickable.</p>
-          </div>
-          <div class="service-card">
-            <div class="icon">03</div>
-            <h3>Iterate to a product &rarr; weeks 3&ndash;8</h3>
-            <p>Each sprint adds one feature that earns its keep. Daily written updates. Weekly live demo. You own the roadmap; we own the execution. By week eight, you have paying customers or we&rsquo;ve told you why.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="faq">
-      <div class="container">
-        <div class="section-head">
-          <h2>Frequently asked questions</h2>
-          <p>Short answers to what people ask before booking a call.</p>
-        </div>
-
-        <div class="faq-list">
-          <details class="faq-item" open>
-            <summary>What is TelaLoom?</summary>
-            <p>TelaLoom builds websites, ranks them with SEO &amp; GEO, and builds custom automation software that replaces manual work in your business. We also design, build, and operate production AI software across our own portfolio — {counts.total} main products covering AI content, education, missed-call capture, social video scheduling, CV screening, email archiving, and AI agent deployment. Each project page shows the real stack and build story.</p>
-          </details>
-
-          <details class="faq-item">
-            <summary>What kind of projects do you take on?</summary>
-            <p>Three kinds: website builds (custom sites with Local SEO & GEO built in), SEO & GEO work on existing sites, and custom automation software — LLM-powered features (Claude, Gemini, OpenRouter), agentic workflows, content pipelines, and structured-extraction systems, plus the infrastructure that keeps them up.</p>
-          </details>
-
-          <details class="faq-item">
-            <summary>What stack do you build on?</summary>
-            <p>Python (FastAPI, Django) and Node.js (Fastify, Express) on the backend; Next.js, React, and React Native on the front; PostgreSQL and Redis for state; n8n for orchestration; Stripe for billing; LiteLLM for routing across model providers; Docker everywhere.</p>
-          </details>
-
-          <details class="faq-item">
-            <summary>Do you only build with Claude?</summary>
-            <p>No. We default to Anthropic Claude because it punches above its weight on long-context and structured tasks, but we route through OpenRouter and LiteLLM so projects can pick Gemini, OpenAI, or open-weights when the economics or latency demand it.</p>
-          </details>
-
-          <details class="faq-item">
-            <summary>How fast can you ship?</summary>
-            <p>First demo in 1–2 weeks for most builds. A first paying customer in 4–8 weeks. We move fast because we&rsquo;ve already built the boring parts (billing, auth, LLM routing, observability) and reuse them across every project.</p>
-          </details>
-
-          <details class="faq-item">
-            <summary>Where are you based?</summary>
-            <p>Australia. We work async with clients globally and are happy to operate in your timezone.</p>
-          </details>
-
-          <details class="faq-item">
-            <summary>How do I start?</summary>
-            <p>Email <a href="/contact.html">us via the contact page</a> with two paragraphs: what you want built and why it matters. We&rsquo;ll reply within one business day with a scoped first sprint.</p>
-          </details>
-        </div>
-
-        <div class="cta-banner">
-          <h2>Need a site built, found in search, or a manual process turned into software?</h2>
-          <p>We pick a small number of client engagements each quarter &mdash; website builds, SEO &amp; GEO, and automation all included. If you&rsquo;ve got something concrete, let&rsquo;s talk.</p>
-          <a class="btn btn-primary" href="/contact.html" data-umami-event="cta_click" data-umami-event-target="start_a_project" data-umami-event-source="index_bottom_banner">Start a project →</a>
-        </div>
-      </div>
-    </section>
-    <section class="blog-preview">
-      <div class="container">
-        <div class="section-head">
-          <h2>From the blog</h2>
-          <p>How we think about building AI in production.</p>
-        </div>
-        <div class="blog-preview-grid">
-          <a class="blog-preview-card" href="/blog/how-long-to-build-production-ai-agent.html">
-            <span class="post-tag">Process</span>
-            <h3>How long does it take to build a production AI agent?</h3>
-            <p>The demo takes a week. The gap to reliable production is evaluation pipelines, fallback handling, and edge cases — here&rsquo;s the honest timeline.</p>
-            <span class="read-link">Read &rarr;</span>
-          </a>
-          <a class="blog-preview-card" href="/blog/rules-still-win-when-not-to-use-llm.html">
-            <span class="post-tag">Engineering</span>
-            <h3>Rules Still Win: When Not to Use an LLM</h3>
-            <p>LLMs aren&rsquo;t a silver bullet. Our decision tree for when deterministic rules outperform AI models &mdash; and when to use both.</p>
-            <span class="read-link">Read &rarr;</span>
-          </a>
-          <a class="blog-preview-card" href="/blog/token-cost-optimization-savings.html">
-            <span class="post-tag">Cost</span>
-            <h3>Token Cost Optimization: Where the Savings Actually Are</h3>
-            <p>The highest-ROI strategies for reducing LLM costs in production: prompt caching, model routing, context trimming, and output constraints.</p>
-            <span class="read-link">Read &rarr;</span>
-          </a>
-        </div>
-        <p class="center mt-32"><a href="/blog.html" class="link-dim-sm">View all posts &rarr;</a></p>
-      </div>
-    </section>
-
-    <section class="testimonials-section">
-      <div class="container">
-        <h2 class="testimonials-title">What users say</h2>
+        <h2 class="testimonials-title">What clients say</h2>
         <div class="testimonials-narrow testimonials-narrow--spaced">
           <a href="https://www.google.com/maps/place/?q=place_id:ChIJ2VLpW3U4aoQRz6YI6UQ2hr4" target="_blank" rel="noopener" class="gbp-card">
             <img src="/gbp-logo.png" width="40" height="40" alt="" loading="lazy" class="gbp-logo" />
@@ -444,20 +330,99 @@ const jsonLd = [
             <blockquote class="testimonial-quote">&ldquo;We engaged Andrew to have a look at our website,he explained what he needed to do and fixed everything and we our now getting lots more jobs through from.the internet traffic He also built a new website for a new branch of the business The work is fantastic and he absolutely nalied it Its about time we spent some money and got the return you hope for After several companies I have found the one I will be sticking with&rdquo;</blockquote>
             <figcaption class="testimonial-caption">
               <span class="testimonial-stars">★★★★★</span>&nbsp;
-              <strong class="testimonial-name">Craig Smith</strong> &middot; Local Guide &middot; <a href="https://www.google.com/maps/place/?q=place_id:ChIJ2VLpW3U4aoQRz6YI6UQ2hr4" target="_blank" rel="noopener" class="link-dim">Google review</a>
-            </figcaption>
-          </figure>
-          <figure class="testimonial-card">
-            <blockquote class="testimonial-quote">&ldquo;SATs week and we have been using BrightPath for about 2 weeks now. Ethan just learnt long division, in the space of a day and actually enjoyed the lessons. He asked me why didn&rsquo;t school teach me this way &mdash; the step-by-step guides at the start help so much. Thanks for the help BrightPath team, keep up the good work.&rdquo;</blockquote>
-            <figcaption class="testimonial-caption">
-              <span class="testimonial-stars">★★★★★</span>&nbsp;
-              <strong class="testimonial-name">Neil C</strong> &middot; Parent of an 11-year-old &middot; 2-week follow-up &middot; <a href="https://brightpath.school" target="_blank" rel="noopener" class="link-dim">BrightPath</a>
+              <strong class="testimonial-name">Craig Smith</strong> &middot; Local Guide &middot; <a href="https://www.google.com/maps/place/?q=place_id:ChIJ2VLpW3U4aoQRz6YI6UQ2hr4" target="_blank" rel="noopener" class="link-dim">Google review</a> &middot; <a href="/projects/new-shutter-business.html" class="link-dim">read the case study</a>
             </figcaption>
           </figure>
         </div>
       </div>
     </section>
 
+    <section id="software">
+      <div class="container">
+        <div class="also-row">
+          <p><strong>Need software, not just a website?</strong> We also build client portals, bookings and payments, AI features and automation, on the same stack we run for our own products.</p>
+          <a class="btn btn-ghost" href="/services/software-ai.html" data-umami-event="cta_click" data-umami-event-target="software_ai" data-umami-event-source="index_also_row">Software &amp; AI &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container">
+        <div class="section-head">
+          <h2>Frequently asked questions</h2>
+          <p>Short answers to what people ask before getting a quote.</p>
+        </div>
+        <div class="faq-list">
+          <details class="faq-item" open>
+            <summary>What is TelaLoom?</summary>
+            <p>An Australian web studio. We build websites for local and small businesses, get them found on Google and in AI assistants with Local SEO &amp; GEO, and look after them afterwards on the Care plan. We also build <a href="/services/software-ai.html">custom software and AI</a> for clients who need it.</p>
+          </details>
+          <details class="faq-item">
+            <summary>How much does a website cost?</summary>
+            <p>Three fixed prices, all one-off: a landing page is <Price item="landingPage" symbol />, a Starter site of up to 5 pages is <Price item="starterSite" symbol />, and a custom build is <Price item="customBuild" symbol /> with Local SEO &amp; GEO setup included. Logins, bookings and payments are quoted in writing first. <a href="/pricing.html">All prices</a>.</p>
+          </details>
+          <details class="faq-item">
+            <summary>How long does a website take?</summary>
+            <p>A first draft is live on a private preview link in weeks 1&ndash;2, with real pages and real copy, not a mockup. It goes live when you sign it off.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Do I own the website?</summary>
+            <p>Yes. It&rsquo;s set up on hosting in your name and you pay the host directly, the domain is registered in your own account, and once the build is paid you own the design and content made for you. No lock-in.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Can you fix the website I already have?</summary>
+            <p>Often that&rsquo;s all you need. Run the <a href="/site-check.html">free website check</a> first. Small fixes are <Price item="fixDay" symbol /> a day, and the SEO &amp; GEO Setup at <Price item="setupSingleTemplate" symbol /> fixes the lot on your current site.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Do you build custom software or AI as well?</summary>
+            <p>Yes: client portals, bookings and payments alongside a website, and AI product builds, automation and infrastructure for businesses that need them. See <a href="/services/software-ai.html">Software &amp; AI</a>.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Where are you based?</summary>
+            <p>Australia. We work with clients in Australia and overseas, and invoice Australian clients in AUD and international clients in USD.</p>
+          </details>
+          <details class="faq-item">
+            <summary>How do I start?</summary>
+            <p>Send your business name and website (if you have one) through the <a href="/contact.html">contact page</a>, or run the <a href="/site-check.html">free website check</a>. We reply within one business day with what we&rsquo;d do and what it costs.</p>
+          </details>
+        </div>
+        <div class="cta-banner">
+          <h2>Want more customers finding you online?</h2>
+          <p>Send us your business name and website, or your Google listing if you don&rsquo;t have a site yet. We&rsquo;ll tell you which build makes sense, and what it costs, before you pay for anything.</p>
+          <a class="btn btn-primary" href="/contact.html" data-umami-event="cta_click" data-umami-event-target="get_a_quote" data-umami-event-source="index_bottom_banner">Get a quote &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="blog-preview">
+      <div class="container">
+        <div class="section-head">
+          <h2>From the blog</h2>
+          <p>Plain-English guides to websites, local search and AI search.</p>
+        </div>
+        <div class="blog-preview-grid">
+          <a class="blog-preview-card" href="/blog/website-design-cost-australia-vs-offshore.html">
+            <span class="post-tag">Business</span>
+            <h3>What a Website Actually Costs in Australia</h3>
+            <p>Why cheap offshore work isn&rsquo;t cheaper once you count the edits you can&rsquo;t make and the traffic you never get.</p>
+            <span class="read-link">Read &rarr;</span>
+          </a>
+          <a class="blog-preview-card" href="/blog/local-seo-vs-seo-vs-geo-difference.html">
+            <span class="post-tag">SEO &amp; GEO</span>
+            <h3>Local SEO vs. SEO vs. GEO: What&rsquo;s Actually Different</h3>
+            <p>What each one optimises for, and why the fix for one doesn&rsquo;t fix the others.</p>
+            <span class="read-link">Read &rarr;</span>
+          </a>
+          <a class="blog-preview-card" href="/blog/web-design-pricing-compared-to-agencies.html">
+            <span class="post-tag">Business</span>
+            <h3>How Our Web Design Pricing Compares to Other Agencies</h3>
+            <p>Where a website with SEO and GEO included sits against freelancers and agencies that quote them separately.</p>
+            <span class="read-link">Read &rarr;</span>
+          </a>
+        </div>
+        <p class="center mt-32"><a href="/blog.html" class="link-dim-sm">View all posts &rarr;</a></p>
+      </div>
+    </section>
   </main>
   <script is:inline defer src="/js/shuttersmith-stats.js"></script>
 </BaseLayout>
