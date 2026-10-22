@@ -14,14 +14,14 @@ const jsonLd = [
     '@type': 'WebPage',
     name: 'TelaLoom pricing',
     url: 'https://telaloom.com/pricing.html',
-    description: `Published prices for website builds and SEO & GEO work: fix days ${n(pricing.fixDay)} AUD, Setup ${n(pricing.setupSingleTemplate)} AUD, custom website build ${n(pricing.customBuild)} AUD, optional monthly plans from ${n(pricing.monitor)} AUD.`,
+    description: `Published prices for website builds and SEO & GEO work: fix days ${n(pricing.fixDay)} AUD, Setup ${n(pricing.setupSingleTemplate)} AUD, website builds from ${n(pricing.landingPage)} AUD (landing page), ${n(pricing.starterSite)} AUD (Starter, up to 5 pages) and ${n(pricing.customBuild)} AUD (custom), optional monthly plans from ${n(pricing.monitor)} AUD.`,
     isPartOf: { '@type': 'WebSite', name: 'TelaLoom', url: 'https://telaloom.com' },
   },
   {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: [
-      { '@type': 'Question', name: 'How much does a website cost?', acceptedAnswer: { '@type': 'Answer', text: `A custom build is ${n(pricing.customBuild)} AUD, one-off. That covers design and copywriting, setup on hosting in your name (you pay the host directly), SSL, your domain (first year included) and Local SEO & GEO setup. Customer logins, bookings or payments are extra, estimated in days up front and priced from ${n(pricing.fixDay)} AUD per day.` } },
+      { '@type': 'Question', name: 'How much does a website cost?', acceptedAnswer: { '@type': 'Answer', text: `Three fixed prices, all one-off: a landing page is ${n(pricing.landingPage)} AUD, a Starter site of up to 5 pages is ${n(pricing.starterSite)} AUD, and a custom build is ${n(pricing.customBuild)} AUD. The custom build covers design and copywriting, setup on hosting in your name (you pay the host directly), SSL, your domain (first year included) and Local SEO & GEO setup. Customer logins, bookings or payments are extra, estimated in days up front and priced from ${n(pricing.fixDay)} AUD per day.` } },
       { '@type': 'Question', name: 'Is there a lock-in contract?', acceptedAnswer: { '@type': 'Answer', text: 'No. The one-off prices are one-off, and the monthly plans are month-to-month. Cancel anytime. You own the domain and the site.' } },
       { '@type': 'Question', name: 'What if my job is smaller than a Setup?', acceptedAnswer: { '@type': 'Answer', text: `Book fix days at ${n(pricing.fixDay)} AUD a day. We estimate the days up front and you approve before we start. Once a job passes about three days, Setup at ${n(pricing.setupSingleTemplate)} AUD is the better value.` } },
       { '@type': 'Question', name: 'Do I need a monthly plan?', acceptedAnswer: { '@type': 'Answer', text: "Often not. Setup is a one-time audit-and-fix, and the monthly plans are optional. If there's nothing useful to do in a given month, we tell you." } },
@@ -34,7 +34,7 @@ const jsonLd = [
 <BaseLayout
   currencySwitch
   title="Pricing — Website Builds, SEO & GEO | TelaLoom"
-  description={`Published prices, no lock-in. Fix days ${n(pricing.fixDay)} AUD, SEO & GEO Setup ${n(pricing.setupSingleTemplate)} AUD, custom website build ${n(pricing.customBuild)} AUD, optional monthly plans from ${n(pricing.monitor)} AUD. Free website check first.`}
+  description={`Published prices, no lock-in. Fix days ${n(pricing.fixDay)} AUD, SEO & GEO Setup ${n(pricing.setupSingleTemplate)} AUD, websites from ${n(pricing.landingPage)} AUD, custom build ${n(pricing.customBuild)} AUD, optional monthly plans from ${n(pricing.monitor)} AUD. Free website check first.`}
   canonicalPath="/pricing.html"
   jsonLd={jsonLd}
 >
@@ -89,8 +89,8 @@ const jsonLd = [
 
             <div class="price-card">
               <span class="tier">Website build</span>
-              <div class="price"><Price item="customBuild" /> <small>one-off</small></div>
-              <p class="note">A custom site, designed and written around your business. Setup on hosting in your name, SSL, your domain (first year included) and Local SEO &amp; GEO setup are in the price, not sold to you afterwards. You pay the host directly.</p>
+              <div class="price">from <Price item="landingPage" /> <small>one-off</small></div>
+              <p class="note">Landing page <Price item="landingPage" />, Starter site (up to 5 pages) <Price item="starterSite" />, custom build <Price item="customBuild" />. The custom build is designed and written around your business. Setup on hosting in your name, SSL, your domain (first year included) and Local SEO &amp; GEO setup are in the price, not sold to you afterwards. You pay the host directly.</p>
               <a class="more" href="/services/website-builds.html">What&rsquo;s in a build &rarr;</a>
             </div>
 
@@ -138,7 +138,7 @@ const jsonLd = [
           <h2>Frequently asked questions</h2>
           <details class="faq-item">
             <summary>How much does a website cost?</summary>
-            <p>A custom build is <Price item="customBuild" />, one-off. That covers design and copywriting, setup on hosting in your name (you pay the host directly), SSL, your domain (first year included) and Local SEO &amp; GEO setup. Customer logins, bookings or payments are extra, estimated in days up front and priced from <Price item="fixDay" /> per day.</p>
+            <p>Three fixed prices, all one-off: a landing page is <Price item="landingPage" />, a Starter site of up to 5 pages is <Price item="starterSite" />, and a custom build is <Price item="customBuild" />. The custom build covers design and copywriting, setup on hosting in your name (you pay the host directly), SSL, your domain (first year included) and Local SEO &amp; GEO setup. Customer logins, bookings or payments are extra, estimated in days up front and priced from <Price item="fixDay" /> per day.</p>
           </details>
           <details class="faq-item">
             <summary>Is there a lock-in contract?</summary>
@@ -167,7 +167,9 @@ const jsonLd = [
           <div class="label-row"><span>Website check</span><span>Free</span></div>
           <div class="label-row"><span>Fix day</span><span><Price item="fixDay" suffix="/day" /></span></div>
           <div class="label-row"><span>SEO &amp; GEO Setup</span><span><Price item="setupSingleTemplate" /></span></div>
-          <div class="label-row"><span>Website build</span><span><Price item="customBuild" /></span></div>
+          <div class="label-row"><span>Landing page</span><span><Price item="landingPage" /></span></div>
+          <div class="label-row"><span>Starter site</span><span><Price item="starterSite" /></span></div>
+          <div class="label-row"><span>Custom build</span><span><Price item="customBuild" /></span></div>
           <div class="label-row"><span>Monthly plans</span><span><Price item="carePlan" to="scale" suffix="/mo" /></span></div>
           <div class="label-row"><span>Lock-in</span><span>None</span></div>
           <p style="font-size:12px;color:var(--text-muted);margin:10px 0 16px;">Tell us what you need and we&rsquo;ll say which of these it is before you pay for anything.</p>

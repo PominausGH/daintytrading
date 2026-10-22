@@ -39,6 +39,11 @@ const AI_DISCOVERY_AUD = 4500;
 // Source prices, USD. Care plan is 174 so it lands at ~A$250 (Andrew's Care plan price, 10-19).
 // AI engagements are "from" prices.
 export const pricingUsd = {
+  // Smaller build tiers (Andrew approved 2026-10-22, after the iOnline teardown and AU market
+  // research): a one-page landing page and a Starter site of up to 5 pages. Done for you on the
+  // client's own hosting; not the retired self-serve BizPage Instant Page.
+  landingPage: 900,
+  starterSite: 2100,
   customBuild: 4950,
   carePlan: 174,
   fixDay: 850,
@@ -60,6 +65,8 @@ export const pricingUsd = {
 export const pricing = {
   audit: 'Free',
   currency: 'AUD',
+  landingPage: audFromUsd(pricingUsd.landingPage),
+  starterSite: audFromUsd(pricingUsd.starterSite),
   customBuild: audFromUsd(pricingUsd.customBuild),
   carePlan: audFromUsd(pricingUsd.carePlan),
   fixDay: audFromUsd(pricingUsd.fixDay),
