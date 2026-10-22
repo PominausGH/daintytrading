@@ -19,6 +19,8 @@ const jsonLd = [
       '@type': 'OfferCatalog',
       name: 'Website build packages',
       itemListElement: [
+        { '@type': 'Offer', name: 'Landing page', price: String(pricing.landingPage), priceCurrency: 'AUD', description: 'One-off. One page designed and written for you, quote or contact form, LocalBusiness schema, Google Business Profile setup, set up on hosting in your name. One round of changes. Credited in full against a Starter or Custom build within 6 months.' },
+        { '@type': 'Offer', name: 'Starter site', price: String(pricing.starterSite), priceCurrency: 'AUD', description: 'One-off. Up to 5 pages on proven layouts styled to your brand, copywriting, contact form, LocalBusiness schema, Google Business Profile setup, set up on hosting in your name. One round of changes per stage.' },
         { '@type': 'Offer', name: 'Custom build', price: String(pricing.customBuild), priceCurrency: 'AUD', description: `One-off. Custom-designed site, copywriting, set up on hosting in your name, SSL, and Local SEO & GEO setup included — not sold separately.` },
         { '@type': 'Offer', name: 'Care plan', price: String(pricing.carePlan), priceCurrency: 'AUD', description: 'Monthly, no GST. Uptime monitoring and security updates on your own hosting, and up to 60 minutes of small content changes per month (unused time does not roll over, billed at the standard hourly rate beyond that). Hosting provider backups switched on and restore-tested quarterly, monthly security check, and hack or outage cleanup included when the cause is in what Care covers. 2-business-day response time, same business day for urgent issues (site down, hacked, forms or checkout broken). Response times are published at telaloom.com/support.html. Attached to every custom build by default. Cancel anytime, effective end of the current billing month.' },
         { '@type': 'Offer', name: 'Monitor', price: String(pricing.monitor), priceCurrency: 'AUD', description: 'Monthly. Automated ranking and AI-citation monitoring, with a monthly plain-English report. No fix pass included. 1-business-day response time. Cancel anytime.' },
@@ -53,7 +55,7 @@ const jsonLd = [
     .price-card.featured { border-color:var(--accent); box-shadow:var(--shadow); }
     .price-card .tier { font-size:13px; letter-spacing:.04em; text-transform:uppercase; color:var(--text-muted); }
     .price-card .price { font-size:30px; font-weight:700; margin:6px 0 2px; color:var(--text); }
-    .price-card .price small { font-size:14px; font-weight:500; color:var(--text-muted); }
+    .price-card .price small { font-size:14px; font-weight:500; color:var(--text-muted); white-space:nowrap; }
     .price-card .note { font-size:12.5px; color:var(--text-muted); margin:0 0 14px; }
     .price-card ul { list-style:none; padding:0; margin:6px 0 18px; flex:1; }
     .price-card li { font-size:14px; color:var(--text-dim); padding:7px 0 7px 22px; position:relative; border-top:1px solid var(--border); }
@@ -115,7 +117,36 @@ const jsonLd = [
 
           <h2 id="packages">Packages</h2>
           <CurrencySwitch />
-          <div class="price-grid price-grid--two">
+          <div class="price-grid">
+            <div class="price-card">
+              <span class="tier">Landing page</span>
+              <div class="price"><Price item="landingPage" /> <small>one-off</small></div>
+              <p class="note">One page that turns visitors into enquiries. For a new business, a single service, or an ad campaign.</p>
+              <ul>
+                <li>One long page, designed and written for you</li>
+                <li>Quote or contact form straight to your inbox, plus tap-to-call</li>
+                <li>LocalBusiness schema, Google Business Profile setup, AI-crawler access</li>
+                <li>Set up on hosting in your name, SSL, domain connected or registered in your name (first year included)</li>
+                <li>One round of changes</li>
+                <li>The full price is credited if you move up to Starter or Custom within 6 months</li>
+              </ul>
+              <a class="btn btn-ghost" href="/contact.html" data-umami-event="cta_click" data-umami-event-target="get_a_quote" data-umami-event-source="website_builds_landing_page">Get a quote &rarr;</a>
+            </div>
+
+            <div class="price-card">
+              <span class="tier">Starter site</span>
+              <div class="price"><Price item="starterSite" /> <small>one-off</small></div>
+              <p class="note">Up to 5 pages for a local business that needs a proper site without the full custom build.</p>
+              <ul>
+                <li>Up to 5 pages: typically home, services, about, gallery, contact</li>
+                <li>Built on our proven layouts and styled to your brand, with copy written for you</li>
+                <li>Contact form, tap-to-call, LocalBusiness schema, Google Business Profile setup, AI-crawler access</li>
+                <li>Set up on hosting in your name, SSL, domain connected or registered in your name (first year included)</li>
+                <li>One round of changes per stage (design, then build)</li>
+              </ul>
+              <a class="btn btn-ghost" href="/contact.html" data-umami-event="cta_click" data-umami-event-target="get_a_quote" data-umami-event-source="website_builds_starter_site">Get a quote &rarr;</a>
+            </div>
+
             <div class="price-card featured">
               <span class="price-badge">Most popular</span>
               <span class="tier">Custom build</span>
@@ -130,7 +161,9 @@ const jsonLd = [
               </ul>
               <a class="btn btn-primary" href="/contact.html" data-umami-event="cta_click" data-umami-event-target="get_a_quote" data-umami-event-source="website_builds_custom_build">Get a quote &rarr;</a>
             </div>
+          </div>
 
+          <div class="price-grid price-grid--two" style="margin-top:20px;">
             <div class="price-card">
               <span class="tier">Care plan <small style="text-transform:none;letter-spacing:0;">&mdash; monthly</small></span>
               <div class="price"><Price item="carePlan" /><small>/mo, no GST</small></div>
@@ -146,6 +179,7 @@ const jsonLd = [
               <a class="btn btn-ghost" href="/contact.html" style="margin-top:16px;" data-umami-event="cta_click" data-umami-event-target="talk_it_through" data-umami-event-source="website_builds_care_plan">Talk it through &rarr;</a>
             </div>
           </div>
+          <p style="font-size:14px;color:var(--text-dim);margin:14px 0 0;"><strong>Which build?</strong> Landing page if you need enquiries from one offer fast. Starter if you need a few pages and a solid local presence. Custom if you want suburb and service-area pages, a design made from scratch, the full Local SEO &amp; GEO setup and two rounds of changes per stage.</p>
 
           <h3 style="margin-top:28px;">Then, optional Local SEO &amp; GEO plans</h3>
           <p style="font-size:14px;color:var(--text-dim);margin:0 0 16px;">Same product as our <a href="/services/local-seo.html">standalone Local SEO &amp; GEO service</a> &mdash; three tiers, cancel anytime.</p>
@@ -261,6 +295,8 @@ const jsonLd = [
         <aside class="sidecard">
           <h4>Website builds</h4>
           <div class="label-row"><span>Best for</span><span>Local businesses</span></div>
+          <div class="label-row"><span>Landing page</span><span><Price item="landingPage" /></span></div>
+          <div class="label-row"><span>Starter site</span><span><Price item="starterSite" /></span></div>
           <div class="label-row"><span>Custom build</span><span><Price item="customBuild" /></span></div>
           <div class="label-row"><span>Care plan</span><span><Price item="carePlan" suffix="/mo" /></span></div>
           <div class="label-row"><span>Local SEO/GEO plans</span><span><Price item="monitor" to="scale" suffix="/mo" /></span></div>
