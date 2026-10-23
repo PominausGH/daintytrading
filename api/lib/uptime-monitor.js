@@ -25,6 +25,8 @@ async function checkOnce(url, fetchImpl = fetch, expect = null) {
       signal: AbortSignal.timeout(TIMEOUT_MS),
     });
     const body = await res.text().catch(() => ''); // also releases the socket
+    // 429: the site answered but rate-limited us. That's up, not an outage.
+    if (res.status === 429) return { up: true, status: 429, rateLimited: true };
     if (res.status >= 400) return { up: false, detail: `HTTP ${res.status}` };
     if (expect && !body.toLowerCase().includes(String(expect).toLowerCase())) {
       return { up: false, detail: `page loads (HTTP ${res.status}) but "${expect}" is missing, possible defacement or broken page` };

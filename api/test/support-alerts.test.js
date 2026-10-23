@@ -97,6 +97,18 @@ test('monitor: missing expected text counts as down (defacement)', async () => {
   assert.match(sent[0].message, /"Scale Co" is missing/);
 });
 
+test('monitor: a 429 (rate limited) is up, not an outage', async () => {
+  const sent = [];
+  const m = createMonitor({
+    fetchImpl: fakeFetch({ 'https://scale.com/': { status: 429, body: 'Too Many Requests' } }),
+    sendPush: async (p) => { sent.push(p); return { ok: true }; },
+    loadClients: () => [scale],
+    now: () => TUE_10AM,
+  });
+  for (let i = 0; i < FAILS_TO_ALERT + 2; i++) await m.tick();
+  assert.strictEqual(sent.length, 0);
+});
+
 test('registered domain handles .com.au', () => {
   assert.strictEqual(registeredDomain('https://www.care.com.au/x'), 'care.com.au');
   assert.strictEqual(registeredDomain('https://shop.scale.com/'), 'scale.com');

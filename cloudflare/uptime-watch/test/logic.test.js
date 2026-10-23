@@ -23,6 +23,7 @@ test('sites and judging', () => {
   assert.ok(judge({ status: 200 }, 'Scale Co', 'scale').up);
   assert.ok(!judge({ status: 200 }, 'hacked', 'Scale').up);
   assert.ok(!judge({ status: 502 }, '', null).up);
+  assert.ok(judge({ status: 429 }, 'Too Many Requests', 'Scale').up, 'rate-limited is not down');
 });
 
 test('diff: alert once on down, once on recovery, grouped into one push', () => {

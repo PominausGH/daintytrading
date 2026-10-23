@@ -42,6 +42,10 @@ export function serverClient(clients) {
 }
 
 export function judge(res, body, expect) {
+  // 429 = the site answered but its rate limiter turned us away (cvmatcher allows 50
+  // page loads/hour per IP and we check 60). It's up; treating it as down made
+  // alerts flap all day.
+  if (res.status === 429) return { up: true, status: 429, rateLimited: true };
   if (res.status >= 400) return { up: false, detail: `HTTP ${res.status}` };
   if (expect && !String(body).toLowerCase().includes(String(expect).toLowerCase())) {
     return { up: false, detail: `page loads (HTTP ${res.status}) but "${expect}" is missing` };
