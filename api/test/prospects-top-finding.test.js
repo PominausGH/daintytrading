@@ -27,3 +27,13 @@ test('empty or malformed findings give no draft', () => {
   assert.equal(selectTopFinding(undefined), null);
   assert.equal(selectTopFinding([null, {}]), null);
 });
+
+test('customer-web_check PR #10 categories: search-blocking and noindex lead, low schema never does', () => {
+  const f = (category, severity) => ({ category, severity, message: category });
+  const brokenLink = f('broken_link', 'medium');
+  assert.equal(selectTopFinding([brokenLink, f('crawler_access', 'high')]).finding.category, 'crawler_access');
+  assert.equal(selectTopFinding([brokenLink, f('indexability', 'critical')]).finding.category, 'indexability');
+  assert.ok(selectTopFinding([f('nap', 'medium')]), 'no phone on the homepage can lead');
+  assert.ok(selectTopFinding([f('mobile_speed', 'medium')]), 'PSI-measured slow mobile can lead');
+  assert.equal(selectTopFinding([f('local_schema', 'low')]), null, 'low severity never leads');
+});

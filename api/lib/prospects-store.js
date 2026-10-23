@@ -308,6 +308,16 @@ const CATEGORY_META = {
   wp_plugins: { visibility: 2, effortMins: 20 },
   copyright_year: { visibility: 2, effortMins: 5 },
   security_headers: { visibility: 1, effortMins: 15 },
+  // customer-web_check PR #10 (2026-10-23). Search engines blocked in robots.txt or a noindexed
+  // homepage take the site out of search: always the strongest opener. No phone on the homepage
+  // is a real lost-call problem. PSI-measured slow mobile is concrete enough to lead (0.5 at
+  // medium, just clearing prospectsMinFindingScore). local_schema is rated low by the checker
+  // (schema gives no measurable AI-citation lift), so it never leads.
+  crawler_access: { visibility: 5, effortMins: 10 },
+  indexability: { visibility: 5, effortMins: 10 },
+  nap: { visibility: 4, effortMins: 15 },
+  mobile_speed: { visibility: 5, effortMins: 30 },
+  local_schema: { visibility: 2, effortMins: 20 },
 };
 const DEFAULT_CATEGORY_META = { visibility: 2, effortMins: 30 };
 
