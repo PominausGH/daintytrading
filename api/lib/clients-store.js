@@ -21,6 +21,7 @@ const ONBOARDING_TEMPLATE = [
   { id: 'design-approved', text: 'Design approved' },
   { id: 'site-live', text: 'Site live' },
   // Search/AI visibility setup (2026-10-22, see /services/seo-geo-optimization.html#what-gets-cited).
+  { id: 'gbp-setup', text: 'Google Business Profile set up in the client\'s name: categories, services, hours, service area, website, logo + cover + 5-10 real photos, description, first post, review link handed over; client completed Google verification' },
   { id: 'search-consoles', text: 'Google Search Console + Bing Webmaster Tools set up (Bing: import from GSC), sitemap submitted' },
   { id: 'indexnow', text: 'IndexNow on (Cloudflare Crawler Hints, Yoast/Rank Math toggle, or scripts/indexnow-submit.mjs for our builds)' },
   { id: 'ai-bots-check', text: 'AI search bots not blocked: Cloudflare AI Crawl Control, host firewall, robots.txt (allow OAI-SearchBot, Claude-SearchBot, Claude-User, PerplexityBot, Bingbot)' },

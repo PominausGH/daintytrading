@@ -36,6 +36,8 @@ const jsonLd = [
       { '@type': 'Question', name: 'Is Local SEO really included in the Custom build price, or is that extra?', acceptedAnswer: { '@type': 'Answer', text: "It's included in the Custom build price — Google Business Profile setup, LocalBusiness schema, llms.txt and AI-crawler access, and a review-generation system, the same scope as our standalone Local SEO & GEO service. You're not paying for the site and then paying again to make it findable." } },
       { '@type': 'Question', name: 'What if I need customer accounts, bookings, or a database?', acceptedAnswer: { '@type': 'Answer', text: `We build those. It's the same work as a website with more moving parts, and the size varies a lot: a simple booking form is a small job, a customer portal is a big one. That's why a fixed website price can't honestly cover it. Tell us what it needs to do, and we'll estimate the days up front and give you the price in writing. You approve it before we start. Bigger work is priced from ${pricing.fixDay.toLocaleString()} AUD (${pricingUsd.fixDay.toLocaleString()} USD) per day of work.` } },
       { '@type': 'Question', name: 'Who owns the domain — us or you?', acceptedAnswer: { '@type': 'Answer', text: "You. If you already have a domain, we connect it. If you don't, our default is to register it directly in your own registrar account so there's never a custody question — no lock-in, nothing to transfer later. If you'd rather we register it first for speed, we hand it over via a standard domain transfer whenever you want it, using the authorization code your registrar provides. Either way, the first year's registration is included in the build price; renewal after that is yours." } },
+      { '@type': 'Question', name: 'What does Google Business Profile setup include?', acceptedAnswer: { '@type': 'Answer', text: "Every build includes it. We create or claim the profile in your name, fill in your categories, services, hours, service area and website, add your logo, cover photo and real photos of your work, write the business description and a first post, and give you your review link. We also match those details on Bing Places, Apple Business Connect and Yelp. It is a one-off setup: monthly posts and review replies are part of the Growth plan." } },
+      { '@type': 'Question', name: 'Can you guarantee Google approves my profile?', acceptedAnswer: { '@type': 'Answer', text: "No, and nobody honestly can. Google verifies profiles directly with the owner, usually by phone, video or postcard, so you complete that step and we walk you through it. Google also decides whether a profile stays live and where it ranks. If Google asks for more evidence or suspends a profile, we help with the reinstatement request as a fix day." } },
     ],
   },
 ];
@@ -48,6 +50,8 @@ const jsonLd = [
   jsonLd={jsonLd}
 >
   <style>
+    .gbp-list { margin: 6px 0 0; padding-left: 20px; font-size: 14px; color: var(--text-dim); }
+    .gbp-list li { margin: 4px 0; }
     .ask-list { margin: 16px 0 8px; }
     .ask-list dt { font-weight: 600; margin-top: 16px; }
     .ask-list dd { margin: 4px 0 0; color: var(--text-muted); }
@@ -185,6 +189,16 @@ const jsonLd = [
           </div>
           <p style="font-size:14px;color:var(--text-dim);margin:14px 0 0;"><strong>Which build?</strong> Landing page if you need enquiries from one offer fast. Starter if you need a few pages and a solid local presence. Custom if you want suburb and service-area pages, a design made from scratch, the full Local SEO &amp; GEO setup and two rounds of changes per stage.</p>
 
+          <h3 id="google-business-profile" style="margin-top:28px;">Google Business Profile setup, in every build</h3>
+          <p style="font-size:14px;color:var(--text-dim);margin:0 0 8px;">Most local customers find a business on the map before they ever open its website, so every build includes a one-off setup of your Google Business Profile:</p>
+          <ul class="gbp-list">
+            <li>Profile created or claimed in your name, with categories, services, hours, service area and website</li>
+            <li>Your logo, cover photo and real photos of your work, plus the business description and a first post</li>
+            <li>Your &ldquo;ask for reviews&rdquo; link, ready to send to customers</li>
+            <li>The same details on Bing Places, Apple Business Connect and Yelp, which feed Copilot, Apple Maps and ChatGPT&rsquo;s local answers</li>
+          </ul>
+          <p style="font-size:13px;color:var(--text-muted);margin:8px 0 0;">Google verifies the owner directly, so you complete that step and we walk you through it. Google decides approval and ranking, so we can&rsquo;t guarantee either. Monthly posts and review replies are part of the <a href="#packages">Growth plan</a>.</p>
+
           <h3 style="margin-top:28px;">Then, optional Local SEO &amp; GEO plans</h3>
           <p style="font-size:14px;color:var(--text-dim);margin:0 0 16px;">Same product as our <a href="/services/local-seo.html">standalone Local SEO &amp; GEO service</a> &mdash; three tiers, cancel anytime.</p>
           <div class="price-grid">
@@ -318,6 +332,14 @@ const jsonLd = [
           <details class="faq-item">
             <summary>Who owns the domain &mdash; us or you?</summary>
             <p>You. If you already have a domain, we connect it. If you don&rsquo;t, our default is to register it directly in your own registrar account so there&rsquo;s never a custody question &mdash; no lock-in, nothing to transfer later. If you&rsquo;d rather we register it first for speed, we hand it over via a standard domain transfer whenever you want it, using the authorization code your registrar provides. Either way, the first year&rsquo;s registration is included in the build price; renewal after that is yours.</p>
+          </details>
+          <details class="faq-item">
+            <summary>What does Google Business Profile setup include?</summary>
+            <p>Every build includes it. We create or claim the profile in your name, fill in your categories, services, hours, service area and website, add your logo, cover photo and real photos of your work, write the business description and a first post, and give you your review link. We also match those details on Bing Places, Apple Business Connect and Yelp. It&rsquo;s a one-off setup: monthly posts and review replies are part of the Growth plan.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Can you guarantee Google approves my profile?</summary>
+            <p>No, and nobody honestly can. Google verifies profiles directly with the owner, usually by phone, video or postcard, so you complete that step and we walk you through it. Google also decides whether a profile stays live and where it ranks. If Google asks for more evidence or suspends a profile, we help with the reinstatement request as a <a href="/pricing.html">fix day</a>.</p>
           </details>
         </article>
 
