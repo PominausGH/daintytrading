@@ -7,6 +7,7 @@ from urllib.parse import urljoin, urlsplit
 
 from .context import Site
 from .findings import clean
+from .known_vulns import check_headers
 
 _BUSINESS_TYPES = {
     "organization", "localbusiness", "corporation", "onlinestore", "onlinebusiness", "store", "person",
@@ -252,6 +253,19 @@ def check_page_security(site: Site) -> None:
                  "Unsupported software stops receiving security fixes, so known holes stay open. Upgrading an "
                  "old setup in place is often more work than rebuilding it properly.",
                  "; ".join(eol))
+
+    # Known critical flaws matched against publicly visible versions. Skip PHP when the EOL finding
+    # already covers it, so one outdated PHP doesn't produce two high findings.
+    if not any(e.startswith("PHP") for e in eol):
+        hits = check_headers(h)
+        if hits:
+            site.add("known_vuln", "security", "high",
+                     "The site appears to run software with a known critical security flaw",
+                     "A serious flaw in PHP, disclosed in October 2026, can let an attacker run code on a "
+                     "server that hasn't been patched. Hosts sometimes hide or backport version "
+                     "numbers, so we can't confirm this from outside. Ask your host to confirm PHP is fully "
+                     "updated, or we can check and patch it for you.",
+                     "; ".join(f"{a.name.split(' (')[0]}: PHP below the patched release" for a in hits))
 
     # Stale copyright year (a trust signal, nothing more)
     now_year = datetime.now(timezone.utc).year
