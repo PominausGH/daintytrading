@@ -101,8 +101,41 @@ def test_eol_software_is_coarse_and_a_rebuild_signal():
 
 def test_supported_php_is_not_flagged():
     routes = healthy_routes()
-    routes[f"{BASE}/"] = resp(f"{BASE}/", body=GOOD_HTML, headers={**SECURE_HEADERS, "x-powered-by": "PHP/8.3.1"})
-    assert "eol_software" not in ids(run(routes))
+    routes[f"{BASE}/"] = resp(f"{BASE}/", body=GOOD_HTML, headers={**SECURE_HEADERS, "x-powered-by": "PHP/8.3.36"})
+    found = ids(run(routes))
+    assert "eol_software" not in found and "known_vuln" not in found
+
+
+def _php(version):
+    routes = healthy_routes()
+    routes[f"{BASE}/"] = resp(f"{BASE}/", body=GOOD_HTML, headers={**SECURE_HEADERS, "x-powered-by": f"PHP/{version}"})
+    return run(routes)
+
+
+def test_unpatched_php_is_flagged_as_known_vuln_without_exact_version():
+    r = _php("8.3.1")
+    f = next(f for f in r["findings"] if f["id"] == "known_vuln")
+    assert f["severity"] == "high" and "PHP2Shell" in f["evidence"]
+    assert "8.3" not in f["evidence"]  # no exact versions in the public report
+    assert "eol_software" not in ids(r)
+    assert r["outcome"] != "rebuild_signal"  # patchable, so not a rebuild signal
+
+
+def test_php_patch_boundaries():
+    assert "known_vuln" in ids(_php("8.5.11")) and "known_vuln" not in ids(_php("8.5.12"))
+    assert "known_vuln" in ids(_php("8.4.26")) and "known_vuln" not in ids(_php("8.4.27"))
+    assert "known_vuln" in ids(_php("8.2.34")) and "known_vuln" not in ids(_php("8.2.35"))
+    assert "known_vuln" in ids(_php("8.1.30"))  # EOL branch, no fix exists
+    assert "known_vuln" not in ids(_php("8.6.0"))  # newer than any known branch: unknown, don't claim
+
+
+def test_hidden_or_partial_php_version_is_not_flagged():
+    assert "known_vuln" not in ids(_php("8.3"))
+
+
+def test_ancient_php_gets_eol_not_a_second_finding():
+    r = _php("5.6.40")
+    assert "eol_software" in ids(r) and "known_vuln" not in ids(r)
 
 
 def test_noindex_and_robots_block_are_high():
