@@ -20,7 +20,7 @@ const jsonLd = [
         { '@type': 'Offer', name: 'Audit', price: '0', priceCurrency: 'AUD', description: 'Full local SEO and AI-search audit with a prioritised, plain-English fix list.' },
         { '@type': 'Offer', name: 'Fix days', price: String(pricing.fixDay), priceCurrency: 'AUD', description: 'Per day. Small fixes estimated up front, one-day minimum, approved before work starts.' },
         { '@type': 'Offer', name: 'Setup', price: String(pricing.setupSingleTemplate), priceCurrency: 'AUD', description: `One-off. Audit plus fixes shipped: LocalBusiness schema, service areas, llms.txt, AI-crawler access, Google Business Profile, and a review-generation system. No lock-in. ${pricing.setupMultiTemplate.toLocaleString()} AUD for multi-location or multi-language businesses.` },
-        { '@type': 'Offer', name: 'Monitor', price: String(pricing.monitor), priceCurrency: 'AUD', description: 'Monthly. Automated ranking and AI-citation monitoring, with a monthly plain-English report. No fix pass included. Cancel anytime.' },
+        { '@type': 'Offer', name: 'Monitor', price: String(pricing.monitor), priceCurrency: 'AUD', description: 'Monthly. Automated ranking and AI-citation monitoring, with a monthly plain-English report, plus a known-vulnerability watch that flags major disclosed flaws in the publicly visible software on your site (like PHP2Shell). No fix pass included. Cancel anytime.' },
         { '@type': 'Offer', name: 'Growth', price: String(pricing.growth), priceCurrency: 'AUD', description: 'Monthly. Everything in Monitor, plus Google Business Profile posts, review replies, and a review campaign each month. Cancel anytime.' },
         { '@type': 'Offer', name: 'Scale', price: String(pricing.scale), priceCurrency: 'AUD', description: 'Monthly. Everything in Growth, plus new suburb/service pages, full Google Business Profile management, monthly content, and a quarterly strategy call.' },
       ],
@@ -31,7 +31,7 @@ const jsonLd = [
     '@type': 'FAQPage',
     mainEntity: [
       { '@type': 'Question', name: 'What is local GEO (generative engine optimization)?', acceptedAnswer: { '@type': 'Answer', text: "It's making sure your business is the answer when someone asks ChatGPT, Claude, or Perplexity 'who does this near me?' It's driven by your Google Business Profile and reviews, your listings on Bing Places, Apple Business Connect and Yelp (ChatGPT uses Yelp for local answers), being mentioned on other local sites, and making sure AI search bots can actually read your site, not by backlinks." } },
-      { '@type': 'Question', name: 'What do the monthly plans actually include?', acceptedAnswer: { '@type': 'Answer', text: `Three tiers. Monitor (${pricing.monitor}/mo) is ranking and AI-citation monitoring plus a report, no fix pass. Growth (${pricing.growth}/mo) adds Google Business Profile posts, review replies, and a monthly review campaign. Scale (${pricing.scale.toLocaleString()}/mo) adds new suburb/service pages, full Google Business Profile management, monthly content, and a quarterly strategy call. All month-to-month, cancel anytime, and if there's genuinely nothing useful to do that month, we tell you.` } },
+      { '@type': 'Question', name: 'What do the monthly plans actually include?', acceptedAnswer: { '@type': 'Answer', text: `Three tiers. Monitor (${pricing.monitor}/mo) is ranking and AI-citation monitoring, a known-vulnerability watch for major disclosed flaws, and a report, no fix pass. Growth (${pricing.growth}/mo) adds Google Business Profile posts, review replies, and a monthly review campaign. Scale (${pricing.scale.toLocaleString()}/mo) adds new suburb/service pages, full Google Business Profile management, monthly content, and a quarterly strategy call. All month-to-month, cancel anytime, and if there's genuinely nothing useful to do that month, we tell you.` } },
       { '@type': 'Question', name: 'Is there a lock-in contract?', acceptedAnswer: { '@type': 'Answer', text: "No. The Setup is a one-off. All three monthly plans (Monitor, Growth, Scale) are cancel-anytime. We'd rather keep you because the work is worth it than because a contract traps you." } },
       { '@type': 'Question', name: "Can you guarantee I'll be number one on Google?", acceptedAnswer: { '@type': 'Answer', text: "No, and anyone who promises that isn't being straight with you. We fix what's structurally broken, get your Google listing and reviews working, and give you an honest read on what's left to do." } },
       { '@type': 'Question', name: 'Do I need the monthly plan?', acceptedAnswer: { '@type': 'Answer', text: "Only if you're actively trying to grow — reaching new suburbs, wanting a steady flow of reviews. If you just needed the one-time fix, we'll say so. We don't charge a retainer for nothing." } },
@@ -143,6 +143,7 @@ const jsonLd = [
               <p class="note">Watch it, report on it, no fix pass included.</p>
               <ul class="month-list">
                 <li>Automated ranking &amp; AI-citation monitoring</li>
+                <li>Known-vulnerability watch: we tell you if a major disclosed flaw (like PHP2Shell) affects your site&rsquo;s software</li>
                 <li>A plain-English report: searches, visitors, calls</li>
                 <li>Quiet monitoring for anything that breaks</li>
               </ul>
@@ -196,7 +197,7 @@ const jsonLd = [
           </details>
           <details class="faq-item">
             <summary>What do the monthly plans actually include?</summary>
-            <p>Three tiers. Monitor (<Price item="monitor" suffix="/mo" />) is ranking and AI-citation monitoring plus a report, no fix pass. Growth (<Price item="growth" suffix="/mo" />) adds Google Business Profile posts, review replies, and a monthly review campaign. Scale (<Price item="scale" suffix="/mo" />) adds new suburb/service pages, full Google Business Profile management, monthly content, and a quarterly strategy call. Month-to-month, cancel anytime, and if there&rsquo;s genuinely nothing useful to do that month, we tell you.</p>
+            <p>Three tiers. Monitor (<Price item="monitor" suffix="/mo" />) is ranking and AI-citation monitoring, a known-vulnerability watch for major disclosed flaws, and a report, no fix pass. Growth (<Price item="growth" suffix="/mo" />) adds Google Business Profile posts, review replies, and a monthly review campaign. Scale (<Price item="scale" suffix="/mo" />) adds new suburb/service pages, full Google Business Profile management, monthly content, and a quarterly strategy call. Month-to-month, cancel anytime, and if there&rsquo;s genuinely nothing useful to do that month, we tell you.</p>
           </details>
           <details class="faq-item">
             <summary>Is there a lock-in contract?</summary>
