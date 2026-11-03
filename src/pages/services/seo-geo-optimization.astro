@@ -24,7 +24,7 @@ const jsonLd = [
         { '@type': 'Offer', name: 'Audit', price: '0', priceCurrency: 'AUD', description: 'Full technical SEO and GEO audit with a prioritised, plain-English fix list.' },
         { '@type': 'Offer', name: 'Fix days', price: String(pricing.fixDay), priceCurrency: 'AUD', description: 'Per day. Small fixes estimated up front, one-day minimum, approved before work starts.' },
         { '@type': 'Offer', name: 'Setup', price: String(pricing.setupSingleTemplate), priceCurrency: 'AUD', description: `One-off. Audit plus fixes shipped to code: meta tags, schema markup, llms.txt, AI-crawler-aware robots.txt, sitemap and page-speed fixes. Single-template sites; ${pricing.setupMultiTemplate.toLocaleString()} AUD for multi-template, e-commerce, or multi-language sites.` },
-        { '@type': 'Offer', name: 'Monitor', price: String(pricing.monitor), priceCurrency: 'AUD', description: 'Monthly. Automated ranking and AI-citation monitoring, with a monthly plain-English report. No fix pass included. Cancel anytime.' },
+        { '@type': 'Offer', name: 'Monitor', price: String(pricing.monitor), priceCurrency: 'AUD', description: 'Monthly. Automated ranking and AI-citation monitoring, with a monthly plain-English report, plus a known-vulnerability watch that flags major disclosed flaws in the publicly visible software on your site (like PHP2Shell). No fix pass included. Cancel anytime.' },
         { '@type': 'Offer', name: 'Growth', price: String(pricing.growth), priceCurrency: 'AUD', description: 'Monthly. Everything in Monitor, plus one optimization pass and schema/llms.txt updates as content changes. Cancel anytime.' },
         { '@type': 'Offer', name: 'Scale', price: String(pricing.scale), priceCurrency: 'AUD', description: 'Monthly. Everything in Growth, plus new landing pages, monthly content, and a quarterly strategy call. Cancel anytime.' },
       ],
@@ -154,6 +154,7 @@ const jsonLd = [
               <p class="note">Watch it, report on it, no fix pass included.</p>
               <ul class="month-list">
                 <li>Automated ranking &amp; AI-citation monitoring</li>
+                <li>Known-vulnerability watch: we tell you if a major disclosed flaw (like PHP2Shell) affects your site&rsquo;s software</li>
                 <li>A plain-English report: what changed, what moved</li>
                 <li>Quiet monitoring for anything that breaks</li>
               </ul>
