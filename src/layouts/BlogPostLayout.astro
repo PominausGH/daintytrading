@@ -31,6 +31,24 @@ const jsonLd = [
     mainEntityOfPage: `https://telaloom.com${canonicalPath}`,
   },
 ];
+
+// FAQPage structured data from the "Frequently asked questions" block that Ghost Writer's
+// question-led posts end with: <h2>Frequently asked questions</h2> then <h3>Q?</h3><p>A</p> pairs.
+// Posts without that block get no FAQPage. Answers are tag-stripped plain text.
+const faqSection = entry.body.split(/<h2[^>]*>\s*Frequently asked questions\s*<\/h2>/i)[1];
+if (faqSection) {
+  const strip = (h: string) => h.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim();
+  const pairs = [...faqSection.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>\s*<p>([\s\S]*?)<\/p>/gi)]
+    .map((m) => ({ q: strip(m[1]), a: strip(m[2]) }))
+    .filter((p) => p.q.endsWith('?') && p.a);
+  if (pairs.length >= 2) {
+    jsonLd.push({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: pairs.map((p) => ({ '@type': 'Question', name: p.q, acceptedAnswer: { '@type': 'Answer', text: p.a } })),
+    } as any);
+  }
+}
 ---
 <BaseLayout title={`${title} — TelaLoom`} description={description} canonicalPath={canonicalPath} ogImage={ogImage} jsonLd={jsonLd}>
   <main id="main">
