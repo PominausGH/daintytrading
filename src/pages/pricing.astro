@@ -21,10 +21,11 @@ const jsonLd = [
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: [
-      { '@type': 'Question', name: 'How much does a website cost?', acceptedAnswer: { '@type': 'Answer', text: `Three fixed prices, all one-off: a landing page is ${n(pricing.landingPage)} AUD, a Starter site of up to 5 pages is ${n(pricing.starterSite)} AUD, and a custom build is ${n(pricing.customBuild)} AUD. The custom build covers design and copywriting, setup on hosting in your name (you pay the host directly), SSL, your domain (first year included) and Local SEO & GEO setup. Customer logins, bookings or payments are extra, estimated in days up front and priced from ${n(pricing.fixDay)} AUD per day.` } },
+      { '@type': 'Question', name: 'How much does a website cost?', acceptedAnswer: { '@type': 'Answer', text: `Three guide prices, all one-off: a landing page is ${n(pricing.landingPage)} AUD, a Starter site of up to 5 pages is ${n(pricing.starterSite)} AUD, and a custom build is ${n(pricing.customBuild)} AUD. The custom build covers design and copywriting, setup on hosting in your name (you pay the host directly), SSL, your domain (first year included) and Local SEO & GEO setup. Customer logins, bookings or payments are extra, estimated in days up front and priced from ${n(pricing.fixDay)} AUD per day. These are guide prices. Once you\'re on board we do a deeper audit of the site itself; if it finds something that changes the job (very old or unsupported software, for example) we\'ll tell you, and you approve any change to the price in writing before we start.` } },
       { '@type': 'Question', name: 'How long does a website take?', acceptedAnswer: { '@type': 'Answer', text: "A first draft is live on a private preview link in weeks 1 to 2, with real pages and real copy, not a mockup. Agency estimates of around two months for a ten-page site are common. We skip the long proposal and the design-file stage and go straight to a working draft." } },
       { '@type': 'Question', name: 'What should I ask before hiring a web designer?', acceptedAnswer: { '@type': 'Answer', text: "Who owns the site and domain, where it is hosted and who pays, whether copy and SEO are included, how many rounds of changes you get, the payment terms, and whether there is a lock-in. We answer each of those on our website builds page." } },
       { '@type': 'Question', name: 'Is there a lock-in contract?', acceptedAnswer: { '@type': 'Answer', text: 'No. The one-off prices are one-off, and the monthly plans are month-to-month. Cancel anytime. You own the domain and the site.' } },
+      { '@type': 'Question', name: 'Is the published price final?', acceptedAnswer: { '@type': 'Answer', text: "Treat it as a guide. The free website check only sees what is publicly visible. After you sign on we do a deeper audit of the site itself, including the back end. If it shows the site needs more work than the guide price assumes, for example very old or unsupported software, we tell you what we found and what it changes, and you approve any new price in writing before we start. If nothing changes, the guide price stands." } },
       { '@type': 'Question', name: 'What if my job is smaller than a Setup?', acceptedAnswer: { '@type': 'Answer', text: `Book fix days at ${n(pricing.fixDay)} AUD a day. We estimate the days up front and you approve before we start. Once a job passes about three days, Setup at ${n(pricing.setupSingleTemplate)} AUD is the better value.` } },
       { '@type': 'Question', name: 'Do I need a monthly plan?', acceptedAnswer: { '@type': 'Answer', text: "Often not. Setup is a one-time audit-and-fix, and the monthly plans are optional. If there's nothing useful to do in a given month, we tell you." } },
       { '@type': 'Question', name: 'What if my site goes down or gets hacked?', acceptedAnswer: { '@type': 'Answer', text: `Email hello@telaloom.com with URGENT in the subject. On the Care plan we reply the same business day (faster with Growth or Scale), and the cleanup is included when the cause is in what Care covers. Without a plan, hack cleanup is a flat ${n(pricing.incidentRecoveryNoPlan)} AUD for up to four hours of work.` } },
@@ -65,7 +66,7 @@ const jsonLd = [
       <div class="container">
         <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; Pricing</div>
         <h1>Pricing</h1>
-        <p class="lede">Four prices cover most of what we do. They&rsquo;re published, they&rsquo;re fixed, and none of them comes with a lock-in. If you don&rsquo;t know what you need yet, the <a href="/site-check.html">website check</a> is free.</p>
+        <p class="lede">Four prices cover most of what we do. They&rsquo;re published guide prices with no lock-in: once you&rsquo;re on board we audit the site itself in depth, and if that turns up something that changes the job (very old or unsupported software, say) we agree any change to the price with you in writing before we start. If you don&rsquo;t know what you need yet, the <a href="/site-check.html">website check</a> is free.</p>
       </div>
     </section>
 
@@ -140,7 +141,7 @@ const jsonLd = [
           <h2>Frequently asked questions</h2>
           <details class="faq-item">
             <summary>How much does a website cost?</summary>
-            <p>Three fixed prices, all one-off: a landing page is <Price item="landingPage" />, a Starter site of up to 5 pages is <Price item="starterSite" />, and a custom build is <Price item="customBuild" />. The custom build covers design and copywriting, setup on hosting in your name (you pay the host directly), SSL, your domain (first year included) and Local SEO &amp; GEO setup. Customer logins, bookings or payments are extra, estimated in days up front and priced from <Price item="fixDay" /> per day.</p>
+            <p>Three guide prices, all one-off: a landing page is <Price item="landingPage" />, a Starter site of up to 5 pages is <Price item="starterSite" />, and a custom build is <Price item="customBuild" />. The custom build covers design and copywriting, setup on hosting in your name (you pay the host directly), SSL, your domain (first year included) and Local SEO &amp; GEO setup. Customer logins, bookings or payments are extra, estimated in days up front and priced from <Price item="fixDay" /> per day. These are guide prices. Once you&rsquo;re on board we do a deeper audit of the site itself; if it finds something that changes the job (very old or unsupported software, for example) we&rsquo;ll tell you, and you approve any change to the price in writing before we start.</p>
           </details>
           <details class="faq-item">
             <summary>How long does a website take?</summary>
@@ -153,6 +154,10 @@ const jsonLd = [
           <details class="faq-item">
             <summary>Is there a lock-in contract?</summary>
             <p>No. The one-off prices are one-off, and the monthly plans are month-to-month. Cancel anytime. You own the domain and the site.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Is the published price final?</summary>
+            <p>Treat it as a guide. The free website check only sees what is publicly visible. After you sign on we do a deeper audit of the site itself, including the back end. If it shows the site needs more work than the guide price assumes, for example very old or unsupported software, we tell you what we found and what it changes, and you approve any new price in writing before we start. If nothing changes, the guide price stands.</p>
           </details>
           <details class="faq-item">
             <summary>What if my job is smaller than a Setup?</summary>
