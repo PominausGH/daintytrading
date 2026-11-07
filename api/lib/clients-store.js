@@ -20,6 +20,8 @@ const ONBOARDING_TEMPLATE = [
   { id: 'content-received', text: 'Content received (copy, photos)' },
   { id: 'design-approved', text: 'Design approved' },
   { id: 'site-live', text: 'Site live' },
+  // Added 2026-11-04: uptime monitoring AND the monthly Patch Watch check (api/lib/vuln-watch.js) both read this file.
+  { id: 'monitoring-added', text: 'Added to api/data/support-clients.json (plan + site URL) so uptime monitoring and the monthly Patch Watch check cover them' },
   // Search/AI visibility setup (2026-10-22, see /services/seo-geo-optimization.html#what-gets-cited).
   { id: 'gbp-setup', text: 'Google Business Profile set up in the client\'s name: categories, services, hours, service area, website, logo + cover + 5-10 real photos, description, first post, review link handed over; client completed Google verification' },
   { id: 'search-consoles', text: 'Google Search Console + Bing Webmaster Tools set up (Bing: import from GSC), sitemap submitted' },
