@@ -1,5 +1,5 @@
 'use strict';
-// Monthly known-vulnerability watch for Monitor / Growth / Scale clients (the "Patch Watch" line
+// Monthly known-vulnerability watch for Care / Monitor / Growth / Scale clients (the "Patch Watch" line
 // in the Monitor tier). Runs the same passive checker the public Site Check uses against each
 // client domain, keeps only the vulnerable-software findings, and emails ONE summary to the
 // operator. It never contacts clients itself: a human decides what to tell whom.
@@ -10,7 +10,9 @@ const fs = require('fs');
 const path = require('path');
 const { escapeHtml } = require('./security');
 
-const WATCH_PLANS = new Set(['monitor', 'growth', 'scale']);
+// Care is included: it already promises software/security updates and a monthly security check,
+// and every custom build gets it. Monitor/Growth/Scale advertise the watch explicitly.
+const WATCH_PLANS = new Set(['care', 'monitor', 'growth', 'scale']);
 const WATCH_IDS = new Set(['known_vuln', 'eol_software']);
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));

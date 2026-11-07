@@ -22,11 +22,13 @@ const okFetch = (byDomain) => async (_url, opts) => {
 };
 const tmp = () => fs.mkdtempSync(path.join(os.tmpdir(), 'vw-'));
 
-test('targets: only monitor/growth/scale plans with a domain; hosts deduped; sites accept strings', () => {
+test('targets: care/monitor/growth/scale plans with a domain; hosts deduped; sites accept strings', () => {
   const t = watchTargets(CLIENTS);
-  assert.deepEqual(t.map((x) => x.client), ['Monitor Co', 'Scale <b>Co</b>']);
+  assert.deepEqual(t.map((x) => x.client), ['Monitor Co', 'Care Only', 'Scale <b>Co</b>']);
   assert.deepEqual(t[0].domains.sort(), ['monitor.example', 'www.monitor.example']);
-  assert.deepEqual(t[1].domains, ['scale.example']);
+  assert.deepEqual(t[1].domains, ['care.example']);
+  assert.deepEqual(t[2].domains, ['scale.example']);
+  assert.equal(watchTargets([{ name: 'Nope', plan: 'none', sites: [{ url: 'https://x.example/' }] }]).length, 0);
 });
 
 test('keeps only vulnerable-software findings and emails one summary', async () => {
@@ -49,7 +51,7 @@ test('keeps only vulnerable-software findings and emails one summary', async () 
   assert.ok(!sent[0].html.includes('<b>Co</b>'), 'client names are HTML-escaped');
   assert.match(sent[0].html, /Nothing has been sent to clients/);
   const rec = JSON.parse(fs.readFileSync(path.join(dataDir, 'vuln-watch', '2026-12.json'), 'utf8'));
-  assert.equal(rec.results.length, 3);
+  assert.equal(rec.results.length, 4);
   assert.equal(r.sent, true);
 });
 
