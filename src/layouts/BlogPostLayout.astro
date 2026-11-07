@@ -33,21 +33,32 @@ const jsonLd = [
 ];
 
 // FAQPage structured data from the "Frequently asked questions" block that Ghost Writer's
-// question-led posts end with: <h2>Frequently asked questions</h2> then <h3>Q?</h3><p>A</p> pairs.
-// Posts without that block get no FAQPage. Answers are tag-stripped plain text.
-const faqSection = entry.body.split(/<h2[^>]*>\s*Frequently asked questions\s*<\/h2>/i)[1];
-if (faqSection) {
-  const strip = (h: string) => h.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim();
-  const pairs = [...faqSection.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>\s*<p>([\s\S]*?)<\/p>/gi)]
-    .map((m) => ({ q: strip(m[1]), a: strip(m[2]) }))
-    .filter((p) => p.q.endsWith('?') && p.a);
-  if (pairs.length >= 2) {
-    jsonLd.push({
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      mainEntity: pairs.map((p) => ({ '@type': 'Question', name: p.q, acceptedAnswer: { '@type': 'Answer', text: p.a } })),
-    } as any);
+// question-led posts end with. Posts are stored as markdown (## / ### headings, blank-line
+// separated paragraphs); older/hand-written ones may use raw HTML (<h2>/<h3>/<p>). Handle both.
+// Posts without the block get no FAQPage. Answers are tag/markup-stripped plain text.
+const strip = (h: string) =>
+  h.replace(/<[^>]+>/g, '').replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').replace(/[*_`]/g, '').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim();
+const body = entry.body;
+const pairs: { q: string; a: string }[] = [];
+const mdSplit = body.split(/^##\s+Frequently asked questions\s*$/im);
+const htmlSplit = body.split(/<h2[^>]*>\s*Frequently asked questions\s*<\/h2>/i);
+if (mdSplit.length > 1) {
+  const section = mdSplit[1].split(/^##\s+/m)[0];
+  for (const m of section.matchAll(/^###\s+(.+?)\s*\n+([\s\S]*?)(?=^###\s|$(?![\s\S]))/gm)) {
+    pairs.push({ q: strip(m[1]), a: strip(m[2]) });
   }
+} else if (htmlSplit.length > 1) {
+  for (const m of htmlSplit[1].matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>\s*<p>([\s\S]*?)<\/p>/gi)) {
+    pairs.push({ q: strip(m[1]), a: strip(m[2]) });
+  }
+}
+const faq = pairs.filter((p) => p.q.endsWith('?') && p.a);
+if (faq.length >= 2) {
+  jsonLd.push({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.map((p) => ({ '@type': 'Question', name: p.q, acceptedAnswer: { '@type': 'Answer', text: p.a } })),
+  } as any);
 }
 ---
 <BaseLayout title={`${title} — TelaLoom`} description={description} canonicalPath={canonicalPath} ogImage={ogImage} jsonLd={jsonLd}>
