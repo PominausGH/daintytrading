@@ -1,0 +1,184 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Price from '../../components/Price.astro';
+import CurrencySwitch from '../../components/CurrencySwitch.astro';
+import { pricing, gstRegistered } from '../../data/pricing.ts';
+
+// Stripe Payment Links (live). Prices are fixed in both currencies in src/data/pricing.ts to match.
+const LINK_CHECK = 'https://buy.stripe.com/00waEY9KifLu2G9bIuao80a';
+const LINK_CLEANUP = 'https://buy.stripe.com/00w5kEbSq8j294xh2Oao80b';
+const noGst = gstRegistered ? '' : ' No GST.';
+
+const faqs = [
+  { q: 'What file types can I send?', a: 'CSV, Excel (.xlsx) and JSON exports, up to 20 files and 50 MB in total. If you have more than that, ask first. Larger jobs are quoted separately.' },
+  { q: 'Does an AI read my data?', a: 'No. The checks are plain, automated database queries that run on our own server. Nothing is sent to an AI model or any outside analysis service.' },
+  { q: 'Can the report contain personal information?', a: 'Yes. For each problem it quotes a few example values, such as an invalid email address, so treat the report with the same care as the data it came from.' },
+  { q: 'What does the Clean-up add, exactly?', a: 'Your data with the fixable problems fixed to rules we agree with you first: trimmed and consistently capitalised text, dates turned into real dates, duplicates removed, columns renamed. You get Parquet files and one Excel workbook, plus before-and-after row counts. Loading the cleaned data back into your system is not included.' },
+  { q: 'Will you fix everything it finds?', a: 'No, and some things need your judgement. If two customer records look like the same person, we flag them rather than guess which one is right. Anything the rules can’t settle stays in the report.' },
+  { q: 'What if my files are bigger than 50 MB?', a: 'Tell us what you have through the contact page. Bigger jobs take longer and use more of our server, so we quote them rather than force them into a flat price.' },
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Data Health Check',
+    provider: { '@type': 'Organization', name: 'TelaLoom', url: 'https://telaloom.com' },
+    serviceType: 'Business data quality audit',
+    description: 'An automated audit of your business data exports (CSV, Excel, JSON): duplicates, dates stored as text, invalid emails and phone numbers, and records that point at things that do not exist, delivered as a scored HTML report. An optional Clean-up delivers the cleaned data as Parquet and Excel.',
+    areaServed: 'Worldwide',
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Data Health Check packages',
+      itemListElement: [
+        { '@type': 'Offer', name: 'Data Health Check', price: String(pricing.dataHealthCheck), priceCurrency: 'AUD', url: 'https://telaloom.com/services/data-health-check.html', description: 'One-off. Quality score per table, top issues with counts and examples, detected relationships and orphan records, as an HTML report. Up to 20 files and 50 MB.' },
+        { '@type': 'Offer', name: 'Data Health Check + Clean-up', price: String(pricing.dataHealthCheckCleanup), priceCurrency: 'AUD', url: 'https://telaloom.com/services/data-health-check.html', description: 'One-off. Everything in the Health Check plus your data cleaned to agreed rules, delivered as Parquet files and an Excel workbook with before-and-after row counts.' },
+      ],
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  },
+];
+---
+<BaseLayout
+  currencySwitch
+  title="Data Health Check — Find What's Wrong With Your Business Data | TelaLoom"
+  description="Send us your customer, quote, job and invoice exports and get a scored report on duplicates, dates stored as text, bad emails and phone numbers, and records that don't match up. One-off price, processed in memory and deleted within an hour."
+  canonicalPath="/services/data-health-check.html"
+  jsonLd={jsonLd}
+>
+  <style>
+    .price-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; margin:10px 0; max-width:760px; }
+    @media (max-width:760px) { .price-grid { grid-template-columns:1fr; } }
+    .price-card { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:24px; display:flex; flex-direction:column; }
+    .price-card.featured { border-color:var(--accent); box-shadow:var(--shadow); }
+    .price-card .tier { font-size:13px; letter-spacing:.04em; text-transform:uppercase; color:var(--text-muted); }
+    .price-card .price { font-size:30px; font-weight:700; margin:6px 0 2px; color:var(--text); }
+    .price-card .price small { font-size:14px; font-weight:500; color:var(--text-muted); }
+    .price-card .note { font-size:12.5px; color:var(--text-muted); margin:0 0 14px; }
+    .price-card ul { list-style:none; padding:0; margin:6px 0 18px; flex:1; }
+    .price-card li { font-size:14px; color:var(--text-dim); padding:7px 0 7px 22px; position:relative; border-top:1px solid var(--border); }
+    .price-card li:first-child { border-top:none; }
+    .price-card li::before { content:"\2713"; position:absolute; left:0; color:var(--accent); font-weight:700; }
+    .price-card .btn { width:100%; text-align:center; }
+    .price-badge { display:inline-block; font-size:11px; text-transform:uppercase; letter-spacing:.05em; background:var(--accent-soft); color:var(--accent); padding:3px 9px; border-radius:999px; margin-bottom:10px; }
+    .honest-note { background:var(--accent-soft); border:1px solid var(--border); border-radius:var(--radius-sm); padding:14px 16px; font-size:14px; color:var(--text-dim); margin:22px 0; }
+    .honest-note strong { color:var(--text); }
+    .check-list { padding-left:20px; }
+    .check-list li { margin:6px 0; }
+  </style>
+
+  <main id="main">
+    <section class="detail-hero">
+      <div class="container">
+        <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; <a href="/services.html">Services</a> &nbsp;/&nbsp; Data Health Check</div>
+        <h1>Data Health Check &mdash; Find What&rsquo;s Wrong With Your Business Data</h1>
+        <p class="lede">Send us your exports &mdash; customers, quotes, jobs, invoices &mdash; and we&rsquo;ll send back a scored report on what&rsquo;s broken: duplicate records, dates stored as text, invalid emails and phone numbers, and records that point at things that don&rsquo;t exist. <Price item="dataHealthCheck" symbol />, one-off.{noGst}</p>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="detail-body">
+        <article class="prose">
+          <h2>Who this is for</h2>
+          <p>Businesses whose customer, quote and invoice data lives in spreadsheets, a CRM and an accounting export that were never meant to match. It&rsquo;s most useful just before you migrate to a new system, import a list somewhere that will reject bad rows, or build reports on numbers you&rsquo;re not sure about.</p>
+          <p>If you have one small sheet with a few hundred rows, Excel&rsquo;s own remove-duplicates and find-and-replace will do, and you don&rsquo;t need us. This is for the case where several exports have to agree with each other.</p>
+
+          <h2>What we check</h2>
+          <ul class="check-list">
+            <li><strong>Duplicate rows</strong>, and IDs that should be unique but aren&rsquo;t.</li>
+            <li><strong>Dates stored as text</strong>, including columns that mix formats like <code>2024-03-05</code> and <code>05/03/2024</code>.</li>
+            <li><strong>Stray spaces and inconsistent capitalisation</strong> &mdash; &ldquo;Parramatta&rdquo;, &ldquo;PARRAMATTA&rdquo; and &ldquo;parramatta&rdquo; counted as three places.</li>
+            <li><strong>Invalid emails and phone numbers.</strong></li>
+            <li><strong>Mostly-empty columns.</strong></li>
+            <li><strong>Records that don&rsquo;t line up across files</strong> &mdash; a job that points at a quote that isn&rsquo;t in your quotes export, an invoice for a job that doesn&rsquo;t exist. We detect which columns link your files together, then count the orphans.</li>
+          </ul>
+          <p>Each table gets a quality score out of 100, with its biggest problems listed first, counts and a few examples included.</p>
+
+          <h2>Packages</h2>
+          <CurrencySwitch />
+          <div class="price-grid">
+            <div class="price-card featured">
+              <span class="price-badge">Launch offer: A$99 with code LAUNCH99 (first five customers)</span>
+              <span class="tier">Data Health Check</span>
+              <div class="price"><Price item="dataHealthCheck" /> <small>one-off</small></div>
+              <p class="note">The report. You decide what to do with it.</p>
+              <ul>
+                <li>Quality score for every table</li>
+                <li>Top issues with counts and examples</li>
+                <li>Detected links between your files, and the orphan records</li>
+                <li>A self-contained HTML report you can keep and forward</li>
+                <li>Up to 20 files / 50 MB (CSV, Excel, JSON)</li>
+              </ul>
+              <a class="btn btn-primary" href={LINK_CHECK} rel="noopener" data-umami-event="cta_click" data-umami-event-target="buy_data_health_check" data-umami-event-source="dhc_check_tier">Buy the Health Check &rarr;</a>
+            </div>
+
+            <div class="price-card">
+              <span class="tier">Health Check + Clean-up</span>
+              <div class="price"><Price item="dataHealthCheckCleanup" /> <small>one-off</small></div>
+              <p class="note">The report, and your data fixed to rules we agree first.</p>
+              <ul>
+                <li>Everything in the Health Check</li>
+                <li>Trimmed text, real dates, duplicates removed, columns renamed</li>
+                <li>Cleaned files as Parquet, plus one Excel workbook</li>
+                <li>Before-and-after row counts for every table</li>
+                <li>We confirm the cleaning rules with you before we run them</li>
+              </ul>
+              <a class="btn btn-primary" href={LINK_CLEANUP} rel="noopener" data-umami-event="cta_click" data-umami-event-target="buy_data_health_check_cleanup" data-umami-event-source="dhc_cleanup_tier">Buy Health Check + Clean-up &rarr;</a>
+            </div>
+          </div>
+          <p style="font-size:13px;color:var(--text-muted);">Payment is by card through Stripe.{noGst} Prices include everything above; the only thing extra is a job bigger than 50 MB, which we quote separately.</p>
+
+          <h2>How it works</h2>
+          <ol>
+            <li><strong>You pay</strong> through the buy button.</li>
+            <li><strong>We email you a private upload link</strong> within one business day. (For the Clean-up, we also ask a couple of questions about the rules you want.)</li>
+            <li><strong>You upload your files.</strong> The analysis starts on its own once the last file has landed.</li>
+            <li><strong>Your report appears</strong> in the same folder, usually within minutes.</li>
+          </ol>
+
+          <h2>What happens to your data</h2>
+          <p>The analysis runs on our own server with no outside services, and no AI model sees your files. Your uploaded files are deleted the moment processing finishes. The results are deleted when you download them, or after one hour, whichever comes first.</p>
+          <p>One caveat that matters: files you share through a Google Drive folder stay in that folder until it&rsquo;s deleted. Ask us and we&rsquo;ll delete it. See our <a href="/privacy.html#data-intake">privacy policy</a> for the full detail.</p>
+
+          <h2>See a real report</h2>
+          <p>This is the <a href="/samples/data-health-check-sample.html">sample report</a> from a made-up shutter business: four exports with deliberate problems, such as duplicate customers, mixed date formats, bad emails and orphan records. The data is synthetic, so no real customer appears in it.</p>
+
+          <div class="honest-note">
+            <strong>What this isn&rsquo;t.</strong> It reports what the checks can detect &mdash; it won&rsquo;t tell you your data is &ldquo;clean&rdquo; in some absolute sense, and it can&rsquo;t judge things only you know, like which of two near-identical customers is the real one. The Clean-up applies only the rules we agree with you, and it doesn&rsquo;t change anything in your own systems.
+          </div>
+
+          <h2>Frequently asked questions</h2>
+          {faqs.map((f) => (
+            <details class="faq-item">
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </article>
+
+        <aside class="sidecard">
+          <h4>Data Health Check</h4>
+          <div class="label-row"><span>Best for</span><span>Businesses with several exports</span></div>
+          <div class="label-row"><span>Health Check</span><span><Price item="dataHealthCheck" /></span></div>
+          <div class="label-row"><span>+ Clean-up</span><span><Price item="dataHealthCheckCleanup" /></span></div>
+          <div class="label-row"><span>Formats</span><span>CSV, Excel, JSON</span></div>
+          <div class="label-row"><span>Size</span><span>20 files / 50 MB</span></div>
+          <div class="label-row"><span>Your data kept</span><span>Up to 1 hour</span></div>
+          <p style="font-size:12px;color:var(--text-muted);margin:10px 0 16px;">An automated check, not a guarantee of clean data. {gstRegistered ? '' : 'No GST.'}</p>
+          <a class="btn btn-primary" href={LINK_CHECK} rel="noopener" data-umami-event="cta_click" data-umami-event-target="buy_data_health_check" data-umami-event-source="dhc_sidecard">Buy the Health Check &rarr;</a>
+          <a class="btn btn-ghost" href="/samples/data-health-check-sample.html">See a sample report</a>
+        </aside>
+      </div>
+
+      <div class="cta-banner" style="margin-top:72px;">
+        <h2>Not sure your data needs checking?</h2>
+        <p>Tell us what you have and what you&rsquo;re about to do with it. If a spreadsheet filter would do the job, we&rsquo;ll say so.</p>
+        <a class="btn btn-primary" href="/contact.html" data-umami-event="cta_click" data-umami-event-target="contact" data-umami-event-source="dhc_bottom_banner">Ask us &rarr;</a>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
