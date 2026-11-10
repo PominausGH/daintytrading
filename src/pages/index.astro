@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Price from '../components/Price.astro';
+import CurrencySwitch from '../components/CurrencySwitch.astro';
 import Stat from '../components/Stat.astro';
 import ClientShowcase from '../components/ClientShowcase.astro';
 import { pricing, gstRegistered } from '../data/pricing.ts';
@@ -127,6 +128,7 @@ const jsonLd = [
             <a class="btn btn-ghost" href="/site-check.html" data-umami-event="cta_click" data-umami-event-target="free_audit" data-umami-event-source="index_hero">Free website check</a>
           </div>
           <p class="hero-price">Published prices from <Price item="landingPage" symbol />.{gstRegistered ? '' : ' No GST,'} {gstRegistered ? 'No' : 'no'} lock-in.</p>
+          <CurrencySwitch />
         </div>
         <figure style="margin:0;">
           <div class="browser">

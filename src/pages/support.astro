@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Price from '../components/Price.astro';
+import CurrencySwitch from '../components/CurrencySwitch.astro';
 import { pricing } from '../data/pricing.ts';
 
 const n = (v: number) => v.toLocaleString('en-AU');
@@ -29,6 +30,7 @@ const jsonLd = [
 ];
 ---
 <BaseLayout
+  currencySwitch
   title="Support and Response Times — TelaLoom"
   description="How to ask TelaLoom for help with your website, how fast we reply on each plan, what counts as urgent, and what happens if your site goes down or gets hacked."
   canonicalPath="/support.html"
@@ -58,6 +60,7 @@ const jsonLd = [
     <div class="container">
       <div class="detail-body">
         <article class="prose">
+          <CurrencySwitch />
 
           <h2>How to ask for help</h2>
           <p>Email <a href="mailto:hello@telaloom.com">hello@telaloom.com</a> from the address we have on file. One email per problem is easiest to track. Include:</p>
