@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Price from '../components/Price.astro';
+import CurrencySwitch from '../components/CurrencySwitch.astro';
 
 const jsonLd = [
   {
@@ -54,6 +55,8 @@ const jsonLd = [
             <a class="btn btn-ghost" href="/services/ai-infrastructure.html" style="margin-right:10px;">AI infrastructure &rarr;</a>
             <a class="btn btn-ghost" href="/services/data-health-check.html">Data Health Check &rarr;</a>
           </p>
+
+          <CurrencySwitch />
 
           <h2>1. Website builds for local businesses</h2>
           <p>The starting point for everything else &mdash; you can&rsquo;t be found if you don&rsquo;t have anywhere to be found at. We build local businesses a real website: custom-designed, written around the business, with Local SEO &amp; GEO included from day one.</p>
