@@ -1,26 +1,65 @@
 ---
-title: "Local SEO vs. SEO vs. GEO: What's Actually Different"
-description: "Local SEO, classic SEO, and GEO get lumped together constantly. Here's what each one actually optimizes for, and why the fix for one doesn't fix the others."
+title: "What's the difference between local SEO, SEO and GEO?"
+description: "Local SEO gets you found nearby, SEO gets you found in Google generally, and GEO gets you cited by AI assistants. Here's what each does and which you need."
 category: "SEO & GEO"
 publishedDate: "2026-09-10"
-readTime: "4 min"
+readTime: "5 min"
 ogImage: "https://telaloom.com/og-card.png"
 ---
 
-<p>These three terms get used interchangeably, and that's a problem, because they optimize for different things. A site can be strong on one and invisible on another. If you don't know which one you actually have a gap in, you end up paying for the wrong fix.</p>
+Local SEO gets you found by nearby customers on Google Maps and local results. SEO gets you found in Google's regular results for general searches. GEO gets you cited correctly by AI assistants like ChatGPT. They share a foundation, but they aim at different places, so a fix for one doesn't automatically fix the others.
 
-<h2>Local SEO: ranking for "near me"</h2>
-<p>Local SEO is about geo-qualified searches — "blinds installer Gold Coast," "plumber near me." The ranking surface is Google's Map Pack and localized organic results, and the signals are almost entirely different from classic SEO: your Google Business Profile, review volume and recency, NAP (name/address/phone) consistency across directories, and service-area or suburb-specific pages. Backlinks barely move this needle. A business with zero backlink profile can still dominate the Map Pack in its area with a well-run listing and a steady flow of reviews.</p>
-<p>This only applies if you have a physical service area. A SaaS product with customers everywhere has no local SEO problem to solve, because there's no "near me" query it could ever rank for.</p>
+## What is local SEO?
 
-<h2>Classic SEO: ranking in organic search generally</h2>
-<p>This is the discipline everyone means by default when they say "SEO" — ranking in standard organic results for queries with no geo-intent. It runs on domain authority and backlinks, content depth and topical coverage, site architecture, and page speed. It's a content-and-authority problem, not a listings problem, and it's where most of the fixable, structural issues live: broken or missing schema, thin meta tags, sitemap gaps — <a href="/blog/what-an-seo-geo-audit-actually-finds.html">the kind of thing an audit turns up constantly</a>.</p>
+Local SEO is about searches with a place in them, like "blinds installer Gold Coast" or "plumber near me". The results show up in Google's map listings and local results. Google says it ranks local results on relevance, distance and prominence, so the things that matter most are:
 
-<h2>GEO: getting cited by the AI answer, not ranked in the blue links</h2>
-<p>GEO (generative engine optimization) is a different axis again — not where you rank, but whether ChatGPT, Claude, Perplexity, or a Google AI Overview can find your content, trust it, and quote it accurately when someone asks a question your business could answer. <a href="/blog/what-is-geo-generative-engine-optimization.html">We've written about what GEO adds on top of SEO</a> in more depth, but the short version: it rides on the same structured, crawlable content that both local and classic SEO need anyway, plus a few things neither of the older disciplines ever had to think about — an <code>llms.txt</code> file, AI-crawler-aware <code>robots.txt</code> rules, and FAQ content phrased for direct-answer extraction rather than keyword density.</p>
-<p>The reason GEO isn't a fourth line item on top of the other two: it's not a separate audience, it's a separate <em>surface</em>. A local tradie needs GEO so an AI assistant recommends them for "who installs shutters on the Gold Coast." A SaaS product needs GEO so an AI assistant cites them correctly instead of confusing them with a similarly-named competitor. Same underlying fix, different business.</p>
+- **Your Google Business Profile.** A complete, accurate listing with your services, hours and service area.
+- **Reviews.** How many you have, how recent they are, and whether you reply.
+- **Consistent business details.** The same name, address and phone number on your site and in directories.
+- **Pages for your services and suburbs.** One clear page per main service, naming where you work.
 
-<h2>Why the distinction matters practically</h2>
-<p>A site can win classic SEO and still be invisible in AI Overviews, because ranking well and being quotable cleanly are different properties — plenty of well-ranked pages are keyword-optimized prose an LLM can't extract a clean answer from. Equally, a local business can have a five-star Google Business Profile and still get recommended for a competitor's product because its site never disambiguated what it actually is. Diagnosing which of the three you're actually missing is most of the value of an audit — the fixes genuinely don't transfer between them.</p>
+It only applies if you serve a physical area. An online-only business has no "near me" search to win.
 
-<p>If you're a local service business, <a href="/services/local-seo.html">see how local SEO &amp; GEO works</a>. If you're running a product or SaaS site, <a href="/services/seo-geo-optimization.html">see the SEO &amp; GEO engagement</a>. Either way, the audit is free and tells you which of the three is actually the gap before you pay for anything.</p>
+## What is regular SEO?
+
+Regular SEO is about ranking in Google's organic results for searches with no place in them, like "how much does a website cost". It depends on a site Google can read and trust: clear page titles, good page structure, fast pages, helpful content that answers the question, and links from other sites. It's more of a content and credibility job than a listings job.
+
+## What is GEO?
+
+GEO, or generative engine optimisation, is about whether an AI assistant can find your content and quote it correctly when someone asks a question you could answer. It's not about where you rank in a list. It builds on the same indexed, readable site as SEO, plus a few extras such as not blocking AI search bots and putting clear answers in plain text. We cover it in more depth in [what GEO is and whether you need it](/blog/what-is-geo-generative-engine-optimization.html).
+
+## Which one do I need?
+
+Think about how your customers find you:
+
+- **You serve a local area (tradie, clinic, cafe, accountant):** start with local SEO, because that's where most customers search. Add the SEO and GEO basics so your own site is readable too.
+- **You sell online or to a wide area:** start with regular SEO and GEO.
+- **You do both:** you need all three, in that rough order of priority for your business.
+
+## Can I be strong in one and weak in another?
+
+Yes, and it happens often. A business can have a five-star Google Business Profile and a website that crawlers can't read well. A site can rank well in Google and still be hard for an AI tool to quote cleanly, for example when the answer is buried in long, general text. Working out which one you're missing is most of the value of an audit, because the fixes don't transfer.
+
+Not sure where your gaps are? [Run the free website check](/site-check.html), a quick first look at what Google and AI assistants can read on your site. If you serve a local area, [see how local SEO and GEO works](/services/local-seo.html). For an online business, [see the SEO and GEO service](/services/seo-geo-optimization.html). The audit is free either way, and it tells you which of the three is the real gap before you pay for anything. We also cover [what an audit finds](/blog/what-an-seo-geo-audit-actually-finds.html).
+
+## Frequently asked questions
+
+### Do I need local SEO, SEO and GEO all at once?
+
+Not on day one. Start with whichever matches how customers find you, usually a complete Google Business Profile for a local business. The three overlap, so work on the foundations first and the rest gets easier.
+
+### Is local SEO enough for a local business?
+
+It's the most important of the three for many local businesses, but it isn't the whole picture. If your website is slow or hard for crawlers to read, it can hold back both your local results and your AI visibility.
+
+### Do reviews matter for AI assistants?
+
+In our understanding, what other sites, reviews and listings say about you is part of what AI answers draw on. Nobody can promise exactly how, but a steady stream of genuine reviews helps your local results and your reputation either way.
+
+### Does a backlink strategy matter for local SEO?
+
+Links can contribute to a site's overall standing, but for local results the listing, reviews and local relevance usually matter most. Fix those first.
+
+### How do I know which of the three I'm missing?
+
+An audit will tell you. The free website check is a fast first look, and a full audit goes deeper into Search Console data, your Google Business Profile and a wider crawl.
