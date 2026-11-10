@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data intake report — Example Shutters Pty Ltd</title>
+<style>
+:root { --bg:#f7f8fa; --card:#fff; --ink:#1c2430; --mute:#667085; --line:#e4e7ec; --good:#12805c; --fair:#b25e09; --poor:#c0362c; --acc:#2f5fd0; }
+@media (prefers-color-scheme: dark) { :root { --bg:#0f1218; --card:#171b23; --ink:#e8ecf3; --mute:#98a2b3; --line:#283040; --good:#4ac29a; --fair:#f0a64a; --poor:#f07166; --acc:#8aa8ff; } }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+main { max-width:1000px; margin:0 auto; padding:28px 16px 64px; }
+h1 { font-size:26px; margin:0 0 4px; } h2 { font-size:19px; margin:36px 0 12px; } h3 { margin:0; font-size:17px; }
+.sub { color:var(--mute); margin:0 0 20px; }
+.kpis { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin:20px 0; }
+.kpi, .card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:14px 16px; }
+.kpi b { display:block; font-size:26px; } .kpi span { color:var(--mute); font-size:13px; }
+.card { margin-bottom:16px; } .card header { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:6px; }
+.score { font-weight:700; padding:3px 10px; border-radius:99px; border:1px solid currentColor; }
+.good { color:var(--good); } .fair { color:var(--fair); } .poor { color:var(--poor); }
+.bar { height:6px; background:var(--line); border-radius:3px; overflow:hidden; margin:8px 0 12px; } .bar i { display:block; height:100%; background:currentColor; }
+table { width:100%; border-collapse:collapse; font-size:14px; } th,td { text-align:left; padding:6px 8px; border-bottom:1px solid var(--line); vertical-align:top; }
+th { color:var(--mute); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.03em; } td.n, th.n { text-align:right; font-variant-numeric:tabular-nums; }
+.tw { overflow-x:auto; }
+.sev { font-size:12px; font-weight:600; padding:1px 8px; border-radius:99px; border:1px solid currentColor; }
+.sev.high { color:var(--poor); } .sev.medium { color:var(--fair); } .sev.low { color:var(--mute); }
+code { font-family:ui-monospace,Menlo,monospace; font-size:13px; } details summary { cursor:pointer; color:var(--acc); margin-top:10px; }
+.warn { border-left:4px solid var(--fair); } .ok { color:var(--good); } footer { color:var(--mute); font-size:12px; margin-top:40px; }
+.arrow { color:var(--mute); }
+</style>
+</head>
+<body>
+<main>
+<h1>Data intake report</h1>
+<p class="sub">Example Shutters Pty Ltd · 4 tables profiled with DuckDB. All processing ran locally; no data left the machine.</p>
+
+<div class="kpis">
+  <div class="kpi"><b class="good">89.4</b><span>Average quality score /100</span></div>
+  <div class="kpi"><b>4</b><span>Tables</span></div>
+  <div class="kpi"><b>13</b><span>Issues found</span></div>
+  <div class="kpi"><b>4</b><span>Relationships detected</span></div>
+</div>
+
+
+<h2>Tables</h2>
+<section class="card">
+  <header><h3>customers <span class="sub" style="font-weight:400">· customers.csv · 43 rows · 7 columns</span></h3>
+    <span class="score fair">78.4/100</span></header>
+  <div class="bar fair"><i style="width:78.4%"></i></div>
+  <div class="tw"><table>
+    <tr><th>Severity</th><th>Check</th><th>Column</th><th class="n">Affected</th><th>Detail</th></tr>
+    <tr><td><span class="sev high">high</span></td><td>Dates stored as text</td><td><code>created_at</code></td>
+        <td class="n">43 (100.0%)</td><td>mixed formats: YYYY-MM-DD ×31, DD/MM/YYYY or MM/DD/YYYY ×12</td></tr>
+    <tr><td><span class="sev high">high</span></td><td>Case variants</td><td><code>suburb</code></td>
+        <td class="n">14 (32.6%)</td><td>1 value group(s) differ only by case, e.g. Parramatta / PARRAMATTA / parramatta</td></tr>
+    <tr><td><span class="sev medium">medium</span></td><td>Invalid emails</td><td><code>email</code></td>
+        <td class="n">5 (11.6%)</td><td>5 invalid, e.g. 'bob.smith.example.com', 'jane@example', 'n/a'</td></tr>
+    <tr><td><span class="sev medium">medium</span></td><td>Leading/trailing whitespace</td><td><code>full_name</code></td>
+        <td class="n">4 (9.3%)</td><td>4 value(s) with leading/trailing whitespace</td></tr>
+    <tr><td><span class="sev medium">medium</span></td><td>Duplicate key values</td><td><code>customer_id</code></td>
+        <td class="n">3 (7.0%)</td><td>3 key value(s) appear more than once (3 surplus rows)</td></tr>
+    <tr><td><span class="sev low">low</span></td><td>Duplicate rows</td><td>—</td>
+        <td class="n">2 (4.7%)</td><td>2 fully identical row(s) beyond the first occurrence</td></tr>
+    <tr><td><span class="sev low">low</span></td><td>Invalid phone numbers</td><td><code>phone</code></td>
+        <td class="n">2 (4.7%)</td><td>2 invalid, e.g. '123', 'call me'</td></tr>
+  </table></div>
+  <details><summary>Column profile</summary>
+  <div class="tw"><table>
+    <tr><th>Column</th><th>Type</th><th class="n">Null %</th><th class="n">~Unique</th></tr>
+<tr><td><code>customer_id</code></td><td>VARCHAR</td><td class="n">0.0</td><td class="n">41</td></tr><tr><td><code>full_name</code></td><td>VARCHAR</td><td class="n">0.0</td><td class="n">34</td></tr><tr><td><code>email</code></td><td>VARCHAR</td><td class="n">0.0</td><td class="n">40</td></tr><tr><td><code>phone</code></td><td>VARCHAR</td><td class="n">0.0</td><td class="n">42</td></tr><tr><td><code>suburb</code></td><td>VARCHAR</td><td class="n">0.0</td><td class="n">6</td></tr><tr><td><code>created_at</code></td><td>VARCHAR</td><td class="n">0.0</td><td class="n">39</td></tr><tr><td><code>status</code></td><td>VARCHAR</td><td class="n">0.0</td><td class="n">2</td></tr>  </table></div></details>
+</section>
+<section class="card">
+  <header><h3>invoices <span class="sub" style="font-weight:400">· invoices.csv · 30 rows · 5 columns</span></h3>
+    <span class="score good">96.7/100</span></header>
+  <div class="bar good"><i style="width:96.7%"></i></div>
+  <div class="tw"><table>
+    <tr><th>Severity</th><th>Check</th><th>Column</th><th class="n">Affected</th><th>Detail</th></tr>
+    <tr><td><span class="sev high">high</span></td><td>Case variants</td><td><code>status</code></td>
+        <td class="n">17 (56.7%)</td><td>1 value group(s) differ only by case, e.g. PAID / paid</td></tr>
+    <tr><td><span class="sev low">low</span></td><td>Orphan foreign keys</td><td><code>job_id</code></td>
+        <td class="n">1 (3.3%)</td><td>1 row(s) reference a missing jobs.job_id</td></tr>
+  </table></div>
+  <details><summary>Column profile</summary>
+  <div class="tw"><table>
+    <tr><th>Column</th><th>Type</th><th class="n">Null %</th><th class="n">~Unique</th></tr>
+<tr><td><code>invoice_id</code></td><td>VARCHAR</td><td class="n">0.0</td><td class="n">29</td></tr><tr><td><code>job_id</code></td><td>VARCHAR</td><td class="n">0.0</td><td class="n">30</td></tr><tr><td><code>invoice_date</code></td><td>DATE</td><td class="n">0.0</td><td class="n">29</td></tr><tr><td><code>total</code></td><td>DOUBLE</td><td class="n">0.0</td><td class="n">30</td></tr><tr><td><code>status</code></td><td>VARCHAR</td><td class="n">0.0</td><td class="n">3</td></tr>  </table></div></details>
+</section>
+<section class="card">
+  <header><h3>jobs <span class="sub" style="font-weight:400">· jobs.csv · 35 rows · 5 columns</span></h3>
+    <span class="score fair">83.3/100</span></header>
+  <div class="bar fair"><i style="width:83.3%"></i></div>
+  <div class="tw"><table>
+    <tr><th>Severity</th><th>Check</th><th>Column</th><th class="n">Affected</th><th>Detail</th></tr>
+    <tr><td><span class="sev high">high</span></td><td>Dates stored as text</td><td><code>install_date</code></td>
+        <td class="n">35 (100.0%)</td><td>mixed formats: YYYY-MM-DD ×23, DD Mon YYYY ×12</td></tr>
+    <tr><td><span class="sev medium">medium</span></td><td>Orphan foreign keys</td><td><code>customer_id</code></td>
+        <td class="n">2 (5.7%)</td><td>2 row(s) reference a missing customers.customer_id</td></tr>
+    <tr><td><span class="sev medium">medium</span></td><td>Orphan foreign keys</td><td><code>quote_id</code></td>
+        <td class="n">2 (5.7%)</td><td>2 row(s) reference a missing quotes.quote_id</td></tr>
+  </table></div>
+  <details><summary>Column profile</summary>
+  <div class="tw"><table>
+    <tr><th>Column</th><th>Type</th><th class="n">Null %</th><th class="n">~Unique</th></tr>
+<tr><td><code>job_id</code></td><td>VARCHAR</td><td class="n">0.0</td><td class="n">36</td></tr><tr><td><code>quote_id</code></td><td>VARCHAR</td><td class="n">0.0</td><td class="n">36</td></tr><tr><td><code>customer_id</code></td><td>VARCHAR</td><td class="n">0.0</td><td class="n">22</td></tr><tr><td><code>install_date</code></td><td>VARCHAR</td><td class="n">0.0</td><td class="n">35</td></tr><tr><td><code>job_status</code></td><td>VARCHAR</td><td class="n">0.0</td><td class="n">3</td></tr>  </table></div></details>
+</section>
+<section class="card">
+  <header><h3>quotes <span class="sub" style="font-weight:400">· quotes.xlsx[Quotes] · 60 rows · 5 columns</span></h3>
+    <span class="score good">99.2/100</span></header>
+  <div class="bar good"><i style="width:99.2%"></i></div>
+  <div class="tw"><table>
+    <tr><th>Severity</th><th>Check</th><th>Column</th><th class="n">Affected</th><th>Detail</th></tr>
+    <tr><td><span class="sev medium">medium</span></td><td>Orphan foreign keys</td><td><code>customer_id</code></td>
+        <td class="n">3 (5.0%)</td><td>3 row(s) reference a missing customers.customer_id</td></tr>
+  </table></div>
+  <details><summary>Column profile</summary>
+  <div class="tw"><table>
+    <tr><th>Column</th><th>Type</th><th class="n">Null %</th><th class="n">~Unique</th></tr>
+<tr><td><code>quote_id</code></td><td>VARCHAR</td><td class="n">0.0</td><td class="n">60</td></tr><tr><td><code>customer_id</code></td><td>VARCHAR</td><td class="n">0.0</td><td class="n">29</td></tr><tr><td><code>quote_date</code></td><td>DATE</td><td class="n">0.0</td><td class="n">57</td></tr><tr><td><code>amount</code></td><td>DOUBLE</td><td class="n">0.0</td><td class="n">61</td></tr><tr><td><code>status</code></td><td>VARCHAR</td><td class="n">0.0</td><td class="n">3</td></tr>  </table></div></details>
+</section>
+
+<h2>Detected relationships</h2>
+<section class="card">
+<div class="tw"><table>
+  <tr><th>Child column</th><th></th><th>Parent column</th><th class="n">Coverage</th><th class="n">Orphan rows</th></tr>
+  <tr><td><code>invoices.job_id</code></td><td class="arrow">→</td><td><code>jobs.job_id</code></td>
+      <td class="n">97%</td><td class="n poor">1 of 30</td></tr>
+  <tr><td><code>jobs.customer_id</code></td><td class="arrow">→</td><td><code>customers.customer_id</code></td>
+      <td class="n">91%</td><td class="n poor">2 of 35</td></tr>
+  <tr><td><code>jobs.quote_id</code></td><td class="arrow">→</td><td><code>quotes.quote_id</code></td>
+      <td class="n">94%</td><td class="n poor">2 of 35</td></tr>
+  <tr><td><code>quotes.customer_id</code></td><td class="arrow">→</td><td><code>customers.customer_id</code></td>
+      <td class="n">90%</td><td class="n poor">3 of 60</td></tr>
+</table></div>
+<p class="sub">Coverage = share of the child's distinct values found in the parent. Orphan rows reference a parent that doesn't exist.</p>
+</section>
+
+<h2>Cleaning results</h2>
+<section class="card"><div class="tw"><table>
+  <tr><th>Table</th><th class="n">Before</th><th class="n">After</th><th class="n">Removed</th><th>Steps applied</th></tr>
+  <tr><td><code>customers</code></td><td class="n">43</td><td class="n">40</td><td class="n">3</td>
+      <td>rename full_name -> name; parse created_at as date using %Y-%m-%d, %d/%m/%Y; trim name; trim suburb; lowercase email; lowercase status; dedupe on customer_id (keep first)</td></tr>
+  <tr><td><code>invoices</code></td><td class="n">30</td><td class="n">30</td><td class="n">0</td>
+      <td>lowercase status; dedupe on invoice_id (keep first)</td></tr>
+  <tr><td><code>jobs</code></td><td class="n">35</td><td class="n">35</td><td class="n">0</td>
+      <td>parse install_date as date using %Y-%m-%d, %d %b %Y; dedupe on job_id (keep first)</td></tr>
+  <tr><td><code>quotes</code></td><td class="n">60</td><td class="n">60</td><td class="n">0</td>
+      <td>cast amount to DECIMAL(10,2); keep rows where status in ['sent', 'accepted', 'declined']; dedupe on quote_id (keep first)</td></tr>
+</table></div>
+<p class="sub">Cleaned tables delivered as Parquet (one file per table) and a single XLSX workbook.</p></section>
+
+<footer>Generated by data-intake. Synthetic data shown where this report is used as a sample.</footer>
+</main>
+</body>
+</html>

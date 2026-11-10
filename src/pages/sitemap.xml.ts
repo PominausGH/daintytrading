@@ -26,6 +26,7 @@ const STATIC_PAGES: { path: string; changefreq: string; priority: string }[] = [
   { path: '/services/seo-geo-optimization.html', changefreq: 'monthly', priority: '0.9' },
   { path: '/services/local-seo.html', changefreq: 'monthly', priority: '0.9' },
   { path: '/services/website-builds.html', changefreq: 'monthly', priority: '0.9' },
+  { path: '/services/data-health-check.html', changefreq: 'monthly', priority: '0.8' },
   { path: '/industries/law-firms.html', changefreq: 'monthly', priority: '0.7' },
   { path: '/industries/shutters-blinds.html', changefreq: 'monthly', priority: '0.7' },
 ];

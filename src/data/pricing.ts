@@ -60,6 +60,11 @@ export const pricingUsd = {
   aiRetrofitFrom: 17300,
   aiInfrastructureFrom: 20200,
   aiProductBuildFrom: 32450,
+  // Data Health Check (2026-11-10): fixed in BOTH currencies to match the live Stripe prices
+  // (price_1UaAKjJf3Hcj3O44faE2vJmU, price_1UaAKkJf3Hcj3O44DwAcCJd4), not FX-derived. If you change
+  // these, create new Stripe prices + Payment Links first or the site and checkout will disagree.
+  dataHealthCheck: 99,
+  dataHealthCheckCleanup: 259,
 } as const;
 
 // GST: TelaLoom is not registered for GST (Andrew, 2026-10-22), so published prices carry no GST.
@@ -86,6 +91,8 @@ export const pricing = {
   aiRetrofitFrom: audFromUsd(pricingUsd.aiRetrofitFrom),
   aiInfrastructureFrom: audFromUsd(pricingUsd.aiInfrastructureFrom),
   aiProductBuildFrom: audFromUsd(pricingUsd.aiProductBuildFrom),
+  dataHealthCheck: 149, // fixed AUD, matches Stripe (see note in pricingUsd)
+  dataHealthCheckCleanup: 399,
 } as const;
 
 export function aud(n: number) {
