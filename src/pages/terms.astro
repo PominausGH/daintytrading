@@ -11,7 +11,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="container">
         <div class="crumbs"><a href="/">Home</a> &nbsp;/&nbsp; Terms of service</div>
         <h1>Terms of service.</h1>
-        <p class="lede">Last updated: 10 August 2026. These terms cover client engagements booked through telaloom.com — AI product builds, automation retrofits, AI infrastructure, SEO/GEO optimization, local SEO/GEO, and website builds.</p>
+        <p class="lede">Last updated: 10 November 2026. These terms cover client engagements booked through telaloom.com — AI product builds, automation retrofits, AI infrastructure, SEO/GEO optimization, local SEO/GEO, and website builds.</p>
       </div>
     </section>
 
@@ -49,6 +49,25 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
           <h2>Data and privacy</h2>
           <p>Where an engagement involves us handling personal information — for example, your customers' data as part of an automation or AI infrastructure build — we handle it in line with the Australian Privacy Act 1988 and the Australian Privacy Principles. We don't use your data to train or improve tools outside your engagement without your written consent, and we retain it only for as long as needed to deliver and support the engagement.</p>
+
+          <h2 id="data-health-check">Data Health Check purchases</h2>
+          <p>The Data Health Check and the Health Check + Clean-up are fixed-price, one-off services paid in full up front by card through Stripe, at the price shown on the <a href="/services/data-health-check.html">service page</a> when you buy.</p>
+          <ul>
+            <li><strong>What you get:</strong> an automated report on the files you send (and, for the Clean-up, your data cleaned to rules we agree with you first, as Parquet files and an Excel workbook). The report shows what our checks detect; it is not a guarantee that your data is free of errors, and it does not change anything in your own systems.</li>
+            <li><strong>Scope:</strong> up to 20 files and 50 MB in total (CSV, Excel or JSON). Larger jobs are quoted separately before any work starts.</li>
+            <li><strong>Delivery:</strong> after payment we email you a private upload link, normally within one business day. The report is delivered once your files are received.</li>
+            <li><strong>Your files:</strong> you confirm you are entitled to send us the data, and that you have told the people it concerns whatever the law requires. Please remove personal information you don&rsquo;t need us to check.</li>
+          </ul>
+          <h3>How we handle and protect your files</h3>
+          <p>These are the specific things we do, and they form part of the service:</p>
+          <ul>
+            <li>Files are analysed in memory on our own server. No AI model or outside analysis service sees them.</li>
+            <li>Your uploaded files are deleted as soon as processing finishes. Results are deleted when you download them, or after one hour, whichever comes first.</li>
+            <li>Files travel over an encrypted connection. Network traffic to our server passes through Cloudflare. Payments are handled by Stripe, which we do not see card details from.</li>
+            <li>If you share files through a Google Drive folder, they remain in that folder, in Google&rsquo;s systems, until the folder is deleted. Ask us and we will delete it.</li>
+            <li>See our <a href="/privacy.html#data-intake">privacy policy</a> for more.</li>
+          </ul>
+          <p>We take reasonable steps to protect your information, but no system is perfectly secure and we don&rsquo;t promise otherwise. Nothing in these terms limits any right you have under the Australian Consumer Law or privacy law.</p>
 
           <h2>Warranties</h2>
           <p>We warrant that we'll perform the work described in your written scope with reasonable skill and care. Beyond that, deliverables are provided "as is" — we don't warrant that software will be error-free or uninterrupted, or that any particular business outcome (rankings, conversions, revenue) will result from SEO/GEO or automation work, since those depend on factors outside our control.</p>
