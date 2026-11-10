@@ -1,21 +1,84 @@
 ---
-title: "How Our Web Design Pricing Actually Compares to Other Agencies"
-description: "Local agencies typically split website builds and SEO/GEO into two invoices; we quote one number, US$4,950 (about A$7,100), with both included — here's where that sits against freelancers, boutique agencies, and retainer-model shops."
+title: "Website quotes compared: what should a web design price include?"
+description: "Agency website quotes differ mainly in what's included, especially search work. Here's what to compare line by line and how to spot good value."
 category: "Business"
 publishedDate: "2026-09-13"
-readTime: "4 min"
+readTime: "5 min"
 ogImage: "https://telaloom.com/og-card.png"
 ---
 
-<p>We <a href="/blog/website-design-cost-australia-vs-offshore.html">wrote last week</a> about offshore vs. Australian pricing. The question we got back most was simpler: forget offshore, how do we compare to other local agencies? Roughly like this — a freelancer is $1,500–$5,000 for the build, nothing else. A boutique agency doing custom work is $3,000–$10,000+ for the build, then SEO gets quoted separately, usually as an $800–$2,500/month retainer if you want it at all. A branding-led agency — the ones who pitch you on "digital strategy" — starts around $15,000 and still treats SEO as an add-on line item. We're US$4,950 (about A$7,100) for a custom build, and Local SEO & GEO setup is in that number, not quoted after.</p>
+Website quotes from different agencies are hard to compare because they often cover different things. One includes copywriting, hosting setup and search work, and another is a design only, with search sold later as a monthly service. The headline number tells you little until you line up what each quote actually includes. This is the checklist we'd use if we were buying.
 
-<h2>Why we don't publish a table naming who charges what</h2>
-<p>Because it'd be wrong within a month — agency pricing moves constantly and none of it is published anywhere reliable to begin with, so any table is really just us guessing at competitors' rate cards and putting a specific dollar figure next to someone else's name. The bands above are what we see quoted back to us by prospects who came from a competitor first, which is a more honest source than us inventing numbers for a table. If you've got an actual quote in hand, send it to us — we'll tell you straight whether ours is actually better value for what you need, including if it isn't.</p>
+## Why do agency website quotes vary so much?
 
-<h2>The bundling is the actual difference, not the headline number</h2>
-<p>A $4,000 build quote and a $7,100 build quote look like the same decision — pick the cheaper one — until you notice one of them has no SEO in it at all. The industry norm is to sell the build, then sell SEO as a second, ongoing product, because that's a better business model for the agency: one project fee plus a recurring retainer beats one project fee alone. We priced it as one thing because for a business that doesn't already have an in-house marketing function, a website with no <a href="/blog/what-is-geo-generative-engine-optimization.html">GEO</a> or <a href="/blog/local-seo-vs-seo-vs-geo-difference.html">local SEO</a> foundation isn't a smaller version of the finished product — it's a different, mostly useless product that happens to look the same in a screenshot.</p>
+Because "a website" isn't one product. A quote can bundle or leave out any of these:
 
-<h2>What that's actually delivered, not hypothetically</h2>
-<p><a href="/projects/edwards-kirby-lawyers.html">A Sydney insolvency and business law firm</a> needed more than a website refresh — we rebuilt the public site and built a secure client portal alongside it (JWT + MFA, encrypted document storage), with SEO/GEO built in from the start rather than bolted on after. And <a href="/projects/shuttersmith-rebuild.html">Shuttersmith</a>, a plantation shutters business, got the SEO/GEO engagement first — it sent them more business than their original setup could hold, enough that the client backed <a href="/projects/new-shutter-business.html">a second, trade-price shutters business</a> off the back of it. Neither of those came from a design-only build. Both came from treating the site and its findability as the same project.</p>
+- Design and build.
+- Copywriting.
+- Hosting, domain and security setup.
+- Search setup (SEO) and being found in AI assistants (GEO).
+- Ongoing changes and support.
 
-<p>If you've got a quote from someone else on the table, <a href="/contact.html">send it to us</a> and we'll tell you plainly whether it's already good value or what it's missing — and if you just want to see where your own business stands right now, start with a <a href="/services/local-seo.html">Local SEO & GEO audit</a> rather than a redesign.</p>
+An agency that sells the build as one project and search as a separate monthly service can look cheaper at first, because the first invoice is smaller. The total cost over a year can be quite different, and so can the result.
+
+## What should I compare, line by line?
+
+Put your quotes in a simple table with these rows:
+
+1. **Pages and design.** How many pages, and is the layout custom or a template?
+2. **Copywriting.** Who writes the words, and is it in the price?
+3. **Ownership.** Whose name are the domain and hosting in? Can you leave without a fight?
+4. **Search setup.** What, specifically, is done: Google Business Profile, local business markup, pages that answer real questions?
+5. **Changes after launch.** What does the first edit cost and how long does it take?
+6. **Ongoing fees.** Is anything monthly, for how long, and can you cancel?
+
+A quote that can't fill in a row is a quote to question.
+
+## Is SEO normally included in a website price?
+
+Often it isn't. Many agencies sell the website first and search work afterwards, usually as an ongoing monthly service. That isn't dishonest, but it means a site price on its own doesn't tell you whether anyone will do the work that gets you found.
+
+On TelaLoom's custom build (US$4,950, with the [pricing page](/pricing.html) showing today's Australian dollar figure), Local SEO and GEO setup is included rather than quoted afterwards. Ongoing monthly plans are optional and month-to-month. These are guide prices: once you're on board we audit the site in depth, and if it needs more than expected, such as very old or unsupported software, we agree any change with you in writing before work begins.
+
+## Why does bundling matter?
+
+A website with no search foundation isn't a cheaper version of the finished product. It looks the same in a screenshot and does a different job. For a business with no marketing team, being found is usually the whole reason for the site. We explain the pieces in [what GEO actually is](/blog/what-is-geo-generative-engine-optimization.html) and [how local SEO, SEO and GEO differ](/blog/local-seo-vs-seo-vs-geo-difference.html), and the price side in [how much a website costs in Australia](/blog/website-design-cost-australia-vs-offshore.html).
+
+## What does a build with search work look like in practice?
+
+Two real examples from our own client work:
+
+- **A Sydney insolvency and business law firm** had a website that hadn't been touched in years and no secure way for clients to deal with the firm once a matter was underway. We rebuilt the public site and built a [secure client portal](/projects/edwards-kirby-lawyers.html) alongside it, with search work built in from the start. It is about to go live, and the firm will be named at launch.
+- **Shuttersmith**, a plantation shutters business, started with a search and GEO engagement, and the site was then [rebuilt](/projects/shuttersmith-rebuild.html). The same client later backed [a second, trade-price shutters business](/projects/new-shutter-business.html), which we also built.
+
+Neither was a design-only job.
+
+## How do I tell whether a quote is good value?
+
+Look for these signs:
+
+- It lists specific deliverables, not just "SEO services" or "web design".
+- You own your accounts: domain, hosting, Google Business Profile, Search Console.
+- It explains how progress is reported and says honestly that search results take time.
+
+Walk away from anyone who guarantees page-one rankings, won't say what they actually do, or keeps control of your accounts. Nobody can promise rankings, traffic or leads.
+
+If you want a first look before you compare quotes, [run the free website check](/site-check.html). It's a fast look at what Google and AI assistants can read on your site, not a full audit.
+
+## Frequently asked questions
+
+### Should I pay for the website and SEO together or separately?
+
+Together can be simpler, because the person building the site sets it up to be found as they go, instead of retrofitting later. Separately can make sense if you already have someone handling search. Either way, make sure the quote says who is responsible for being found.
+
+### Are monthly SEO retainers worth it?
+
+Sometimes. Ongoing work helps in competitive markets where content, reviews and monitoring matter. It's less useful if the site hasn't been set up properly first, so fix the foundations, then decide whether you need monthly support.
+
+### What's a red flag in a web design quote?
+
+A guaranteed ranking, no list of deliverables, or anything that leaves you unable to move your domain or hosting. A vague "SEO included" with no detail is also worth questioning.
+
+### Can you look at a quote I've already received?
+
+Yes. Send it to us along with your business name or Google listing, and we'll say plainly whether it already looks like good value or what it's missing. [Contact us](/contact.html).

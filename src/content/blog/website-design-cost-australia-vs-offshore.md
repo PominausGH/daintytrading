@@ -1,22 +1,78 @@
 ---
-title: "What a Website Actually Costs in Australia (and Why Cheap Offshore Isn't Cheaper)"
-description: "A custom website in Australia runs $3,000–$25,000+; offshore template work looks cheaper upfront but the real cost shows up after launch, in edits you can't make and traffic you never get."
+title: "How much does a website cost in Australia?"
+description: "What a small business website costs depends on what's included, not just the headline price. Here's what drives it, what to ask, and our own guide prices."
 category: "Business"
 publishedDate: "2026-09-12"
 readTime: "5 min"
 ogImage: "https://telaloom.com/og-card.png"
 ---
 
-<p>A professional website in Australia costs somewhere between $3,000 and $25,000 in 2026, depending on who builds it and what "custom" actually means. A local freelancer runs $1,500–$5,000. A small agency doing genuinely custom work is $3,000–$10,000+. A premium template, professionally customised, lands around $3,000–$8,000. A site built from a blank canvas — bespoke layout, real brand system, nothing reused — is $10,000–$30,000+. Offshore quotes on Fiverr or Upwork routinely undercut all of these, and that's exactly where the actual cost analysis has to start, not end.</p>
+A website's price depends far more on what's included than on the headline number. Two quotes that look alike can differ by thousands of dollars because one covers writing, hosting setup and search setup and the other covers only a design. Nobody can honestly name a single "going rate" without knowing the job, so compare what you get, not just what you pay.
 
-<h2>Why the offshore quote is misleading, not just cheap</h2>
-<p>The low number is real. What it usually buys is a themed template reskin, not a custom build — and the gap doesn't show up at delivery, it shows up three months later when you need to change a price on the site and the person who built it wants paying again to do it, or explaining how, across a timezone that makes every round-trip a day long. Local costs 20–30% more upfront and that premium buys something specific: someone who answers the phone, is invested in the referral your business sends them, and — the part almost nobody prices in — actually sets the site up to be found, instead of handing over a design file and calling it done.</p>
+## What decides how much a website costs?
 
-<h2>The part offshore builds skip entirely</h2>
-<p>A website with no SEO/GEO foundation is close to invisible in 2026. Search itself has changed: a growing share of local discovery now runs through Google's AI Overviews and AI-mode answers, not ten blue links, and those pull from three sources — your Google Business Profile, LocalBusiness/Review schema on your site, and how directly your content answers the actual question someone (or an AI on their behalf) asked. None of that is template work. It's exactly the part a $400 Fiverr build has no reason to include, because it isn't visible in the delivered file — it only shows up later, as leads that never arrive. We wrote about <a href="/blog/what-is-geo-generative-engine-optimization.html">what GEO actually is</a> and <a href="/blog/local-seo-vs-seo-vs-geo-difference.html">how it differs from ordinary SEO</a> if you want the mechanics.</p>
+Five things move the price most:
 
-<h2>What we actually charge, and why it's structured this way</h2>
-<p>No lock-in. A <a href="/services/website-builds.html">custom build</a> at US$4,950 (about A$7,100) — designed and written around your business specifically, with Local SEO & GEO setup included in that price, not sold back to you as a second project once you notice the phone isn't ringing. That's the actual argument for paying more than an offshore quote: not "better design," but that the thing you're paying for is the whole reason you wanted a website in the first place — being found — rather than a static asset that looks fine and does nothing.</p>
+- **How many pages, and how custom.** A one-page site is a smaller job than a five-page site, and a layout designed around your business takes more work than a reskinned template.
+- **Who writes the words.** Copywriting is real work. If it isn't in the quote, you're writing it yourself or paying for it later.
+- **What's set up for you.** Hosting, your domain, security (SSL) and email can each be in or out of the price.
+- **Whether search is built in.** A site can look finished and still be invisible on Google and in AI assistants if nobody set up the basics.
+- **Anything beyond a brochure site.** Customer logins, bookings and payments are application work, priced by the day, not the page.
 
-<h2>If you're comparing quotes right now</h2>
-<p>Ask any offshore quote three questions before you sign: who owns the domain and can you move it later without a fight, what happens the first time you need a text or price changed, and what — specifically — is included to make the site findable in search, not just live on the internet. If the answer to the third one is silence, you're pricing a design file, not a website. <a href="/contact.html">Send us your business name or existing Google listing</a> and we'll tell you plainly which tier you actually need, including if it's the cheap one.</p>
+## What are your options, and what do ours cost?
+
+Quotes are easier to compare against something concrete. TelaLoom's published guide prices are one-off, in US dollars (the [pricing page](/pricing.html) shows today's Australian dollar figure):
+
+- **Landing page:** US$900.
+- **Starter site (up to 5 pages):** US$2,100.
+- **Custom build:** US$4,950. Designed and written around your business, with hosting set up in your name (you pay the host directly), SSL, your domain for the first year, and Local SEO and GEO setup included.
+
+There's no lock-in, and you own the domain and the site. Logins, bookings and payments are quoted separately: we estimate the days up front and you approve the price in writing before we start.
+
+These are guide prices. Once you're on board we do a deeper audit of the site itself. If it finds something that changes the job, such as very old or unsupported software, we tell you and you approve any change before work begins.
+
+## Why do very cheap quotes look so different?
+
+Often because they cover less. A low quote commonly buys a template with your logo and text dropped in, and nothing else. That can be fine for a simple need. The trouble comes later: changing a price on the site means paying again, or waiting on someone in another timezone, and nobody set the site up to be found.
+
+This isn't about where the builder lives. It's about scope. A local freelancer or an overseas studio can both do excellent work, and both can send a design file and call it done. The quote won't tell you which you're getting. The answers to a few questions will.
+
+## What should I ask before I sign?
+
+Ask every provider, local or overseas, these three things:
+
+1. **Who owns the domain and the site, and can I move it later without a fight?**
+2. **What happens the first time I need a text or price changed, and what does it cost?**
+3. **What, specifically, is included to make the site findable in search?**
+
+If the answer to the third is silence, you're pricing a design file, not a website.
+
+## Is SEO included in the price of a website?
+
+Often not. Many providers sell the build first and search work as a separate, ongoing service, so it's worth asking early. A site with no search foundation isn't a smaller version of the finished product. It looks the same in a screenshot and does a different job.
+
+What "search setup" means in practice: a complete Google Business Profile, local business details marked up so search engines and AI assistants can read them, and pages that answer the questions customers actually ask. We explain the differences in [what GEO actually is](/blog/what-is-geo-generative-engine-optimization.html) and [how local SEO, SEO and GEO differ](/blog/local-seo-vs-seo-vs-geo-difference.html). On our custom build, Local SEO and GEO setup is in the price. Nobody can promise rankings, so be wary of anyone who does.
+
+If you'd like a plain-English first look at your current site before you compare quotes, [run the free website check](/site-check.html). It looks at what Google and AI assistants can read on your site. It's a fast first look, not a full audit.
+
+## Frequently asked questions
+
+### How long does a website take to build?
+
+A first draft is live on a private preview link in the first one to two weeks, with real pages and real copy rather than a mockup. The total time depends on how many pages you need and how quickly you can give feedback.
+
+### Do I own my website and domain?
+
+Yes. Hosting is set up in your name, you pay the host directly, and your first year of the domain is included in the custom build. There's no lock-in.
+
+### Is a cheaper template site ever the right choice?
+
+Sometimes. If you need a simple online presence and you're happy to write the content and handle search setup yourself, a template can do the job. It's the wrong choice when you're relying on the site to bring in customers and nobody is responsible for being found.
+
+### What if I need customer logins, bookings or payments?
+
+That's application work, not a standard website. It's priced by the day, from US$850 per day, with the days estimated up front and the price agreed in writing before we start.
+
+### Can I get a quote from you to compare with another one?
+
+Yes. Send us the other quote and your business name or Google listing, and we'll tell you plainly whether it already looks like good value or what it's missing. [Contact us](/contact.html) or see the [pricing page](/pricing.html).
