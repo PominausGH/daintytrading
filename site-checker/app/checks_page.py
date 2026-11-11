@@ -5,6 +5,7 @@ import re
 from datetime import datetime, timezone
 from urllib.parse import urljoin, urlsplit
 
+from . import psi
 from .context import Site
 from .findings import clean
 from .known_vulns import check_headers
@@ -321,6 +322,30 @@ def check_page_speed(site: Site) -> None:
             site.add("render_blocking_scripts", "speed", "low", "Scripts are holding up the page",
                      "Several scripts in the page head load before anything is shown. Marking them async or "
                      "defer lets the page appear sooner.", f"{len(blocking)} blocking scripts in <head>")
+
+
+def check_pagespeed(site: Site) -> None:
+    """Google's mobile PageSpeed score. Optional: silently absent when no PSI_API_KEY is configured."""
+    if not psi.enabled() or site.home is None:
+        return
+    try:
+        r = psi.fetch(site.home.url)
+    except psi.PsiError as e:
+        # A note, not a skip: an optional extra failing must not downgrade the whole report to "partial".
+        site.note(f"We couldn't get Google's phone speed score this time. {e}.")
+        return
+    evidence = f"Google PageSpeed (mobile): {r['score']}/100; main content shown after {r['lcp']}s, " \
+               f"layout shift {r['cls']}, {r['tbt']} ms of blocked input"
+    if r["score"] < 50:
+        site.add("psi_poor", "speed", "medium", "The site is slow on phones",
+                 "Google's own mobile speed test rates the site as poor. Most visitors are on phones, and "
+                 "Google uses speed as a ranking signal.", evidence)
+    elif r["score"] < 90:
+        site.add("psi_needs_work", "speed", "low", "The site could be faster on phones",
+                 "Google's own mobile speed test rates the site as needing improvement. It's not a crisis, "
+                 "but image, script and hosting tweaks usually lift it.", evidence)
+    else:
+        site.ok(f"Fast on phones (Google PageSpeed {r['score']}/100)")
 
 
 def check_measurement(site: Site) -> None:
