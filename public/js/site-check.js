@@ -266,6 +266,26 @@
     var sub = summary + (report.platform ? ' · Looks like ' + report.platform : '') +
       (data.cached ? ' · from a check run in the last 24 hours' : '');
     body.appendChild(el('p', 'sc-summary', sub));
+    var sc = report.score;
+    if (sc && typeof sc.overall === 'number') {
+      var box = el('div', 'sc-score');
+      box.appendChild(el('strong', 'sc-score-num', sc.overall + '/100'));
+      var names = { performance: 'Performance', quality: 'Quality', trust: 'Trust & Security' };
+      var parts = Object.keys(names).map(function (k) {
+        return names[k] + ' ' + (typeof sc.pillars[k] === 'number' ? sc.pillars[k] : 'not measured');
+      });
+      box.appendChild(el('span', 'sc-score-pillars', parts.join(' · ')));
+      if (sc.measured < 3) box.appendChild(el('span', 'sc-muted', sc.measured + ' of 3 areas could be measured, so treat this score with care.'));
+      if (sc.topIssues && sc.topIssues.length) {
+        box.appendChild(el('span', 'sc-score-top-h', 'Biggest wins (rough estimates of the points each fix could add):'));
+        var tl = el('ul', 'sc-list');
+        sc.topIssues.forEach(function (t) { tl.appendChild(el('li', '', t.title + ' (about +' + t.gain + ')')); });
+        box.appendChild(tl);
+      }
+      body.appendChild(box);
+    } else if (sc && report.status !== 'unreachable' && report.status !== 'opted_out') {
+      body.appendChild(el('p', 'sc-summary sc-muted', 'Not enough of the site could be checked to give a score.'));
+    }
     if (report.finalUrl && report.domain && report.finalUrl.indexOf('//' + report.domain) === -1) {
       body.appendChild(el('p', 'sc-summary', 'That address redirects to ' + report.finalUrl));
     }

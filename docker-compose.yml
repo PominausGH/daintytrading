@@ -69,6 +69,9 @@ services:
     restart: unless-stopped
     environment:
       - SITECHECK_MAX_CONCURRENT=3
+      # Optional Google PageSpeed Insights key (restrict it to the PageSpeed API in Google Cloud).
+      # Unset = the PageSpeed check is simply skipped. Set in dainty/.env, which compose interpolates.
+      - PSI_API_KEY=${PSI_API_KEY:-}
     mem_limit: 384m
     cpus: 1.0
     pids_limit: 256

@@ -4,8 +4,9 @@ The outcome is deliberately coarse and price-agnostic; the API owns the wording 
 numbers. Thresholds are first-pass guesses to be tuned against real sites (see task #1028).
 """
 from .findings import GROUPS, REBUILD_IDS, clean
+from .score import compute_score
 
-CHECKER_VERSION = "1.0"
+CHECKER_VERSION = "1.1"
 
 _SEV_ORDER = {"high": 0, "medium": 1, "low": 2}
 
@@ -37,6 +38,8 @@ def build_report(site, domain: str, status: str, *, started: float, finished: fl
     counts = {"high": 0, "medium": 0, "low": 0}
     for f in findings:
         counts[f.severity] += 1
+    page_checked = (status in ("complete", "partial") and site.home is not None
+                    and not site.blocked and site.home.status < 400)
     return {
         "domain": domain,
         "checkedAt": checked_at,
@@ -51,6 +54,7 @@ def build_report(site, domain: str, status: str, *, started: float, finished: fl
         "counts": counts,
         "groupsAffected": sorted({f.group for f in findings if f.severity in ("high", "medium")}),
         "outcome": outcome,
+        "score": compute_score(findings, site.not_tested, page_checked=page_checked),
         "rebuildSignals": rebuild_ids,
         "meta": {
             "requests": site.fetcher.requests_made,

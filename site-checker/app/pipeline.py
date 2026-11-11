@@ -8,8 +8,8 @@ from urllib.parse import urlsplit
 from bs4 import BeautifulSoup
 
 from . import robots as robots_mod
-from .checks_page import (check_measurement, check_page_security, check_page_seo, check_page_speed,
-                          detect_platform)
+from .checks_page import (check_measurement, check_pagespeed, check_page_security, check_page_seo,
+                          check_page_speed, detect_platform)
 from .checks_site import (check_ai_crawlers, check_llms_txt, check_robots, check_sitemap,
                           check_transport, looks_blocked)
 from .context import Site
@@ -124,6 +124,7 @@ def _run(site: Site) -> tuple:
         ("On-page SEO", check_page_seo),
         ("Page security", check_page_security),
         ("Speed", check_page_speed),
+        ("PageSpeed", check_pagespeed),
         ("Analytics", check_measurement),
         ("Sitemap", check_sitemap),
         ("llms.txt", check_llms_txt),
