@@ -1,5 +1,6 @@
 const express = require('express');
 const rateLimit = require('express-rate-limit');
+const { clientIp } = require('../lib/client-ip');
 const { sendEmail } = require('../lib/email');
 const { saveReview } = require('../lib/store');
 const { spamCheck, sanitize, escapeHtml } = require('../lib/security');
@@ -12,6 +13,8 @@ const reviewRateLimiter = rateLimit({
   message: { error: 'Too many reviews submitted. Please try again later.' },
   standardHeaders: true,
   legacyHeaders: false,
+  // Real visitor IP (lib/client-ip.js): req.ip is a proxy address behind Cloudflare/NPM, so one shared bucket.
+  keyGenerator: (req) => clientIp(req),
 });
 
 router.post('/', reviewRateLimiter, async (req, res) => {
