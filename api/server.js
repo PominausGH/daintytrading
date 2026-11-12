@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const rateLimit = require('express-rate-limit');
+const { clientIp } = require('./lib/client-ip');
 
 const contactRoutes = require('./routes/contact');
 const reviewsRoutes = require('./routes/reviews');
@@ -34,6 +35,8 @@ app.use('/api/', rateLimit({
   max: 50,
   standardHeaders: true,
   legacyHeaders: false,
+  // Real visitor IP (lib/client-ip.js): req.ip is a proxy address behind Cloudflare/NPM, so one shared bucket.
+  keyGenerator: (req) => clientIp(req),
   // /monitor/ is the uptime-watch worker (two calls a minute, bearer secret): same shared-bucket reason.
   skip: (req) => req.path.startsWith('/site-check/') || inboundReply.isInboundReplyPath(`/api${req.path}`) || monitorRoutes.isMonitorPath(`/api${req.path}`),
 }));

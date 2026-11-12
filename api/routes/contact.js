@@ -1,5 +1,6 @@
 const express = require('express');
 const rateLimit = require('express-rate-limit');
+const { clientIp } = require('../lib/client-ip');
 const { sendEmail } = require('../lib/email');
 const { saveSubmission } = require('../lib/store');
 const { spamCheck, sanitize, escapeHtml } = require('../lib/security');
@@ -18,6 +19,8 @@ const contactRateLimiter = rateLimit({
   message: { error: 'Too many enquiries submitted. Please try again later.' },
   standardHeaders: true,
   legacyHeaders: false,
+  // Real visitor IP (lib/client-ip.js): req.ip is a proxy address behind Cloudflare/NPM, so one shared bucket.
+  keyGenerator: (req) => clientIp(req),
 });
 
 router.post('/', contactRateLimiter, async (req, res) => {
@@ -65,7 +68,7 @@ router.post('/', contactRateLimiter, async (req, res) => {
   const flagPrefix = spamReason ? `[REVIEW · ${spamReason}] ` : (isLowPriority ? '[LOW-PRIORITY] ' : '');
 
   try {
-    saveSubmission({ ...data, spamReason, ip: req.ip });
+    saveSubmission({ ...data, spamReason, ip: clientIp(req) });
   } catch (err) {
     console.error('contact route error: failed to save submission to local store:', err.message);
   }
@@ -89,7 +92,7 @@ router.post('/', contactRateLimiter, async (req, res) => {
         <p><strong>Project description:</strong></p>
         <p style="white-space:pre-wrap;background:#f8fafc;padding:12px 16px;border-radius:6px;">${escapeHtml(data.message)}</p>
         <hr style="margin:16px 0;border:none;border-top:1px solid #e2e8f0;"/>
-        <p style="font-size:12px;color:#94a3b8;">Submitted: ${new Date().toISOString()} · IP: ${req.ip}</p>
+        <p style="font-size:12px;color:#94a3b8;">Submitted: ${new Date().toISOString()} · IP: ${clientIp(req)}</p>
       `,
     });
 

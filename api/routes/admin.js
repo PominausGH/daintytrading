@@ -1,5 +1,6 @@
 const express = require('express');
 const rateLimit = require('express-rate-limit');
+const { clientIp } = require('../lib/client-ip');
 const {
   getClient,
   listAllClients,
@@ -22,6 +23,8 @@ const loginLimiter = rateLimit({
   message: { error: 'Too many login attempts. Please try again later.' },
   standardHeaders: true,
   legacyHeaders: false,
+  // Real visitor IP (lib/client-ip.js): req.ip is a proxy address behind Cloudflare/NPM, so one shared bucket.
+  keyGenerator: (req) => clientIp(req),
 });
 
 router.post('/login', loginLimiter, (req, res) => {

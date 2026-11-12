@@ -2,6 +2,7 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const rateLimit = require('express-rate-limit');
+const { clientIp } = require('../lib/client-ip');
 
 const router = express.Router();
 
@@ -16,6 +17,8 @@ const readLimiter = rateLimit({
   max: 120,
   standardHeaders: true,
   legacyHeaders: false,
+  // Real visitor IP (lib/client-ip.js): req.ip is a proxy address behind Cloudflare/NPM, so one shared bucket.
+  keyGenerator: (req) => clientIp(req),
 });
 
 router.get('/', readLimiter, (_req, res) => {
