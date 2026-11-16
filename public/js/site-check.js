@@ -39,6 +39,14 @@
   if (!els.startForm) return;
   els.loadedAt.value = String(Date.now());
 
+  try {
+    var prefillDomain = new URLSearchParams(window.location.search).get('domain');
+    if (prefillDomain && els.domain) {
+      els.domain.value = prefillDomain.trim();
+      if (els.email) els.email.focus();
+    }
+  } catch (e) { /* ignore URLSearchParams errors */ }
+
   var state = { sessionId: null, domain: '', email: '', resendTimer: null, progressTimer: null, runId: 0 };
 
   function track(name, data) {

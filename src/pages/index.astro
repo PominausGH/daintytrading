@@ -69,13 +69,63 @@ const jsonLd = [
     .hero-split { padding: 88px 0 72px; text-align: left; }
     .hero-split .container { display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center; }
     .hero-split h1 { font-size: clamp(34px, 5vw, 56px); margin-top: 16px; }
-    .hero-split p.lead { margin: 0 0 28px; max-width: 540px; }
+    .hero-split p.lead { margin: 0 0 24px; max-width: 540px; }
     .hero-split .cta-row { justify-content: flex-start; }
+    .hero-check-bar {
+      display: flex; gap: 8px; max-width: 480px; margin: 18px 0 0; padding: 6px;
+      background: rgba(20, 24, 34, 0.85); border: 1px solid var(--border-strong); border-radius: 999px;
+      box-shadow: 0 10px 28px -10px rgba(0,0,0,0.5);
+    }
+    .hero-check-bar input {
+      flex: 1; min-width: 0; background: transparent; border: 0; color: var(--text);
+      padding: 8px 14px; font: inherit; font-size: 14.5px; outline: none;
+    }
+    .hero-check-bar input::placeholder { color: var(--text-muted); }
+    .hero-check-bar button {
+      background: var(--bg-elev); color: var(--text); border: 1px solid var(--border-strong);
+      border-radius: 999px; padding: 8px 16px; font: inherit; font-size: 13.5px; font-weight: 600;
+      cursor: pointer; white-space: nowrap; transition: border-color 0.15s ease, background 0.15s ease;
+    }
+    .hero-check-bar button:hover { border-color: var(--accent); background: var(--accent-soft); }
+    @media (max-width: 520px) {
+      .hero-check-bar { flex-direction: column; border-radius: 14px; padding: 10px; }
+      .hero-check-bar button { width: 100%; padding: 10px 16px; }
+    }
     .hero-price { font-size: 14px; color: var(--text-muted); margin: 14px 0 0; }
+    .hero-showcase { position: relative; margin: 0; }
+    .hero-tabs {
+      display: inline-flex; gap: 6px; padding: 4px; margin-bottom: 12px;
+      background: var(--bg-elev); border: 1px solid var(--border); border-radius: 999px;
+    }
+    .hero-tab {
+      background: transparent; border: 0; color: var(--text-dim); font: inherit; font-size: 12.5px;
+      font-weight: 600; padding: 6px 14px; border-radius: 999px; cursor: pointer; transition: all 0.15s ease;
+    }
+    .hero-tab[aria-selected="true"] {
+      background: var(--accent-btn); color: #fff; box-shadow: 0 4px 12px rgba(124, 92, 255, 0.35);
+    }
+    .hero-stage { position: relative; padding: 0 22px 26px 0; }
+    .hero-pane[hidden] { display: none !important; }
     .browser { background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 12px; overflow: hidden; box-shadow: 0 30px 60px -20px rgba(124, 92, 255, 0.35), var(--shadow); }
-    .browser-bar { display: flex; gap: 6px; padding: 10px 12px; border-bottom: 1px solid var(--border); }
+    .browser-bar { display: flex; align-items: center; gap: 6px; padding: 10px 12px; border-bottom: 1px solid var(--border); }
     .browser-bar span { width: 10px; height: 10px; border-radius: 50%; background: var(--border-strong); }
+    .browser-bar em { font-style: normal; font-size: 11.5px; color: var(--text-muted); margin-left: 8px; }
     .browser img { display: block; width: 100%; height: auto; }
+    .hero-phone {
+      position: absolute; right: 0; bottom: 0; width: 27%; max-width: 156px;
+      border: 5px solid #1d2230; border-radius: 20px; overflow: hidden; background: #0a0c10;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      aspect-ratio: 390 / 780;
+    }
+    .hero-phone img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+    .hero-badge {
+      position: absolute; left: 14px; bottom: 10px; display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 14px; border-radius: 999px; font-size: 12.5px; font-weight: 600; color: #fff;
+      background: rgba(16, 20, 30, 0.88); border: 1px solid rgba(32, 211, 167, 0.45);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55);
+    }
+    .hero-badge-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-2); box-shadow: 0 0 8px var(--accent-2); }
     .browser-cap { font-size: 12.5px; color: var(--text-muted); margin: 10px 0 0; text-align: center; }
     @media (max-width: 900px) {
       .hero-split .container { grid-template-columns: 1fr; gap: 36px; }
@@ -112,8 +162,34 @@ const jsonLd = [
     .also-row p { margin: 0; color: var(--text-dim); max-width: 680px; }
     .also-row strong { color: var(--text); }
     #client-work .project-grid { grid-template-columns: repeat(2, 1fr); }
+    #client-work .project-card { padding: 0; overflow: hidden; gap: 0; }
+    #client-work .project-thumb {
+      border-bottom: 1px solid var(--border); background: #0d1017; overflow: hidden; position: relative;
+      aspect-ratio: 16 / 10;
+    }
+    #client-work .project-thumb img {
+      width: 100%; height: 100%; object-fit: cover; object-position: top;
+      transition: transform 0.35s ease;
+    }
+    #client-work .project-card:hover .project-thumb img { transform: scale(1.03); }
+    #client-work .project-card-body { display: flex; flex-direction: column; gap: 10px; padding: 22px 24px 24px; flex: 1; }
     @media (max-width: 720px) { #client-work .project-grid { grid-template-columns: 1fr; } }
     .industries { text-align: center; color: var(--text-dim); margin: 28px 0 0; font-size: 15px; }
+    .founder-strip {
+      margin-top: 28px; display: flex; align-items: center; gap: 22px; padding: 22px 26px;
+      background: linear-gradient(135deg, rgba(124, 92, 255, 0.09), rgba(32, 211, 167, 0.05));
+      border: 1px solid var(--border-strong); border-radius: var(--radius);
+    }
+    .founder-strip img {
+      width: 68px; height: 68px; border-radius: 50%; object-fit: cover; flex-shrink: 0;
+      border: 2px solid var(--accent); box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+    }
+    .founder-strip-body { flex: 1; }
+    .founder-strip-body strong { display: block; font-size: 16.5px; color: var(--text); margin-bottom: 4px; }
+    .founder-strip-body p { margin: 0; font-size: 14.5px; color: var(--text-dim); }
+    @media (max-width: 640px) {
+      .founder-strip { flex-direction: column; align-items: flex-start; gap: 14px; }
+    }
   </style>
 
   <main id="main">
@@ -127,18 +203,54 @@ const jsonLd = [
             <a class="btn btn-primary" href="/contact.html" data-umami-event="cta_click" data-umami-event-target="get_a_quote" data-umami-event-source="index_hero">Get a quote &rarr;</a>
             <a class="btn btn-ghost" href="/site-check.html" data-umami-event="cta_click" data-umami-event-target="free_audit" data-umami-event-source="index_hero">Free website check</a>
           </div>
+          <form class="hero-check-bar" action="/site-check.html" method="get" aria-label="Quick website check">
+            <input type="text" name="domain" inputmode="url" autocapitalize="off" spellcheck="false" placeholder="Enter your website (e.g. yourbusiness.com.au)" aria-label="Your website address" required />
+            <button type="submit" data-umami-event="cta_click" data-umami-event-target="inline_free_audit" data-umami-event-source="index_hero_bar">Check my site &rarr;</button>
+          </form>
           <p class="hero-price">Published prices from <Price item="landingPage" symbol />.{gstRegistered ? '' : ' No GST,'} {gstRegistered ? 'No' : 'no'} lock-in.</p>
           <CurrencySwitch />
         </div>
-        <figure style="margin:0;">
-          <div class="browser">
-            <div class="browser-bar" aria-hidden="true"><span></span><span></span><span></span></div>
-            <picture>
-              <source srcset="/screenshots/clients/shuttersmith-rebuild-home.webp" type="image/webp" />
-              <img src="/screenshots/clients/shuttersmith-rebuild-home.png" width="1280" height="800" alt="Shuttersmith website rebuild homepage: Custom Blinds Gold Coast, with quote and call buttons" loading="eager" decoding="async" fetchpriority="high" />
-            </picture>
+        <figure class="hero-showcase">
+          <div class="hero-tabs" role="tablist" aria-label="Preview client builds by industry">
+            <button type="button" class="hero-tab" role="tab" aria-selected="true" data-hero-tab="trades">Shutters &amp; Trades</button>
+            <button type="button" class="hero-tab" role="tab" aria-selected="false" data-hero-tab="legal">Law Firm &amp; Portal</button>
           </div>
-          <figcaption class="browser-cap">Our rebuild for Shuttersmith, Gold Coast shutters &amp; blinds (in preview)</figcaption>
+          <div class="hero-stage">
+            <div class="hero-pane" data-hero-pane="trades">
+              <div class="browser">
+                <div class="browser-bar" aria-hidden="true"><span></span><span></span><span></span><em>shuttersmith.com.au</em></div>
+                <picture>
+                  <source srcset="/screenshots/clients/shuttersmith-rebuild-home.webp" type="image/webp" />
+                  <img src="/screenshots/clients/shuttersmith-rebuild-home.png" width="1280" height="800" alt="Shuttersmith website rebuild homepage: Custom Blinds Gold Coast, with quote and call buttons" loading="eager" decoding="async" fetchpriority="high" />
+                </picture>
+              </div>
+              <div class="hero-phone" aria-hidden="true">
+                <picture>
+                  <source srcset="/screenshots/clients/shuttersmith-rebuild-mobile.webp" type="image/webp" />
+                  <img src="/screenshots/clients/shuttersmith-rebuild-mobile.png" width="390" height="844" alt="" loading="eager" decoding="async" />
+                </picture>
+              </div>
+              <div class="hero-badge"><span class="hero-badge-dot" aria-hidden="true"></span>100 Lighthouse SEO &middot; <Stat k="shuttersmith.visits" /> Google visits</div>
+              <figcaption class="browser-cap">Our rebuild for Shuttersmith, Gold Coast shutters &amp; blinds (in preview)</figcaption>
+            </div>
+            <div class="hero-pane" data-hero-pane="legal" hidden>
+              <div class="browser">
+                <div class="browser-bar" aria-hidden="true"><span></span><span></span><span></span><em>Sydney Insolvency Law Firm</em></div>
+                <picture>
+                  <source srcset="/screenshots/clients/eklawyers-preview-home.webp" type="image/webp" />
+                  <img src="/screenshots/clients/eklawyers-preview-home.png" width="1280" height="800" alt="Sydney insolvency and business law firm website rebuild and client portal" loading="lazy" decoding="async" />
+                </picture>
+              </div>
+              <div class="hero-phone" aria-hidden="true">
+                <picture>
+                  <source srcset="/screenshots/clients/eklawyers-preview-mobile.webp" type="image/webp" />
+                  <img src="/screenshots/clients/eklawyers-preview-mobile.png" width="390" height="844" alt="" loading="lazy" decoding="async" />
+                </picture>
+              </div>
+              <div class="hero-badge"><span class="hero-badge-dot" aria-hidden="true"></span>Full Rebuild + MFA Client Portal &middot; SEO/GEO Built In</div>
+              <figcaption class="browser-cap">Website rebuild &amp; encrypted client portal for a Sydney insolvency law firm</figcaption>
+            </div>
+          </div>
         </figure>
       </div>
     </section>
@@ -164,32 +276,64 @@ const jsonLd = [
         </div>
         <div class="project-grid">
           <a class="project-card" href="/projects/edwards-kirby-lawyers.html">
-            <span class="tag">Client · Legal</span>
-            <h3>Sydney Insolvency Law Firm</h3>
-            <p>Full website rebuild for a Sydney insolvency and business law firm, plus a secure client portal with MFA and encrypted document storage, and SEO/GEO built in from day one.</p>
-            <span class="outcome-line">About to go live</span>
-            <span class="arrow">Read the story →</span>
+            <div class="project-thumb">
+              <picture>
+                <source srcset="/screenshots/clients/eklawyers-preview-home.webp" type="image/webp" />
+                <img src="/screenshots/clients/eklawyers-preview-home.png" width="640" height="400" alt="Sydney Insolvency Law Firm website preview" loading="lazy" decoding="async" />
+              </picture>
+            </div>
+            <div class="project-card-body">
+              <span class="tag">Client · Legal</span>
+              <h3>Sydney Insolvency Law Firm</h3>
+              <p>Full website rebuild for a Sydney insolvency and business law firm, plus a secure client portal with MFA and encrypted document storage, and SEO/GEO built in from day one.</p>
+              <span class="outcome-line">About to go live</span>
+              <span class="arrow">Read the story →</span>
+            </div>
           </a>
           <a class="project-card" href="/projects/shuttersmith.html">
-            <span class="tag">Client · SEO/GEO</span>
-            <h3>Shuttersmith</h3>
-            <p>A Gold Coast shutters business with no analytics, no schema and AI crawlers blocked at the host. We fixed all of it on the existing site first.</p>
-            <span class="outcome-line"><Stat k="shuttersmith.visits" /> real visits, majority via Google &middot; led to a second business</span>
-            <span class="arrow">Read the story →</span>
+            <div class="project-thumb">
+              <picture>
+                <source srcset="/screenshots/clients/shuttersmith-seo-home.webp" type="image/webp" />
+                <img src="/screenshots/clients/shuttersmith-seo-home.png" width="640" height="400" alt="Shuttersmith SEO and GEO results preview" loading="lazy" decoding="async" />
+              </picture>
+            </div>
+            <div class="project-card-body">
+              <span class="tag">Client · SEO/GEO</span>
+              <h3>Shuttersmith</h3>
+              <p>A Gold Coast shutters business with no analytics, no schema and AI crawlers blocked at the host. We fixed all of it on the existing site first.</p>
+              <span class="outcome-line"><Stat k="shuttersmith.visits" /> real visits, majority via Google &middot; led to a second business</span>
+              <span class="arrow">Read the story →</span>
+            </div>
           </a>
           <a class="project-card" href="/projects/shuttersmith-rebuild.html">
-            <span class="tag">Client · Website build</span>
-            <h3>Shuttersmith Rebuild</h3>
-            <p>Off WordPress and Elementor onto a fast static build, with 7 pages, 10 blog posts and 10 suburb pages carried over.</p>
-            <span class="outcome-line">Perf 92&ndash;98 &middot; Accessibility/Best Practices/SEO 100 &middot; awaiting sign-off</span>
-            <span class="arrow">Read the story →</span>
+            <div class="project-thumb">
+              <picture>
+                <source srcset="/screenshots/clients/shuttersmith-rebuild-home.webp" type="image/webp" />
+                <img src="/screenshots/clients/shuttersmith-rebuild-home.png" width="640" height="400" alt="Shuttersmith static Astro rebuild preview" loading="lazy" decoding="async" />
+              </picture>
+            </div>
+            <div class="project-card-body">
+              <span class="tag">Client · Website build</span>
+              <h3>Shuttersmith Rebuild</h3>
+              <p>Off WordPress and Elementor onto a fast static build, with 7 pages, 10 blog posts and 10 suburb pages carried over.</p>
+              <span class="outcome-line">Perf 92&ndash;98 &middot; Accessibility/Best Practices/SEO 100 &middot; awaiting sign-off</span>
+              <span class="arrow">Read the story →</span>
+            </div>
           </a>
           <a class="project-card" href="/projects/new-shutter-business.html">
-            <span class="tag">Client · Home improvement</span>
-            <h3>New Shutter Business</h3>
-            <p>A second business the same owner launched off Shuttersmith&rsquo;s results: trade-price shutters with a self-install option and a measure-and-quote calculator.</p>
-            <span class="outcome-line">In staging, launching soon</span>
-            <span class="arrow">Read the story →</span>
+            <div class="project-thumb">
+              <picture>
+                <source srcset="/screenshots/clients/tradepriceshutters-preview-home.webp" type="image/webp" />
+                <img src="/screenshots/clients/tradepriceshutters-preview-home.png" width="640" height="400" alt="New Shutter Business website and DIY measure calculator preview" loading="lazy" decoding="async" />
+              </picture>
+            </div>
+            <div class="project-card-body">
+              <span class="tag">Client · Home improvement</span>
+              <h3>New Shutter Business</h3>
+              <p>A second business the same owner launched off Shuttersmith&rsquo;s results: trade-price shutters with a self-install option and a measure-and-quote calculator.</p>
+              <span class="outcome-line">In staging, launching soon</span>
+              <span class="arrow">Read the story →</span>
+            </div>
           </a>
         </div>
         <p class="industries">Built for your industry before? See <a href="/industries/law-firms.html">law firm websites</a> and <a href="/industries/shutters-blinds.html">shutter &amp; blind websites</a>.</p>
@@ -282,6 +426,13 @@ const jsonLd = [
             <div class="icon">04</div>
             <h3>Yours, with no lock-in</h3>
             <p>Hosting and domain in your name, published prices, and a Care plan you can cancel any month. <a href="/services/website-builds.html#questions-to-ask">Questions to ask any web designer</a>, with our answers.</p>
+          </div>
+        </div>
+        <div class="founder-strip">
+          <img src="/founder-andrew.jpg" width="68" height="68" alt="Andrew Dainty, founder of TelaLoom" loading="lazy" decoding="async" />
+          <div class="founder-strip-body">
+            <strong>You deal directly with the person building your site.</strong>
+            <p>TelaLoom is run by <a href="/about.html#andrew-dainty">Andrew Dainty</a> in Australia. There are no sales reps, account managers or offshore handoffs &mdash; the engineer you talk to on day one is the one designing your pages, setting up your Local SEO &amp; GEO, and looking after your site after launch.</p>
           </div>
         </div>
       </div>

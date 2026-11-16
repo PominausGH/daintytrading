@@ -78,6 +78,7 @@ const canonicalUrl = `https://telaloom.com${canonicalPath}`;
   <link rel="manifest" href="/site.webmanifest" />
   <meta name="apple-mobile-web-app-title" content="TelaLoom" />
   <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+  <link rel="preload" href="/fonts/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
 
   {jsonLd.map((block) => (
     <script type="application/ld+json" set:html={JSON.stringify(block)} />

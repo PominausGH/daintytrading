@@ -24,3 +24,17 @@ document.querySelectorAll('.project-group').forEach(function (group) {
   var unit = countEl.textContent.trim().split(/\s+/).slice(1).join(' ') || 'products';
   countEl.textContent = count + ' ' + unit;
 });
+
+document.querySelectorAll('[data-hero-tab]').forEach(function (tab) {
+  tab.addEventListener('click', function () {
+    var target = tab.getAttribute('data-hero-tab');
+    var container = tab.closest('.hero-showcase');
+    if (!container) return;
+    container.querySelectorAll('[data-hero-tab]').forEach(function (t) {
+      t.setAttribute('aria-selected', t === tab ? 'true' : 'false');
+    });
+    container.querySelectorAll('[data-hero-pane]').forEach(function (pane) {
+      pane.hidden = pane.getAttribute('data-hero-pane') !== target;
+    });
+  });
+});
