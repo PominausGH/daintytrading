@@ -9,7 +9,7 @@ ogImage: "https://telaloom.com/og-card.png"
 
 <p>If your website runs on PHP — which includes every WordPress site — and your host hasn't updated PHP since 21 October 2026, it may be exposed to two critical flaws called PHP2Shell. The fixed versions are PHP 8.5.12, 8.4.27, 8.3.36 and 8.2.35. The quickest check is to ask your host which PHP version your site runs.</p>
 
-<p>The two flaws (CVE-2026-109618 and CVE-2026-109619) sit in PHP's core engine and score 9.2 out of 10. <a href="https://www.wiz.io/blog/php2shell-php-rce" rel="noopener">Wiz's write-up</a> says they let an unauthenticated attacker run code on an unpatched web server, and that AI models played a key part in finding them. We also added a narrow check to our free Site Check because of it, so this post covers both the flaw and what that check does.</p>
+<p>The two flaws (CVE-2026-109618 and CVE-2026-109619) sit in PHP's core engine and score 9.2 out of 10. <a href="https://www.wiz.io/blog/php2shell-php-rce" rel="noopener">Wiz's write-up</a> says they let an unauthenticated attacker run code on an unpatched web server, and that AI models played a key part in finding them. The PHP project's own advisories are <a href="https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w" rel="noopener">GHSA-w8hw-w9fx-j79w</a> and <a href="https://github.com/php/php-src/security/advisories/GHSA-6wmf-4rv5-p3rp" rel="noopener">GHSA-6wmf-4rv5-p3rp</a>. We also added a narrow check to our free Site Check because of it, so this post covers both the flaw and what that check does.</p>
 
 <h2>How to tell if you're affected</h2>
 
@@ -17,7 +17,7 @@ ogImage: "https://telaloom.com/og-card.png"
 
 <p><strong>1. Does your site run PHP?</strong> WordPress, WooCommerce, Joomla, Drupal and most older custom sites do. A site built on a hosted builder (Shopify, Squarespace, Wix) or a static site generally doesn't run your PHP — the platform does, and patching it is their job. A site built with Astro or Next.js isn't PHP at all.</p>
 
-<p><strong>2. Which version?</strong> Your host's control panel will show it, usually under a heading like "PHP version" or "PHP selector". If it's below the fixed version for its branch (8.5.12, 8.4.27, 8.3.36 or 8.2.35), ask your host to update. Branches older than 8.2 weren't part of this patch release at all, so a site on 8.1 or earlier needs moving to a supported version.</p>
+<p><strong>2. Which version?</strong> Your host's control panel will show it, usually under a heading like "PHP version" or "PHP selector". If it's below the fixed version for its branch (8.5.12, 8.4.27, 8.3.36 or 8.2.35), ask your host to update. Branches older than 8.2 no longer get official PHP releases. The PHP security team published minimal source backports for 7.4, 8.0 and 8.1, and some long-term-support vendors ship patched builds, but for a site on 8.1 or earlier the safe answer is moving to a supported version, or getting your host to confirm in writing that a backported fix is applied.</p>
 
 <p><strong>3. Has it actually been patched?</strong> Some hosts patch the server without changing the visible version number, and some hide the version entirely. If you can't tell, ask them directly. "We've applied the PHP2Shell fixes" is a straightforward thing for a host to confirm.</p>
 

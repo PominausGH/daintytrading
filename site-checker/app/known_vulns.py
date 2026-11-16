@@ -18,7 +18,8 @@ class Advisory:
     name: str
     product: str  # "php"
     # branch (major, minor) -> first fixed patch level. Branches not listed and older than the
-    # newest listed branch have no fix (end of life) and count as affected.
+    # newest listed branch have no official release (end of life) and count as affected; any
+    # vendor/source backport on them is invisible in the version string, hence "appears to".
     fixed: dict
     source: str
 
@@ -29,7 +30,10 @@ ADVISORIES = (
         name="PHP2Shell (CVE-2026-109618 / CVE-2026-109619)",
         product="php",
         fixed={(8, 5): 12, (8, 4): 27, (8, 3): 36, (8, 2): 35},
-        source="https://www.wiz.io/blog/php2shell-php-rce",
+        # Verified 2026-11-15 against the PHP project's GHSAs (CVSS 4.0 9.2, published 2026-10-21,
+        # patched 8.2.35/8.3.36/8.4.27/8.5.12). php.net news: 8.1 and older get no releases;
+        # minimal source backports exist for 7.4/8.0/8.1 (branches PHP-x.y-CVE-2026-109618-109619).
+        source="https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w",
     ),
 )
 
