@@ -960,8 +960,13 @@ async function buildDraft(run, slug, { fresh = false } = {}) {
   // particular can leave it as a non-URL placeholder like "(crawl)" when it doesn't have a
   // clean source-page attribution for that specific link (confirmed live 2026-09-14: this
   // was silently getting passed to the AI as if it were a real page to cite). Guard against
-  // anything that doesn't actually look like a URL rather than trusting the field blindly.
-  const findingUrl = /^https?:\/\//i.test(top.finding.url || '') ? top.finding.url : null;
+  // anything that doesn't actually look like a URL rather than trusting the field blindly;
+  // when .url is "(crawl)", fall back to the broken target URL embedded in .message before
+  // rephraseFinding stripped it so the draft still names the actual broken link.
+  const embeddedUrlMatch = String(top.finding.message || '').match(/https?:\/\/[^\s`)]+/i);
+  const findingUrl = /^https?:\/\//i.test(top.finding.url || '')
+    ? top.finding.url
+    : (embeddedUrlMatch ? embeddedUrlMatch[0] : null);
 
   let draft;
   try {

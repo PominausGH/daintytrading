@@ -306,11 +306,13 @@ test('booking prominence follows the outcome, in copy and in the report email', 
   assert.ok(html('setup_scale').includes('Website_Ideas=example.com%20-%20'));
 });
 
-test('USD is the source price; AUD is derived from the live rate, rounded up to $1', () => {
-  // Same formula as src/data/pricing.ts: USD x (AUD per USD), rounded up.
+test('USD is the source price; AUD is derived from the live rate, rounded to nearest $50', () => {
+  // Same formula as src/data/pricing.ts: USD x (AUD per USD), rounded to nearest $50.
   assert.equal(pricing.setupUsd, 2700);
   assert.equal(pricing.buildUsd, 4950);
   assert.ok(Number.isInteger(pricing.setupAud) && Number.isInteger(pricing.buildAud));
+  assert.equal(pricing.setupAud % 50, 0);
+  assert.equal(pricing.buildAud % 50, 0);
   assert.ok(pricing.setupAud > 3000 && pricing.setupAud < 5000, `setupAud ${pricing.setupAud}`);
   assert.ok(pricing.buildAud > 5500 && pricing.buildAud < 9000, `buildAud ${pricing.buildAud}`);
 });

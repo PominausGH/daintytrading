@@ -1,7 +1,7 @@
 // Wording for the public site-check report. The checker service returns a coarse, price-agnostic
 // `outcome`; the numbers and the voice live here. USD prices mirror src/data/pricing.ts (the
 // website's single source of truth) - if you change pricing there, change the defaults here too.
-// AUD is derived exactly like the website: USD x live USD/AUD rate, rounded up to $1.
+// AUD is derived exactly like the website: USD x live USD/AUD rate, rounded to the nearest $50.
 // The rate file is written monthly by /opt/docker/scripts/fx-sync.sh into api/data/ (mounted at
 // /app/data) and re-read on every use, so no redeploy is needed when the rate changes.
 const fs = require('fs');
@@ -20,7 +20,7 @@ function usdToAud() {
   return FALLBACK_USD_TO_AUD;
 }
 
-const audFromUsd = (usd) => Math.ceil(usd * usdToAud());
+const audFromUsd = (usd) => Math.round((usd * usdToAud()) / 50) * 50;
 
 const pricing = {
   setupUsd: Number(process.env.SITECHECK_SETUP_USD || 2700),

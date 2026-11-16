@@ -23,6 +23,7 @@ const jsonLd = [
         { '@type': 'Offer', name: 'Starter site', price: String(pricing.starterSite), priceCurrency: 'AUD', description: 'One-off. Up to 5 pages on proven layouts styled to your brand, copywriting, contact form, LocalBusiness schema, Google Business Profile setup, set up on hosting in your name. One round of changes per stage.' },
         { '@type': 'Offer', name: 'Custom build', price: String(pricing.customBuild), priceCurrency: 'AUD', description: `One-off. Custom-designed site, copywriting, set up on hosting in your name, SSL, and Local SEO & GEO setup included — not sold separately.` },
         { '@type': 'Offer', name: 'Care plan', price: String(pricing.carePlan), priceCurrency: 'AUD', description: 'Monthly, no GST. Uptime monitoring and security updates on your own hosting, and up to 60 minutes of small content changes per month (unused time does not roll over, billed at the standard hourly rate beyond that). Hosting provider backups switched on and restore-tested quarterly, monthly security check, and hack or outage cleanup included when the cause is in what Care covers. 2-business-day response time, same business day for urgent issues (site down, hacked, forms or checkout broken). Response times are published at telaloom.com/support.html. Attached to every custom build by default. Cancel anytime, effective end of the current billing month.' },
+        { '@type': 'Offer', name: 'Care + Content', price: String(pricing.carePlusContent), priceCurrency: 'AUD', description: 'Monthly, no GST. Everything in the Care plan, plus 2 researched, fact-checked SEO and AI-search articles or suburb pages published to your site each month after your sign-off. Cancel anytime.' },
         { '@type': 'Offer', name: 'Monitor', price: String(pricing.monitor), priceCurrency: 'AUD', description: 'Monthly. Automated ranking and AI-citation monitoring, with a monthly plain-English report, plus a known-vulnerability watch that flags major disclosed flaws in the publicly visible software on your site (like PHP2Shell). No fix pass included. 1-business-day response time. Cancel anytime.' },
         { '@type': 'Offer', name: 'Growth', price: String(pricing.growth), priceCurrency: 'AUD', description: 'Monthly. Everything in Monitor, plus Google Business Profile posts, review replies, and a review campaign each month. 1-business-day response time; urgent issues within 4 business hours when Care is active. Cancel anytime.' },
         { '@type': 'Offer', name: 'Scale', price: String(pricing.scale), priceCurrency: 'AUD', description: 'Monthly. Everything in Growth, plus new suburb/service pages, full Google Business Profile management, monthly content, and a quarterly strategy call. Same-business-day response time; urgent issues within 3 hours, 7am–10pm Sydney time, 7 days, when Care is active.' },
@@ -186,6 +187,20 @@ const jsonLd = [
               </ul>
               <a class="btn btn-ghost" href="/contact.html" style="margin-top:16px;" data-umami-event="cta_click" data-umami-event-target="talk_it_through" data-umami-event-source="website_builds_care_plan">Talk it through &rarr;</a>
             </div>
+
+            <div class="price-card">
+              <span class="tier">Care + Content <small style="text-transform:none;letter-spacing:0;">&mdash; monthly</small></span>
+              <div class="price"><Price item="carePlusContent" /><small>/mo, no GST</small></div>
+              <p class="note">Everything in Care, plus steady local articles so Google and AI assistants keep finding new answers on your site. Cancel anytime.</p>
+              <ul class="month-list">
+                <li>Everything in the Care plan (monitoring, updates, tested backups, 60 mins/month of edits, hack cleanup)</li>
+                <li>2 researched, fact-checked SEO &amp; AI-search articles or suburb guides published to your site each month</li>
+                <li>Written around the real questions your customers search on Google and ask ChatGPT</li>
+                <li>Run through our 6-stage quality and fact-check pipeline (<a href="/projects/ghost-writer.html">how our content engine works</a>) and reviewed by hand</li>
+                <li>Sent to you for sign-off before anything goes live, with schema and internal links updated on publish</li>
+              </ul>
+              <a class="btn btn-ghost" href="/contact.html" style="margin-top:16px;" data-umami-event="cta_click" data-umami-event-target="talk_it_through" data-umami-event-source="website_builds_care_plus_content">Talk it through &rarr;</a>
+            </div>
           </div>
           <p style="font-size:14px;color:var(--text-dim);margin:14px 0 0;"><strong>Which build?</strong> Landing page if you need enquiries from one offer fast. Starter if you need a few pages and a solid local presence. Custom if you want suburb and service-area pages, a design made from scratch, the full Local SEO &amp; GEO setup and two rounds of changes per stage.</p>
 
@@ -291,7 +306,7 @@ const jsonLd = [
 
           <h2>What a client says</h2>
           <figure class="testimonial-card">
-            <blockquote class="testimonial-quote">&ldquo;We engaged Andrew to have a look at our website,he explained what he needed to do and fixed everything and we our now getting lots more jobs through from.the internet traffic He also built a new website for a new branch of the business The work is fantastic and he absolutely nalied it Its about time we spent some money and got the return you hope for After several companies I have found the one I will be sticking with&rdquo;</blockquote>
+            <blockquote class="testimonial-quote">&ldquo;We engaged Andrew to have a look at our website, he explained what he needed to do and fixed everything, and we are now getting lots more jobs through from the internet traffic. He also built a new website for a new branch of the business. The work is fantastic and he absolutely nailed it. It&rsquo;s about time we spent some money and got the return you hope for. After several companies, I have found the one I will be sticking with.&rdquo;</blockquote>
             <figcaption class="testimonial-caption">
               <span class="testimonial-stars">★★★★★</span>&nbsp;
               <strong class="testimonial-name">Craig Smith</strong> &middot; Local Guide &middot; <a href="https://www.google.com/maps/place/?q=place_id:ChIJ2VLpW3U4aoQRz6YI6UQ2hr4" target="_blank" rel="noopener" class="link-dim">Google review</a> &middot; <a href="/projects/new-shutter-business.html" class="link-dim">read the case study</a>

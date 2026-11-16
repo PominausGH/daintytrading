@@ -5,8 +5,8 @@ import { readFileSync } from 'node:fs';
 // numbers across several pages — this is what makes a price change a one-line edit.
 //
 // USD is the source price (Andrew, 2026-10-20). AUD is derived from it with the live USD/AUD
-// rate: AUD = USD x (AUD per 1 USD), rounded UP to the next $1, no buffer (Australian clients
-// pay in AUD, so there is no conversion cost to cover). /opt/docker/scripts/fx-sync.sh fetches
+// rate: AUD = USD x (AUD per 1 USD), rounded to the nearest $50 so published AUD prices read as
+// clean human numbers rather than raw FX conversions. /opt/docker/scripts/fx-sync.sh fetches
 // the ECB rate monthly into FX_RATES_FILE (only rewriting it on a >=2% move), and the host's
 // dainty-deploy-build.sh rebuilds the site when the rate changes, so AUD prices move with it.
 // To change a price, change the USD figure below. Never hand-type a price into page copy.
@@ -27,8 +27,8 @@ function readUsdToAud(): { rate: number; date: string | null } {
 
 export const fx = readUsdToAud(); // { rate: AUD per 1 USD, date: ECB rate date or null on fallback }
 
-const audFromUsd = (usdAmount: number) => Math.ceil(usdAmount * fx.rate);
-const usdFromAud = (audAmount: number) => Math.ceil(audAmount / fx.rate);
+const audFromUsd = (usdAmount: number) => Math.round((usdAmount * fx.rate) / 50) * 50;
+const usdFromAud = (audAmount: number) => Math.round((audAmount / fx.rate) / 50) * 50;
 
 // The one AUD-fixed price: AI Discovery equals WiseKeel's Diagnostic (AU$4,500) so the two price
 // lists never contradict; its USD is the live conversion. (WiseKeel briefly priced in USD from
@@ -46,6 +46,7 @@ export const pricingUsd = {
   starterSite: 2100,
   customBuild: 4950,
   carePlan: 174,
+  carePlusContent: 348,
   fixDay: 850,
   // Flat hack/outage cleanup, up to 4 hours (see /support.html). Free on Care when the cause is
   // inside what Care covers; these apply otherwise. 313/522 USD = A$450/A$751 at 1.437.
@@ -79,6 +80,7 @@ export const pricing = {
   starterSite: audFromUsd(pricingUsd.starterSite),
   customBuild: audFromUsd(pricingUsd.customBuild),
   carePlan: audFromUsd(pricingUsd.carePlan),
+  carePlusContent: audFromUsd(pricingUsd.carePlusContent),
   fixDay: audFromUsd(pricingUsd.fixDay),
   incidentRecovery: audFromUsd(pricingUsd.incidentRecovery),
   incidentRecoveryNoPlan: audFromUsd(pricingUsd.incidentRecoveryNoPlan),
