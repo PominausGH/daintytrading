@@ -13,7 +13,7 @@ const faq = [
   },
   {
     q: 'What happens if my website gets hacked?',
-    a: `Email hello@telaloom.com with URGENT in the subject. We find and remove the malicious code, restore a clean backup, close the hole that let it in, change passwords and keys, ask Google and blocklists to review the site, and send you a short written report. On the Care plan that is included when the cause sits in what Care covers. Otherwise it is a flat ${n(pricing.incidentRecovery)} AUD for Care clients and ${n(pricing.incidentRecoveryNoPlan)} AUD without a plan, covering up to four hours of work.`,
+    a: `Email hello@telaloom.com with URGENT in the subject. We find and remove the malicious code, restore a clean backup from your host where available, close the hole that let it in, change passwords and keys, ask Google and blocklists to review the site, and send you a short written report. Incident recovery is a flat ${n(pricing.incidentRecovery)} AUD for Care clients and ${n(pricing.incidentRecoveryNoPlan)} AUD without a plan, covering up to four hours of work.`,
   },
   {
     q: 'What if the problem is my hosting company?',
@@ -100,24 +100,24 @@ const jsonLd = [
           <h2>Keeping the site up</h2>
           <p>On the Care plan, a site we look after gets:</p>
           <ul>
-            <li><strong>Uptime and SSL monitoring.</strong> We usually hear the site is down before you do.</li>
-            <li><strong>Software and security updates</strong> for the platform, theme and plugins, applied and checked.</li>
-            <li><strong>Backups that are known to work.</strong> We switch on your hosting provider&rsquo;s daily backups (keeping 30 days where the host allows) and test a restore every quarter. The backups stay in your hosting account. We don&rsquo;t keep separate copies of your site or your customers&rsquo; data.</li>
-            <li><strong>A monthly security check</strong> for malware, outdated software and unused admin accounts, plus login hardening (two-factor sign-in and login-attempt limits) where the platform supports it.</li>
+            <li><strong>Up to 60 minutes a month of page updates.</strong> Text edits, photo swaps, price changes, new testimonials, and broken-link fixes.</li>
+            <li><strong>Schema and sitemap upkeep.</strong> Whenever we update your pages or publish a new article (on Care + Content), we keep your structured data, internal links and <code>sitemap.xml</code> in sync.</li>
+            <li><strong>Passive uptime and SSL monitoring.</strong> We monitor your live pages and SSL certificate expiry on your own hosting, so we usually hear the site is down before you do.</li>
           </ul>
+          <p>Because your site runs on hosting in your own name, hosting availability, infrastructure security and backups remain between you and your hosting provider. We don&rsquo;t host client websites or keep separate copies of your site or your customers&rsquo; data.</p>
 
           <h2>If your site goes down or gets hacked</h2>
           <p>Email us with <strong>URGENT</strong> in the subject. Incident recovery covers:</p>
           <ul>
             <li>finding and removing malicious code, spam pages or unknown admin accounts</li>
-            <li>restoring a clean backup where that&rsquo;s the fastest safe route</li>
+            <li>restoring a clean backup from your hosting account where available</li>
             <li>closing the hole that let it in, usually an outdated plugin or a leaked password</li>
             <li>changing passwords, API keys and hosting logins</li>
             <li>asking Google and blocklists to review the site, so the &ldquo;unsafe&rdquo; warning comes off</li>
             <li>a short written report: what happened, what we did, and what would stop it happening again</li>
           </ul>
           <div class="honest-note">
-            <strong>What it costs.</strong> On the Care plan it&rsquo;s included when the cause sits in what Care covers, like a vulnerability in software we keep updated. When the cause is outside it (a plugin someone else added, a password reused from another site, changes made outside our work), it&rsquo;s a flat <Price item="incidentRecovery" symbol />. Without a Care plan it&rsquo;s a flat <Price item="incidentRecoveryNoPlan" symbol />, with a reply within 1 business day. Both flat fees cover up to four hours of work. If the cleanup turns out bigger than that, we stop and quote the rest before going further.
+            <strong>What it costs.</strong> For Care and Care + Content clients, incident recovery is a flat <Price item="incidentRecovery" symbol /> (with a same-business-day reply, or faster on Growth and Scale). Without a Care plan it&rsquo;s a flat <Price item="incidentRecoveryNoPlan" symbol />, with a reply within 1 business day. Both flat fees cover up to four hours of work. If the cleanup turns out bigger than that, we stop and quote the rest before going further.
           </div>
 
           <h3>When it&rsquo;s your hosting company</h3>

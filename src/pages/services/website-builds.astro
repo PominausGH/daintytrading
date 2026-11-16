@@ -22,7 +22,7 @@ const jsonLd = [
         { '@type': 'Offer', name: 'Landing page', price: String(pricing.landingPage), priceCurrency: 'AUD', description: 'One-off. One page designed and written for you, quote or contact form, LocalBusiness schema, Google Business Profile setup, set up on hosting in your name. One round of changes. Credited in full against a Starter or Custom build within 6 months.' },
         { '@type': 'Offer', name: 'Starter site', price: String(pricing.starterSite), priceCurrency: 'AUD', description: 'One-off. Up to 5 pages on proven layouts styled to your brand, copywriting, contact form, LocalBusiness schema, Google Business Profile setup, set up on hosting in your name. One round of changes per stage.' },
         { '@type': 'Offer', name: 'Custom build', price: String(pricing.customBuild), priceCurrency: 'AUD', description: `One-off. Custom-designed site, copywriting, set up on hosting in your name, SSL, and Local SEO & GEO setup included — not sold separately.` },
-        { '@type': 'Offer', name: 'Care plan', price: String(pricing.carePlan), priceCurrency: 'AUD', description: 'Monthly, no GST. Uptime monitoring and security updates on your own hosting, and up to 60 minutes of small content changes per month (unused time does not roll over, billed at the standard hourly rate beyond that). Hosting provider backups switched on and restore-tested quarterly, monthly security check, and hack or outage cleanup included when the cause is in what Care covers. 2-business-day response time, same business day for urgent issues (site down, hacked, forms or checkout broken). Response times are published at telaloom.com/support.html. Attached to every custom build by default. Cancel anytime, effective end of the current billing month.' },
+        { '@type': 'Offer', name: 'Care plan', price: String(pricing.carePlan), priceCurrency: 'AUD', description: 'Monthly, no GST. Up to 60 minutes of small page changes per month (unused time does not roll over, billed at the standard hourly rate beyond that), schema and sitemap kept in sync, and passive uptime and SSL monitoring on your own hosting. 2-business-day response time, same business day for urgent issues (site down or forms broken). Response times are published at telaloom.com/support.html. Attached to every custom build by default. Cancel anytime, effective end of the current billing month.' },
         { '@type': 'Offer', name: 'Care + Content', price: String(pricing.carePlusContent), priceCurrency: 'AUD', description: 'Monthly, no GST. Everything in the Care plan, plus 2 researched, fact-checked SEO and AI-search articles or suburb pages published to your site each month after your sign-off. Cancel anytime.' },
         { '@type': 'Offer', name: 'Monitor', price: String(pricing.monitor), priceCurrency: 'AUD', description: 'Monthly. Automated ranking and AI-citation monitoring, with a monthly plain-English report, plus a known-vulnerability watch that flags major disclosed flaws in the publicly visible software on your site (like PHP2Shell). No fix pass included. 1-business-day response time. Cancel anytime.' },
         { '@type': 'Offer', name: 'Growth', price: String(pricing.growth), priceCurrency: 'AUD', description: 'Monthly. Everything in Monitor, plus Google Business Profile posts, review replies, and a review campaign each month. 1-business-day response time; urgent issues within 4 business hours when Care is active. Cancel anytime.' },
@@ -178,14 +178,12 @@ const jsonLd = [
               <div class="price"><Price item="carePlan" /><small>/mo, no GST</small></div>
               <p class="note">Attached to every custom build by default &mdash; opt out if you&rsquo;d rather self-manage. Cancel anytime, effective end of the current billing month.</p>
               <ul class="month-list">
-                <li>Uptime and SSL monitoring on your own hosting</li>
-                <li>Software and security updates</li>
-                <li>Up to 60 minutes/month of small changes &mdash; text edits, photo swaps, a new testimonial (unused time doesn&rsquo;t roll over; extra work billed at our standard hourly rate)</li>
-                <li>Your host&rsquo;s daily backups switched on, and a restore tested every quarter</li>
-                <li>A monthly security check, and hack or outage cleanup included when the cause is in what Care covers</li>
-                <li>2-business-day response time &mdash; same business day if the site is down, hacked or a form stops working (<a href="/support.html">response times</a>)</li>
+                <li>Up to 60 minutes/month of small page changes &mdash; text edits, photo swaps, price updates, a new testimonial (unused time doesn&rsquo;t roll over; extra work billed at our standard hourly rate)</li>
+                <li>Schema markup, internal links and <code>sitemap.xml</code> kept in sync whenever your pages change</li>
+                <li>Passive uptime, SSL and broken-page monitoring on your own hosting</li>
+                <li>2-business-day response time &mdash; same business day if the site is down or a form stops working (<a href="/support.html">response times</a>)</li>
               </ul>
-              <a class="btn btn-ghost" href="/contact.html" style="margin-top:16px;" data-umami-event="cta_click" data-umami-event-target="talk_it_through" data-umami-event-source="website_builds_care_plan">Talk it through &rarr;</a>
+              <a class="btn btn-ghost" href="/services/content-and-care.html" style="margin-top:16px;" data-umami-event="cta_click" data-umami-event-target="talk_it_through" data-umami-event-source="website_builds_care_plan">See Care &amp; Content details &rarr;</a>
             </div>
 
             <div class="price-card">
@@ -193,13 +191,13 @@ const jsonLd = [
               <div class="price"><Price item="carePlusContent" /><small>/mo, no GST</small></div>
               <p class="note">Everything in Care, plus steady local articles so Google and AI assistants keep finding new answers on your site. Cancel anytime.</p>
               <ul class="month-list">
-                <li>Everything in the Care plan (monitoring, updates, tested backups, 60 mins/month of edits, hack cleanup)</li>
+                <li>Everything in the Care plan (60 mins/month of page updates, schema/sitemap sync, uptime &amp; SSL alerts)</li>
                 <li>2 researched, fact-checked SEO &amp; AI-search articles or suburb guides published to your site each month</li>
                 <li>Written around the real questions your customers search on Google and ask ChatGPT</li>
                 <li>Run through our 6-stage quality and fact-check pipeline (<a href="/projects/ghost-writer.html">how our content engine works</a>) and reviewed by hand</li>
                 <li>Sent to you for sign-off before anything goes live, with schema and internal links updated on publish</li>
               </ul>
-              <a class="btn btn-ghost" href="/contact.html" style="margin-top:16px;" data-umami-event="cta_click" data-umami-event-target="talk_it_through" data-umami-event-source="website_builds_care_plus_content">Talk it through &rarr;</a>
+              <a class="btn btn-ghost" href="/services/content-and-care.html" style="margin-top:16px;" data-umami-event="cta_click" data-umami-event-target="talk_it_through" data-umami-event-source="website_builds_care_plus_content">See Care &amp; Content details &rarr;</a>
             </div>
           </div>
           <p style="font-size:14px;color:var(--text-dim);margin:14px 0 0;"><strong>Which build?</strong> Landing page if you need enquiries from one offer fast. Starter if you need a few pages and a solid local presence. Custom if you want suburb and service-area pages, a design made from scratch, the full Local SEO &amp; GEO setup and two rounds of changes per stage.</p>
@@ -333,7 +331,7 @@ const jsonLd = [
             <dt>Am I locked into a contract?</dt>
             <dd>No. The build is one-off. The Care plan is month to month, and you can opt out of it altogether.</dd>
             <dt>What happens if the site goes down or gets hacked?</dt>
-            <dd>On Care, cleanup is included when the cause is in what Care covers. Without a plan it&rsquo;s a flat <Price item="incidentRecoveryNoPlan" symbol /> for up to four hours. Response times are on the <a href="/support.html">support page</a>.</dd>
+            <dd>Your site runs on hosting in your own name, so hosting uptime and backups stay with your hosting provider. On Care we monitor uptime and alert you if the site goes down; if you need hands-on incident recovery or cleanup, it&rsquo;s a flat <Price item="incidentRecovery" symbol /> on Care (or <Price item="incidentRecoveryNoPlan" symbol /> without a plan) for up to four hours of work. Response times are on the <a href="/support.html">support page</a>.</dd>
           </dl>
 
           <h2>Frequently asked questions</h2>

@@ -18,6 +18,7 @@
 - [Website builds](https://telaloom.com/services/website-builds.html): Custom-built sites with Local SEO & GEO bundled in from day one, set up on hosting in the client's name.
 - [SEO & GEO optimization](https://telaloom.com/services/seo-geo-optimization.html): Fix indexing, structured data, and AI-crawler access on an existing site — audit plus the fix, not just a report.
 - [Local SEO & GEO](https://telaloom.com/services/local-seo.html): Ongoing Google Business Profile management, review generation, and local-search visibility for one business.
+- [Website care & monthly content](https://telaloom.com/services/content-and-care.html): Monthly page updates (up to 60 mins/mo), schema/sitemap upkeep, passive uptime & SSL monitoring on the client's own hosting, and 2 researched, fact-checked SEO & AI-search articles or suburb guides published per month.
 - [AI product builds](https://telaloom.com/services.html): Concept-to-paid-product delivery in 6–12 weeks.
 - [Automation retrofits](https://telaloom.com/services.html): Adding AI to existing SaaS in 2–6 weeks.
 - [AI infrastructure](https://telaloom.com/services.html): LLM gateways, evals, queue workers, billing, observability.

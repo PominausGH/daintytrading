@@ -28,7 +28,7 @@ const jsonLd = [
       { '@type': 'Question', name: 'Is the published price final?', acceptedAnswer: { '@type': 'Answer', text: "Treat it as a guide. The free website check only sees what is publicly visible. After you sign on we do a deeper audit of the site itself, including the back end. If it shows the site needs more work than the guide price assumes, for example very old or unsupported software, we tell you what we found and what it changes, and you approve any new price in writing before we start. If nothing changes, the guide price stands." } },
       { '@type': 'Question', name: 'What if my job is smaller than a Setup?', acceptedAnswer: { '@type': 'Answer', text: `Book fix days at ${n(pricing.fixDay)} AUD a day. We estimate the days up front and you approve before we start. Once a job passes about three days, Setup at ${n(pricing.setupSingleTemplate)} AUD is the better value.` } },
       { '@type': 'Question', name: 'Do I need a monthly plan?', acceptedAnswer: { '@type': 'Answer', text: "Often not. Setup is a one-time audit-and-fix, and the monthly plans are optional. If there's nothing useful to do in a given month, we tell you." } },
-      { '@type': 'Question', name: 'What if my site goes down or gets hacked?', acceptedAnswer: { '@type': 'Answer', text: `Email hello@telaloom.com with URGENT in the subject. On the Care plan we reply the same business day (faster with Growth or Scale), and the cleanup is included when the cause is in what Care covers. Without a plan, hack cleanup is a flat ${n(pricing.incidentRecoveryNoPlan)} AUD for up to four hours of work.` } },
+      { '@type': 'Question', name: 'What if my site goes down or gets hacked?', acceptedAnswer: { '@type': 'Answer', text: `Email hello@telaloom.com with URGENT in the subject. On the Care plan we reply the same business day (faster with Growth or Scale). Hands-on incident recovery or hack cleanup is a flat ${n(pricing.incidentRecovery)} AUD for Care clients and ${n(pricing.incidentRecoveryNoPlan)} AUD without a plan, covering up to four hours of work.` } },
       { '@type': 'Question', name: 'What currency will I be invoiced in?', acceptedAnswer: { '@type': 'Answer', text: 'Australian clients are invoiced in AUD and international clients in USD. UK clients can be invoiced in GBP.' } },
     ],
   },
@@ -113,12 +113,12 @@ const jsonLd = [
           <p>All optional, all cancel-anytime. Care keeps a site we built running. Monitor, Growth and Scale are about being found, and each one includes the one before it. Each plan has a published response time: Care 2 business days, Monitor and Growth 1 business day, Scale the same business day. <a href="/support.html">Support and response times &rarr;</a></p>
           <div class="plan-list">
             <div class="plan-row">
-              <span class="plan-name">Care</span>
+              <span class="plan-name"><a href="/services/content-and-care.html">Care</a></span>
               <span class="plan-price"><Price item="carePlan" suffix="/mo" /></span>
-              <span class="plan-what">Uptime and SSL monitoring, software and security updates on your own hosting, tested backups, a monthly security check, and up to 60 minutes a month of small changes. Hack and outage cleanup included when the cause is in what Care covers. No GST. Attached to every custom build by default; opt out if you&rsquo;d rather self-manage.</span>
+              <span class="plan-what">Up to 60 minutes a month of small page changes (text edits, price updates, photo swaps, new testimonials), schema markup and <code>sitemap.xml</code> kept in sync, and passive uptime and SSL monitoring on your own hosting. No GST. Attached to every custom build by default; opt out if you&rsquo;d rather self-manage.</span>
             </div>
             <div class="plan-row">
-              <span class="plan-name">Care + Content</span>
+              <span class="plan-name"><a href="/services/content-and-care.html">Care + Content</a></span>
               <span class="plan-price"><Price item="carePlusContent" suffix="/mo" /></span>
               <span class="plan-what">Everything in Care, plus 2 researched, fact-checked SEO &amp; AI-search articles or suburb guides published to your site each month (checked through our <a href="/projects/ghost-writer.html">6-stage content pipeline</a>, reviewed by hand, and approved by you before publish). No GST.</span>
             </div>
@@ -176,7 +176,7 @@ const jsonLd = [
           </details>
           <details class="faq-item">
             <summary>What if my site goes down or gets hacked?</summary>
-            <p>Email hello@telaloom.com with URGENT in the subject. On the Care plan we reply the same business day (faster with Growth or Scale), and the cleanup is included when the cause is in what Care covers. Without a plan, hack cleanup is a flat <Price item="incidentRecoveryNoPlan" symbol /> for up to four hours of work. Details on the <a href="/support.html">support page</a>.</p>
+            <p>Email hello@telaloom.com with URGENT in the subject. On the Care plan we reply the same business day (faster with Growth or Scale). Hands-on incident recovery or hack cleanup is a flat <Price item="incidentRecovery" symbol /> for Care clients and <Price item="incidentRecoveryNoPlan" symbol /> without a plan, covering up to four hours of work. Details on the <a href="/support.html">support page</a>.</p>
           </details>
           <details class="faq-item">
             <summary>What currency will I be invoiced in?</summary>
