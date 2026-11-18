@@ -1,0 +1,66 @@
+name: CI
+
+# Validates Dependabot (npm/pip/docker) PRs before merge, one job per watched directory.
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+
+  node-tests:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        dir: [api, cloudflare/uptime-watch]
+    defaults:
+      run:
+        working-directory: ${{ matrix.dir }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22" # api/Dockerfile
+          cache: npm
+          cache-dependency-path: ${{ matrix.dir }}/package-lock.json
+      - run: npm ci
+      - run: npm test
+
+  site-checker:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: site-checker
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12" # site-checker/Dockerfile
+          cache: pip
+          cache-dependency-path: site-checker/requirements.txt
+      - run: pip install -r requirements.txt pytest
+      - run: python -m pytest -q tests
+
+  docker:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        context: [api, site-checker]
+    steps:
+      - uses: actions/checkout@v5
+      - run: docker build ${{ matrix.context }}
