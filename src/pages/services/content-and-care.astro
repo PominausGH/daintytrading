@@ -12,13 +12,13 @@ const jsonLd = [
     name: 'Website Care and Monthly SEO & GEO Content',
     provider: { '@type': 'Organization', name: 'TelaLoom', url: 'https://telaloom.com' },
     serviceType: 'Website maintenance, page updates, and SEO & GEO blog content',
-    description: 'Monthly website page updates, schema and sitemap upkeep, passive uptime monitoring on your own hosting, and researched, fact-checked SEO and AI-search articles published to your site each month.',
+    description: 'Monthly website page updates, schema and sitemap upkeep, 5-minute uptime and broken-page monitoring with daily SSL and domain expiry checks on your own hosting, and researched, fact-checked SEO and AI-search articles published to your site each month.',
     areaServed: 'Worldwide',
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'Website Care & Content plans',
       itemListElement: [
-        { '@type': 'Offer', name: 'Care plan', price: String(pricing.carePlan), priceCurrency: 'AUD', description: 'Monthly, no GST. Up to 60 minutes of page updates per month (text edits, photo swaps, price changes, new testimonials), schema and sitemap kept in sync, and passive uptime and SSL monitoring on your own hosting. 2-business-day response time, same business day for urgent issues. Cancel anytime.' },
+        { '@type': 'Offer', name: 'Care plan', price: String(pricing.carePlan), priceCurrency: 'AUD', description: 'Monthly, no GST. Up to 60 minutes of page updates per month (text edits, photo swaps, price changes, new testimonials), schema and sitemap kept in sync, automated dependency and security updates tested before deploy, encrypted automated backups stored in your own account (zero customer data on TelaLoom servers), 5-minute uptime and broken-page monitoring plus daily SSL and domain expiry checks on your own hosting. 2-business-day response time; urgent issues within 6 business hours on Care (4 business hours with Growth, 2 hours with Scale). Cancel anytime.' },
         { '@type': 'Offer', name: 'Care + Content', price: String(pricing.carePlusContent), priceCurrency: 'AUD', description: 'Monthly, no GST. Everything in the Care plan, plus 2 researched, fact-checked SEO and AI-search articles or suburb guides published to your site each month after your sign-off. Cancel anytime.' },
       ],
     },
@@ -29,7 +29,7 @@ const jsonLd = [
     mainEntity: [
       { '@type': 'Question', name: 'Can I sign up if TelaLoom did not build my website?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. As long as we can push updates to your site (via Git, Astro, Next.js, plain HTML, or your CMS) we can look after your page edits and publish monthly articles. We check your site first and confirm we can work with your setup before you pay anything.' } },
       { '@type': 'Question', name: 'Do I get to approve the blog topics and articles before they go live?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. When you start, we draft a list of real customer questions and suburb or service topics for your sign-off. Each month we send the finished, fact-checked draft for your OK before publishing.' } },
-      { '@type': 'Question', name: 'Who hosts the website?', acceptedAnswer: { '@type': 'Answer', text: 'You do, on an account in your own name, and you pay your hosting provider directly. We do not host client websites or mark up hosting bills, so you are never locked in. Hosting uptime and backups stay with your hosting provider.' } },
+      { '@type': 'Question', name: 'Who hosts the website and where do backups live?', acceptedAnswer: { '@type': 'Answer', text: 'You do, on an account in your own name, and you pay your hosting provider directly. We do not host client websites or mark up hosting bills, so you are never locked in. On Care plans we can set up automated, encrypted backups that push straight into your own cloud storage (such as Cloudflare R2, S3, or Backblaze B2) — zero customer data or PII ever touches TelaLoom servers.' } },
       { '@type': 'Question', name: 'What counts as the 60 minutes of monthly page updates?', acceptedAnswer: { '@type': 'Answer', text: 'Everyday changes to existing pages: updating prices or hours, swapping photos, adding a new staff bio or testimonial, updating FAQs, or fixing broken links — plus keeping your structured data (schema) and sitemap in sync. Unused minutes do not roll over; larger additions like new custom features are quoted up front in writing.' } },
       { '@type': 'Question', name: 'Is there a minimum contract?', acceptedAnswer: { '@type': 'Answer', text: 'No. Both Care and Care + Content are month-to-month. Cancel anytime, effective at the end of the current billing month.' } },
     ],
@@ -97,8 +97,10 @@ const jsonLd = [
               <ul>
                 <li>Up to 60 minutes/month of small page changes &mdash; text edits, price updates, photo swaps, a new testimonial or FAQ (unused time doesn&rsquo;t roll over; extra work billed at our standard hourly rate)</li>
                 <li>Schema markup, internal links and <code>sitemap.xml</code> kept in sync whenever your pages change</li>
-                <li>Passive uptime, SSL and broken-page monitoring on your own hosting</li>
-                <li>2-business-day response time &mdash; same business day if the site is down or a form stops working (<a href="/support.html">response times</a>)</li>
+                <li>Automated dependency &amp; security updates, build-tested before deploy so your site never runs on stale or vulnerable packages</li>
+                <li>Automated encrypted backups stored in <strong>your own</strong> cloud bucket or host snapshots (zero customer data or PII ever touches TelaLoom&rsquo;s servers)</li>
+                <li>Automated uptime &amp; broken-page checks every 5 minutes, plus daily SSL and domain expiry alerts (on your own hosting)</li>
+                <li>2-business-day response time &mdash; urgent issues within 6 business hours on Care, 4 business hours with Growth, or 2 hours (7am&ndash;10pm, 7 days) with Scale (<a href="/support.html">response times</a>)</li>
               </ul>
               <a class="btn btn-ghost" href="#enquire" data-umami-event="cta_click" data-umami-event-target="talk_it_through" data-umami-event-source="content_care_plan">Start Care &rarr;</a>
             </div>
@@ -109,7 +111,7 @@ const jsonLd = [
               <div class="price"><Price item="carePlusContent" /><small>/mo, no GST</small></div>
               <p class="note">Everything in Care, plus steady SEO &amp; AI-search articles so Google and ChatGPT keep finding fresh answers on your site.</p>
               <ul>
-                <li>Everything in the Care plan (60 mins/month of page updates, schema/sitemap sync, uptime &amp; SSL alerts)</li>
+                <li>Everything in the Care plan (60 mins/month of page updates, schema/sitemap sync, 5-min uptime &amp; daily SSL/domain alerts)</li>
                 <li>2 researched, fact-checked SEO &amp; AI-search articles or suburb guides published to your site each month</li>
                 <li>Structured in direct question-and-answer format with <code>FAQPage</code> schema so AI assistants and Google AI Overviews can quote you directly</li>
                 <li>Run through our 6-stage quality and double-pass fact-check pipeline (<a href="/projects/ghost-writer.html">how our content engine works</a>) and reviewed by hand</li>
@@ -148,8 +150,16 @@ const jsonLd = [
             </li>
           </ol>
 
-          <h2>You keep your own hosting (zero lock-in)</h2>
-          <p>We don&rsquo;t host client websites or resell hosting. Your website stays on an account in your own name (Cloudflare Pages, Vercel, Netlify, WordPress, or your own host), and you pay your host directly. You give us Git or editor access so we can ship your page edits and publish your articles, and hosting infrastructure, uptime and backups remain between you and your hosting provider.</p>
+          <h2>Monitoring &amp; response times by plan</h2>
+          <p>We check monitored sites <strong>every 5 minutes</strong> from an external monitor &mdash; confirming both that your site responds and that expected page content is intact (catching blank or defaced pages, not just server errors) &mdash; plus daily SSL certificate and domain expiry checks on Care plans.</p>
+          <ul>
+            <li><strong>On Care / Care + Content:</strong> Outage alerts come straight to us. We verify whether it&rsquo;s the site or your host, help open the host support ticket if needed, and reply within <strong>6 business hours</strong> (or <strong>4 business hours</strong> with Growth, <strong>2 hours</strong> 7am&ndash;10pm Sydney 7 days with Scale).</li>
+            <li><strong>Without a Care plan (self-managed builds):</strong> On sites we built, we can still keep the 5-minute check running as a best-effort courtesy and send an automated email straight to you if your site drops, so you can fix it with your host yourself &mdash; or reply if you want us to jump in.</li>
+          </ul>
+          <p>Full breakdown on our <a href="/support.html">support and response times page</a>.</p>
+
+          <h2>You keep your own hosting &amp; data (zero lock-in, zero PII on our servers)</h2>
+          <p>We don&rsquo;t host client websites or resell hosting. Your website stays on an account in your own name (Cloudflare Pages, Vercel, Netlify, WordPress, or your own VPS), and you pay your host directly. Package updates run in GitHub and are build-tested before deploy; if your site has a database or uploads, automated backups are encrypted on your server with your public key and pushed straight to <strong>your own</strong> cloud bucket (Cloudflare R2, S3, or Backblaze B2). TelaLoom only receives a status-only health ping &mdash; no customer data or PII ever flows through our hosting.</p>
 
           <h2>Frequently asked questions</h2>
           <details class="faq-item">
@@ -161,8 +171,8 @@ const jsonLd = [
             <p>Yes. When you start, we draft a list of real customer questions and suburb or service topics for your sign-off. Each month we send the finished, fact-checked draft for your OK before publishing.</p>
           </details>
           <details class="faq-item">
-            <summary>Who hosts the website?</summary>
-            <p>You do, on an account in your own name, and you pay your hosting provider directly. We don&rsquo;t host client websites or mark up hosting bills, so you&rsquo;re never locked in. Hosting uptime and backups stay with your hosting provider.</p>
+            <summary>Who hosts the website and where do backups live?</summary>
+            <p>You do, on an account in your own name, and you pay your hosting provider directly. We don&rsquo;t host client websites or mark up hosting bills, so you&rsquo;re never locked in. On Care plans, we configure automated encrypted backups straight into your own cloud storage (or host snapshots) so zero customer data or PII ever touches TelaLoom&rsquo;s servers.</p>
           </details>
           <details class="faq-item">
             <summary>What counts as the 60 minutes of monthly page updates?</summary>
@@ -179,6 +189,8 @@ const jsonLd = [
           <div class="label-row"><span>Care plan</span><span><Price item="carePlan" suffix="/mo" /></span></div>
           <div class="label-row"><span>Care + Content</span><span><Price item="carePlusContent" suffix="/mo" /></span></div>
           <div class="label-row"><span>Page edits included</span><span>Up to 60 mins/mo</span></div>
+          <div class="label-row"><span>Uptime checks</span><span>Every 5 mins</span></div>
+          <div class="label-row"><span>Urgent reply</span><span>6h / 4h / 2h by tier</span></div>
           <div class="label-row"><span>Articles (Care + Content)</span><span>2 / month</span></div>
           <div class="label-row"><span>Hosting</span><span>In your name</span></div>
           <div class="label-row"><span>Lock-in</span><span>None</span></div>
